@@ -1,0 +1,89 @@
+{
+  "scope": "Full-cavity calibration control; not the proof's local or uniform encoder",
+  "source_case": "results/modal/modal_h02",
+  "target": [
+    [
+      3.0,
+      1.0
+    ],
+    [
+      1.0,
+      3.0
+    ]
+  ],
+  "alpha": 0.042894943409436816,
+  "strengths": [
+    12.500054068969126,
+    12.82462367451358,
+    12.500054068969126
+  ],
+  "history": [
+    {
+      "iteration": 0,
+      "inverse_strengths": [
+        0.11789730490787882,
+        0.05141750198063868
+      ],
+      "relative_schur_entry_residual": [
+        0.1736505341442987,
+        -0.793945966387463
+      ]
+    },
+    {
+      "iteration": 1,
+      "inverse_strengths": [
+        0.07546883549909736,
+        0.08457903711528714
+      ],
+      "relative_schur_entry_residual": [
+        0.08194057488105384,
+        0.20049462417612215
+      ]
+    },
+    {
+      "iteration": 2,
+      "inverse_strengths": [
+        0.0799738150207383,
+        0.07750417688857882
+      ],
+      "relative_schur_entry_residual": [
+        -0.02357360383502923,
+        -0.022199526246685225
+      ]
+    },
+    {
+      "iteration": 3,
+      "inverse_strengths": [
+        0.07999932165389277,
+        0.07798045203956609
+      ],
+      "relative_schur_entry_residual": [
+        0.0002457617882615395,
+        0.00024747778364101565
+      ]
+    },
+    {
+      "iteration": 4,
+      "inverse_strengths": [
+        0.0799996539164987,
+        0.07797499817783902
+      ],
+      "relative_schur_entry_residual": [
+        2.6533609529468797e-08,
+        2.6923350704678348e-08
+      ]
+    },
+    {
+      "iteration": 5,
+      "inverse_strengths": [
+        0.0799996539600944,
+        0.07797499758120026
+      ],
+      "relative_schur_entry_residual": [
+        1.3976482672446913e-13,
+        6.502946798985716e-14
+      ]
+    }
+  ],
+  "calibration_seconds": 6.244195175822824
+}

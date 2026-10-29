@@ -1,0 +1,418 @@
+[
+  {
+    "strengths": [
+      26.319088693511958
+    ],
+    "h": 0.3333333333333333,
+    "lengths": [
+      10.0,
+      10.0,
+      10.0
+    ],
+    "centers": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "reference": "results/r3_h0333_l10",
+    "mode": 0,
+    "mu": 0.03454112411251584,
+    "unknowns": 75690,
+    "response": [
+      [
+        289.509975628594
+      ]
+    ],
+    "inverse": [
+      [
+        0.0034541124112520325
+      ]
+    ],
+    "pde_relative_residuals": [
+      3.187214623238358e-14
+    ],
+    "material_continuous_enclosure": [
+      5.039201096215631,
+      21.721452736926437
+    ],
+    "source_norms_squared": [
+      0.23969245166298014
+    ],
+    "inside_all_supports_fractions": [
+      0.31310602023589823
+    ],
+    "seconds": 7.378614821936935,
+    "factor_seconds": 6.935515889432281,
+    "factor_nnz": 1194220924,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "frozen_single_equation_error": 1.2967404927621828e-13,
+    "fractional_inverse_detuning": 0.1
+  },
+  {
+    "strengths": [
+      26.319088693511958
+    ],
+    "h": 0.3333333333333333,
+    "lengths": [
+      14.0,
+      14.0,
+      14.0
+    ],
+    "centers": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "reference": "results/r3_h0333_l10",
+    "mode": 0,
+    "mu": 0.03454112411251584,
+    "unknowns": 211806,
+    "response": [
+      [
+        2433.009192562019
+      ]
+    ],
+    "inverse": [
+      [
+        0.00041101365463686355
+      ]
+    ],
+    "pde_relative_residuals": [
+      2.8188496608215516e-12
+    ],
+    "material_continuous_enclosure": [
+      5.039201096215631,
+      21.721452736926437
+    ],
+    "source_norms_squared": [
+      0.23969245166298014
+    ],
+    "inside_all_supports_fractions": [
+      0.021141020174733693
+    ],
+    "seconds": 20.33154035313055,
+    "factor_seconds": 19.510560835711658,
+    "factor_nnz": 5951203032,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "frozen_single_equation_error": 7.403887248717666,
+    "fractional_inverse_detuning": 0.1
+  },
+  {
+    "strengths": [
+      26.319088693511958
+    ],
+    "h": 0.2857142857142857,
+    "lengths": [
+      10.0,
+      10.0,
+      10.0
+    ],
+    "centers": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "reference": "results/r3_h0333_l10",
+    "mode": 0,
+    "mu": 0.03454112411251584,
+    "unknowns": 121380,
+    "response": [
+      [
+        286.5001070920351
+      ]
+    ],
+    "inverse": [
+      [
+        0.0034904000914692877
+      ]
+    ],
+    "pde_relative_residuals": [
+      4.401763447001965e-14
+    ],
+    "material_continuous_enclosure": [
+      5.039201096215631,
+      21.721452736926437
+    ],
+    "source_norms_squared": [
+      0.23969147010554126
+    ],
+    "inside_all_supports_fractions": [
+      0.30996294309273686
+    ],
+    "seconds": 9.601854104083031,
+    "factor_seconds": 9.062988312914968,
+    "factor_nnz": 2544979152,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "frozen_single_equation_error": 0.01039642426849352,
+    "fractional_inverse_detuning": 0.1
+  },
+  {
+    "strengths": [
+      26.319088693511958
+    ],
+    "h": 0.2857142857142857,
+    "lengths": [
+      14.0,
+      14.0,
+      14.0
+    ],
+    "centers": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "reference": "results/r3_h0333_l10",
+    "mode": 0,
+    "mu": 0.03454112411251584,
+    "unknowns": 338688,
+    "response": [
+      [
+        460.7257330144201
+      ]
+    ],
+    "inverse": [
+      [
+        0.002170488705845092
+      ]
+    ],
+    "pde_relative_residuals": [
+      7.038067616921322e-13
+    ],
+    "material_continuous_enclosure": [
+      5.039201096215631,
+      21.721452736926437
+    ],
+    "source_norms_squared": [
+      0.2396914701055412
+    ],
+    "inside_all_supports_fractions": [
+      0.020888515847839056
+    ],
+    "seconds": 38.886336515657604,
+    "factor_seconds": 37.66729284264147,
+    "factor_nnz": 12025389818,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "frozen_single_equation_error": 0.5913984725880923,
+    "fractional_inverse_detuning": 0.1
+  },
+  {
+    "strengths": [
+      19.30066504190877
+    ],
+    "h": 0.3333333333333333,
+    "lengths": [
+      10.0,
+      10.0,
+      10.0
+    ],
+    "centers": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "reference": "results/r3_h0333_l10",
+    "mode": 0,
+    "mu": 0.03454112411251584,
+    "unknowns": 75690,
+    "response": [
+      [
+        57.901995125724184
+      ]
+    ],
+    "inverse": [
+      [
+        0.017270562056258557
+      ]
+    ],
+    "pde_relative_residuals": [
+      8.729107434814372e-15
+    ],
+    "material_continuous_enclosure": [
+      5.039201096215631,
+      19.13951896607022
+    ],
+    "source_norms_squared": [
+      0.23969245166298014
+    ],
+    "inside_all_supports_fractions": [
+      0.31310602023590084
+    ],
+    "seconds": 4.631306287832558,
+    "factor_seconds": 4.25347492005676,
+    "factor_nnz": 1194220924,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "frozen_single_equation_error": 3.674838211509268e-14,
+    "fractional_inverse_detuning": 0.5
+  },
+  {
+    "strengths": [
+      19.30066504190877
+    ],
+    "h": 0.3333333333333333,
+    "lengths": [
+      14.0,
+      14.0,
+      14.0
+    ],
+    "centers": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "reference": "results/r3_h0333_l10",
+    "mode": 0,
+    "mu": 0.03454112411251584,
+    "unknowns": 211806,
+    "response": [
+      [
+        41.029854917668715
+      ]
+    ],
+    "inverse": [
+      [
+        0.024372496612688956
+      ]
+    ],
+    "pde_relative_residuals": [
+      6.782567031466177e-14
+    ],
+    "material_continuous_enclosure": [
+      5.039201096215631,
+      19.13951896607022
+    ],
+    "source_norms_squared": [
+      0.23969245166298014
+    ],
+    "inside_all_supports_fractions": [
+      0.023579916780466555
+    ],
+    "seconds": 20.11206985032186,
+    "factor_seconds": 19.228246374987066,
+    "factor_nnz": 5951203032,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "frozen_single_equation_error": 0.29139134448514326,
+    "fractional_inverse_detuning": 0.5
+  },
+  {
+    "strengths": [
+      19.30066504190877
+    ],
+    "h": 0.2857142857142857,
+    "lengths": [
+      10.0,
+      10.0,
+      10.0
+    ],
+    "centers": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "reference": "results/r3_h0333_l10",
+    "mode": 0,
+    "mu": 0.03454112411251584,
+    "unknowns": 121380,
+    "response": [
+      [
+        57.78113661446184
+      ]
+    ],
+    "inverse": [
+      [
+        0.017306686205783524
+      ]
+    ],
+    "pde_relative_residuals": [
+      1.202627602223686e-14
+    ],
+    "material_continuous_enclosure": [
+      5.039201096215631,
+      19.13951896607022
+    ],
+    "source_norms_squared": [
+      0.23969147010554126
+    ],
+    "inside_all_supports_fractions": [
+      0.3113040990189996
+    ],
+    "seconds": 9.653429015073925,
+    "factor_seconds": 8.93818234000355,
+    "factor_nnz": 2544979152,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "frozen_single_equation_error": 0.0020872944188199405,
+    "fractional_inverse_detuning": 0.5
+  },
+  {
+    "strengths": [
+      19.30066504190877
+    ],
+    "h": 0.2857142857142857,
+    "lengths": [
+      14.0,
+      14.0,
+      14.0
+    ],
+    "centers": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "reference": "results/r3_h0333_l10",
+    "mode": 0,
+    "mu": 0.03454112411251584,
+    "unknowns": 338688,
+    "response": [
+      [
+        37.97688006004515
+      ]
+    ],
+    "inverse": [
+      [
+        0.02633181025979234
+      ]
+    ],
+    "pde_relative_residuals": [
+      8.328269278436082e-14
+    ],
+    "material_continuous_enclosure": [
+      5.039201096215631,
+      19.13951896607022
+    ],
+    "source_norms_squared": [
+      0.2396914701055412
+    ],
+    "inside_all_supports_fractions": [
+      0.02398926738008633
+    ],
+    "seconds": 38.63505078339949,
+    "factor_seconds": 37.42609389312565,
+    "factor_nnz": 12025389818,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "frozen_single_equation_error": 0.34411793621992626,
+    "fractional_inverse_detuning": 0.5
+  }
+]

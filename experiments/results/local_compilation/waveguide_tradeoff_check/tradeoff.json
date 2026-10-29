@@ -1,0 +1,1542 @@
+[
+  {
+    "name": "chain4",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": null,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751
+    ],
+    "actual_strengths": [
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751
+    ],
+    "equation_error": 0.07465699422057015,
+    "relative_pde_residual": 1.8526603069882108e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 8,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751
+    ],
+    "actual_strengths": [
+      32.765625,
+      32.765625,
+      32.765625,
+      32.765625
+    ],
+    "equation_error": 0.07675653722958821,
+    "relative_pde_residual": 1.8140867302139585e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 12,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751
+    ],
+    "actual_strengths": [
+      32.76416015625,
+      32.76416015625,
+      32.76416015625,
+      32.76416015625
+    ],
+    "equation_error": 0.07463999623758281,
+    "relative_pde_residual": 1.703175957884407e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 16,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751
+    ],
+    "actual_strengths": [
+      32.76417541503906,
+      32.76417541503906,
+      32.76417541503906,
+      32.76417541503906
+    ],
+    "equation_error": 0.07466195182971373,
+    "relative_pde_residual": 1.73346460362985e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 20,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751
+    ],
+    "actual_strengths": [
+      32.7641716003418,
+      32.7641716003418,
+      32.7641716003418,
+      32.7641716003418
+    ],
+    "equation_error": 0.07465646274922988,
+    "relative_pde_residual": 1.7750961259554073e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 24,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751
+    ],
+    "actual_strengths": [
+      32.764171957969666,
+      32.764171957969666,
+      32.764171957969666,
+      32.764171957969666
+    ],
+    "equation_error": 0.07465697734357164,
+    "relative_pde_residual": 1.7622583792139404e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 28,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751,
+      32.76417196969751
+    ],
+    "actual_strengths": [
+      32.764171969145536,
+      32.764171969145536,
+      32.764171969145536,
+      32.764171969145536
+    ],
+    "equation_error": 0.07465699342590171,
+    "relative_pde_residual": 1.8984001973376234e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": null,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.281519797211374,
+      34.93646511475346,
+      33.281519797211374
+    ],
+    "actual_strengths": [
+      33.281519797211374,
+      34.93646511475346,
+      33.281519797211374
+    ],
+    "equation_error": 0.06555017117041712,
+    "relative_pde_residual": 1.668144367878195e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 8,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.281519797211374,
+      34.93646511475346,
+      33.281519797211374
+    ],
+    "actual_strengths": [
+      33.28125,
+      34.9375,
+      33.28125
+    ],
+    "equation_error": 0.0662347376258042,
+    "relative_pde_residual": 1.577918317636328e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 12,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.281519797211374,
+      34.93646511475346,
+      33.281519797211374
+    ],
+    "actual_strengths": [
+      33.281494140625,
+      34.9365234375,
+      33.281494140625
+    ],
+    "equation_error": 0.06558377633459263,
+    "relative_pde_residual": 1.621655399826588e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 16,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.281519797211374,
+      34.93646511475346,
+      33.281519797211374
+    ],
+    "actual_strengths": [
+      33.281524658203125,
+      34.93646240234375,
+      33.281524658203125
+    ],
+    "equation_error": 0.06555037046314537,
+    "relative_pde_residual": 1.6292763658056397e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 20,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.281519797211374,
+      34.93646511475346,
+      33.281519797211374
+    ],
+    "actual_strengths": [
+      33.28151988983154,
+      34.9364652633667,
+      33.28151988983154
+    ],
+    "equation_error": 0.06555033272720104,
+    "relative_pde_residual": 1.6949332072490076e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 24,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.281519797211374,
+      34.93646511475346,
+      33.281519797211374
+    ],
+    "actual_strengths": [
+      33.28151977062225,
+      34.93646514415741,
+      33.28151977062225
+    ],
+    "equation_error": 0.06555018155442485,
+    "relative_pde_residual": 1.6902579635744452e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.0,
+    "coupling": 0.0004744388918671539,
+    "fractional_bits": 28,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.281519797211374,
+      34.93646511475346,
+      33.281519797211374
+    ],
+    "actual_strengths": [
+      33.281519796699286,
+      34.93646511435509,
+      33.281519796699286
+    ],
+    "equation_error": 0.06555017061149385,
+    "relative_pde_residual": 1.6824784028724676e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": null,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835
+    ],
+    "actual_strengths": [
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835
+    ],
+    "equation_error": 0.01652474732187262,
+    "relative_pde_residual": 7.274856649112586e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 8,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835
+    ],
+    "actual_strengths": [
+      33.9921875,
+      33.9921875,
+      33.9921875,
+      33.9921875
+    ],
+    "equation_error": 0.018866709525035382,
+    "relative_pde_residual": 6.986434921126004e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 12,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835
+    ],
+    "actual_strengths": [
+      33.99169921875,
+      33.99169921875,
+      33.99169921875,
+      33.99169921875
+    ],
+    "equation_error": 0.016196569704754967,
+    "relative_pde_residual": 7.075866930992657e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 16,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835
+    ],
+    "actual_strengths": [
+      33.99176025390625,
+      33.99176025390625,
+      33.99176025390625,
+      33.99176025390625
+    ],
+    "equation_error": 0.016525698000105882,
+    "relative_pde_residual": 7.521560769587429e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 20,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835
+    ],
+    "actual_strengths": [
+      33.99176025390625,
+      33.99176025390625,
+      33.99176025390625,
+      33.99176025390625
+    ],
+    "equation_error": 0.016525698000105882,
+    "relative_pde_residual": 7.521560769587429e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 24,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835
+    ],
+    "actual_strengths": [
+      33.991760075092316,
+      33.991760075092316,
+      33.991760075092316,
+      33.991760075092316
+    ],
+    "equation_error": 0.01652473165891354,
+    "relative_pde_residual": 7.412037927675712e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 28,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835,
+      33.991760077991835
+    ],
+    "actual_strengths": [
+      33.991760078817606,
+      33.991760078817606,
+      33.991760078817606,
+      33.991760078817606
+    ],
+    "equation_error": 0.01652475178449821,
+    "relative_pde_residual": 7.12178119846749e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": null,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.11586958505152,
+      34.49369605870482,
+      34.11586958505152
+    ],
+    "actual_strengths": [
+      34.11586958505152,
+      34.49369605870482,
+      34.11586958505152
+    ],
+    "equation_error": 0.016029894498761868,
+    "relative_pde_residual": 7.392595304613511e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 8,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.11586958505152,
+      34.49369605870482,
+      34.11586958505152
+    ],
+    "actual_strengths": [
+      34.1171875,
+      34.4921875,
+      34.1171875
+    ],
+    "equation_error": 0.014838285089738529,
+    "relative_pde_residual": 7.111072157072644e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 12,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.11586958505152,
+      34.49369605870482,
+      34.11586958505152
+    ],
+    "actual_strengths": [
+      34.115966796875,
+      34.49365234375,
+      34.115966796875
+    ],
+    "equation_error": 0.016057778059565958,
+    "relative_pde_residual": 6.934593312487631e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 16,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.11586958505152,
+      34.49369605870482,
+      34.11586958505152
+    ],
+    "actual_strengths": [
+      34.115875244140625,
+      34.49369812011719,
+      34.115875244140625
+    ],
+    "equation_error": 0.01604920078733825,
+    "relative_pde_residual": 6.746282756692836e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 20,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.11586958505152,
+      34.49369605870482,
+      34.11586958505152
+    ],
+    "actual_strengths": [
+      34.11586952209473,
+      34.493696212768555,
+      34.11586952209473
+    ],
+    "equation_error": 0.016030359068282426,
+    "relative_pde_residual": 6.5596633976868e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 24,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.11586958505152,
+      34.49369605870482,
+      34.11586958505152
+    ],
+    "actual_strengths": [
+      34.11586958169937,
+      34.49369603395462,
+      34.11586958169937
+    ],
+    "equation_error": 0.016029792754122887,
+    "relative_pde_residual": 7.44190104095974e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 2.5,
+    "coupling": 0.00010702246567027713,
+    "fractional_bits": 28,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.11586958505152,
+      34.49369605870482,
+      34.11586958505152
+    ],
+    "actual_strengths": [
+      34.11586958542466,
+      34.49369606003165,
+      34.11586958542466
+    ],
+    "equation_error": 0.01602990033789009,
+    "relative_pde_residual": 6.675031465517059e-11,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": null,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654
+    ],
+    "actual_strengths": [
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654
+    ],
+    "equation_error": 0.0037141777552501557,
+    "relative_pde_residual": 3.130604984879653e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 8,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654
+    ],
+    "actual_strengths": [
+      34.28125,
+      34.28125,
+      34.28125,
+      34.28125
+    ],
+    "equation_error": 0.0034719232114778374,
+    "relative_pde_residual": 3.065848101470614e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 12,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654
+    ],
+    "actual_strengths": [
+      34.281494140625,
+      34.281494140625,
+      34.281494140625,
+      34.281494140625
+    ],
+    "equation_error": 0.0035852262943035233,
+    "relative_pde_residual": 3.0765417613478024e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 16,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654
+    ],
+    "actual_strengths": [
+      34.281494140625,
+      34.281494140625,
+      34.281494140625,
+      34.281494140625
+    ],
+    "equation_error": 0.0035852262943035233,
+    "relative_pde_residual": 3.0765417613478024e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 20,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654
+    ],
+    "actual_strengths": [
+      34.2814998626709,
+      34.2814998626709,
+      34.2814998626709,
+      34.2814998626709
+    ],
+    "equation_error": 0.0037168631429568564,
+    "relative_pde_residual": 3.170033791143886e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 24,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654
+    ],
+    "actual_strengths": [
+      34.28149974346161,
+      34.28149974346161,
+      34.28149974346161,
+      34.28149974346161
+    ],
+    "equation_error": 0.0037141110553678023,
+    "relative_pde_residual": 2.9768526998434975e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 28,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654,
+      34.281499746350654
+    ],
+    "actual_strengths": [
+      34.2814997471869,
+      34.2814997471869,
+      34.2814997471869,
+      34.2814997471869
+    ],
+    "equation_error": 0.0037141970821988842,
+    "relative_pde_residual": 3.09216596563047e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": null,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.30989520099148,
+      34.39536450834186,
+      34.30989520099148
+    ],
+    "actual_strengths": [
+      34.30989520099148,
+      34.39536450834186,
+      34.30989520099148
+    ],
+    "equation_error": 0.0036866587239004905,
+    "relative_pde_residual": 3.161733975836289e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 8,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.30989520099148,
+      34.39536450834186,
+      34.30989520099148
+    ],
+    "actual_strengths": [
+      34.30859375,
+      34.39453125,
+      34.30859375
+    ],
+    "equation_error": 0.022037433362753094,
+    "relative_pde_residual": 3.2045802904011207e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 12,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.30989520099148,
+      34.39536450834186,
+      34.30989520099148
+    ],
+    "actual_strengths": [
+      34.309814453125,
+      34.395263671875,
+      34.309814453125
+    ],
+    "equation_error": 0.0012196247671438373,
+    "relative_pde_residual": 3.1490503399181155e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 16,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.30989520099148,
+      34.39536450834186,
+      34.30989520099148
+    ],
+    "actual_strengths": [
+      34.30989074707031,
+      34.39537048339844,
+      34.30989074707031
+    ],
+    "equation_error": 0.0037514854904672212,
+    "relative_pde_residual": 3.0457797859362183e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 20,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.30989520099148,
+      34.39536450834186,
+      34.30989520099148
+    ],
+    "actual_strengths": [
+      34.309895515441895,
+      34.39536476135254,
+      34.309895515441895
+    ],
+    "equation_error": 0.003693833200794805,
+    "relative_pde_residual": 3.124612611223545e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 24,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.30989520099148,
+      34.39536450834186,
+      34.30989520099148
+    ],
+    "actual_strengths": [
+      34.30989521741867,
+      34.39536452293396,
+      34.30989521741867
+    ],
+    "equation_error": 0.003687057462481117,
+    "relative_pde_residual": 3.053952829788768e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.0,
+    "coupling": 2.4141798563497177e-05,
+    "fractional_bits": 28,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.30989520099148,
+      34.39536450834186,
+      34.30989520099148
+    ],
+    "actual_strengths": [
+      34.30989520251751,
+      34.3953645080328,
+      34.30989520251751
+    ],
+    "equation_error": 0.003686666780766914,
+    "relative_pde_residual": 3.185258200656714e-10,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": null,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124
+    ],
+    "actual_strengths": [
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124
+    ],
+    "equation_error": 0.0008371807344195736,
+    "relative_pde_residual": 1.3503241701131915e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 8,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124
+    ],
+    "actual_strengths": [
+      34.34765625,
+      34.34765625,
+      34.34765625,
+      34.34765625
+    ],
+    "equation_error": 0.01374715497584902,
+    "relative_pde_residual": 1.3554105624525663e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 12,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124
+    ],
+    "actual_strengths": [
+      34.34765625,
+      34.34765625,
+      34.34765625,
+      34.34765625
+    ],
+    "equation_error": 0.01374715497584902,
+    "relative_pde_residual": 1.3554105624525663e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 16,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124
+    ],
+    "actual_strengths": [
+      34.34754943847656,
+      34.34754943847656,
+      34.34754943847656,
+      34.34754943847656
+    ],
+    "equation_error": 0.0015844077809400489,
+    "relative_pde_residual": 1.3727277839619248e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 20,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124
+    ],
+    "actual_strengths": [
+      34.34754276275635,
+      34.34754276275635,
+      34.34754276275635,
+      34.34754276275635
+    ],
+    "equation_error": 0.0008721416450758814,
+    "relative_pde_residual": 1.3584777723235551e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 24,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124
+    ],
+    "actual_strengths": [
+      34.34754240512848,
+      34.34754240512848,
+      34.34754240512848,
+      34.34754240512848
+    ],
+    "equation_error": 0.0008357141729368529,
+    "relative_pde_residual": 1.2737466524419021e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 28,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124,
+      34.347542419581124
+    ],
+    "actual_strengths": [
+      34.34754242002964,
+      34.34754242002964,
+      34.34754242002964,
+      34.34754242002964
+    ],
+    "equation_error": 0.000837226044227851,
+    "relative_pde_residual": 1.234226169601429e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": null,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.35396836261702,
+      34.37326062627108,
+      34.35396836261702
+    ],
+    "actual_strengths": [
+      34.35396836261702,
+      34.37326062627108,
+      34.35396836261702
+    ],
+    "equation_error": 0.000835315732205039,
+    "relative_pde_residual": 1.4433149341543849e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 8,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.35396836261702,
+      34.37326062627108,
+      34.35396836261702
+    ],
+    "actual_strengths": [
+      34.35546875,
+      34.375,
+      34.35546875
+    ],
+    "equation_error": 0.19795614349674506,
+    "relative_pde_residual": 1.51338190988164e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 12,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.35396836261702,
+      34.37326062627108,
+      34.35396836261702
+    ],
+    "actual_strengths": [
+      34.35400390625,
+      34.373291015625,
+      34.35400390625
+    ],
+    "equation_error": 0.0045796853685373,
+    "relative_pde_residual": 1.4061407660297543e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 16,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.35396836261702,
+      34.37326062627108,
+      34.35396836261702
+    ],
+    "actual_strengths": [
+      34.353973388671875,
+      34.373260498046875,
+      34.353973388671875
+    ],
+    "equation_error": 0.001020933011196409,
+    "relative_pde_residual": 1.35785141134176e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 20,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.35396836261702,
+      34.37326062627108,
+      34.35396836261702
+    ],
+    "actual_strengths": [
+      34.35396862030029,
+      34.373260498046875,
+      34.35396862030029
+    ],
+    "equation_error": 0.0008353882163135583,
+    "relative_pde_residual": 1.28714803198729e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 24,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.35396836261702,
+      34.37326062627108,
+      34.35396836261702
+    ],
+    "actual_strengths": [
+      34.353968381881714,
+      34.373260617256165,
+      34.353968381881714
+    ],
+    "equation_error": 0.0008353655088403954,
+    "relative_pde_residual": 1.3360562648536906e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 3.5,
+    "coupling": 5.445832650465089e-06,
+    "fractional_bits": 28,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.35396836261702,
+      34.37326062627108,
+      34.35396836261702
+    ],
+    "actual_strengths": [
+      34.35396836325526,
+      34.373260624706745,
+      34.35396836325526
+    ],
+    "equation_error": 0.0008352192834182951,
+    "relative_pde_residual": 1.3952108040807709e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": null,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776
+    ],
+    "actual_strengths": [
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776
+    ],
+    "equation_error": 0.000188809894750208,
+    "relative_pde_residual": 6.5557253613962015e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 8,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776
+    ],
+    "actual_strengths": [
+      34.36328125,
+      34.36328125,
+      34.36328125,
+      34.36328125
+    ],
+    "equation_error": 0.6727338765149885,
+    "relative_pde_residual": 9.165597215013897e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 12,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776
+    ],
+    "actual_strengths": [
+      34.362548828125,
+      34.362548828125,
+      34.362548828125,
+      34.362548828125
+    ],
+    "equation_error": 0.03824579080581526,
+    "relative_pde_residual": 6.049493311716958e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 16,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776
+    ],
+    "actual_strengths": [
+      34.36247253417969,
+      34.36247253417969,
+      34.36247253417969,
+      34.36247253417969
+    ],
+    "equation_error": 0.0012202710926675568,
+    "relative_pde_residual": 6.2004806548555166e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 20,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776
+    ],
+    "actual_strengths": [
+      34.36247539520264,
+      34.36247539520264,
+      34.36247539520264,
+      34.36247539520264
+    ],
+    "equation_error": 0.00022670447094235978,
+    "relative_pde_residual": 5.954960829342062e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 24,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776
+    ],
+    "actual_strengths": [
+      34.36247533559799,
+      34.36247533559799,
+      34.36247533559799,
+      34.36247533559799
+    ],
+    "equation_error": 0.00019938478845879566,
+    "relative_pde_residual": 5.844949543459092e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "chain4",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 28,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776,
+      34.36247531216776
+    ],
+    "actual_strengths": [
+      34.36247531324625,
+      34.36247531324625,
+      34.36247531324625,
+      34.36247531324625
+    ],
+    "equation_error": 0.0001892940446013252,
+    "relative_pde_residual": 6.269595719351767e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": null,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "actual_strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "equation_error": 0.00018860895679788804,
+    "relative_pde_residual": 6.577183279026603e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 8,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "actual_strengths": [
+      34.36328125,
+      34.3671875,
+      34.36328125
+    ],
+    "equation_error": 0.6188034350917065,
+    "relative_pde_residual": 5.9851691570023325e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 12,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "actual_strengths": [
+      34.364013671875,
+      34.3681640625,
+      34.364013671875
+    ],
+    "equation_error": 0.03130228961106637,
+    "relative_pde_residual": 6.400753796003636e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 16,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "actual_strengths": [
+      34.363922119140625,
+      34.36827087402344,
+      34.363922119140625
+    ],
+    "equation_error": 0.0030691625489426785,
+    "relative_pde_residual": 6.592641790657005e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 20,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "actual_strengths": [
+      34.36392593383789,
+      34.36827850341797,
+      34.36392593383789
+    ],
+    "equation_error": 0.0002194999142030456,
+    "relative_pde_residual": 6.2366324347533335e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 24,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "actual_strengths": [
+      34.36392593383789,
+      34.368278443813324,
+      34.36392593383789
+    ],
+    "equation_error": 0.00019896693961267352,
+    "relative_pde_residual": 6.495402255853714e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  },
+  {
+    "name": "mediator2",
+    "separation": 4.0,
+    "coupling": 1.2284541758091573e-06,
+    "fractional_bits": 28,
+    "channel_spacing": 0.01,
+    "nominal_strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "actual_strengths": [
+      34.36392590776086,
+      34.36827842891216,
+      34.36392590776086
+    ],
+    "equation_error": 0.0001893395609878765,
+    "relative_pde_residual": 6.0986477501897246e-09,
+    "decoder": "Frozen nominal gains and fixed continuous source functions",
+    "scope": "Fine TE10 channel; only material strengths are quantized"
+  }
+]

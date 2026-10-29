@@ -1,0 +1,62 @@
+{
+  "chain3": {
+    "raw_fields_sha256": "582a138ce7ee6a8ca3346c15bdb72de69823c6d49951d2a93f5c114b3d75445e",
+    "frozen_design_sha256": "09d5ce97ad993cf9c14b052b2d2587741ca45d1db16e48b3a88c1800fd4e8b16",
+    "response_reconstruction_error": 7.14032075279473e-16,
+    "source_programming_relative_error": 0.0,
+    "TE10_field_reconstruction_relative_error": 3.867746999315447e-14,
+    "TE10_source_reconstruction_relative_error": 1.7803663128808452e-16,
+    "operator_error": 0.0014427509164470875,
+    "reference_use": "Posthoc comparison only; never used in source, device or decoder"
+  },
+  "nonuniform3": {
+    "raw_fields_sha256": "21e549507ff7a4c1d3bd337f98b5520196d9fcadee8ff33c9682a61f7fe70b60",
+    "frozen_design_sha256": "6db9bd3686b3868f03d3d19d2a4a2f1661a6739c4efa5eff067078fd0c7e0357",
+    "response_reconstruction_error": 4.3543978116947857e-16,
+    "source_programming_relative_error": 0.0,
+    "TE10_field_reconstruction_relative_error": 3.9021314061868964e-14,
+    "TE10_source_reconstruction_relative_error": 1.5957512360949005e-16,
+    "operator_error": 0.0014781480913889397,
+    "reference_use": "Posthoc comparison only; never used in source, device or decoder"
+  },
+  "chain4": {
+    "raw_fields_sha256": "30c1e57ac4a86f6694aed54cc18769293608022cef8586bc6938794c0258ff50",
+    "frozen_design_sha256": "62a7b5a6f211e7cde8f8b4a0a800b610e82a536ad3b55cea787bb55b4f691904",
+    "response_reconstruction_error": 1.639841359659732e-16,
+    "source_programming_relative_error": 0.0,
+    "TE10_field_reconstruction_relative_error": 4.1027410947262524e-14,
+    "TE10_source_reconstruction_relative_error": 1.744673430808364e-16,
+    "operator_error": 0.0016672368479052019,
+    "reference_use": "Posthoc comparison only; never used in source, device or decoder"
+  },
+  "mediator2": {
+    "raw_fields_sha256": "c915f8e18646b4a8fd8687627ea8b2f6f50e2392636a43f9cd11262636644b95",
+    "frozen_design_sha256": "2cb5aa80811951c1fc47469bca774533d15a324ac02d01c144340a053b144ca6",
+    "response_reconstruction_error": 2.5589376332604516e-16,
+    "source_programming_relative_error": 0.0,
+    "TE10_field_reconstruction_relative_error": 3.715364400902186e-14,
+    "TE10_source_reconstruction_relative_error": 1.4565374078665434e-16,
+    "operator_error": 0.0017269996338837162,
+    "reference_use": "Posthoc comparison only; never used in source, device or decoder"
+  },
+  "indefinite3": {
+    "raw_fields_sha256": "0c74db9733b05ce91dfca39a545bbce62cb9e09c6a0ff042d45d7027d4f786e6",
+    "frozen_design_sha256": "f8d5693b6cada715183484ff6f1a1af4edeaf2d6095056d35aa9a6f1a0277025",
+    "response_reconstruction_error": 4.299882392789797e-16,
+    "source_programming_relative_error": 0.0,
+    "TE10_field_reconstruction_relative_error": 5.0235985133553614e-14,
+    "TE10_source_reconstruction_relative_error": 1.349807791179721e-16,
+    "operator_error": 0.001889417424856264,
+    "reference_use": "Posthoc comparison only; never used in source, device or decoder"
+  },
+  "chain4_d3": {
+    "raw_fields_sha256": "b4e2c5a5569cd5fb19266096c08583641c73bf9db1c6ac59dd4019e1533e0669",
+    "frozen_design_sha256": "b038fdd3b0b0d7a226177db1783fdcd5b52628199b2ec0bd745b0ab6981b000d",
+    "response_reconstruction_error": 2.6069379147299344e-16,
+    "source_programming_relative_error": 0.0,
+    "TE10_field_reconstruction_relative_error": 4.143685087796525e-14,
+    "TE10_source_reconstruction_relative_error": 1.3793318828158553e-16,
+    "operator_error": 0.003788253914743743,
+    "reference_use": "Posthoc comparison only; never used in source, device or decoder"
+  }
+}

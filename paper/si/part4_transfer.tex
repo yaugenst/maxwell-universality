@@ -1,0 +1,469 @@
+\section{Solver calls, verification and amplification}\label{si:sec:transfer-proof}
+
+This section and the next prove Theorems~\ref{d:thm:algorithm-transfer}
+and~\ref{c:thm:transfer}. An algorithm for every Maxwell instance in
+the constructed class can be applied to the encoding of a sparse linear system, after
+which the decoder recovers the algebraic solution. The resource bounds of
+the realization theorems hold on every random draw, while conditioning
+and correctness hold on a common good event; the arguments below turn
+this into a randomized algorithm with verified output.
+
+\subsection{Rational inputs, capped calls, and verification}
+For rational inputs, encode, cap the solver at its known good-instance
+bound, and decode. On the common event, $N=\tO(m^{3/2})$, $B_{\rm out}=O(\ell)$,
+and both $\kappa_X$ and $\delta^{-1}$ are polynomial in $m$.
+Substitution in~\eqref{c:eq:solverbound} gives the second term of
+\eqref{c:eq:transfer}; preparation and decoding give the first.
+A bad draw is not allowed an unbounded solver call: a timeout or an
+invalid output format is rejected.
+
+Verify a candidate using the original sparse residual with outward
+short-dyadic arithmetic. This costs $O(m\operatorname{polylog}m)$,
+without constructing a common denominator for all rational entries.
+For an explicit acceptance rule, put $\nu_M=\|b\|_\infty$ and enclose
+$\rho_M=\|Mx-b\|^2/\nu_M^2$ and $b_M=\|b\|^2/\nu_M^2$. Their intermediate
+magnitudes are bounded by an explicit polynomial from the input and
+fixed output ranges. If that bound is $P_{\rm mag}\ge1$, rounding every one
+of the $O(m)$ additions and products on a grid at most
+$\eta_0^2/(2^{20}m^2P_{\rm mag}^4)$ gives interval widths at most
+$\eta_0^2/64$ for $\rho_M$ and $1/64$ for $b_M$; the elementary product
+error bound proves this by induction over the operations. Accept
+only when the upper bound for $\rho_M$ is at most $\eta_0^2$ times the
+lower bound for $b_M$. Acceptance is sound. The successful decoder
+has residual less than $\eta_0\|b\|/4$ by
+Remark~\ref{si:rem:continuum-compiler}, so it passes with this margin and
+$b_M\ge1$.
+
+Fix a positive rational lower bound for the solver's uniform success
+probability, as part of its specification. A good draw and successful
+call then have a fixed positive joint probability. Independent capped
+trials and the sound acceptance test give inverse-polynomial failure
+with $O(\log m)$ repetitions, preserving~\eqref{c:eq:transfer}. The
+finite-event quantifier is essential here: correctness does not depend
+on which admissible residual field the solver chose.
+
+\subsection{Randomization and verifiable acceptance}
+
+The Maxwell reduction has resource bounds on every random draw, while
+its conditioning and correctness guarantees hold on a common good
+event. A bad draw may be singular or poorly conditioned, so a runtime
+bound for well-conditioned instances cannot control an unrestricted
+call on such a draw.
+
+We run each Maxwell solve with a cap equal to a proved upper bound for
+a good input of the relevant size and input class. A timeout is rejected.
+For a returned field, we decode the saddle coordinates and evaluate
+the residual of the original, unrounded real saddle system. This costs
+$O(m)$ Real-RAM operations. An accepted result satisfies the desired
+projection-relative error regardless of whether its physical draw was
+good. Good draws and successful solver calls pass with a fixed positive
+probability, after allocating the rounding margins in
+Section~\ref{d:app:real-transfer}. Independent capped repetitions amplify
+success, and $O(\log m)$ attempts yield any prescribed inverse-polynomial
+failure bound. Their cost remains~\eqref{d:eq:sparse-composition-time}.
+
+\section{A transfer from rectangular real inputs}
+\label{d:app:real-transfer}
+
+Theorem~\ref{d:thm:main} starts with a short rational square system.
+Assumption~\ref{d:ass:slth} permits rectangular matrices and
+unrestricted real entries. We bridge these models explicitly.
+
+After removing empty rows, the active row count is at most $m$. Normalize
+$F=F_0/(ma_F)$ with $a_F=\max|F_{0,ij}|$ and compute $b_F=F^\top b$ with exact Real-RAM
+operations before rounding either the matrix or the source. If $b_F=0$,
+then $\Pi_{F_0}b=0$ and $x=0$ is an exact answer. Otherwise let
+$\nu_F=\norm{b_F}_\infty$, $g_F=b_F/\nu_F$, and construct the sparse saddle system
+\begin{equation}
+ K_s\begin{pmatrix}y_{\rm s}\\x_{\rm s}\end{pmatrix}=c_{\rm s},
+ \qquad
+ K_s=\begin{pmatrix}I&F\\F^\top&0\end{pmatrix},
+ \qquad c_{\rm s}=\begin{pmatrix}0\\-g_F\end{pmatrix}.
+ \label{d:eq:complexity-saddle}
+\end{equation}
+Its entries are bounded by one, its dimension is at most $2m$, and it has
+at most $3m$ nonzeros. The normal matrix $F^\top F$ is used to analyze
+the system, but need not be formed by the algorithm.
+
+Let $P=m^{\lceil c_\kappa\rceil+1}$. The inverse of $K_s$ has norm
+at most $4P^2$. A relative saddle residual $\eta_s$ implies a
+projection-relative error at most $2P\eta_s$ after rescaling the $x_{\rm s}$
+coordinates. Taking $\eta_s=m^{-(6\lceil c_\kappa\rceil+3)}$ therefore suffices for the
+squared-error target~\eqref{d:eq:slth-target}.
+
+We round the bounded saddle coefficients and normalized source to
+$O_{c_\kappa}(\log m)$ bits, with an explicit perturbation budget that preserves
+both inverse bounds and the original saddle residual. An additional
+$m$-dimensional identity block ensures that the rounded input's own
+nonzero count lies between $m$ and $4m$. This counted padding makes its
+condition and accuracy bounds fixed polynomials in its own input
+size. The rounded square system is then a valid input to
+Theorem~\ref{d:thm:main}. The subsections below supply the
+normalization, residual identity, rounding inequalities, and parameter
+choices.
+
+Computing $b_F$ before rounding matters when it is small because of
+cancellation. Rounding $b$ relative to $\norm{b}_2$ would not in general
+control the much smaller projected source. Here $g_F$ is normalized only
+after the exact projection-relevant quantity has been formed. The scale
+factors retained for final output are Real-RAM words; they do not become
+large-bit physical coefficients. This is a Real-RAM reduction for
+unrestricted real inputs and a finite-bit reduction after the stated
+rounding step.
+
+We prove Theorem~\ref{d:thm:algorithm-transfer}, including the error
+criterion and randomized runtime model. The source problem and its
+projection-relative target are those in
+Assumption~\ref{d:ass:slth}. The same bridge, with
+Theorem~\ref{c:thm:main} in place of Theorem~\ref{d:thm:main} and the
+moment-message decoder of Section~\ref{c:sec:recovery}, proves the
+Real-RAM part of Theorem~\ref{c:thm:transfer}.
+
+\subsection{Input access and exact source normalization}
+
+Let $F_0\in\R^{n_0\times n}$ have full column rank, $m\ge2$
+nonzeros, and condition number at most $m^{c_\kappa}$. A sparse nonzero list
+identifies all nonempty rows. Delete empty rows and relabel the active
+indices in $O(m\log m)$ operations. The remaining row count $n_1$
+satisfies $n\le n_1\le m$. Empty rows contribute zero to the column
+space and the projected right-hand side, and deleting them does not
+change the nonzero singular values. We access $b$ only at active row
+indices. This uses the random-access input model of the assumption;
+a sequential representation containing additional empty rows would
+require its reading cost to be charged separately.
+
+Set
+\begin{equation}
+ a_F=\max_{i,j}|F_{0,ij}|,\quad F=F_0/(ma_F),\quad b_F=F^\top b.
+\end{equation}
+Compute $b_F$ with exact Real-RAM operations before any rounding. Let
+$P=m^{\lceil c_\kappa\rceil+1}$. Then
+$\norm{F}\le1$ and $\sigma_{\min}(F)\ge P^{-1}$.
+If $b_F=0$, full column rank gives $\Pi_{F_0}b=0$, so $x=0$ is exact.
+Otherwise let $\nu_F=\norm{b_F}_\infty>0$ and $g_F=b_F/\nu_F$.
+Construct $K_s,c_{\rm s}$ as in~\eqref{d:eq:complexity-saddle}.
+Every entry has absolute value at most one,
+$1\le\norm{c_{\rm s}}=\norm{g_F}\le\sqrt n$, the dimension is at most $2m$,
+and the nonzero count is at most $3m$.
+
+The exact saddle solution is
+$(-Fx_{\rm s*},x_{\rm s*})$, where $F^\top Fx_{\rm s*}=g_F$, so
+\begin{equation}
+ x_{\rm s*}=F^\dagger b/\nu_F,
+ \qquad x_*=(\nu_F/(ma_F))x_{\rm s*}=F_0^\dagger b.
+ \label{d:eq:app-saddle-exact}
+\end{equation}
+The algorithm never forms $F^\top F$. It retains $ma_F,\nu_F$ as Real-RAM
+words for final scaling; they are not short-rational physical input
+coefficients.
+
+\subsection{Saddle conditioning and the target error}
+
+With $\Pi_{F_0}=F(F^\top F)^{-1}F^\top$, direct multiplication verifies
+\begin{equation}
+ K_s^{-1}=
+ \begin{pmatrix}
+ I-\Pi_{F_0}&F(F^\top F)^{-1}\\
+ (F^\top F)^{-1}F^\top&-(F^\top F)^{-1}
+ \end{pmatrix}.
+ \label{d:eq:app-saddle-inverse}
+\end{equation}
+The four blocks have norm at most $1,P,P,P^2$, respectively. Hence
+\begin{equation}
+ \norm{K_s^{-1}}\le1+2P+P^2\le4P^2=:Q_s,
+ \qquad \norm{K_s}\le2.
+ \label{d:eq:app-saddle-bounds}
+\end{equation}
+For an approximate solution $(y_{\rm s},x_{\rm s})$, write
+$\rho_1=y_{\rm s}+Fx_{\rm s}$ and $\rho_2=F^\top y_{\rm s}+g_F$. Eliminating $y_{\rm s}$ gives the exact
+identity
+\begin{equation}
+ F(x_{\rm s}-x_{\rm s*})=\Pi_{F_0}\rho_1-F(F^\top F)^{-1}\rho_2.
+ \label{d:eq:app-saddle-residual-identity}
+\end{equation}
+Therefore $\norm{F(x_{\rm s}-x_{\rm s*})}\le2P\norm{(\rho_1,\rho_2)}$.
+Since $g_F=F^\top Fx_{\rm s*}$ and $\norm{F}\le1$,
+$\norm{g_F}\le\norm{Fx_{\rm s*}}$. If the relative saddle residual is at
+most $\eta_s$, the decoded vector $x=(\nu_F/(ma_F))x_{\rm s}$ satisfies
+\begin{equation}
+ \frac{\norm{F_0x-\Pi_{F_0}b}}{\norm{\Pi_{F_0}b}}
+ =\frac{\norm{F(x_{\rm s}-x_{\rm s*})}}{\norm{Fx_{\rm s*}}}
+ \le2P\eta_s.
+ \label{d:eq:app-projection-relative}
+\end{equation}
+No factor $\norm{b}/\norm{\Pi_{F_0}b}$ occurs.
+
+Choose $\eta_s=m^{-(6\lceil c_\kappa\rceil+3)}$. For $m\ge2$,
+\begin{equation}
+ 2P\eta_s=2m^{-5\lceil c_\kappa\rceil-2}\le m^{-5\lceil c_\kappa\rceil}
+                 \le n^{-5\lceil c_\kappa\rceil}\le n^{-5c_\kappa}.
+\end{equation}
+Squaring~\eqref{d:eq:app-projection-relative} proves exactly
+\eqref{d:eq:slth-target}. Integer exponents are used to make the
+parameters computable with basic arithmetic operations.
+
+\subsection{Rounding to the square theorem's input class}
+
+Choose a dyadic spacing
+\begin{equation}
+ u_s\le\frac{\eta_s}{1024mQ_s}.
+\end{equation}
+Round each existing nonzero of $K_s$ to that grid, using identical
+roundings for the two occurrences of each $F$ entry, and round $g_F$ on
+the same grid. Existing zeros remain zero. Write the resulting matrix
+and source as $\widehat K_s,\widehat c_{\rm s}$. A conservative count of
+the changed entries gives
+\begin{align}
+ \norm{\widehat K_s-K_s}
+   &\le2mu_s\le\frac{\eta_s}{512Q_s},\\
+ \norm{\widehat c_{\rm s}-c_{\rm s}}
+   &\le mu_s\le\frac{\eta_s}{1024Q_s}
+         \le\frac{\eta_s}{1024}\norm{c_{\rm s}}.
+ \label{d:eq:app-saddle-rounding}
+\end{align}
+By the Neumann series and~\eqref{d:eq:app-saddle-bounds},
+$\norm{\widehat K_s^{-1}}\le2Q_s$ and
+$\norm{\widehat K_s}\le3$.
+
+Suppose a returned vector $(y_{\rm s},x_{\rm s})$ satisfies
+\begin{equation}
+ \norm{\widehat K_s(y_{\rm s},x_{\rm s})-\widehat c_{\rm s}}
+ \le\frac{\eta_s}{64}\norm{\widehat c_{\rm s}}.
+\end{equation}
+Then
+\begin{equation}
+ \norm{(y_{\rm s},x_{\rm s})}
+ \le2Q_s(1+\eta_s/64)(1+\eta_s/1024)\norm{c_{\rm s}}
+ <3Q_s\norm{c_{\rm s}}.
+\end{equation}
+Restoring the unrounded coefficients therefore gives
+\begin{align}
+ \norm{K_s(y_{\rm s},x_{\rm s})-c_{\rm s}}
+ &\le\norm{\widehat K_s(y_{\rm s},x_{\rm s})-\widehat c_{\rm s}}
+       +\norm{\widehat K_s-K_s}\norm{(y_{\rm s},x_{\rm s})}
+       +\norm{\widehat c_{\rm s}-c_{\rm s}}\\
+ &\le\eta_s\left(
+       \frac{1+1/1024}{64}+\frac{3}{512}+\frac{1}{1024}
+       \right)\norm{c_{\rm s}}
+ <\frac{\eta_s}{16}\norm{c_{\rm s}}.
+ \label{d:eq:app-unrounded-margin}
+\end{align}
+This margin permits any additional finite-precision decoding budget
+to be allocated explicitly before testing the original residual.
+
+Append an $m$ by $m$ identity block with zero source. The padded
+matrix has nonzero count $m'$ between $m$ and $4m$, dimension at most
+$3m$, and
+\begin{equation}
+ \kappa_2(\widehat K_s\oplus I_m)
+ \le6Q_s=24m^{2\lceil c_\kappa\rceil+2}\le(m')^{2\lceil c_\kappa\rceil+7}.
+\end{equation}
+Its requested relative accuracy $\eta_s/64$ is at least
+$(m')^{-(6\lceil c_\kappa\rceil+9)}$. Thus its condition and accuracy bounds have the
+fixed-polynomial form required by the square realization theorem,
+expressed in terms of the rounded input's own sparsity. All entries
+have $O_{c_\kappa}(\log m)$ bits, and the padding costs $O(m)$.
+
+The dyadic approximations can be computed in the basic Real RAM by
+bisection and comparisons on $[-1,1]$, using $O(\log m)$ operations
+per entry. No floor operation on unrestricted reals is needed.
+Repeated doubling chooses the spacing using the explicit integer
+exponent bounds. After this step, the Maxwell encoder operates on
+short rational data with its usual bit-operation bounds.
+
+\subsection{Verification, time caps, and amplification}
+
+The decoded square-system answer has a prescribed finite rational
+representation. Discard identity-padding coordinates and test the
+original residual $\norm{K_s(y_{\rm s},x_{\rm s})-c_{\rm s}}\le\eta_s\norm{c_{\rm s}}$ using exact
+Real-RAM operations. Comparing squared norms avoids a square-root
+primitive. This test costs $O(m)$. Passing the test implies
+\eqref{d:eq:slth-target}; the good-output bound
+\eqref{d:eq:app-unrounded-margin} supplies substantial acceptance margin.
+Final output uses $n$ multiplications by $\nu_F/(ma_F)$.
+
+For each physical draw, apply a time cap equal to the solver's known
+runtime bound for a good Maxwell instance at the relevant parameters. Reject
+a timeout or an output that fails the prescribed interface or residual
+check. Finite-bit subprograms use a private bounded address region.
+Check each proposed index before storing or dereferencing it, and abort
+the trial if it exceeds the prescribed polynomial address bound.
+Retain the original input and verifier data outside that region; clear
+the touched private cells on exit. The tests and cleanup are charged
+to the capped trial. On executions within the input class the index
+bounds make every guard inactive. On other executions the guards prevent a time cap from
+being mistaken for a bound on the bit length of an index.
+A good draw has probability at least $1-1/m$, and a successful
+solver call on it has a fixed positive probability. Independent
+repetition therefore gives a fixed positive acceptance probability
+per trial for all sufficiently large inputs. A constant multiple of
+$\log m$ capped trials makes the probability of no accepted answer
+smaller than any chosen inverse polynomial. An accepted answer is
+always valid, because acceptance uses the original real saddle system.
+Finitely many small sizes can be handled directly.
+
+The encoder and decoder cost $\Ot((m')^{3/2})=\Ot(m^{3/2})$ on every
+draw. On a good draw,
+$N=\Ot(m^{3/2})$, $B_{\rm out}=O(\log m)$, and both the condition number and
+inverse residual tolerance are polynomial in $m$. Substituting these
+quantities into~\eqref{d:eq:maxwell-solver-model} gives
+$\Ot(m^{3\theta/2})$ for the capped solve. Verification costs
+$O(m)$, and logarithmically many trials do not change the soft-order
+bound. We obtain~\eqref{d:eq:sparse-composition-time}, completing the
+transfer theorem.
+
+\section{Conditional exponent restrictions}\label{si:sec:hardness}
+
+\begin{corollary}[A conditional exponent restriction]
+\label{d:cor:complexity}
+If Assumption~\ref{d:ass:slth} holds for some $c_\kappa>0$ and
+$\gamma>3/2$, a solver satisfying~\eqref{d:eq:maxwell-solver-model} cannot
+exist with $\theta<2\gamma/3$ on the complete constructed Maxwell family.
+\end{corollary}
+
+The first term in~\eqref{d:eq:sparse-composition-time} is the encoding and
+decoding cost. Thus the implication requires $\gamma>3/2$ even if the
+Maxwell solve itself were arbitrarily fast. Under this condition and
+$\theta<2\gamma/3$, both polynomial exponents on the right side of
+\eqref{d:eq:sparse-composition-time} are strictly below $\gamma$;
+logarithmic factors can be absorbed into a smaller positive exponent
+gap. This proves the corollary from the transfer theorem.
+
+The hardness exponent must be compatible with upper bounds for the same
+input and accuracy model. Exact-arithmetic conjugate gradients on the
+normal operator costs $O(mn)\le O(m^2)$, and its conditioning-dependent
+convergence bound further restricts the admissible exponent to
+$\gamma\le\min\{2,1+c_\kappa\}$; the derivation follows
+Corollary~\ref{c:cor:hardness} below. Any stronger applicable upper bound further narrows this
+necessary range. Figure~\ref{fig:consequence} of the main text displays the exponent
+comparison; values outside an admissible hardness range have no
+corresponding lower-bound consequence.
+
+
+
+\subsection{The continuum corollary and known upper bounds}
+Use exactly the randomized exponent-gap hypothesis of
+Assumption~\ref{d:ass:slth}: for fixed $c_\kappa$ and $\gamma$, every
+$\widetilde O(m^{\gamma'})$ randomized Real-RAM algorithm,
+$\gamma'<\gamma$, fails to solve all instances of
+\eqref{c:eq:projectiontarget} with success probability at least $2/3$.
+It is a hypothesis, independent of Theorem~\ref{c:thm:main}. Hardness
+statements in the unit-cost Real-RAM model depend on the set of unit-cost
+operations; here it consists of $+,-,\times,\div$ and comparisons, and
+excludes the floor function.
+
+\begin{corollary}
+\label{c:cor:hardness}
+If that matching hypothesis holds for an admissible exponent
+$\gamma>3/2$, a solver satisfying~\eqref{c:eq:solverbound} cannot have
+$\theta<2\gamma/3$ on the complete constructed continuum family.
+\end{corollary}
+\begin{proof}
+Under both strict inequalities, $3/2<\gamma$ and
+$3\theta/2<\gamma$. The two exponents in~\eqref{c:eq:transfer} are
+strictly smaller than $\gamma$; logarithmic factors can be absorbed
+in a smaller positive exponent gap. The amplified algorithm has
+success above $2/3$, contradicting the stated hypothesis.
+\end{proof}
+
+The admissibility qualification cannot be omitted. In the exact-arithmetic
+Real-RAM model of Assumption~\ref{d:ass:slth}, conjugate gradients applied to the positive
+ definite normal operator $F_0^TF_0$ solves the projected problem
+exactly in at most $n$ iterations. Each normal-operator product is
+two sparse products and costs $O(m)$; the remaining vector work is
+$O(n)\le O(m)$. There is no need to form the normal matrix.
+For completeness the recurrence uses only $+,-,\times,\div$:
+\[
+ a^{\rm cg}_j=\frac{\rho_j^T\rho_j}{p_j^T(F_0^TF_0)p_j},\quad
+ x_{j+1}=x_j+a^{\rm cg}_jp_j,\quad
+ \rho_{j+1}=\rho_j-a^{\rm cg}_j(F_0^TF_0)p_j,
+\]
+\[
+ b^{\rm cg}_j=\frac{\rho_{j+1}^T\rho_{j+1}}{\rho_j^T\rho_j},\qquad
+ p_{j+1}=\rho_{j+1}+b^{\rm cg}_jp_j,
+ \quad \rho_0=p_0=F_0^Tb.
+\]
+Stop when $\rho_j=0$. The usual induction, substituting these identities,
+makes the nonzero directions mutually $F_0^TF_0$-orthogonal and
+makes the residual orthogonal to their span. Thus each nonterminal
+step adds an independent direction, so after at most $n$ steps the
+residual is zero. Positivity makes all used denominators nonzero.
+This gives $O(mn)\le O(m^2)$ exact Real-RAM operations, including
+zero-projection sources. The same exact-arithmetic upper bound is
+explicitly recorded in~\citep[p.~3:2]{andoni2019}.
+
+The conditioning assumption gives a further restriction when $c_\kappa<1$.
+Let $x_*=F_0^\dagger b$.
+The same orthogonality induction shows that the $t$th CG iterate
+minimizes the energy error over its Krylov space. Therefore, for
+every polynomial $p$ of degree at most $t$ with $p(0)=1$,
+\[
+ \frac{\|F_0(x_t-x_*)\|}{\|\Pi_{F_0}b\|}
+ \le \max_{\lambda\in\spec F_0^TF_0}|p(\lambda)|.
+\]
+For completeness, the error candidates are $p(F_0^TF_0)x_*$: writing
+$p(\lambda)=1-\lambda p_1(\lambda)$ makes the corresponding iterate
+$p_1(F_0^TF_0)F_0^Tb$ belong to the Krylov space. Orthogonality to that
+space proves the energy-minimization statement by Pythagoras.
+On the interval $[\lambda_-,\lambda_+]$ containing the spectrum, use
+\[
+ p(\lambda)=
+ \frac{T_t((\lambda_-+\lambda_+-2\lambda)/(\lambda_+-\lambda_-))}{T_t((\lambda_-+\lambda_+)/(\lambda_+-\lambda_-))}.
+\]
+The recurrence for Chebyshev polynomials gives $|T_t|\le1$ on
+$[-1,1]$ and $T_t(s)=(w^t+w^{-t})/2$ for
+$w=s+\sqrt{s^2-1}>1$. Hence, with
+$\kappa=\kappa_2(F_0)$,
+\[
+ \frac{\|F_0(x_t-x_*)\|}{\|\Pi_{F_0}b\|}
+ \le2\left(\frac{\kappa-1}{\kappa+1}\right)^t
+ \le2e^{-2t/\kappa}.
+\]
+The case $\kappa=1$ terminates in one step. Thus
+$O_{c_\kappa}(m^{c_\kappa}\log(2+m))$ iterations suffice for the target
+$n^{-5c_\kappa}$, and finite termination also caps the count at $n$.
+No square root is used in the CG algorithm; the displayed polynomials
+only analyze it. For an arbitrary fixed real exponent $c_\kappa$,
+one may choose any fixed rational $c_\kappa'>c_\kappa$ in a counted iteration
+cap. The integer ceiling of $m^{c_\kappa'}$ is computable by integer
+bisection on a fixed-power inequality, so this uses only the stated
+Real-RAM operations. Taking $c_\kappa'$ arbitrarily close to $c_\kappa$ is enough
+for the exponent-gap comparison.
+
+Accordingly, the matching hypothesis is contradicted whenever
+$\gamma>\min\{2,1+c_\kappa\}$. Its necessary upper-bound-compatible range
+in this corollary is
+\begin{equation}
+ 3/2<\gamma\le\min\{2,1+c_\kappa\},\qquad \theta\ge2\gamma/3
+ \quad\hbox{conditionally on the matching hypothesis}.          \label{c:eq:gamma-range}
+\end{equation}
+For $c_\kappa\le1/2$ that range is empty; for $c_\kappa\ge1$ its displayed
+upper endpoint is two. Admissibility also requires consistency
+with any stronger algorithmic upper bound in the same model.
+No hardness assertion for any member of this range is made here.
+The finite-bit algorithms for sparse systems with short encoded
+inputs~\cite{pengvempala2021,nie2022}, including the recent
+$\widetilde O(mn\log(\kappa/\eta))$ result~\cite{kelner2026}, are
+consistent with this restriction; it is not substituted for the unrestricted-real,
+projection-relative arithmetic model above. The continuum construction
+and its quantitative realization are independent of accepting any
+sparse-system hardness hypothesis.
+
+\subsection{Interpretation of the consequence}
+
+The corollary concerns a uniform worst-case solver over the constructed
+family. It identifies the computational consequences of supporting every
+instance in that family with the stated dependence on conditioning and
+accuracy. An algorithm whose cost is $N$ times a polynomial in
+$\kappa_2(A)$ does not satisfy~\eqref{d:eq:maxwell-solver-model}: on these
+instances the condition number is allowed to grow polynomially with the
+input size. The distinction between polynomially bounded instances and
+polylogarithmic algorithmic dependence on their condition number must be
+retained when stating the result.
+
+The theorem leaves room for faster algorithms on additional restricted
+families, for instance when the admissible geometry or the conditioning
+assumption is stronger. It also does not measure the time required by an
+analog device to prepare a field, settle, or expose the prescribed output
+precision. Those questions require a physical resource model in addition
+to the linear-system realization proved here.

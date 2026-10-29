@@ -1,0 +1,34 @@
+import Maxwell.Continuum.PeriodicBandSeparatedJoint
+import Maxwell.Continuum.PeriodicBandRealResolvent
+import Maxwell.Continuum.CornerBridgeQuadratic
+
+#print axioms Maxwell.Continuum.ClusterComplement.inverseFromFinite
+#print axioms Maxwell.Continuum.ClusterComplement.boundedInverse_nonempty_iff_schur_isUnit
+#print axioms Maxwell.Continuum.ClusterComplement.boundedInverse_norm_le
+#print axioms Maxwell.Continuum.FiberAnalytic.analyticAt_fullResolventExtension
+#print axioms Maxwell.Continuum.FiberAnalytic.fullResolventExtension_eq_inverse
+#print axioms Maxwell.Continuum.RankOneBand.Data.highOperator_isUnit_wide
+#print axioms Maxwell.Continuum.RankOneBand.Data.highInverse_norm_le_wide
+#print axioms Maxwell.Continuum.RankOneBand.Data.kernel_nonzero_iff_bandRoot_wide
+#print axioms Maxwell.Continuum.PeriodicBand.actual_nonzero_iff_scaledBand_wide
+#print axioms Maxwell.Continuum.PeriodicBand.inverseAwayFromBand
+#print axioms Maxwell.Continuum.PeriodicBand.physical_gap_boundedInverse
+#print axioms Maxwell.Continuum.PeriodicBand.fullResolventExtension_norm_le_band
+#print axioms Maxwell.Continuum.PeriodicBand.fullResolvent_pole_formula
+#print axioms Maxwell.Continuum.PeriodicBand.tendsto_scaled_fullResolvent
+#print axioms Maxwell.Continuum.PeriodicBand.fullSpectralProjection_idempotent
+#print axioms Maxwell.Continuum.PeriodicBand.fullSpectralProjection_range
+#print axioms Maxwell.Continuum.PeriodicBand.fullSpectralProjection_finrank
+#print axioms Maxwell.Continuum.FreeFiber.material_bilinear_symmetric
+#print axioms Maxwell.Continuum.PeriodicBand.fullSpectralProjection_eq_bilinearProjection
+#print axioms Maxwell.Continuum.PeriodicBand.fullSpectralProjection_analytic
+#print axioms Maxwell.Continuum.PeriodicBand.fullSpectralProjection_norm_le
+#print axioms Maxwell.Continuum.PeriodicBand.fullSeparatedResolvent_norm_le
+#print axioms Maxwell.Continuum.PeriodicBand.fullSpectralProjection_norm_le_real
+#print axioms Maxwell.Continuum.PeriodicBand.actual_inverse_norm_le_real_band
+#print axioms Maxwell.Continuum.FreeFiber.material_resolvent_identity
+#print axioms Maxwell.Continuum.PeriodicBand.separatedDenominator_isUnit
+#print axioms Maxwell.Continuum.PeriodicBand.jointSeparatedResolvent_eq
+#print axioms Maxwell.Continuum.PeriodicBand.fullSeparatedResolvent_joint_analytic
+#print axioms Maxwell.Continuum.PeriodicBand.jointSeparatedResolvent_norm_le
+#print axioms Maxwell.Continuum.CornerBridge.affineCoefficient_identity

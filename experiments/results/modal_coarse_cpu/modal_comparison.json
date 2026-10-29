@@ -1,0 +1,131 @@
+{
+  "status": "computed",
+  "model": "Defect-polarization Birman-Schwinger matrix; full physical solve without a momentum or modal filter",
+  "mode_selection": "Maximum overlap with the fixed Bloch-envelope probe among positive single-site eigenvalues with material-admissible resonances",
+  "local_modes": [
+    {
+      "eigenvalue": 0.04074832367617831,
+      "probe_mode_overlap_squared": 0.4367450561976113,
+      "gap": 0.006326826223925497
+    },
+    {
+      "eigenvalue": 0.10975020127654472,
+      "probe_mode_overlap_squared": 0.03491062054568163,
+      "gap": 0.03488692423733168
+    },
+    {
+      "eigenvalue": 0.040748323676178644,
+      "probe_mode_overlap_squared": 0.4367450561975338,
+      "gap": 0.006326826223929993
+    }
+  ],
+  "compressed_dimension": 252,
+  "strengths": [
+    16.716659951489373,
+    13.965364037253327,
+    16.716659951489287
+  ],
+  "material_continuous_enclosure": [
+    4.772534429548964,
+    17.922249950755905
+  ],
+  "alpha": 0.009536119369458688,
+  "projected_background": [
+    [
+      0.04074832367617828,
+      -0.038144477477836,
+      0.023109080155836167
+    ],
+    [
+      -0.03814447747783601,
+      0.1097502012765448,
+      -0.038144477477833505
+    ],
+    [
+      0.023109080155836167,
+      -0.038144477477833505,
+      0.04074832367617859
+    ]
+  ],
+  "target_nearest_neighbor_matrix": [
+    [
+      0.019072238738917377,
+      0.038144477477836,
+      0.0
+    ],
+    [
+      0.03814447747783601,
+      -0.038144477477834754,
+      0.038144477477833505
+    ],
+    [
+      0.0,
+      0.038144477477833505,
+      0.019072238738917377
+    ]
+  ],
+  "measured_effective_matrix": [
+    [
+      0.15869992801853436,
+      -0.0962094135835001,
+      0.05998344020649178
+    ],
+    [
+      -0.09620941358350904,
+      0.11737820333597666,
+      -0.09620941358350296
+    ],
+    [
+      0.05998344020648873,
+      -0.09620941358351591,
+      0.15869992801855676
+    ]
+  ],
+  "predicted_terminal_schur": [
+    [
+      0.057216716216754636,
+      0.038144477477834754
+    ],
+    [
+      0.03814447747783476,
+      0.05721671621674963
+    ]
+  ],
+  "measured_terminal_schur": [
+    [
+      0.07984157954315968,
+      -0.018874908268877916
+    ],
+    [
+      -0.018874908268898913,
+      0.0798415795431741
+    ]
+  ],
+  "direct_to_neighbor_background_coupling_ratio": 0.6058302979576675,
+  "nearest_neighbor_worst_equation_residual": 2.321957573985241,
+  "all_pair_single_mode_worst_equation_residual": 1.9457552627860717,
+  "worst_terminal_equation_residual": 0.8067978393312706,
+  "relative_terminal_schur_error": 0.8067978393312706,
+  "outside_supports_energy_fraction": [
+    0.9895076102416471,
+    0.9937583788519841,
+    0.989507610241647
+  ],
+  "background_solve_residual": 1.3137420788976098e-12,
+  "physical_solve_residual": 3.7319858655312415e-12,
+  "compressed_symmetry_error": 4.2975614020026413e-13,
+  "woodbury_identity_relative_error": 3.869249055980479e-13,
+  "background_solver": {
+    "factor_seconds": 6.976813007029705,
+    "factor_nnz": 34980156,
+    "solver": "direct",
+    "backend_version": "1.18.1"
+  },
+  "physical_solver": {
+    "factor_seconds": 6.941756576998159,
+    "factor_nnz": 34990129,
+    "solver": "direct",
+    "backend_version": "1.18.1"
+  },
+  "total_seconds": 16.317288722028024
+}

@@ -1,0 +1,19 @@
+{
+  "command": [
+    "experiments/.venv/bin/python",
+    "experiments/maxwell.py",
+    "triple",
+    "--order",
+    "8",
+    "--solver",
+    "cudss",
+    "--strength",
+    "24",
+    "--h",
+    "0.16666666666666666",
+    "--output",
+    "results/gpu_suite/triple_o8_h0167"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 22.113013423979282
+}

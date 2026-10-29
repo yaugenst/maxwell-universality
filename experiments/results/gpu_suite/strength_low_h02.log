@@ -1,0 +1,2 @@
+No multithreading interface library was specified using the DirectSolverOptions. The performance of CPU operations like planning will be significantly lower than if you provide a multithreading library.
+{"case": "triple", "dof": 127310, "seconds": 10.29, "residual": 5.481012552874189e-14, "outside_center": 0.9852844969366296, "response_center": 0.04616129350840406, "rss_gib": 1.7265510559082031}

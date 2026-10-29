@@ -1,0 +1,61 @@
+{
+  "workers_requested": 6,
+  "logical_cpus": 9,
+  "memory": {
+    "MemTotal": "10206484 kB",
+    "MemAvailable": "8864420 kB",
+    "SwapTotal": "0 kB"
+  },
+  "verifier_processes": [
+    {
+      "pid": 21445,
+      "Name": "python",
+      "VmHWM": "45364 kB",
+      "VmRSS": "45364 kB",
+      "Threads": "3"
+    },
+    {
+      "pid": 21465,
+      "Name": "python",
+      "VmHWM": "114940 kB",
+      "VmRSS": "93148 kB",
+      "Threads": "1"
+    },
+    {
+      "pid": 21466,
+      "Name": "python",
+      "VmHWM": "114244 kB",
+      "VmRSS": "92540 kB",
+      "Threads": "1"
+    },
+    {
+      "pid": 21467,
+      "Name": "python",
+      "VmHWM": "115044 kB",
+      "VmRSS": "93320 kB",
+      "Threads": "1"
+    },
+    {
+      "pid": 21468,
+      "Name": "python",
+      "VmHWM": "115040 kB",
+      "VmRSS": "97920 kB",
+      "Threads": "1"
+    },
+    {
+      "pid": 21469,
+      "Name": "python",
+      "VmHWM": "115008 kB",
+      "VmRSS": "79916 kB",
+      "Threads": "1"
+    },
+    {
+      "pid": 21470,
+      "Name": "python",
+      "VmHWM": "114140 kB",
+      "VmRSS": "79148 kB",
+      "Threads": "1"
+    }
+  ],
+  "scope": "live resource snapshot during canonical global replay"
+}

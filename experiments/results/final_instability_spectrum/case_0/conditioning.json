@@ -1,0 +1,51 @@
+{
+  "case": "results/direct_refinement_b/conditioned_spd/h0.15384615",
+  "h": 0.15384615384615385,
+  "unknowns": 302991,
+  "scope": "Uncertified finite-matrix spectral estimate using shift-invert Lanczos over the full electric space. Rayleigh quotients and absolute eigen-residuals are independently evaluated with the assembled Maxwell matrix. It is not a continuum or asymptotic condition bound.",
+  "largest_eigenvalue": 828.8208246584628,
+  "largest_eigen_residual": 0.004909564058621166,
+  "nearest_eigenpairs": [
+    {
+      "rayleigh_eigenvalue": -8.357998195239435e-07,
+      "inverse_ritz_eigenvalue": -8.357998194946745e-07,
+      "absolute_eigen_residual": 7.456063194152964e-14,
+      "normalized_source_overlap": 0.013588618161700285
+    },
+    {
+      "rayleigh_eigenvalue": 0.0002444745688983699,
+      "inverse_ritz_eigenvalue": 0.0002444745688980508,
+      "absolute_eigen_residual": 1.818624701136651e-13,
+      "normalized_source_overlap": 0.0401568051653003
+    },
+    {
+      "rayleigh_eigenvalue": -0.004663158185759858,
+      "inverse_ritz_eigenvalue": -0.004663158185756685,
+      "absolute_eigen_residual": 1.9751682900232965e-12,
+      "normalized_source_overlap": 7.130725755098778e-15
+    },
+    {
+      "rayleigh_eigenvalue": 0.015170573260881554,
+      "inverse_ritz_eigenvalue": 0.015170573260891941,
+      "absolute_eigen_residual": 3.469039825944593e-12,
+      "normalized_source_overlap": 2.3244448799502265e-14
+    },
+    {
+      "rayleigh_eigenvalue": -0.020985157020318744,
+      "inverse_ritz_eigenvalue": -0.02098515702031552,
+      "absolute_eigen_residual": 1.72543940583266e-12,
+      "normalized_source_overlap": 8.212973939756911e-15
+    },
+    {
+      "rayleigh_eigenvalue": 0.02142599890716624,
+      "inverse_ritz_eigenvalue": 0.021425998907166854,
+      "absolute_eigen_residual": 7.460260088539167e-13,
+      "normalized_source_overlap": 0.05637886827348386
+    }
+  ],
+  "estimated_spectral_condition": 991649920.5880951,
+  "inverse_applications": 25,
+  "maximum_inverse_solve_relative_residual": 4.7066028017901586e-08,
+  "factor_nnz": 9736485053,
+  "wall_seconds": 48.88341762404889
+}

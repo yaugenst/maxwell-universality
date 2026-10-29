@@ -1,0 +1,21 @@
+{
+  "command": [
+    "experiments/.venv/bin/python",
+    "experiments/maxwell.py",
+    "triple",
+    "--order",
+    "8",
+    "--solver",
+    "cudss",
+    "--strength",
+    "24",
+    "--h",
+    ".2",
+    "--absorption",
+    ".01",
+    "--output",
+    "results/gpu_suite/absorption001_h02"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 15.080633672885597
+}

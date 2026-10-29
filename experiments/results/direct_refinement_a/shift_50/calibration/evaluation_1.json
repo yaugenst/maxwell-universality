@@ -1,0 +1,100 @@
+{
+  "target": [
+    [
+      2.5,
+      -0.6,
+      0.4
+    ],
+    [
+      -0.6,
+      2.0,
+      0.8
+    ],
+    [
+      0.4,
+      0.8,
+      3.0
+    ]
+  ],
+  "terminals": [
+    0,
+    1,
+    2
+  ],
+  "alpha": 0.018075568160970636,
+  "strengths": [
+    16.53069942159912,
+    27.6820767962244,
+    13.452170050400658,
+    4.816246988227723,
+    22.639379797380343,
+    7.99631767036672
+  ],
+  "nominal_source_decoder_strengths": [
+    16.50293367039324,
+    27.324898025565297,
+    13.48796607236684
+  ],
+  "h": 0.16666666666666666,
+  "unknowns": 237444,
+  "lengths": [
+    8.0,
+    6.0,
+    8.0
+  ],
+  "material_continuous_enclosure": [
+    4.772534429548964,
+    21.956201371808945
+  ],
+  "decoded_response_real": [
+    [
+      0.46143054154763063,
+      0.1825109624711921,
+      -0.1101892943493932
+    ],
+    [
+      0.18251096247119233,
+      0.6318938434801944,
+      -0.1928436112380402
+    ],
+    [
+      -0.11018929434939585,
+      -0.1928436112380404,
+      0.3994442330463911
+    ]
+  ],
+  "decoded_response_imag": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "worst_relative_equation_residual": 3.3863435924278165e-05,
+  "per_basis_relative_equation_residuals": [
+    1.8840874186351426e-05,
+    1.3469386724460646e-05,
+    2.769403941596207e-05
+  ],
+  "discrete_pde_relative_residuals": [
+    1.62048609371371e-13,
+    9.447792657828341e-14,
+    2.0387189602544353e-13
+  ],
+  "full_field_relative_residual_amplification_bound": 19.194597346761174,
+  "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+  "factor_seconds": 22.194410159252584,
+  "factor_nnz": 6668306278,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

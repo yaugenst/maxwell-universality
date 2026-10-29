@@ -1,0 +1,127 @@
+{
+  "prediction_source": "Single and nearest-pair devices only; no fit to triple response",
+  "single_inverse_real": [
+    21.44378414110099,
+    10.663956486255755,
+    21.443784141101006
+  ],
+  "predicted_inverse_real": [
+    [
+      23.998392048784453,
+      12.07537311070072,
+      0.0
+    ],
+    [
+      12.075373110700726,
+      18.86067481702141,
+      12.07537311070074
+    ],
+    [
+      0.0,
+      12.075373110700754,
+      23.99839204878448
+    ]
+  ],
+  "predicted_inverse_imag": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "actual_inverse_real": [
+    [
+      28.316176914039165,
+      6.913152278311037,
+      -15.02935780991935
+    ],
+    [
+      6.913152278310934,
+      13.840451646450454,
+      6.913152278311077
+    ],
+    [
+      -15.0293578099194,
+      6.913152278310998,
+      28.316176914039122
+    ]
+  ],
+  "actual_inverse_imag": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "predicted_terminal_schur_real": [
+    [
+      16.267245778713615,
+      -7.731146270070847
+    ],
+    [
+      -7.7311462700708615,
+      16.26724577871361
+    ]
+  ],
+  "predicted_terminal_schur_imag": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0
+    ]
+  ],
+  "actual_terminal_schur_real": [
+    [
+      24.86313393221038,
+      -18.482400791748205
+    ],
+    [
+      -18.482400791748162,
+      24.86313393221029
+    ]
+  ],
+  "actual_terminal_schur_imag": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0
+    ]
+  ],
+  "relative_inverse_prediction_error": 0.4463468451452795,
+  "relative_response_prediction_error": 0.1518010926522634,
+  "relative_terminal_schur_error": 0.44634684514527956,
+  "worst_case_three_port_equation_residual": 1.0556671276246385,
+  "worst_case_terminal_equation_residual": 0.4463468451452795,
+  "direct_terminal_to_neighbor_inverse_ratio": 2.1740238323798584,
+  "discrete_relative_residuals": [
+    2.754867877786259e-14,
+    3.407658797011026e-14,
+    2.7679020226187814e-14
+  ]
+}

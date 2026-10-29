@@ -1,0 +1,38 @@
+\setcounter{section}{0}
+\setcounter{equation}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{theorem}{0}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\theHsection}{si.\arabic{section}}
+\numberwithin{equation}{section}
+\renewcommand{\theHequation}{si.\theequation}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theHfigure}{si.\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theHtable}{si.\arabic{table}}
+\begin{center}
+{\LARGE\bfseries Supplementary Information}
+\end{center}
+\bigskip
+\contentsmargin{2em}
+\titlecontents{section}[3.2em]{\addvspace{0.2em}}{\contentslabel{3.2em}}{}{\titlerule*[0.6pc]{.}\contentspage}
+\titlecontents{part}[0em]{\addvspace{0.8em}\bfseries}{}{}{\hfill\contentspage}
+\startcontents[si]
+\begingroup\small
+\printcontents[si]{}{-1}{\setcounter{tocdepth}{1}}
+\endgroup
+\clearpage
+\input{si/s1_setting}
+\sipart{I}{Shared front end: algebraic compiler and routing}
+\input{si/part1_frontend}
+\sipart{II}{Continuum back end}
+\input{si/part2_continuum}
+\sipart{III}{Yee back end}
+\input{si/part3_yee}
+\sipart{IV}{Algorithm transfer and conditional hardness}
+\input{si/part4_transfer}
+\sipart{V}{Computer-assisted certificates and reproducibility}
+\input{si/part5_certificates}
+\sipart{VI}{Numerical illustrations}
+\input{si/part6_numerical}

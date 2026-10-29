@@ -1,0 +1,124 @@
+\section{Computer-assisted certificates and reproducibility}\label{d:sec:reproducibility}
+
+Two finite computer-assisted proofs enter the construction: the
+spectral certificate of the period-20 Yee background (Part~III) and the
+corner certificate of the continuum background (Part~II). Each checks
+finitely many exact inequalities; the analytic arguments of the
+respective part extend them to the infinite-dimensional operators. The
+logical compiler of Part~I uses no certificate. Its worked example in
+Figure~\ref{d:fig:overview} is an exact finite computation.
+
+\subsection{The Yee spectral certificate}\label{si:sec:yee-certificate}
+
+The spectral construction uses exact finite inequalities for the specified
+periodic Maxwell operator. Its certificate data comprise 604 bulk-gap
+matrices, 2056 global-comparator matrices, local point and neighborhood
+data, and a reciprocal-space cover. The matrix and local estimates enter
+the spectral assembly in Section~\ref{d:app:certificate}; the resulting
+band edge is the premise for the analytic defect and interaction proofs.
+
+The checker reconstructs the incidence and material operators, symmetry
+maps, interval inequalities and geometric coverage from the certificate
+inputs. Integer and rational operations are exact. Interval computations
+use outward bounds with their rounding errors included. Proposed
+enclosures are supplied as data arrays, and the required matrix
+inequalities are tested against the reconstructed operator.
+
+In summary, the Yee certificate checks:
+\begin{itemize}
+\item the exact integer material table~\eqref{d:eq:physical-exact-material},
+its primitive translations and its scalar inversion symmetry;
+\item the eigenvalue enclosures and inertia counts at the four
+inequivalent $\mathrm{L}$ points, the center ordering that selects $\mathrm{L}_{++-}$,
+and the two-mode cluster data;
+\item the local matrix inequalities~\eqref{d:eq:appendix-local-matrix-bounds}
+and the uniform inertia count on each radius-$1/20$ neighborhood;
+\item the bulk-gap and global-comparator interval matrices and the exact
+polytope cover of the irreducible wedge, which give the global
+margin~\eqref{d:eq:appendix-global-margin}.
+\end{itemize}
+All groups are needed for the global spectral conclusion.
+
+\paragraph{Status.} The checker has been run on the complete certificate data,
+and all finite inequalities listed above pass. The final step of the argument,
+i.e., a complete and independently verified binding of the checked point,
+center, derivative and global matrix data to the exact Yee operator, including
+the argument in the punctured neighborhoods of the selected band minimum, is
+being completed as part of an ongoing formal verification. Until this step is
+complete, Theorem~\ref{d:thm:main} and the Yee transfer
+Theorem~\ref{d:thm:algorithm-transfer} are conditional on it. The continuum
+results of Part~II do not depend on the Yee certificate.
+
+\subsection{The continuum corner certificate}\label{c:app:certificate}
+
+The continuum checker is a standard-library program in exact rational
+arithmetic. It represents $s+t\sqrt{19}$ by the exact rational pair
+$(s,t)$. Multiplication uses $\sqrt{19}^2=19$, and inversion uses
+$(s-t\sqrt{19})/(s^2-19t^2)$ after checking a nonzero denominator.
+It reconstructs the 24-component corner projection $P_\varsigma$ and the
+actual neighboring-wavevector coupling $-2^{j-2}P_\varsigma P_{\varsigma'}$.
+For each of the eight reflection parities it verifies its
+intertwining with~\eqref{c:eq:parityblock}, projection invariance,
+the Gram normalization, pairwise parity orthogonality, and the
+trace and trace-square identities
+for the two transverse roots. The velocity Gram identities are
+checked on the reconstructed corner vector, not assumed from a
+list of eigenvalues. It then checks the three exact Hessian
+coefficients~\eqref{c:eq:explicitA0} by inversion in
+$\Q(\sqrt{19})$.
+
+For the order and placement comparisons, rational interval
+arithmetic encloses all sixteen roots in~\eqref{c:eq:clusterroots},
+$\pi$, and the necessary square roots. Square-root endpoints are
+obtained by integer square root after scaling by $2^{440}$;
+rounding the lower endpoint down and the upper endpoint up
+rigorously encloses the true value. Machin's formula uses 128 terms
+of each alternating arctangent series and the next-term error.
+Logarithms use
+\[
+ \log s=2\sum_{j=0}^{127}\frac{w^{2j+1}}{2j+1}+R,
+ \qquad w=\frac{s-1}{s+1},\qquad
+ |R|\le\frac{2|w|^{257}}{257(1-w^2)}.
+\]
+This formula follows by integrating the geometric series and is
+used only for $s=2,3$. Every interval operation is exact rational
+endpoint arithmetic. Induction on the operations proves enclosure;
+no machine floating-point value enters the calculation.
+
+The accepted inequalities verify the cluster gap $>1/20$, the
+finite-contour perturbation inequalities in Lemma~\ref{c:lem:edge},
+the Hessian and quartic bounds used there, the fixed integer
+placement~\eqref{c:eq:Bmetric} including the $2^{-60}$ Hessian error,
+and the strict rate comparisons
+$2(.99)^2/(7/4)>\log3$, which with $\sqrt3<7/4$ gives
+$2(.99)^2/\sqrt3>\log3$, and
+$\log8-2(1.01)^2>1/50$. The verifier contains all its finite input
+data. It also checks the small-integer logarithmic inequality for the
+fixed majorant ledger of Section~\ref{c:app:ledger}. It uses no
+downloaded data, mesh eigensolver or special-function package.
+
+These finite algebraic inequalities enter the continuum estimates at the
+places specified above. The resolvent, auxiliary-mode, interaction,
+leakage and boundary arguments control their infinite-dimensional
+extensions. Sections~\ref{c:sec:parameters} and~\ref{c:sec:cost} give the
+terminating parameter choices and account for the complete encoding cost.
+
+\subsection{Rerunning the checks}
+
+The accompanying research materials contain both checkers, their
+complete input data, and the data behind the figures. The Yee checker
+has a single entry point that runs the matrix, local and coverage
+checks; an input manifest identifies the coefficient and enclosure data
+used by each check. The continuum checker requires only a standard
+Python interpreter and its standard library. It must be run with
+assertions enabled, and it refuses to run otherwise. On success it
+prints a final confirmation line stating that all exact rational checks
+passed and writes a receipt recording the rational intervals and exact
+algebraic identities. The receipt can be regenerated and is not a
+substitute for running the checks.
+
+The exact logical example in Figure~\ref{d:fig:overview} includes its sparse
+matrices, paths, residuals and decoded coordinates.
+Figures~\ref{d:fig:FIG-2} and~\ref{d:fig:FIG-3} use the material and spectral
+certificate data.
+The geometric and defect drawings are schematic.

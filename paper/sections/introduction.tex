@@ -1,0 +1,99 @@
+\section{Introduction}
+
+Solving large sparse systems of linear equations is the central task of
+scientific computing, and electromagnetics is no exception: discretizing
+Maxwell's equations with finite differences or finite elements turns the
+analysis and design of a photonic device into a sparse linear system with
+millions to billions of unknowns~\citep{yee1966,Oskooi2010,ShinFan2012}.
+Optical analog computing runs this correspondence in the opposite direction.
+Instead of computing the response of a given structure, one designs a structure
+whose response computes something else -- e.g., a derivative, a convolution or
+the solution of an equation~\citep{Silva2014,ZangenehNejad2021,McMahon2023}.
+Metamaterials and inverse-designed metastructures have been shown to solve
+integral equations~\citep{estakhri2019,Camacho2021,cordaro2023}, reconfigurable
+networks invert matrices~\citep{tzarouchis2022,chen2024}, and integrated
+photonic circuits solve differential equations~\citep{yang2014,ye2024}. These
+build on a broader effort to perform linear algebra with light, from universal
+interferometer meshes~\citep{reck1994,Miller2013SelfConfiguring,Carolan2015,Clements2016,Bogaerts2020}
+to optical neural networks and photonic tensor
+cores~\citep{Shen2017,Lin2018,Feldmann2021,Wetzstein2020,Shastri2021,Wright2022}.
+
+Mathematical constructions also establish the expressive power of
+electromagnetic networks. \citet{MiltonSeppecher2010} characterize
+terminal-response matrices at a fixed frequency, including arbitrary real
+symmetric matrices in the lossless case. Their continuum construction uses
+dielectric and magnetic elements with parameters tending to zero or infinity,
+and leaves the accuracy of approximations with finite material parameters
+open. Reconfigurable wave networks support general matrix inversion,
+including generalized inverses, with bounds on convergence
+time~\citep{tzarouchis2022}.
+
+Whether such devices can ever offer a computational advantage is decided by
+details that are easy to overlook in a demonstration: the cost of programming
+the device, the precision with which it must be built and read out, the
+sensitivity of the answer to imperfections, and the size of the structure as
+the problem grows~\citep{Aaronson2015FinePrint,McMahon2023}. The same questions
+were asked of analog computers long before the current interest in photonics,
+and they have a precise formulation in the theory of
+computation~\citep{Shannon1941,Vergis1986,BSS1989,SiegelmannSontag1994,BournezPouly2021}.
+Physical systems as simple as waves, rays and fluids can embed universal
+computation~\citep{PourElRichards1981,Moore1990,ReifTygarYoshida1994,Cubitt2015,Tao2016,Cardona2021},
+but these constructions establish what is computable in principle, not what a
+physical system computes efficiently. For optical equation solvers, the
+relevant question is quantitative: can general sparse systems be represented
+by a passive dielectric with fixed material bounds while controlling
+construction size, conditioning and precision?
+
+Electromagnetic simulation faces the same question from the other side. The
+linear systems produced by Maxwell solvers are highly structured -- local,
+three-dimensional and determined by a scalar material distribution -- and fast
+solvers exploit this structure wherever they
+can~\citep{George1973,LiptonRoseTarjan1979,EngquistYing2011CPAM,Martinsson2019}.
+However, time-harmonic wave problems are notoriously hard to solve
+iteratively~\citep{ErnstGander2012,GanderZhang2019,MoiolaSpence2014}, and it
+is not known whether their structure makes them fundamentally easier than
+general sparse systems. For other structured classes this question has sharp
+answers. Graph Laplacians can be solved in nearly linear
+time~\citep{SpielmanTeng2014}, whereas the stiffness matrices of trusses and
+multi-commodity flow problems are as hard as general sparse
+systems~\citep{kyngzhang2017,DingKyngProbstGutenbergZhang2022,DingKyngZhang2022}.
+To the best of our knowledge, no reduction from general sparse systems to
+continuum Maxwell equations with fixed permeability and bounded scalar
+permittivity has established explicit bounds on size, conditioning and
+precision.
+
+Both questions ask how expressive a dielectric is, i.e., which equations can be
+written into a material distribution, and at what cost. Here, we answer this
+question with an explicit compiler. Given a sparse system $Mx=b$ with $m$
+nonzero coefficients, polynomial condition number and coefficients of
+$O(\log m)$ bits, the compiler outputs a three-dimensional dielectric inside a
+perfectly conducting box, a source and a finite list of field measurements,
+such that every field approximately satisfying Maxwell's equations yields an
+approximate solution of $Mx=b$. The matrix may be nonsymmetric, its entries may
+have either sign and its sparsity pattern is arbitrary, while the dielectric is
+lossless, isotropic and has a permittivity between 1 and 25. The volume of the
+structure and the computational cost of encoding and decoding all scale as
+$\Ot(m^{3/2})$, where the tilde hides logarithmic factors. We prove this for
+the continuum Maxwell equations and give a computer-assisted construction with
+the same scaling for the Yee discretization~\citep{yee1966} used by
+finite-difference solvers.
+
+Physically, the construction is the familiar picture of coupled defect modes
+in a photonic crystal~\citep{Yariv1999,Busch2003,Joannopoulos2008}, made
+quantitative. Each unknown is carried by the amplitude of a localized mode,
+couplings between unknowns arise from the overlap of neighboring modes, and
+auxiliary modes mediate the signed and nonsymmetric couplings that a
+reciprocal dielectric can not provide directly. The proof controls everything
+this picture neglects -- the remaining field components, the unwanted
+couplings summed over the whole device, the finite boundary and near-resonances
+of the cavity -- tightly enough that the encoded equations survive. Read in
+reverse, the compiler turns any electromagnetic solver into a sparse linear
+solver. A solver that handles the resulting family of structures in time
+$N^\theta$, with $N$ the size of the structure, therefore solves sparse linear
+systems in time $\Ot(m^{3/2}+m^{3\theta/2})$.
+
+We first describe the compiler and its guarantees, then the physical mechanism
+that makes it work and the recovery of answers from approximate fields. We then
+discuss what the result implies for optical computing and for electromagnetic
+simulation. Methods summarizes the formal statements, and the \SI\ contains the
+complete proofs.

@@ -1,0 +1,31 @@
+{
+  "command": [
+    "experiments/.venv/bin/python",
+    "experiments/maxwell.py",
+    "gadget",
+    "--order",
+    "8",
+    "--solver",
+    "cudss",
+    "--strength",
+    "24",
+    "--h",
+    ".25",
+    "--radius",
+    "2",
+    "--separation",
+    "4",
+    "--lengths",
+    "8",
+    "8",
+    "14",
+    "--strength",
+    "6",
+    "--detuning",
+    ".075",
+    "--output",
+    "results/gpu_suite/radius2_h025"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 83.50612467480823
+}

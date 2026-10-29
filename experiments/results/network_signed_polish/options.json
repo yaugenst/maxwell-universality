@@ -1,0 +1,13 @@
+{
+  "spec": "network_fine.json",
+  "output": "results/network_signed_polish",
+  "background": "results/network_fine/background",
+  "targets": [
+    "signed_spd"
+  ],
+  "free_scale": true,
+  "starts": 1,
+  "max_evaluations": 400,
+  "dense_solver": "cupy",
+  "warm_start": "results/network_fine"
+}

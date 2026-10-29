@@ -1,0 +1,15 @@
+name = "maxwell_finite"
+version = "0.1.0"
+defaultTargets = ["Maxwell"]
+
+[leanOptions]
+autoImplicit = false
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "065356127b1dc0016f66b7283ce0ce2c4055aa55"
+
+[[lean_lib]]
+name = "Maxwell"
+moreLeanArgs = ["-j1", "-DwarningAsError=true"]

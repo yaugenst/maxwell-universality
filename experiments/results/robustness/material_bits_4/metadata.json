@@ -1,0 +1,70 @@
+{
+  "config": {
+    "lengths": [
+      6.0,
+      6.0,
+      10.0
+    ],
+    "h": 0.2,
+    "rho": 0.5,
+    "detuning": 0.3225344295489645,
+    "radius": 1.0,
+    "separation": 2.0,
+    "strength": 24.0,
+    "absorption": 0.0,
+    "order": 8,
+    "solver": "cudss",
+    "centers": null
+  },
+  "bloch_probe": {
+    "rho": 0.5,
+    "cutoff": 3,
+    "ec": 1.5725344295489645,
+    "corner_gap": 0.012871955050112405,
+    "eigen_residual": 9.242981679693056e-14
+  },
+  "unknowns": 127310,
+  "curl_nnz": 1946000,
+  "matrix_nnz": 17708310,
+  "centers": [
+    [
+      0.0,
+      0.0,
+      -2.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      2.0
+    ]
+  ],
+  "probe_gram": [
+    [
+      1.0000000000000016,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0000000000000013,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0000000000000013
+    ]
+  ],
+  "python": "3.12.13",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "threads": 2,
+  "code_sha256": "39dd090513d82b299d20e393f0a1174b763a38a7fc3712fd1248a784b3f6be37",
+  "scope": "Numerical compact-parameter continuum experiment via Yee refinement; no proof certificate or physical momentum filter",
+  "material_sampling": "continuous scalar material at each electric edge"
+}

@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "label": "point",
+      "exit_code": 0,
+      "json": "point.json"
+    },
+    {
+      "label": "lppm",
+      "exit_code": 0,
+      "json": "lppm.json"
+    },
+    {
+      "label": "lppp",
+      "exit_code": 0,
+      "json": "lppp.json"
+    },
+    {
+      "label": "lpmp",
+      "exit_code": 0,
+      "json": "lpmp.json"
+    },
+    {
+      "label": "lmpp",
+      "exit_code": 0,
+      "json": "lmpp.json"
+    }
+  ]
+}

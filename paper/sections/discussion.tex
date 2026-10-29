@@ -1,0 +1,124 @@
+\section{Discussion}
+
+The compiler shows that a lossless, isotropic dielectric of bounded contrast is
+expressive enough to represent every polynomially conditioned sparse linear
+system, at the price of a polynomial increase in size. Locality, reciprocity
+and a scalar, positive permittivity restrict which couplings a structure can
+realize directly, but they do not restrict which equations it can encode once
+auxiliary modes and space are available. In this sense, the material
+distribution becomes a program: the compiler specifies the structure together
+with its source, its readout and the accuracy to which its response must be
+known.
+
+For optical computing, the result complements electromagnetic circuit theory
+and reconfigurable equation solvers (\cref{tab:prior}).
+\citet{MiltonSeppecher2010} establish which terminal responses ideal circuits
+can realize, while \citet{tzarouchis2022} give general matrix-inversion
+architectures and convergence bounds. Here, the compiler realizes sparse
+systems in a continuum dielectric with fixed permeability and bounded scalar
+permittivity, and controls errors from the electromagnetic problem through to
+the recovered solution. It accounts for the costs that decide whether an
+analog solver can be useful as the problem
+grows~\citep{Aaronson2015FinePrint,McMahon2023}: programming the structure,
+its size, the precision of every coefficient and the readout. The construction
+retains the full sparse input class while requiring only logarithmic precision
+per coefficient. The same accounting has
+been decisive for quantum linear-system
+algorithms~\citep{HHL2009,ChildsKothariSomma2017,Aaronson2015FinePrint}, whose
+application to electromagnetic scattering and finite-element problems yields at
+most polynomial speedups once input and output are
+included~\citep{clader2013,MontanaroPallister2016}. Unlike optical Ising
+machines, which target NP-hard
+optimization~\citep{Inagaki2016,Pierangeli2019,Mohseni2022}, the problem here
+is solvable in polynomial time, and the relevant question is the exponent.
+
+\begin{table}[tbp]
+\centering
+\caption{\textbf{Physical linear-equation solvers and electromagnetic response
+synthesis.} The problem column describes the scope of each construction or
+architecture; the example column gives the largest reported size $n$ in
+experiment (expt.) or simulation (sim.), where available. The table also lists
+the physical mechanism -- an iterative feedback loop or a stationary
+response -- together with hardware scaling where stated, and the treatment of
+accuracy and input and output costs. Theoretical constructions are marked as
+such. This work gives a sparse-system reduction with bounds on size, encoding
+and decoding cost and accuracy. The numerical illustrations in
+\cref{fig:numerical} concern small restricted systems; physical fabrication
+remains a separate step.}
+\label{tab:prior}
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{25mm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{19mm}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{32mm}@{}}
+\toprule
+Work & Problem & Largest example & Mechanism & Accuracy and I/O \\
+\midrule
+\citet{MiltonSeppecher2010} & Prescribed symmetric terminal response & -- (theory) & Stationary, dielectric and magnetic elements & Ideal material limits; finite-parameter approximation open \\
+\citet{estakhri2019} & Integral equation, kernel fixed in the structure & 5 (expt.) & Feedback loop, Neumann series & Measured accuracy \\
+\citet{Camacho2021} & Several fixed kernels, nonsymmetric & 5 (expt.) & Feedback loop & Measured accuracy \\
+\citet{cordaro2023} & Integral equation, fixed symmetric kernel & 3 (expt.) & Feedback in free space & Fit to simulation \\
+\citet{tzarouchis2022} & Programmable complex matrix, generalized inverse & 11 (sim.) & Iteration, $2n^2$ active elements & Convergence time in $\kappa$, $\epsilon$ \\
+\citet{chen2024} & Programmable matrix, Richardson iteration & 4 (expt.), 16 by blocking & Iteration, $n^2$ interferometers & Accuracy metric; I/O traffic counted \\
+\citet{ye2024} & Fixed diffusion operator on a mesh & $5\times5$ (expt.) & Stationary, one node per grid point & Comparison with simulation \\
+\citet{Sun2019PNAS} & Programmable matrix, signs by differences & 4 (expt.), 100 (sim.) & Stationary electronic feedback, $\sim n^2$ cells & Empirical, grows with $\kappa$ \\
+\midrule
+This work & Any sparse nonsingular system, signed and nonsymmetric & -- (theory) & Stationary response, volume $\Ot(m^{3/2})$ & Residual guarantee; encoding and decoding $\Ot(m^{3/2})$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+For electromagnetic simulation, the result places a limit on what general
+solvers can achieve. Fast Maxwell solvers exploit structure beyond locality and
+a bounded permittivity, e.g., smooth or piecewise-constant geometry, absorbing
+boundaries, moderate quality factors or a small number of distinct
+materials~\citep{EngquistYing2011CPAM,Martinsson2019,ShinFan2013}. The
+constructed structures have none of these properties. They are closed,
+lossless cavities with polynomially many weakly coupled resonant modes, and a
+solver that is fast on all of them is, by \cref{eq:transfer}, a fast sparse
+linear solver. Inverse design operates in exactly this space of permittivity
+distributions~\citep{JensenSigmund2011,Molesky2018}, so an optimizer can, in
+principle, produce instances that are as hard to simulate as general sparse
+systems. In practice, the difficulty of a given device will depend on how far
+it is from this worst case, which the present construction does not quantify.
+
+The exponent $3/2$ coincides with the volume needed to embed a general network
+with wires of finite thickness in three
+dimensions~\citep{KolmogorovBarzdin1967,GromovGuth2012}. This suggests that the
+exponent is natural for any construction that routes couplings through local
+paths, but it is not a proof of optimality, since wave-mediated couplings
+need not behave like wires. A compiler with nearly linear size would strengthen
+the consequence for simulation to $\theta<\gamma$. Conversely, a lower bound on
+the volume needed to encode general systems would identify a property of
+Maxwell's equations that makes them easier than general sparse linear algebra.
+
+The construction is a mathematical existence proof with deliberately
+conservative constants. The modulation of the background is
+$2^{-100}$, the proven bounds contain large powers of logarithms, and the fixed
+constants are astronomically large -- e.g., the additive constant in the
+$O(\log m)$ coefficient length has on the order of $2^{2^{50}}$ bits. As such,
+the bounds describe the asymptotic scaling and not the size of any realistic
+instance, and the permittivity must be specified to a precision that grows with
+the problem size.
+The model is an ideal lossless cavity at a single frequency. The theorem
+relates the stationary response to the algebraic answer but does not address
+the time or energy needed to reach and measure that response, nor fabrication
+errors, material dispersion, absorption or detector noise. The result
+therefore establishes what a dielectric can represent and what a solver must
+handle, not a practical speed or energy advantage for optical computing.
+The numerical examples use practical parameter choices: the periodic cavity
+illustrates signed encoding after whole-device calibration, while the waveguide
+illustrates reusable local assembly in a chain with exact transverse symmetry.
+Their scope is the encoding mechanism at small sizes; the general
+three-dimensional construction and its asymptotic resource bounds follow from
+the analysis. Reusable junctions that preserve
+their calibrated response in branching networks would connect the two numerical
+settings more closely. Other wave platforms -- acoustic, elastic or quantum --
+may admit similar compilers with their own interaction and stability analyses.
+
+In summary, we have shown that sparse linear systems and electromagnetic
+fields can be translated into each other at a cost of $\Ot(m^{3/2})$, with
+every source of error accounted for. The same construction specifies how
+general equations can be written into a passive dielectric and which
+algebraic difficulty a general-purpose Maxwell solver inherits, providing a
+common, quantitative reference point for computing with light and computing
+light.

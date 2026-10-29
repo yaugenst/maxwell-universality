@@ -1,0 +1,21 @@
+{
+  "verified": "finite geometry only; no spectrum/coupling claim",
+  "high_cells_per_conventional_period": 3928,
+  "air_cells_in_defect": 392,
+  "affected_electric_edges": 1588,
+  "changed_incidence_histogram": {
+    "1": 191,
+    "2": 482,
+    "3": 111,
+    "4": 804
+  },
+  "edge_material_values": [
+    "1",
+    "15/4",
+    "13/2",
+    "37/4",
+    "12"
+  ],
+  "changed_incidence_total": 4704
+}
+PASS: independent exact scalar geometry and edge-incidence counts

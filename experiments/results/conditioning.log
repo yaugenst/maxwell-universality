@@ -1,0 +1,32 @@
+No multithreading interface library was specified using the DirectSolverOptions. The performance of CPU operations like planning will be significantly lower than if you provide a multithreading library.
+Traceback (most recent call last):
+  File "experiments/conditioning.py", line 84, in <module>
+    main()
+  File "experiments/conditioning.py", line 79, in main
+    rows.append(measure(case,args.output/f"case_{index}"))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "experiments/conditioning.py", line 45, in measure
+    inverse_values,vectors=eigsh(op,k=6,which="LM",tol=1e-8,ncv=24,maxiter=1000,
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "experiments/.venv/lib/python3.12/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py", line 1787, in eigsh
+    params.iterate()
+  File "experiments/.venv/lib/python3.12/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py", line 636, in iterate
+    self.workd[yslice] = self.OP(self.workd[xslice])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "experiments/.venv/lib/python3.12/site-packages/scipy/sparse/linalg/_interface.py", line 391, in matvec
+    return self._shared_matvec(x)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "experiments/.venv/lib/python3.12/site-packages/scipy/sparse/linalg/_interface.py", line 353, in _shared_matvec
+    y = self._rmatvec(x) if adjoint else self._matvec(x)
+                                         ^^^^^^^^^^^^^^^
+  File "experiments/.venv/lib/python3.12/site-packages/scipy/sparse/linalg/_interface.py", line 891, in _matvec
+    return self.__matvec_impl(x)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "experiments/conditioning.py", line 40, in inverse
+    solver.reset_operands(b=rhs)
+  File "experiments/.venv/lib/python3.12/site-packages/nvmath/internal/utils.py", line 601, in inner
+    result = wrapped_function(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "experiments/.venv/lib/python3.12/site-packages/nvmath/sparse/advanced/direct_solver.py", line 1419, in reset_operands
+    raise TypeError(f"The strides of 'b' ({strides}) don't match the original one ({self.rhs_strides}).")
+TypeError: The strides of 'b' ((1, 1)) don't match the original one ((1, 127310)).

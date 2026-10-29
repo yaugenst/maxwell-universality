@@ -1,0 +1,100 @@
+{
+  "target": [
+    [
+      2.0,
+      -0.6,
+      0.4
+    ],
+    [
+      -0.6,
+      1.5,
+      0.8
+    ],
+    [
+      0.4,
+      0.8,
+      2.5
+    ]
+  ],
+  "terminals": [
+    0,
+    1,
+    2
+  ],
+  "alpha": 0.019234963427837336,
+  "strengths": [
+    17.588296706587585,
+    29.368969505301372,
+    13.221308896614655,
+    9.208463380368773,
+    20.8144988864928,
+    9.806423797866556
+  ],
+  "nominal_source_decoder_strengths": [
+    17.588296706587585,
+    29.368969505301372,
+    13.221308896614655
+  ],
+  "h": 0.16666666666666666,
+  "unknowns": 237444,
+  "lengths": [
+    8.0,
+    6.0,
+    8.0
+  ],
+  "material_continuous_enclosure": [
+    4.772534429548964,
+    22.576774518940365
+  ],
+  "decoded_response_real": [
+    [
+      0.659535853658153,
+      0.3847479960187393,
+      -0.2265902144204428
+    ],
+    [
+      0.38474799601874765,
+      1.0269248420816843,
+      -0.3880012423148812
+    ],
+    [
+      -0.2265902144204334,
+      -0.3880012423148696,
+      0.5578152318634734
+    ]
+  ],
+  "decoded_response_imag": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "worst_relative_equation_residual": 0.010727476759393331,
+  "per_basis_relative_equation_residuals": [
+    0.005677211372388898,
+    0.005809568887332007,
+    0.007058439245475674
+  ],
+  "discrete_pde_relative_residuals": [
+    2.9674494712208556e-13,
+    2.1135013442734682e-13,
+    4.2120753789070306e-13
+  ],
+  "full_field_relative_residual_amplification_bound": 27.30682782278186,
+  "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+  "factor_seconds": 22.262252680957317,
+  "factor_nnz": 6668306278,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

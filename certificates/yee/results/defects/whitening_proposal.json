@@ -1,0 +1,31 @@
+{
+  "certified_actual_hessian": false,
+  "basis": [
+    [
+      49,
+      22,
+      -22
+    ],
+    [
+      22,
+      56,
+      -19
+    ],
+    [
+      -22,
+      -19,
+      58
+    ]
+  ],
+  "determinant": 104679,
+  "proposed_loewner_factors": [
+    9500,
+    10500
+  ],
+  "metric_eigenvalues_numerical": [
+    9516.616869729894,
+    9953.319719823741,
+    10404.078693814312
+  ],
+  "comment": "Integer basis; metric estimates conditional on future exact Hessian enclosure."
+}

@@ -1,0 +1,42 @@
+{
+  "scope": "Numerically enumerated positive central-defect resonances within the conservative material-strength interval for this finite grid and cavity; not an infinite-medium or continuum certificate",
+  "compressed_dimension": 768,
+  "maximum_strength": 35.955979296724706,
+  "background_solve_relative_residual": 8.522304366286473e-15,
+  "compressed_symmetry_error": 6.731772044121834e-15,
+  "modes": [
+    {
+      "eigenvalue": 0.07529994910340623,
+      "resonant_strength": 13.280221459734884,
+      "inside_single_defect_energy_fraction": 0.028775310142212344,
+      "bloch_probe_overlap_squared": 0.0010201254406287349,
+      "absolute_residual_per_unit_field": 4.9595504660267124e-14
+    },
+    {
+      "eigenvalue": 0.21191755466029416,
+      "resonant_strength": 4.718816247209956,
+      "inside_single_defect_energy_fraction": 0.01947801390639046,
+      "bloch_probe_overlap_squared": 4.739238617718217e-34,
+      "absolute_residual_per_unit_field": 5.029639638091379e-14
+    },
+    {
+      "eigenvalue": 0.12098293961124465,
+      "resonant_strength": 8.265628221741903,
+      "inside_single_defect_energy_fraction": 0.018186349056200018,
+      "bloch_probe_overlap_squared": 3.5241514021995553e-34,
+      "absolute_residual_per_unit_field": 8.020893321992309e-14
+    },
+    {
+      "eigenvalue": 0.04386207108801068,
+      "resonant_strength": 22.798741035129584,
+      "inside_single_defect_energy_fraction": 0.011318639513464885,
+      "bloch_probe_overlap_squared": 1.6024926946070746e-29,
+      "absolute_residual_per_unit_field": 5.4562074555962347e-14
+    }
+  ],
+  "total_seconds": 10.228851953987032,
+  "factor_seconds": 4.759775721933693,
+  "factor_nnz": 941713440,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

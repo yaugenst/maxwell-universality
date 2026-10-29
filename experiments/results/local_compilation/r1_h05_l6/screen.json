@@ -1,0 +1,61 @@
+{
+  "scope": "Complete admissible finite-grid single-defect mode enumeration; not a continuum or infinite-medium certificate.",
+  "config": {
+    "lengths": [
+      6.0,
+      6.0,
+      6.0
+    ],
+    "h": 0.5,
+    "rho": 0.5,
+    "detuning": 0.3,
+    "radius": 1.0,
+    "separation": 2.0,
+    "strength": 16.0,
+    "absorption": 0.0,
+    "order": 8,
+    "solver": "cudss",
+    "centers": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "support_coordinates": 84,
+  "unknowns": 4356,
+  "maximum_strength": 35.955979296724706,
+  "modes": [
+    {
+      "eigenvalue": 0.21170070397176655,
+      "strength": 4.723649856796721,
+      "inside_fraction": 0.01314960158778743,
+      "bloch_overlap_squared": 5.4368278050134e-33,
+      "absolute_eigen_residual": 4.362288042538666e-15,
+      "index": 1
+    },
+    {
+      "eigenvalue": 0.2561728411556291,
+      "strength": 3.903614432696571,
+      "inside_fraction": 0.011233512165312827,
+      "bloch_overlap_squared": 3.0499279025704433e-33,
+      "absolute_eigen_residual": 3.77629593928744e-15,
+      "index": 2
+    },
+    {
+      "eigenvalue": 0.03388282840508894,
+      "strength": 29.513474732522855,
+      "inside_fraction": 0.00698631025912298,
+      "bloch_overlap_squared": 1.7578473621687473e-29,
+      "absolute_eigen_residual": 2.1006620868888247e-14,
+      "index": 0
+    }
+  ],
+  "background_relative_residual": 1.4342466202544953e-14,
+  "symmetry_error": 2.8091738643027982e-14,
+  "wall_seconds": 2.8212345018982887,
+  "peak_rss_gib": 0.7441864013671875,
+  "factor_nnz": 12857614,
+  "factor_seconds": 2.656513372901827
+}

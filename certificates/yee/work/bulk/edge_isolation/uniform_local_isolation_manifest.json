@@ -1,0 +1,16 @@
+{
+  "scope": "Uniform two-band isolation only",
+  "files": {
+    "verify_uniform_local_isolation.py": "2e89098faec5ed7ee57a2f2069e1fd031e8449a0886be3792924bae5446e2a20",
+    "verify_point.py": "02ca53cd223719ccdcda5e8989a5fc0dda447ed8b88f0606475dcddf32f05114",
+    "interval_tools.py": "1d160b28a9f00f554432e7949483dc21c1738bdba1a2e03cad87a60090f58582",
+    "interval_kernel.cpp": "6cfa679e3f06d47dcaa1381ec7603652ce9ddc371e74030daaf8ae23fa582fd3",
+    "exact_geometry.py": "7f5ba3dc39978079c5b486d7453a6ac230095e9f0c9e6609ae7bfd5fb4e2df57",
+    "upper_7over256_proposal.json": "822e34310e4710c787a752587ebb1f8fd232d8deca47dba8e0bc1e69c9d31746",
+    "uniform_local_isolation_acceptance.json": "df3aba5a65ce5033e42c31892adee5c7b55e37a599052382069561dbadc4b9f0",
+    "uniform_local_isolation_proposal.json": "6da9f130d06491d089f63a8d243c3317631c9f51a7aa614fc4bbe37a161bb13e",
+    "uniform_local_isolation.log": "c85c649553d8770372b0883187f3d546405841de60ca25ae46e703b09d131547",
+    "witnesses/upper_7over256.npz": "169f6c78d24655e53d2fac63a298106b4a79b7514c3e1d9f57d1c556a69172d1",
+    "witnesses/upper_7over256_full_box.npz": "11eb88e38a46f41466713b27d6f11c74679155e18d9ed2ea5e5d1836eb0ca603"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "status": "computed",
+  "model": "Defect-polarization Birman-Schwinger matrix; full physical solve without a momentum or modal filter",
+  "mode_selection": "Maximum overlap with the fixed Bloch-envelope probe among positive single-site eigenvalues with material-admissible resonances",
+  "local_modes": [
+    {
+      "eigenvalue": 0.032107418089005184,
+      "probe_mode_overlap_squared": 0.5226820782646789,
+      "gap": 0.006088066506585055
+    },
+    {
+      "eigenvalue": 0.07502321800635851,
+      "probe_mode_overlap_squared": 0.030074962245362696,
+      "gap": 0.03125555141518441
+    },
+    {
+      "eigenvalue": 0.03210741808900517,
+      "probe_mode_overlap_squared": 0.5226820782646792,
+      "gap": 0.006088066506585041
+    }
+  ],
+  "compressed_dimension": 4482,
+  "strengths": [
+    8.481958097187785,
+    19.448630553396995,
+    8.48195809718778
+  ],
+  "material_continuous_enclosure": [
+    4.772534429548964,
+    18.927285769082488
+  ],
+  "alpha": 0.042894943409436816,
+  "projected_background": [
+    [
+      0.03210741808900523,
+      -0.03182083991761516,
+      0.016265123052734608
+    ],
+    [
+      -0.03182083991761517,
+      0.07502321800635856,
+      -0.031820839917615126
+    ],
+    [
+      0.016265123052734608,
+      -0.031820839917615126,
+      0.03210741808900522
+    ]
+  ],
+  "target_nearest_neighbor_matrix": [
+    [
+      0.08578988681887359,
+      0.03182083991761516,
+      0.0
+    ],
+    [
+      0.03182083991761517,
+      -0.023605716025719876,
+      0.031820839917615126
+    ],
+    [
+      0.0,
+      0.031820839917615126,
+      0.08578988681887367
+    ]
+  ],
+  "measured_effective_matrix": [
+    [
+      0.08738054467973959,
+      0.0467357983984488,
+      -0.039914339272613994
+    ],
+    [
+      0.04673579839844903,
+      -0.0448020462888191,
+      0.046735798398448915
+    ],
+    [
+      -0.039914339272614216,
+      0.04673579839844888,
+      0.08738054467973987
+    ]
+  ],
+  "predicted_terminal_schur": [
+    [
+      0.12868483022831045,
+      0.042894943409436795
+    ],
+    [
+      0.0428949434094368,
+      0.12868483022831043
+    ]
+  ],
+  "measured_terminal_schur": [
+    [
+      0.13613356006344904,
+      0.008838676111095324
+    ],
+    [
+      0.008838676111095317,
+      0.1361335600634493
+    ]
+  ],
+  "terminal_target_matrix": [
+    [
+      3.0,
+      1.0
+    ],
+    [
+      1.0,
+      3.0
+    ]
+  ],
+  "test_right_hand_sides": [
+    [
+      1.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0,
+      -1.0,
+      1.0
+    ]
+  ],
+  "decoded_solutions": [
+    [
+      0.3164284426875569,
+      -0.02054459250129113,
+      0.336973035188848,
+      0.29588385018626573
+    ],
+    [
+      -0.02054459250129106,
+      0.3164284426875564,
+      -0.3369730351888474,
+      0.2958838501862653
+    ]
+  ],
+  "decoded_relative_equation_residuals": [
+    0.26457173729330713,
+    0.26457173729330685,
+    0.32605392962230445,
+    0.18353540074506203
+  ],
+  "source_and_decoder": "r_terminals=alpha*b, r_mediator=0; f=B*V*r; x=(V*r+V*B.T*E)_terminals",
+  "target_schur_identity_error": 1.9479066895731616e-16,
+  "direct_to_neighbor_background_coupling_ratio": 0.5111468803100536,
+  "nearest_neighbor_worst_equation_residual": 0.6577621351087041,
+  "all_pair_single_mode_worst_equation_residual": 0.5373160031734169,
+  "worst_terminal_equation_residual": 0.32605392962230445,
+  "relative_terminal_schur_error": 0.2862961780041026,
+  "outside_supports_energy_fraction": [
+    0.9631632494083916,
+    0.9331935904068915,
+    0.9631632494083904
+  ],
+  "background_solve_residual": 1.0082254456290204e-14,
+  "physical_solve_residual": 5.651066140563386e-14,
+  "compressed_symmetry_error": 9.93171837550851e-15,
+  "woodbury_identity_relative_error": 1.6490600820559599e-15,
+  "background_solver": {
+    "factor_seconds": 11.842017523013055,
+    "factor_nnz": 2512490988,
+    "solver": "cudss",
+    "backend_version": "1.0.0"
+  },
+  "physical_solver": {
+    "factor_seconds": 8.871329593006521,
+    "factor_nnz": 2512490988,
+    "solver": "cudss",
+    "backend_version": "1.0.0"
+  },
+  "total_seconds": 112.61710951197892
+}

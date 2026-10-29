@@ -1,0 +1,195 @@
+<div id="maxwell-device-explorer">
+  <style>
+    #maxwell-device-explorer .device-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:end; }
+    #maxwell-device-explorer .device-controls > label { flex:1 1 180px; }
+    #maxwell-device-explorer .device-stage { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 4px; }
+    #maxwell-device-explorer canvas { display:block; width:100%; touch-action:pan-y; cursor:grab; }
+    #maxwell-device-explorer canvas:active { cursor:grabbing; }
+    #maxwell-device-explorer .device-legend { display:flex; flex-wrap:wrap; gap:8px 18px; align-items:center; }
+    #maxwell-device-explorer .device-scale { display:inline-block; width:100px; height:10px; background:linear-gradient(to right,var(--background),var(--viz-series-1)); }
+    #maxwell-device-explorer .device-values { display:flex; flex-wrap:wrap; gap:8px 24px; padding:10px 0; }
+    #maxwell-device-explorer .device-value { min-width:90px; }
+    #maxwell-device-explorer .device-dot { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; }
+    #maxwell-device-explorer .device-detail { margin-top:6px; }
+  </style>
+  <div class="device-controls">
+    <label class="form-label">Input b
+      <select class="form-select" id="md-input">
+        <option value="0">Drive T1 · (1, 0, 0)</option>
+        <option value="1">Drive T2 · (0, 1, 0)</option>
+        <option value="2">Drive T3 · (0, 0, 1)</option>
+        <option value="3">Mixed drive · (1, −0.6, 0.8)</option>
+      </select>
+    </label>
+    <label class="form-label">Camera
+      <select class="form-select" id="md-view">
+        <option value="3d">3D cutaway</option>
+        <option value="front">Front section</option>
+      </select>
+    </label>
+  </div>
+  <div class="device-stage" role="group" aria-label="Device walkthrough stage">
+    <button class="btn" type="button" data-stage="0" aria-pressed="true">1 · Material</button>
+    <button class="btn" type="button" data-stage="1" aria-pressed="false">2 · Source</button>
+    <button class="btn" type="button" data-stage="2" aria-pressed="false">3 · Field</button>
+    <button class="btn" type="button" data-stage="3" aria-pressed="false">4 · Readout</button>
+  </div>
+  <canvas id="md-canvas" role="img" aria-label="Three-dimensional PEC cavity with six smooth dielectric defects and a computed central field section. Drag horizontally to rotate."></canvas>
+  <div class="device-legend text-small">
+    <span id="md-scale-label">Permittivity ε</span>
+    <span><span id="md-scale" class="device-scale"></span> <span id="md-scale-range" class="tabular-nums">4.77 → 21.23</span></span>
+    <span>Central section y = 0</span>
+  </div>
+  <div class="device-values tabular-nums" id="md-values" aria-live="polite"></div>
+  <div class="device-detail text-small text-muted" id="md-detail"></div>
+  <script type="application/json" id="md-data">__DEVICE_DATA__</script>
+  <script>
+  (() => {
+    const root=document.getElementById('maxwell-device-explorer');
+    const data=JSON.parse(root.querySelector('#md-data').textContent);
+    const canvas=root.querySelector('#md-canvas'), ctx=canvas.getContext('2d');
+    const input=root.querySelector('#md-input'), view=root.querySelector('#md-view');
+    const stageButtons=[...root.querySelectorAll('[data-stage]')];
+    const names=['T1','T2','T3','A1','A2','A3'];
+    const inputs=[[1,0,0],[0,1,0],[0,0,1],[1,-.6,.8]];
+    let stage=0, inputIndex=0, yaw=.32, pitch=.18, drag=null;
+    const saved=window.openai?.widgetState?.modelContent;
+    if(saved && Number.isInteger(saved.stage) && saved.stage>=0 && saved.stage<4) stage=saved.stage;
+    if(saved && Number.isInteger(saved.input) && saved.input>=0 && saved.input<4) inputIndex=saved.input;
+    const savedView=window.openai?.widgetState?.privateContent;
+    if(savedView && Number.isFinite(savedView.yaw)) yaw=Math.max(-1.05,Math.min(1.05,savedView.yaw));
+    if(savedView?.view==='front') view.value='front';
+    input.value=String(inputIndex);
+    const probe=document.createElement('span');probe.hidden=true;root.appendChild(probe);
+    const sampler=document.createElement('canvas');sampler.width=sampler.height=1;
+    const sampleCtx=sampler.getContext('2d',{willReadFrequently:true});
+    function color(token) {
+      probe.style.color=`var(${token})`;
+      sampleCtx.fillStyle=getComputedStyle(probe).color;sampleCtx.fillRect(0,0,1,1);
+      return [...sampleCtx.getImageData(0,0,1,1).data].slice(0,3);
+    }
+    const rgb=(c,a=1)=>`rgba(${c[0]},${c[1]},${c[2]},${a})`;
+    const mix=(a,b,t)=>a.map((q,i)=>Math.round(q+(b[i]-q)*t));
+    const fmt=q=>(q>=0?'+':'−')+Math.abs(q).toFixed(5);
+    function remember() {
+      window.openai?.setWidgetState({modelContent:{stage,input:inputIndex},privateContent:{yaw,pitch,view:view.value}}).catch(()=>{});
+    }
+    function draw() {
+      const b=inputs[inputIndex], isFront=view.value==='front';
+      const width=root.clientWidth, height=Math.min(475,Math.max(310,width*.64));
+      const dpr=window.devicePixelRatio||1;
+      canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+      canvas.style.height=height+'px';ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
+      const bg=color('--background'), ink=color('--foreground'), muted=color('--muted-foreground'), border=color('--border');
+      const palette=[1,2,5].map(i=>color('--viz-series-'+i));
+      const tone=stage===1?palette[1]:palette[0];
+      const yAngle=isFront?0:yaw, pAngle=isFront?0:pitch;
+      function rotate([x,y,z]) {
+        const horizontal=x*Math.cos(yAngle)+y*Math.sin(yAngle), depth=-x*Math.sin(yAngle)+y*Math.cos(yAngle);
+        return [horizontal,z*Math.cos(pAngle)-depth*Math.sin(pAngle),depth*Math.cos(pAngle)+z*Math.sin(pAngle)];
+      }
+      const corners=[];for(const x of [-4,4])for(const y of [-3,3])for(const z of [-4,4])corners.push([x,y,z]);
+      const projected=corners.map(rotate);
+      const xmax=Math.max(...projected.map(p=>Math.abs(p[0]))), ymax=Math.max(...projected.map(p=>Math.abs(p[1])));
+      const scale=Math.min((width-78)/(2*xmax),(height-52)/(2*ymax));
+      const project=p=>{const q=rotate(p);return [width/2+scale*q[0],height/2-scale*q[1],q[2]];};
+      const font=getComputedStyle(root).fontFamily;ctx.font=`12px ${font}`;
+      function line(points,stroke,linewidth=1) {
+        ctx.beginPath();points.forEach((p,i)=>{const q=project(p);i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]);});
+        ctx.strokeStyle=stroke;ctx.lineWidth=linewidth;ctx.stroke();
+      }
+      const field=Array.from({length:data.n},()=>Array(data.n).fill(0));let maximum=0;
+      for(let z=0;z<data.n;z++)for(let x=0;x<data.n;x++) {
+        if(stage===0) {field[z][x]=data.material[z][x];continue;}
+        let scalar=0;
+        for(let c=0;c<3;c++) {
+          const basis=stage===1?data.source:data.field;
+          const value=b.reduce((s,q,k)=>s+q*basis[k][c][z][x],0);
+          if(stage===1)scalar+=value*value;
+          else if(stage===2 && c===2)scalar=value;
+          else if(stage===3)scalar+=value*data.source.reduce((s,f)=>s+f[c][z][x],0)/data.alpha;
+        }
+        field[z][x]=stage===1?Math.sqrt(scalar):scalar;maximum=Math.max(maximum,Math.abs(field[z][x]));
+      }
+      // Exact spatial coordinates; field samples combine before taking magnitude.
+      const texture=document.createElement('canvas');texture.width=texture.height=data.n;
+      const textureCtx=texture.getContext('2d');const pixels=textureCtx.createImageData(data.n,data.n);
+      for(let z=0;z<data.n;z++)for(let x=0;x<data.n;x++) {
+        let t;
+        if(stage===0)t=(field[z][x]-4.772534429548964)/(21.231808300461573-4.772534429548964);
+        else t=field[z][x]/maximum;
+        const pixelTone=stage>=2 && t<0?palette[1]:tone;
+        const shade=stage>=2?Math.min(1,Math.abs(t)):.06+.88*Math.max(0,Math.min(1,t));
+        const pixel=mix(bg,pixelTone,shade);const index=4*(z*data.n+x);
+        pixels.data.set([...pixel,255],index);
+      }
+      textureCtx.putImageData(pixels,0,0);
+      const p0=project([-4,0,-4]),px=project([4,0,-4]),pz=project([-4,0,4]);
+      ctx.save();ctx.transform((px[0]-p0[0])/data.n,(px[1]-p0[1])/data.n,(pz[0]-p0[0])/data.n,(pz[1]-p0[1])/data.n,p0[0],p0[1]);
+      ctx.imageSmoothingEnabled=false;ctx.drawImage(texture,0,0);ctx.restore();
+      for(let i=0;i<8;i++)for(let j=i+1;j<8;j++)if(corners[i].filter((v,k)=>v!==corners[j][k]).length===1)
+        line([corners[i],corners[j]],rgb(muted,.45));
+      const ordered=data.centers.map((p,i)=>({p,i,depth:rotate(p)[2]})).sort((a,b)=>b.depth-a.depth);
+      for(const {p,i} of ordered) {
+        const q=project(p), col=i<3?palette[i]:muted;
+        if(stage===0 && !isFront) {
+          const radius=scale*Math.sqrt(1-1/(1-Math.log(.25)));
+          const grad=ctx.createRadialGradient(q[0]-radius*.3,q[1]-radius*.4,0,q[0],q[1],radius);
+          grad.addColorStop(0,rgb(mix(bg,col,.3),.95));grad.addColorStop(.72,rgb(col,.76));grad.addColorStop(1,rgb(mix(col,ink,.25),.65));
+          ctx.fillStyle=grad;ctx.beginPath();ctx.arc(q[0],q[1],radius,0,2*Math.PI);ctx.fill();
+        }
+        // Outer rings show the actual compact support at radius one.
+        const ring=[];for(let t=0;t<=64;t++){const angle=t*2*Math.PI/64;ring.push([p[0]+Math.cos(angle),p[1],p[2]+Math.sin(angle)]);}
+        ctx.setLineDash(i<3?[]:[4,3]);line(ring,rgb(col,.9),1.25);ctx.setLineDash([]);
+        const label=names[i];
+        const labelPoint=project([p[0],p[1],p[2]+1.13]);const tw=ctx.measureText(label).width;
+        ctx.fillStyle=rgb(bg,.9);ctx.fillRect(labelPoint[0]-tw/2-3,labelPoint[1]-12,tw+6,16);
+        ctx.fillStyle=rgb(ink);ctx.textAlign='center';ctx.fillText(label,labelPoint[0],labelPoint[1]);
+      }
+      ctx.font=`12px ${font}`;ctx.fillStyle=rgb(ink);
+      for(const [p,label] of [[[4.45,-3,-4],'x'],[[-4,-3.65,-4],'y'],[[-4,-3,4.4],'z']]) {
+        if(isFront && label==='y')continue;const q=project(p);ctx.fillText(label,q[0],q[1]);
+      }
+      ctx.textAlign='left';ctx.fillStyle=rgb(muted);ctx.fillText(isFront?'PEC boundary · 8 × 8 section':'PEC cavity · 8 × 6 × 8',10,18);
+      root.querySelector('#md-scale').style.background=stage>=2?`linear-gradient(to right,${rgb(palette[1])},${rgb(bg)},${rgb(palette[0])})`:`linear-gradient(to right,${rgb(bg)},${rgb(tone)})`;
+      root.querySelector('#md-scale-label').textContent=['Permittivity ε','Source |f| / peak','Signed E_z / peak','Overlap density / peak'][stage];
+      root.querySelector('#md-scale-range').textContent=stage===0?'4.77 → 21.23':stage===1?'0 → 1':'−1 → +1';
+      const x=data.response.map(row=>row.reduce((s,v,k)=>s+v*b[k],0));
+      const residual=Math.hypot(...data.target.map((row,i)=>row.reduce((s,v,k)=>s+v*x[k],0)-b[i]))/Math.hypot(...b);
+      const values=root.querySelector('#md-values');values.replaceChildren();
+      const shown=stage===3?x:b;
+      for(let i=0;i<3;i++) {
+        const div=document.createElement('span');div.className='device-value';
+        const dot=document.createElement('span');dot.className='device-dot';dot.style.background=rgb(palette[i]);
+        div.append(dot,document.createTextNode(`${stage===3?'x':'b'}${i+1} = ${fmt(shown[i])}`));values.append(div);
+      }
+      root.querySelector('#md-detail').textContent=[
+        'T1–T3: source/readout sites · A1–A3: auxiliary defects · Surfaces: 25% of local defect peak',
+        'Compact volume sources at the driven terminals · Signed input weights, unchanged dielectric',
+        'Computed E_z phasor · One of three solved field components · Fixed dielectric for every input',
+        `Signed volume moments + known input term · Equation error: ${(100*residual).toFixed(4)}%`
+      ][stage];
+      stageButtons.forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.stage)===stage)));
+      canvas.dataset.stage=String(stage);canvas.dataset.input=String(inputIndex);
+      canvas.dataset.equationError=String(residual);
+    }
+    input.addEventListener('change',()=>{inputIndex=Number(input.value);draw();remember();});
+    view.addEventListener('change',()=>{draw();remember();});
+    stageButtons.forEach(button=>button.addEventListener('click',()=>{stage=Number(button.dataset.stage);draw();remember();}));
+    canvas.addEventListener('pointerdown',event=>{if(view.value==='3d'){drag={x:event.clientX,yaw};canvas.setPointerCapture(event.pointerId);}});
+    canvas.addEventListener('pointermove',event=>{if(drag){yaw=Math.max(-1.05,Math.min(1.05,drag.yaw+(event.clientX-drag.x)*.006));draw();}});
+    canvas.addEventListener('pointerup',()=>{if(drag){drag=null;remember();}});
+    canvas.addEventListener('pointercancel',()=>{drag=null;});
+    window.addEventListener('openai:set_globals',event=>{
+      const s=event.detail?.globals?.widgetState?.modelContent;
+      if(s && Number.isInteger(s.stage) && s.stage>=0 && s.stage<4 && Number.isInteger(s.input) && s.input>=0 && s.input<4) {
+        stage=s.stage;inputIndex=s.input;input.value=String(inputIndex);draw();
+      }
+    });
+    new ResizeObserver(draw).observe(root);
+    new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+    draw();
+  })();
+  </script>
+</div>

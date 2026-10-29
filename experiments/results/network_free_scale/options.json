@@ -1,0 +1,9 @@
+{
+  "spec": "experiments/network_targets.json",
+  "output": "results/network_free_scale",
+  "background": "results/network/background",
+  "targets": null,
+  "free_scale": true,
+  "starts": 4,
+  "max_evaluations": 100
+}

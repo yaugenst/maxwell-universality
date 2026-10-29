@@ -1,0 +1,22 @@
+{
+  "audited_finest_fields": [
+    {
+      "case": "results/order12_refinement/conditioned_spd/h0.16666667",
+      "unknowns": 237444,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 7.297394258384774e-16,
+      "raw_equation_operator_residual": 0.7139555522695155,
+      "independent_two_curl_relative_residuals": [
+        4.886093155325759e-12,
+        4.471355641358635e-12,
+        1.0904143815953818e-11
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        19.22970475649195
+      ]
+    }
+  ],
+  "source_snapshot_hashes_checked": 141,
+  "scope": "Independent replay of raw-field algebra and two-curl residuals at finite grids. No continuum error certificate or theorem verification."
+}

@@ -1,0 +1,72 @@
+{
+  "target": [
+    [
+      3.0,
+      1.0
+    ],
+    [
+      1.0,
+      3.0
+    ]
+  ],
+  "terminals": [
+    0,
+    2
+  ],
+  "alpha": 0.04296875,
+  "strengths": [
+    12.5,
+    12.82470703125,
+    12.5
+  ],
+  "nominal_source_decoder_strengths": [
+    12.5,
+    12.5
+  ],
+  "h": 0.16666666666666666,
+  "unknowns": 222180,
+  "lengths": [
+    6.0,
+    6.0,
+    10.0
+  ],
+  "material_continuous_enclosure": [
+    4.7724609375,
+    16.49040699334372
+  ],
+  "decoded_response_real": [
+    [
+      0.3750147208093092,
+      -0.12552582186061015
+    ],
+    [
+      -0.12552582186060893,
+      0.37501472080930753
+    ]
+  ],
+  "decoded_response_imag": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0
+    ]
+  ],
+  "worst_relative_equation_residual": 0.0020444042052047274,
+  "per_basis_relative_equation_residuals": [
+    0.0016352880581481698,
+    0.0016352880581550877
+  ],
+  "discrete_pde_relative_residuals": [
+    7.093509780337196e-14,
+    7.0719937123421e-14
+  ],
+  "full_field_relative_residual_amplification_bound": 14.841628849656336,
+  "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+  "factor_seconds": 19.47651337692514,
+  "factor_nnz": 5930041074,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

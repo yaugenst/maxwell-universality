@@ -1,0 +1,153 @@
+{
+  "status": "PASS",
+  "scope": "exact finite-fiber eigenvalue inclusion and inversion parity; simplicity and complete pair isolation use separately verified inertia brackets",
+  "material_matches_canonical_full_integer_table": true,
+  "points": {
+    "L+++": [
+      {
+        "interval_exact": [
+          "11563656196697253313717/1208925819614629174706176",
+          "11563656196714433182901/1208925819614629174706176"
+        ],
+        "center_decimal": 0.009565232216143754,
+        "residual_bound_exact": "1/140737488355328",
+        "residual_dyadic_exponent": 47,
+        "inversion_parity_exact": -1,
+        "primitive_k_twice_modulo_2": [
+          1,
+          1,
+          1
+        ],
+        "norm_squared_exact": "2787593149816327395006723899930933273056813/2787593149816327892691964784081045188247552"
+      },
+      {
+        "interval_exact": [
+          "5781887461710965364799/604462909807314587353088",
+          "5781887461719555299391/604462909807314587353088"
+        ],
+        "center_decimal": 0.009565330424588599,
+        "residual_bound_exact": "1/140737488355328",
+        "residual_dyadic_exponent": 47,
+        "inversion_parity_exact": -1,
+        "primitive_k_twice_modulo_2": [
+          1,
+          1,
+          1
+        ],
+        "norm_squared_exact": "87112285931760223112401228652514845760415/87112285931760246646623899502532662132736"
+      }
+    ],
+    "L++-": [
+      {
+        "interval_exact": [
+          "11563615502032492997269/1208925819614629174706176",
+          "11563615502049672866453/1208925819614629174706176"
+        ],
+        "center_decimal": 0.00956519855430603,
+        "residual_bound_exact": "1/140737488355328",
+        "residual_dyadic_exponent": 47,
+        "inversion_parity_exact": 1,
+        "primitive_k_twice_modulo_2": [
+          1,
+          1,
+          0
+        ],
+        "norm_squared_exact": "11150372599265313421001100154980653300992561/11150372599265311570767859136324180752990208"
+      },
+      {
+        "interval_exact": [
+          "11563766827565277738475/1208925819614629174706176",
+          "11563766827582457607659/1208925819614629174706176"
+        ],
+        "center_decimal": 0.009565323727852933,
+        "residual_bound_exact": "1/140737488355328",
+        "residual_dyadic_exponent": 47,
+        "inversion_parity_exact": 1,
+        "primitive_k_twice_modulo_2": [
+          1,
+          1,
+          0
+        ],
+        "norm_squared_exact": "713623846352979935199391617329182777971088041/713623846352979940529142984724747568191373312"
+      }
+    ],
+    "L+-+": [
+      {
+        "interval_exact": [
+          "5781856413176815814167/604462909807314587353088",
+          "5781856413185405748759/604462909807314587353088"
+        ],
+        "center_decimal": 0.009565279059097605,
+        "residual_bound_exact": "1/140737488355328",
+        "residual_dyadic_exponent": 47,
+        "inversion_parity_exact": 1,
+        "primitive_k_twice_modulo_2": [
+          1,
+          0,
+          1
+        ],
+        "norm_squared_exact": "2787593149816327396036312180644106474356201/2787593149816327892691964784081045188247552"
+      },
+      {
+        "interval_exact": [
+          "2890948746733162729945/302231454903657293676544",
+          "2890948746737457697241/302231454903657293676544"
+        ],
+        "center_decimal": 0.009565347020735686,
+        "residual_bound_exact": "1/140737488355328",
+        "residual_dyadic_exponent": 47,
+        "inversion_parity_exact": 1,
+        "primitive_k_twice_modulo_2": [
+          1,
+          0,
+          1
+        ],
+        "norm_squared_exact": "11150372599265311001453618721785106216246801/11150372599265311570767859136324180752990208"
+      }
+    ],
+    "L-++": [
+      {
+        "interval_exact": [
+          "1445457920071350680923/151115727451828646838272",
+          "1445457920073498164571/151115727451828646838272"
+        ],
+        "center_decimal": 0.009565238141961066,
+        "residual_bound_exact": "1/140737488355328",
+        "residual_dyadic_exponent": 47,
+        "inversion_parity_exact": 1,
+        "primitive_k_twice_modulo_2": [
+          1,
+          0,
+          0
+        ],
+        "norm_squared_exact": "2787593149816328758175081835569712812504429/2787593149816327892691964784081045188247552"
+      },
+      {
+        "interval_exact": [
+          "2890960209881258824333/302231454903657293676544",
+          "2890960209885553791629/302231454903657293676544"
+        ],
+        "center_decimal": 0.009565384949111142,
+        "residual_bound_exact": "1/140737488355328",
+        "residual_dyadic_exponent": 47,
+        "inversion_parity_exact": 1,
+        "primitive_k_twice_modulo_2": [
+          1,
+          0,
+          0
+        ],
+        "norm_squared_exact": "348449143727041148718851314448953233020705/348449143727040986586495598010130648530944"
+      }
+    ]
+  },
+  "lowest_L_label": "L++-",
+  "gap_to_other_L_lower_branches_exact": "1271707736888977/37778931862957161709568",
+  "gap_to_other_L_lower_branches_lower_bound": "33/1000000000",
+  "lowest_L_value_upper_bound": "23913/2500000",
+  "complement_gap_transfer_lower_bound": "11/2000",
+  "each_doublet_split_upper_bound": "1/1048576",
+  "unproved_here": [
+    "continuous-neighborhood monotonicity",
+    "global exclusion of lower positive-band values"
+  ]
+}

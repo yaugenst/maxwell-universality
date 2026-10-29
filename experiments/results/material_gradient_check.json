@@ -1,0 +1,5 @@
+{
+  "relative_directional_derivative_difference": 5.168174588230592e-06,
+  "central_relative_material_step": 0.001,
+  "direction": "all strengths scaled uniformly, source and decoder held fixed"
+}

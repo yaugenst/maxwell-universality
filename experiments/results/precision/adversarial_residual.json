@@ -1,0 +1,43 @@
+{
+  "scope": "Adversarial residual direction over all full-field coordinates, at the reference discretization. Explicitly perturbed fields are checked by applying the full Maxwell matrix and physical decoder.",
+  "residual_gain": 14.819942786799658,
+  "right_hand_side": [
+    0.0,
+    1.0
+  ],
+  "perturbation_solve_residual": 7.225097061551451e-13,
+  "samples": [
+    {
+      "requested_relative_maxwell_residual": 0.01,
+      "measured_relative_maxwell_residual": 0.009999999999999573,
+      "equation_error_increment": 0.14819942786799714,
+      "norm_prediction": 0.14819942786799659,
+      "total_equation_error": 0.1481994278679527
+    },
+    {
+      "requested_relative_maxwell_residual": 0.001,
+      "measured_relative_maxwell_residual": 0.0009999999999996,
+      "equation_error_increment": 0.014819942786799718,
+      "norm_prediction": 0.014819942786799658,
+      "total_equation_error": 0.014819942786755224
+    },
+    {
+      "requested_relative_maxwell_residual": 0.0001,
+      "measured_relative_maxwell_residual": 9.99999999998452e-05,
+      "equation_error_increment": 0.0014819942786801603,
+      "norm_prediction": 0.0014819942786799658,
+      "total_equation_error": 0.0014819942786355694
+    },
+    {
+      "requested_relative_maxwell_residual": 1e-06,
+      "measured_relative_maxwell_residual": 9.999999994772898e-07,
+      "equation_error_increment": 1.4819942786838498e-05,
+      "norm_prediction": 1.4819942786799657e-05,
+      "total_equation_error": 1.4819942742257686e-05
+    }
+  ],
+  "factor_seconds": 8.822267272975296,
+  "factor_nnz": 2512490988,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

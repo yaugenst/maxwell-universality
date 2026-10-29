@@ -1,0 +1,65 @@
+{
+  "status": "PASS_REQUIRED_INPUT_INVENTORY",
+  "required_inputs": 2715,
+  "required_input_bytes": 3061724974,
+  "required_missing": [],
+  "unsafe_archive_paths": [],
+  "cross_archive_main_conflicts": [],
+  "duplicated_witnesses": {},
+  "volumes": [
+    {
+      "name": "maxwell_h1_evidence_part1.zip",
+      "entries": 314,
+      "witnesses": 302
+    },
+    {
+      "name": "maxwell_h1_evidence_part2.zip",
+      "entries": 303,
+      "witnesses": 302
+    },
+    {
+      "name": "maxwell_global_evidence_part1.zip",
+      "entries": 269,
+      "witnesses": 259
+    },
+    {
+      "name": "maxwell_global_evidence_part2.zip",
+      "entries": 250,
+      "witnesses": 240
+    },
+    {
+      "name": "maxwell_global_evidence_part3.zip",
+      "entries": 249,
+      "witnesses": 239
+    },
+    {
+      "name": "maxwell_global_evidence_part4.zip",
+      "entries": 252,
+      "witnesses": 242
+    },
+    {
+      "name": "maxwell_global_evidence_part5.zip",
+      "entries": 259,
+      "witnesses": 249
+    },
+    {
+      "name": "maxwell_global_evidence_part6.zip",
+      "entries": 279,
+      "witnesses": 269
+    },
+    {
+      "name": "maxwell_global_evidence_part7.zip",
+      "entries": 288,
+      "witnesses": 278
+    },
+    {
+      "name": "maxwell_global_evidence_part8.zip",
+      "entries": 290,
+      "witnesses": 280
+    }
+  ],
+  "main_package_files": 5340,
+  "main_package_bytes": 60435810,
+  "large_archive_entries": 2689,
+  "audit_scope": "inventory and overlapping-file-byte identity only; no duplicate matrix replay or full archive rehash"
+}

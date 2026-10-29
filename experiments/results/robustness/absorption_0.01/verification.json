@@ -1,0 +1,72 @@
+{
+  "target": [
+    [
+      3.0,
+      1.0
+    ],
+    [
+      1.0,
+      3.0
+    ]
+  ],
+  "terminals": [
+    0,
+    2
+  ],
+  "alpha": 0.042894943409436816,
+  "strengths": [
+    12.500054068969126,
+    12.82462367451358,
+    12.500054068969126
+  ],
+  "nominal_source_decoder_strengths": [
+    12.500054068969126,
+    12.500054068969126
+  ],
+  "h": 0.2,
+  "unknowns": 127310,
+  "lengths": [
+    6.0,
+    6.0,
+    10.0
+  ],
+  "material_continuous_enclosure": [
+    4.772534429548964,
+    16.490449820163068
+  ],
+  "decoded_response_real": [
+    [
+      0.38143388496956987,
+      -0.11990195309171732
+    ],
+    [
+      -0.11990195309171668,
+      0.3814338849695676
+    ]
+  ],
+  "decoded_response_imag": [
+    [
+      0.053515001978540186,
+      0.04098478315466289
+    ],
+    [
+      0.04098478315466285,
+      0.05351500197854082
+    ]
+  ],
+  "worst_relative_equation_residual": 0.3808032529915052,
+  "per_basis_relative_equation_residuals": [
+    0.2698576299433766,
+    0.2698576299433775
+  ],
+  "discrete_pde_relative_residuals": [
+    4.7206485304002213e-14,
+    4.71090075773038e-14
+  ],
+  "full_field_relative_residual_amplification_bound": 14.199805076437553,
+  "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+  "factor_seconds": 12.532786882016808,
+  "factor_nnz": 2512490988,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

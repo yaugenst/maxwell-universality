@@ -1,0 +1,465 @@
+\section{Setting and main statements}\label{si:sec:setting}
+
+This section fixes the sparse input model and states the two realization
+theorems, for the continuum Maxwell operator
+(Theorem~\ref{c:thm:main}) and for the scalar Yee discretization
+(Theorem~\ref{d:thm:main}), together with the resulting algorithm
+transfers. Both realizations share the finite algebraic compiler and the
+three-dimensional routing of Part~I
+(Sections~\ref{d:sec:logical}--\ref{d:app:logical-residual}). Parts~II
+and~III give their separate spectral, interaction, boundary and recovery
+analyses. Part~IV proves the algorithm transfers and their conditional
+consequences, and Part~V describes the finite computer-assisted
+certificates.
+
+\subsection{Conventions and notation}\label{si:sec:notation}
+
+All vector spaces are complex unless real scalars are specified. Inner
+products are linear in the first argument. Operator norms on $L^2$ and
+Euclidean norms on finite vectors are denoted by the same symbol. The
+Fourier transform $\mathcal F$ on $\R^3$ is unitary, with factor $(2\pi)^{-3/2}$.
+The notation $\tO$ hides only fixed powers of $\log(2+m)$.
+Constants may depend on the fixed input constants $c_\kappa,c_\eta,B_{\rm in}$ of
+Section~\ref{si:sec:input} and on the fixed
+electromagnetic platform, but never on $m$.
+
+Every symbol below has one meaning throughout the main text and this
+supplement; a hat ($\widehat F$, $\widehat a$, $\widehat x$) always marks a finite
+(rounded or truncated) approximation of the unhatted object.
+\begin{itemize}
+\item \emph{Input.} $M\in\Q^{n\times n}$, $b$, $x$, $m=\nnz(M)$; tolerance
+$\eta$, its rounded value $\eta_0$, the logical tolerances $\eta_*$ and
+$\eta_\Gamma=\eta_*/16$, the routed-network tolerance $\eta_{\rm res}$ and the
+saddle tolerance $\eta_s$; exponents $c_\kappa$ (condition), $c_\eta$
+(tolerance) and the bit constants $B_{\rm in}$, $B_{\rm out}$.
+\item \emph{Output constants.} $C_{\rm res}$ (resource constant), $c_A$
+(condition exponent of the Maxwell operator), $c_\delta$ (tolerance
+exponent); $\ell=1+\lceil\log_2(2+m)\rceil$; $N$ (size of the structure, for
+the Yee model its dimension), $N_{\rm desc}$, $T_{\rm enc},T_{\rm dec},T_{\rm Max},T_{\rm sparse}$;
+solver exponent $\theta$, hardness exponent $\gamma$.
+\item \emph{Electromagnetics.} $r=(r_1,r_2,r_3)\in\R^3$ the spatial coordinate, $r_i$ the well centers; $\varepsilon$ permittivity ($\varepsilon_{\rm per}$ the
+periodic background, $\varepsilon_c$ a Yee cell value, $\varrho=2^{-100}$ the
+continuum modulation amplitude), $\omega$ frequency, $\Omega$ the box with
+outward unit normal $\hat n$, $\Cc$ the curl--curl operator, $C_{\rm Y}$ the Yee
+curl, $D_\varepsilon$ the Yee mass matrix; $A$ the Maxwell operator of the
+respective back end ($A=\Cc-\varepsilon$ or $A=C_{\rm Y}^{\mathsf T}C_{\rm Y}-\omega^2D_\varepsilon$),
+$A_{\rm per}$ its periodic-background version; $E$ the electric field (for the
+Yee model the vector of edge unknowns), $f$ the source, $f_*$ the ideal source,
+$f_{\rm a}$ the auxiliary source, $E_{\rm a}$ the auxiliary field, $E_{\rm ref}$ the
+reference field; $\delta$ the field residual tolerance; $V=H_0(\curl;\Omega)$,
+$X=D(\Cc)$, $\kappa$ condition numbers ($\kappa_2$, $\kappa_X$); $L_b$ the
+inverse bound, $\sigma$ the random detuning, $\tau$ its range, $J_{\rm grid}$
+the number of grid points, $\mathcal G$ the good event.
+\item \emph{Band structure.} $k$ wavevector, $k_*$ the band minimum, $q$ the
+Bloch offset, $\nu\in\Z^3$ lattice offsets and Fourier aliases, $p$ physical
+momentum, $\lambda$ eigenvalues and band functions, $E_c$ the band minimum
+energy, $H=\tfrac12\lambda''(k_*)$ the Hessian ($H_0$ its leading-order value),
+$\Phi_q$ Bloch cell functions, $\chi$ the momentum cutoff, $R_\sigma$ the
+auxiliary resolvent, $q_0$ the chart radius, $k_\parallel,k_\perp$ ($q_\parallel,q_\perp$ for Yee) the
+longitudinal and transverse momentum components in the pole analysis.
+\item \emph{Defects and network.} $L$ defect radius, $h=L^{-1}$, $d$ placement
+separation, $B$ the integer placement matrix, $w$ the bump, $u_h$ ($u$ for Yee)
+the defect mode, $\mu_h$ ($\mu$) its eigenvalue, $a_h$ the source mode, $a_i$
+the test fields, $v_i$ the tunings, $z_i$ the moments, $G_h(\nu)$ ($G(\nu)$)
+the interaction blocks, $h_j(d)$ the useful couplings, $\beta_j$ their
+calibrated values, $\alpha$ and $\zeta$ the useful and unwanted coupling
+scales, $\Gamma$ the logical network matrix with source $g$,
+$\Theta$ the target matrix on terminals and mediators, $g_\Theta=(g,0)$,
+$S_b=\Theta+\Delta$ the bright block, $\MM$ the Birman--Schwinger matrix, $Q$ the
+restriction to the defect union, $U$ the insertion of the mode, $\overline K$
+the inverse bound of $\Gamma$, $J$ the number of sites, $\ell_{\rm buf}$ the
+boundary buffer, $h_y$ the readout accuracy.
+\item \emph{Part I.} $F=M/(ma_M)$ the normalized matrix, $g=b/\nu_M$, $P=m^{\lceil c_\kappa\rceil+1}$,
+$N_{\rm r}$ rounding bits, $\Gamma_{\rm c}$ the circuit matrix of size $S$,
+$\Gamma_0$, $\Gamma_+$ the symmetrized and mediated matrices, $S_+$ vertices,
+$\ell_{\rm p}$ the port array side, $\ell_w$ the routed length, $Q_{\rm c},Q_+$
+inverse bounds, $T_{\rm res}$ the residual amplification.
+\item \emph{Constants.} $\Cs,\cs,c_u,\Ls,\ds$ and $Z$ are the fixed
+continuum constants of Part~II; $C_{\rm d},c_{\rm d},r_{\rm d},a_{\rm d}$ the fixed
+Yee platform constants of Part~III; $\rho$ with a subscript is a residual
+vector. Inside proofs, $C$ and $c$ with primes denote fixed positive constants
+local to the estimate, $K$ is a derivative or truncation order, and $i,j,a,s,t,y$
+are bound indices, parameters and integration variables local to a displayed
+formula; none of them coincides with a global symbol used in the same section.
+High-symmetry points of the Brillouin zone are typeset upright,
+$\mathrm{L}_{++-}$ and $\mathrm{\Gamma}$, and are distinct from the defect radius
+$L$ and the network matrix $\Gamma$.
+\end{itemize}
+
+\subsection{Sparse input and accuracy}\label{si:sec:input}
+Fix constants $c_\kappa,c_\eta>0$ and an input bit-length constant $B_{\rm in}$. An
+input consists of a nonsingular matrix $M\in\Q^{n\times n}$ and
+$b\in\Q^n$, with
+\begin{equation}
+ m=\nnz(M),\qquad \kappa_2(M)\le m^{c_\kappa},
+ \qquad m^{-c_\eta}\le\eta\le1.                         \label{c:eq:input}
+\end{equation}
+Each numerator and denominator of every entry of $M$ and $b$ has at most
+$B_{\rm in}\log_2(2+m)$ bits, and sparse indices have $O(\log(2+m))$
+bits. Nonsingularity implies $n\le m$. The target accuracy is the
+relative residual
+\begin{equation}
+ \norm{Mx-b}_2\le\eta\norm b_2.                    \label{c:eq:target}
+\end{equation}
+The encoder may replace $\eta$ by $\eta_0=m^{-\lceil c_\eta\rceil}$, so it
+need not read an arbitrarily long representation of the requested
+tolerance. The case $b=0$ is answered directly by $x=0$.
+
+\subsection{The continuum model and its realization}\label{c:sec:statement}
+
+For a rectangular box $\Omega$, let
+\begin{equation}
+ V=H_0(\curl;\Omega),\qquad
+ c(E,F)=\ip{\curl E}{\curl F}_{L^2}.
+                                                               \label{c:eq:form}
+\end{equation}
+Let $\Cc$ be the operator represented by this closed nonnegative form.
+Explicitly,
+\begin{equation}
+ \begin{split}
+ D(\Cc)=\{E\in V:\text{ there is }g\in L^2\text{ such that }
+ c(E,F)=\ip{g}{F}\text{ for every }F\in V\},\\
+ \Cc E=g,
+ \qquad X=D(\Cc),\qquad
+ \norm E_X^2=\norm E_2^2+\norm{\Cc E}_2^2.
+ \end{split}                                                   \label{c:eq:domain}
+\end{equation}
+Thus PEC means zero tangential trace. For bounded real $\varepsilon$,
+$A=\Cc-\varepsilon$ is self-adjoint on $D(\Cc)$. A weak solution with
+an $L^2$ source belongs to this domain, since
+$\Cc E=f+\varepsilon E\in L^2$.
+
+\begin{theorem}[Continuum realization]
+\label{c:thm:main}
+For every fixed choice of the constants $c_\kappa,c_\eta,B_{\rm in}$ above there is a uniform
+randomized encoder and a finite-bit decoder with the following properties.
+For every input satisfying~\eqref{c:eq:input}, they produce an integer-sided
+rectangular box $\Omega\subset\R^3$, a finitely represented real scalar
+$1\le\varepsilon\le25$, a real $f\in L^2(\Omega;\R^3)$, a positive
+rational tolerance $\delta$, and finitely represented real $L^2$ test fields.
+The physical equation is exactly
+\begin{equation}
+ \curl\curl E-\varepsilon E=f\quad\text{in }\Omega,
+ \qquad \hat n\times E=0\quad\text{on }\partial\Omega.       \label{c:eq:physical}
+\end{equation}
+There are no internal conductors, anisotropic coefficients, coordinate
+stretches, absorbing layers, or distributional sources.
+
+Put $\ell=1+\lceil\log_2(2+m)\rceil$. Effectively specified constants
+$C_{\rm res},c_A,c_\delta$, depending only on $c_\kappa,c_\eta,B_{\rm in}$, satisfy, on every random draw,
+\begin{align}
+ |\Omega|&\le C_{\rm res}m^{3/2}\ell^{24},
+ &N_{\rm desc}&\le C_{\rm res}m^{3/2}\ell^{64},\\
+ T_{\rm enc}+T_{\rm dec}&\le C_{\rm res}m^{3/2}\ell^{4096},
+ &B_{\rm out}&\le C_{\rm res}\ell,
+ &\delta&\ge m^{-c_\delta}.                              \label{c:eq:resources}
+\end{align}
+Here $N_{\rm desc}$ counts the whole ambient box in unit-volume cells and
+all coefficient and index slots in the finite source, material, and readout
+format. Times are bit-operation bounds. All calibration, empty space,
+routing, mediators, buffering, and finite output are included.
+
+For $m\ge2$, one event $\mathcal G$ has probability at least
+$1-3/(64m)$. On this event,
+\begin{equation}
+ \begin{gathered}
+ A:X\longrightarrow L^2\text{ is an isomorphism},\qquad
+ \norm{A^{-1}}_{L^2\to L^2}\le L_b,\\
+ \norm A_{X\to L^2}\norm{A^{-1}}_{L^2\to X}
+ \le702L_b\le m^{c_A}.
+ \end{gathered}                                    \label{c:eq:maininverse}
+\end{equation}
+where $L_b$ is the explicit rational number in~\eqref{c:eq:detuning}.
+For \emph{every} $E\in X$ satisfying
+\begin{equation}
+ \norm{AE-f}_2\le\delta\norm f_2,                    \label{c:eq:physicalres}
+\end{equation}
+and every collection of moment messages within the prescribed absolute
+accuracies, the decoder returns a rational $x$ satisfying~\eqref{c:eq:target}.
+Both integer range and fractional precision of each message are
+$O(\log(2+m))$ bits. In particular, the guarantee covers every polarization and every field,
+independently of the solver that produced it.
+\end{theorem}
+
+The material format is a fixed period-two trigonometric background plus
+dyadic polynomial profiles on disjoint explicitly specified balls. The
+balls have radius $L$, their centers and the box sides are integers, and
+$L=O(\ell^6)$. No ball, gap, or boundary buffer shrinks with $m$.
+The material profile degree is $O(\ell^2)$; source and readout degrees
+are at most a fixed multiple of $\ell^{16}$. These degrees and every
+coefficient are counted in~\eqref{c:eq:resources}. Section~\ref{c:sec:representation}
+gives the exact finite format, its evaluation algorithms, and its
+approximation bounds. The shortest background period is two; the vacuum
+wavelength is $2\pi$. Therefore~\eqref{c:eq:resources} is also the physical
+volume bound in wavelength units, up to a fixed factor.
+
+Section~\ref{c:sec:cost} supplies one entirely explicit choice of the
+theorem-wide constants; it is far from optimized and does not describe a
+practical device size. These constants are tower exponentials: the
+analytic majorant is $\Cs=2^{2^{40}}$ in~\eqref{c:eq:masterconstants},
+and $C_{\rm res}=2^{Z^{16}}$ with $Z\ge\Cs^{128}$ in~\eqref{c:eq:theoremconstants}.
+In particular, the coupling scale $3^{-d}$ with $d\ge\Cs^8=2^{2^{43}}$
+already needs more than $2^{2^{43}}$ bits, so the $O(\log(2+m))$ bit
+lengths in the theorem carry a fixed constant of astronomical size, and
+the theorem is a purely asymptotic statement.
+
+\subsection{The Yee model and its realization}\label{d:sec:model}
+
+Let a rectangular cubical cell complex have side lengths $N_x,N_y,N_z$ and unit grid spacing. We use the Yee placement of electric unknowns on edges and curls on faces~\citep{yee1966}. Electric edges lying tangentially in the boundary are set to zero. Thus retained $x$-oriented edges have indices
+\begin{equation}\label{d:eq:pec-index}
+ 0\le i_x<N_x,\qquad 1\le i_y<N_y,\qquad 1\le i_z<N_z,
+\end{equation}
+with cyclic versions for the other orientations. Let $C_{\rm Y}$ denote the resulting face-edge curl incidence matrix. We keep all face rows, allowing identically zero boundary-face rows.
+
+Assign one scalar $\eps_c$ to each physical cell. The electric mass matrix is diagonal, with
+\begin{equation}\label{d:eq:cell-average}
+ (D_\eps)_{ee}=\frac14\sum_{c\sim e}\eps_c.
+\end{equation}
+Every retained edge has exactly four incident cells inside the domain. Fix
+\begin{equation}\label{d:eq:maxwell-model}
+ \omega=\frac18,\qquad
+ A=C_{\rm Y}^{\mathsf T}C_{\rm Y}-\omega^2D_\eps,
+ \qquad 1\le\eps_c\le25.
+\end{equation}
+All coordinate stretches equal one. The construction uses the physical box itself with no absorbing layer. Its dimension is
+\begin{align}\label{d:eq:yee-dimension}
+ N={}&N_x(N_y-1)(N_z-1)+(N_x-1)N_y(N_z-1)\notag\\
+ &+(N_x-1)(N_y-1)N_z.
+\end{align}
+Every cell, including background cells between defects and the physical buffer, is included in the size accounting.
+
+The maximal material wavenumber obeys the fixed sampling condition
+\begin{equation}\label{d:eq:resolution}
+ \omega\sqrt{25}\le\frac{2\pi}{10},
+ \qquad \frac{25}{64}<\frac{4\pi^2}{100}.
+\end{equation}
+This is an admissibility condition on the discrete family. It does not itself supply a continuum error estimate.
+
+\begin{theorem}[Sparse systems in scalar discrete Maxwell operators]\label{d:thm:main}
+For fixed $c_\kappa,c_\eta,B_{\rm in}$, there are a uniform randomized encoder, a finite-precision decoder, and effectively computable constants $c_A,c_\delta>0$ with the following property. Given an input satisfying~\eqref{c:eq:input}, the encoder produces a finite instance $AE=f$ of~\eqref{d:eq:maxwell-model}, a tolerance $\delta$, and decoding data. On every random draw,
+\begin{align}\label{d:eq:main-resources}
+ N&=\Ot_{c_\kappa,c_\eta,B_{\rm in}}(m^{3/2}), &
+ T_{\rm enc}+T_{\rm dec}&=\Ot_{c_\kappa,c_\eta,B_{\rm in}}(m^{3/2}),\notag\\
+ B_{\rm out}&=O_{c_\kappa,c_\eta,B_{\rm in}}(\log(2+m)), &
+ \delta&\ge m^{-c_\delta},
+\end{align}
+where $B_{\rm out}$ bounds the output material and source coefficient lengths and the time bound is in bit operations. For $m\ge2$, there is a common event $\mathcal G$ of probability at least $1-3/(64m)$ on which
+\begin{equation}\label{d:eq:main-good}
+ \kappa_2(A)\le m^{c_A}
+\end{equation}
+and, for every $E\in\C^N$ satisfying
+\begin{equation}\label{d:eq:maxwell-residual}
+ \norm{AE-f}_2\le\delta\norm{f}_2,
+\end{equation}
+the decoder returns $x\in\mathbb Q^n$ satisfying~\eqref{c:eq:target}. The decoder uses the real parts of prescribed coordinates of $E$ with an explicit absolute precision of $O(\log(2+m))$ bits. The bounds include all auxiliary variables, empty cells, buffering, calibration, source construction, and readout. Finitely many base cases are handled by a counted fixed-size procedure.
+\end{theorem}
+
+\begin{remark}[Status of the Yee certificate]
+The spectral premise of Theorem~\ref{d:thm:main} is supplied by a
+computer-assisted certificate whose finite inequalities have been checked in
+full. Its final binding step to the exact operator is being completed
+(Section~\ref{si:sec:yee-certificate}); Theorem~\ref{d:thm:main} is
+conditional on this step.
+\end{remark}
+
+Once the encoder's draw belongs to $\mathcal G$, the recovery statement holds for every vector meeting~\eqref{d:eq:maxwell-residual}, irrespective of how that vector is found. The theorem does not require an electromagnetic solver to return a particular approximation. The output size and encoder/decoder runtime bounds also hold on unsuccessful draws.
+
+The finite-precision interface is part of the statement. The encoder fixes
+the width of each signed fixed-point coordinate message, and the decoder
+consumes only these prescribed bits on every draw. On $\mathcal G$, the
+inverse bound gives a known polynomial bound on $\norm E$, so every
+field satisfying~\eqref{d:eq:maxwell-residual} fits the reserved range and can be supplied at the stated
+absolute accuracy. Both the integer range and fractional precision are
+logarithmic. Certified intervals of that accuracy give the same interface.
+An inaccessible arbitrary-real output is not counted as a finite-bit solution.
+
+\begin{table}[tb]
+\centering
+\caption{\textbf{Scope of the Yee realization, Theorem~\ref{d:thm:main}.} The
+left column lists the input class, the form of the electromagnetic instance
+and the resources and numerical properties of the reduction; the right column
+gives the guarantee proved for each. Size and cost bounds hold on every random
+draw; conditioning and recovery hold on the common good event. Constants
+depend only on the fixed input constants and on the selected fixed platform.}
+\label{d:tab:resources}\small
+\begin{tabular}{p{0.30\linewidth}p{0.58\linewidth}}
+\toprule
+Resource or assumption & Guarantee \\
+\midrule
+Sparse input & Nonsingular rational square system with $m$ nonzeros, short coefficients, and $\kappa_2(M)\le m^{c_\kappa}$ \\
+Electromagnetic instance & Resolved unstretched three-dimensional Yee box with $1\le\eps_c\le25$ and PEC boundaries \\
+Ambient size & $\Ot(m^{3/2})$, including all background and auxiliary unknowns \\
+Preparation and recovery & $\Ot(m^{3/2})$ bit operations on every draw \\
+Numerical guarantees & Inverse-polynomial residual tolerance on every draw; polynomial full-matrix conditioning on the common good event \\
+Recovery quantifier & Every field satisfying the output residual tolerance on that same event \\
+Fixed preprocessing & A proved terminating effective search, independent of $m$, included in the uniform bound \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Uniformity allows an effectively computable fixed startup cost. The spectral arguments select one background, defect, operating shift, and set of coupling bounds by terminating searches. Once selected, their support sizes and spectral dimensions do not depend on the sparse input. The theorem includes their fixed costs in the asymptotic constants. The spectral certificates determine the background, while the strict defect and interaction estimates guarantee that the fixed search terminates.
+
+\subsection{Algorithm transfer}\label{si:sec:transfer-statements}
+
+The realization theorems transfer algorithms in the direction opposite
+to the construction. An algorithm for every Maxwell instance in the
+constructed class can be applied to the encoding of a sparse linear system, after which
+the decoder recovers the algebraic solution. Quantifying this implication
+requires both the cost of the Maxwell solve and the cost of constructing
+its input. It also requires agreement between the arithmetic model,
+accuracy criterion, and randomness in the reduction and in the hardness
+hypothesis.
+
+We state the hypothesis explicitly. The underlying approximation problem and
+conditioning scale follow the sparse linear-equation formulation of Kyng,
+Wang and Zhang~\cite{kyng2020}. Their Definition~3.2 excludes a running time
+$\Ot(m^\gamma)$ and does not specify a randomized success probability.
+We use a randomized exponent-gap variant: success at least $2/3$ is required,
+and every exponent $\gamma'<\gamma$ is excluded.
+These two conventions are part of our hypothesis.
+
+\begin{assumption}[Matching randomized sparse linear-system hardness]
+\label{d:ass:slth}
+For fixed constants $\gamma>0$ and $c_\kappa>0$, consider real full-column-rank
+matrices $F_0\in\R^{n_0\times n}$ with $m\ge2$ nonzeros and
+$\kappa_2(F_0)\le m^{c_\kappa}$. The input is a sparse list for $F_0$ and a
+random-access vector $b\in\R^{n_0}$. Let $\Pi_{F_0}$ denote orthogonal
+projection onto the column space of $F_0$. For every $\gamma'<\gamma$,
+there is no randomized Real-RAM algorithm with worst-case running time
+$\Ot(m^{\gamma'})$ that, on every such input, returns with
+probability at least $2/3$ a vector $x$ satisfying
+\begin{equation}
+ \norm{F_0x-\Pi_{F_0}b}_2^2
+ \le n^{-10c_\kappa}\norm{\Pi_{F_0}b}_2^2.
+ \label{d:eq:slth-target}
+\end{equation}
+\end{assumption}
+
+The randomized success requirement in this assumption is part of the
+hypothesis made here. A deterministic hardness statement alone would not
+imply it. The relative error is measured against the projected right-hand
+side, which can be much smaller than $\norm{b}_2$. That distinction is
+essential for the transfer.
+
+\begin{theorem}[Algorithm transfer for the Yee family]
+\label{d:thm:algorithm-transfer}
+Suppose a uniform Maxwell solver, on all instances produced by
+Theorem~\ref{d:thm:main}, with their condition and accuracy bounds,
+returns a residual solution with a fixed positive success probability
+and has the known running-time bound
+\begin{equation}
+ T_{\rm Max}(N,B_{\rm out},\kappa,\delta)
+ \le O\!\left(N^\theta B_{\rm out}\,
+        \operatorname{polylog}(N,\kappa,\delta^{-1})\right).
+ \label{d:eq:maxwell-solver-model}
+\end{equation}
+Here $B_{\rm out}$ bounds the coefficient and source bit lengths, and the output
+uses the finite-precision interface of Theorem~\ref{d:thm:main}. Then the
+problem in~\eqref{d:eq:slth-target}, for every fixed $c_\kappa$, has a randomized
+Real-RAM algorithm with running time
+\begin{equation}
+ T_{\rm sparse}(m)
+ =\Ot\!\left(m^{3/2}+m^{3\theta/2}\right),
+ \label{d:eq:sparse-composition-time}
+\end{equation}
+and failure probability smaller than any prescribed inverse polynomial.
+\end{theorem}
+
+The continuum realization gives the analogous transfer. Its condition
+number is measured between the graph-norm space $X$ and $L^2$.
+
+\begin{theorem}[Costed continuum-to-sparse transfer]
+\label{c:thm:transfer}
+Suppose a uniform continuum solver, for every instance produced by
+Theorem~\ref{c:thm:main}, has a known worst-case bound
+\begin{equation}
+ T_{\rm Max}(N,B_{\rm out},\kappa_X,\delta)
+ \le O\!\left(N^\theta B_{\rm out}\,
+       \operatorname{polylog}(N,\kappa_X,\delta^{-1})\right),
+ \quad \kappa_X=\|A\|_{X\to L^2}\|A^{-1}\|_{L^2\to X}.
+                                                               \label{c:eq:solverbound}
+\end{equation}
+Here $N$ includes the full ambient volume and finite description slots;
+$B_{\rm out}$ includes coefficient lengths and prescribed message widths. With a
+fixed positive probability the solver supplies the prescribed accurate
+moments of some field meeting~\eqref{c:eq:physicalres}. Producing those
+moments is part of~\eqref{c:eq:solverbound}.
+Then the rational problem~\eqref{c:eq:input}--\eqref{c:eq:target} has a
+randomized bit algorithm of cost
+\begin{equation}
+ \boxed{\ T_{\rm sparse}(m)=
+          \tO(m^{3/2}+m^{3\theta/2})\ }.             \label{c:eq:transfer}
+\end{equation}
+The same bound holds in the Real-RAM model of Assumption~\ref{d:ass:slth} for a
+full-column-rank real $F_0$ with $m$ nonzeros, $\kappa_2(F_0)\le m^{c_\kappa}$,
+random-access real source $b$, and target
+\begin{equation}
+ \|F_0x-\Pi_{F_0}b\|^2
+      \le n^{-10c_\kappa}\|\Pi_{F_0}b\|^2.                 \label{c:eq:projectiontarget}
+\end{equation}
+Failure can be reduced below any prescribed inverse polynomial.
+\end{theorem}
+
+In both transfer theorems the solver cost depends polylogarithmically on
+the condition number and on $\delta^{-1}$. On the constructed families
+these quantities are polynomial in $m$, in the continuum case with a fixed
+degree of the astronomical size just described, so methods whose cost
+grows polynomially in $\kappa$, such as Krylov iterations, are not covered by
+\eqref{d:eq:maxwell-solver-model} or~\eqref{c:eq:solverbound}.
+
+\begin{remark}[Weak residuals]
+\label{si:rem:weak-residual}
+Theorems~\ref{c:thm:main} and~\ref{c:thm:transfer} also hold for fields
+$E\in V$ that satisfy the weak residual bound
+$\norm{AE-f}_{V^*}\le(\delta/140)\norm f_2$ in place
+of~\eqref{c:eq:physicalres}, with the same decoder. Here
+$\norm E_V^2=\norm E_2^2+\norm{\curl E}_2^2$, $V^*$ is the
+antidual of $V$, and $AE\in V^*$ is
+$F\mapsto c(E,F)-\ip{\varepsilon E}{F}$. This is the residual a
+conforming $H_0(\curl)$ finite-element solution satisfies directly.
+On the event $\mathcal G$ of Theorem~\ref{c:thm:main}, $A$ is an
+isomorphism $V\to V^*$ with
+\begin{equation}
+ \norm{A^{-1}}_{V^*\to V}\le140L_b.          \label{si:eq:weakinverse}
+\end{equation}
+Indeed, the form $c(E,E)-\ip{\varepsilon E}{E}+26\norm E_2^2$ is
+coercive on $V$, so $V$ is the form domain of the self-adjoint operator
+$A+26$, and the spectral theorem extends $A^{-1}$ to a bounded map
+$V^*\to V$ because $\spec A\subset[-25,\infty)$ keeps distance at
+least $L_b^{-1}$ from zero. For the bound, let $g\in V^*$, $E=A^{-1}g$
+and $F=A^{-1}E\in X$. Then $\norm E_2^2=g(F)\le\norm g_{V^*}\norm F_V$.
+Lemma~\ref{c:lem:detuning} gives $\norm F_2\le L_b\norm E_2$ and
+$\norm{\Cc F}_2\le(1+25L_b)\norm E_2$, so
+$\norm{\curl F}_2^2=\ip{\Cc F}{F}\le26L_b^2\norm E_2^2$ and
+$\norm E_2\le\sqrt{27}L_b\norm g_{V^*}\le27L_b\norm g_{V^*}$.
+Next, $\norm{\curl E}_2^2=g(E)+\ip{\varepsilon E}{E}
+\le\norm g_{V^*}\norm E_V+25\norm E_2^2$, hence
+$\norm E_V^2\le26\cdot27^2L_b^2\norm g_{V^*}^2+\norm g_{V^*}\norm E_V$,
+which gives~\eqref{si:eq:weakinverse} since $L_b\ge1$.
+Section~\ref{c:sec:recovery} uses the residual only through
+$\norm{E-E_{\rm ref}}_2$ and $\norm E_2$. Writing
+$E-E_{\rm ref}=A^{-1}(AE-f)+A^{-1}(f-AE_{\rm ref})$ with
+$f-AE_{\rm ref}\in L^2$ gives
+$\norm{E-E_{\rm ref}}_2\le140L_b(\delta/140)\norm f_2
++L_b\norm{AE_{\rm ref}-f}_2$, and in the same way
+$\norm E_2\le L_b(1+\delta)\norm f_2$. These are
+\eqref{c:eq:fieldcomparison} and~\eqref{c:eq:fieldrange}; the rest of the
+recovery argument is unchanged.
+\end{remark}
+
+\subsection{Organization of the proofs}
+
+Three interfaces organize both proofs. First, the physical platform supplies a simple scalar defect with a separated mode and quantitative interaction bounds on a fixed translation lattice. Second, a logical compiler turns $Mx=b$ into a bounded-degree symmetric matrix $\Gamma$ embedded in a balanced cubic-grid box, with a polynomial inverse bound and an explicit residual map. Third, finite assembly realizes $\Gamma$ through scalar defect tunings, controls the whole Maxwell inverse, and implements a local source and decoder.
+
+In the continuum back end (Part~II) the platform is an explicit weak
+periodic scalar modulation with a simple local Bloch-band minimum, and
+broad weak defects interact through a localized auxiliary resolvent; the
+proof of Theorem~\ref{c:thm:main} concludes Section~\ref{c:sec:cost}.
+In the Yee back end (Part~III) the platform is a certified band edge of
+a period-20 scalar dielectric with finite scalar defects; the proof of
+Theorem~\ref{d:thm:main} concludes Section~\ref{d:sec:composition}.
+The two back ends are proved independently. The resolved-grid
+condition~\eqref{d:eq:resolution} fixes a wavelength sampling ratio, but
+it does not transfer the Yee construction to the continuum at the
+accuracy required by the reduction, because the useful interactions and
+the permitted errors shrink with the sparse input size.

@@ -1,0 +1,21 @@
+{
+  "command": [
+    "experiments/.venv/bin/python",
+    "experiments/maxwell.py",
+    "triple",
+    "--order",
+    "8",
+    "--solver",
+    "cudss",
+    "--strength",
+    "24",
+    "--h",
+    ".2",
+    "--strength",
+    "24.24",
+    "--output",
+    "results/gpu_suite/strength_high_h02"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 11.579646876081824
+}

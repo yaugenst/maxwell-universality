@@ -1,0 +1,15 @@
+import Maxwell.Continuum.PeriodicPoleSlope
+
+#print axioms Maxwell.Continuum.EvenTaylor.imaginary_im_zero
+#print axioms Maxwell.Continuum.AnalyticQuartic.derivative_remainder_bound
+#print axioms Maxwell.Continuum.PeriodicBand.coordinateBand_imaginary_real
+#print axioms Maxwell.Continuum.PeriodicBand.imaginaryRise_strictMonoOn_chart
+#print axioms Maxwell.Continuum.PeriodicBand.exists_imaginaryPole
+#print axioms Maxwell.Continuum.PeriodicBand.imaginaryPole_equation
+#print axioms Maxwell.Continuum.PeriodicBand.imaginaryPole_unique_chart
+#print axioms Maxwell.Continuum.PeriodicBand.imaginaryPole_bounds
+#print axioms Maxwell.Continuum.PeriodicBand.poleAction_log_margin
+#print axioms Maxwell.Continuum.PeriodicBand.imaginaryPole_scaled_le_one
+#print axioms Maxwell.Continuum.PeriodicBand.imaginaryPole_transverse_derivative
+#print axioms Maxwell.Continuum.PeriodicBand.imaginaryPole_longitudinal_derivative
+#print axioms Maxwell.Continuum.PeriodicBand.poleSlope_bounds

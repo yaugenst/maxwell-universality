@@ -1,0 +1,33 @@
+{
+  "targets": [
+    [
+      [
+        3.0,
+        1.0
+      ],
+      [
+        1.0,
+        3.0
+      ]
+    ],
+    [
+      [
+        4.0,
+        1.0
+      ],
+      [
+        1.0,
+        4.0
+      ]
+    ]
+  ],
+  "alpha": 0.008016629971967153,
+  "source_reference": "results/r3_h0333_l10",
+  "mode": 0,
+  "policy": "Only the isolated single component and two-component cavity determine material parameters. No assembled-device response can enter the fit.",
+  "verification_spacings": [
+    0.3333333333333333,
+    0.2857142857142857
+  ],
+  "acceptance": "At most 1% all-right-hand-side equation error at both independent finer verification meshes; calibration fit alone is insufficient."
+}

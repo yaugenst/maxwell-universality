@@ -1,0 +1,19 @@
+{
+  "command": [
+    "experiments/.venv/bin/python",
+    "experiments/maxwell.py",
+    "modal",
+    "--order",
+    "8",
+    "--solver",
+    "cudss",
+    "--strength",
+    "24",
+    "--h",
+    ".25",
+    "--output",
+    "results/modal/modal_h025"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 29.037717394065112
+}

@@ -1,0 +1,141 @@
+{
+  "scope": "Refined calibration after the coarse signed target gave 1.17% refinement error and the conditioned target failed refinement. Matrices and geometry unchanged. Source definitions are rebuilt on h=0.2 and then frozen for two finer checks.",
+  "config": {
+    "lengths": [
+      8.0,
+      6.0,
+      8.0
+    ],
+    "h": 0.2,
+    "rho": 0.5,
+    "detuning": 0.3,
+    "radius": 1.0,
+    "order": 8,
+    "solver": "cudss",
+    "centers": [
+      [
+        -2,
+        0,
+        -2
+      ],
+      [
+        2,
+        0,
+        -2
+      ],
+      [
+        -2,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        -2
+      ],
+      [
+        -2,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "terminals": [
+    0,
+    1,
+    2
+  ],
+  "edges": [
+    [
+      0,
+      1,
+      3
+    ],
+    [
+      0,
+      2,
+      4
+    ],
+    [
+      1,
+      2,
+      5
+    ]
+  ],
+  "targets": [
+    {
+      "name": "unequal_spd",
+      "matrix": [
+        [
+          4,
+          1,
+          0.5
+        ],
+        [
+          1,
+          3,
+          0.75
+        ],
+        [
+          0.5,
+          0.75,
+          2.5
+        ]
+      ]
+    },
+    {
+      "name": "signed_spd",
+      "matrix": [
+        [
+          3,
+          -0.6,
+          0.4
+        ],
+        [
+          -0.6,
+          2.5,
+          0.8
+        ],
+        [
+          0.4,
+          0.8,
+          3.5
+        ]
+      ]
+    },
+    {
+      "name": "conditioned_spd",
+      "matrix": [
+        [
+          1.2,
+          1,
+          1
+        ],
+        [
+          1,
+          1.2,
+          1
+        ],
+        [
+          1,
+          1,
+          1.2
+        ]
+      ]
+    }
+  ],
+  "verification_h": [
+    0.16666666666666666,
+    0.15384615384615385
+  ],
+  "acceptance": {
+    "discrete_pde_residual": 1e-08,
+    "calibrated_matrix_relative_error": 1e-07,
+    "finest_grid_equation_residual": 0.01
+  }
+}

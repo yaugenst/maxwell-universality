@@ -1,0 +1,4 @@
+Exact arithmetic checker run: python verify_h2_constants.py
+PASS: displayed H2 rational inequalities
+NOT CHECKED HERE: original H1 certificate; H3; termination run for fixed data
+L=8818329545368141824, beta=1/268435456, resolvent_error=4096/4194303

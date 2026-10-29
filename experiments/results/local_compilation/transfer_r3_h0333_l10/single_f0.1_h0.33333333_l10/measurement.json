@@ -1,0 +1,50 @@
+{
+  "strengths": [
+    26.319088693511958
+  ],
+  "h": 0.3333333333333333,
+  "lengths": [
+    10.0,
+    10.0,
+    10.0
+  ],
+  "centers": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "reference": "results/r3_h0333_l10",
+  "mode": 0,
+  "mu": 0.03454112411251584,
+  "unknowns": 75690,
+  "response": [
+    [
+      289.509975628594
+    ]
+  ],
+  "inverse": [
+    [
+      0.0034541124112520325
+    ]
+  ],
+  "pde_relative_residuals": [
+    3.187214623238358e-14
+  ],
+  "material_continuous_enclosure": [
+    5.039201096215631,
+    21.721452736926437
+  ],
+  "source_norms_squared": [
+    0.23969245166298014
+  ],
+  "inside_all_supports_fractions": [
+    0.31310602023589823
+  ],
+  "seconds": 7.378614821936935,
+  "factor_seconds": 6.935515889432281,
+  "factor_nnz": 1194220924,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

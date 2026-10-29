@@ -1,0 +1,29 @@
+{
+  "command": [
+    "experiments/.venv/bin/python",
+    "experiments/maxwell.py",
+    "modes",
+    "--order",
+    "8",
+    "--solver",
+    "cudss",
+    "--strength",
+    "24",
+    "--h",
+    "0.3333333333333333",
+    "--radius",
+    "2",
+    "--separation",
+    "4",
+    "--lengths",
+    "8",
+    "8",
+    "14",
+    "--detuning",
+    ".075",
+    "--output",
+    "results/followup/modes_radius2_h0333"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 34.453419597353786
+}

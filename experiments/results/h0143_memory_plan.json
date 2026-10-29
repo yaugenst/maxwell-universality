@@ -1,0 +1,5 @@
+{
+  "unknowns": 379610,
+  "memory_estimates": "(112605351652, 112605351652, 31236144, 486772128, 42588498884, 107920604656, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])",
+  "dtype": "(numpy.record, [('permanent_device_memory', '<u8'), ('peak_device_memory', '<u8'), ('permanent_host_memory', '<u8'), ('peak_host_memory', '<u8'), ('hybrid_min_device_memory', '<u8'), ('hybrid_max_device_memory', '<u8'), ('reserved', '<u8', (10,))])"
+}

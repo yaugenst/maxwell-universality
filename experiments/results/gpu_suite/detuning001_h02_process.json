@@ -1,0 +1,21 @@
+{
+  "command": [
+    "experiments/.venv/bin/python",
+    "experiments/maxwell.py",
+    "gadget",
+    "--order",
+    "8",
+    "--solver",
+    "cudss",
+    "--strength",
+    "24",
+    "--h",
+    ".2",
+    "--detuning",
+    ".01",
+    "--output",
+    "results/gpu_suite/detuning001_h02"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 57.41166177392006
+}

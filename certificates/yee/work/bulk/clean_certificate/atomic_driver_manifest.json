@@ -1,0 +1,5 @@
+{
+  "purpose": "New atomic evidence wrapper; old frozen613-entry evidence remains unchanged.",
+  "atomic_driver_sha256": "01ae31c516e926e7a87a1b56f5d9dcd0f8ee38532fe12bf3bbe5d58fc89d7771",
+  "frozen_evidence_manifest_sha256": "f8c0625768ec5c7705408325d49e010195790379b65096b8fb65231543542de0"
+}

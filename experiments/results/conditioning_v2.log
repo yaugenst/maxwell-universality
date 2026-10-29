@@ -1,0 +1,17 @@
+No multithreading interface library was specified using the DirectSolverOptions. The performance of CPU operations like planning will be significantly lower than if you provide a multithreading library.
+Traceback (most recent call last):
+  File "experiments/conditioning.py", line 84, in <module>
+    main()
+  File "experiments/conditioning.py", line 79, in main
+    rows.append(measure(case,args.output/f"case_{index}"))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "experiments/conditioning.py", line 62, in measure
+    "factor_nnz":int(factor_info.lu_nnz),"wall_seconds":time.perf_counter()-start}
+                     ^^^^^^^^^^^^^^^^^^
+  File "experiments/.venv/lib/python3.12/site-packages/nvmath/internal/utils.py", line 600, in inner
+    checker(*args, **kwargs, what=what)
+  File "experiments/.venv/lib/python3.12/site-packages/nvmath/sparse/_internal/cudss_data_ifc.py", line 235, in _check_valid_solver_wrapper
+    _check_valid_solver(self)
+  File "experiments/.venv/lib/python3.12/site-packages/nvmath/sparse/_internal/cudss_data_ifc.py", line 61, in _check_valid_solver
+    raise RuntimeError(f"The {name} object at {address} cannot be used after it's solver object is free'd.")
+RuntimeError: The FactorizationInfo object at 0x7fb4c2d0f050 cannot be used after it's solver object is free'd.

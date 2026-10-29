@@ -1,0 +1,26 @@
+{
+  "verified_source_snapshots": 28,
+  "successful_remote_case_processes": 21,
+  "raw_field_decoder_checks": [
+    {
+      "h": 0.2,
+      "max_equation_residual": 5.3230765689063783e-14
+    },
+    {
+      "h": 0.15384615384615385,
+      "max_equation_residual": 0.0009496859505733202
+    },
+    {
+      "h": 0.16666666666666666,
+      "max_equation_residual": 0.0007364099682256596
+    }
+  ],
+  "legacy_cpu_receipts_without_source_snapshot": [
+    "results/screen_h05",
+    "results/gadget_h05",
+    "results/gadget_h0333",
+    "results/gadget_h025",
+    "results/triple_o8_h05",
+    "results/triple_o8_h0333"
+  ]
+}

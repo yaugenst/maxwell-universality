@@ -1,0 +1,51 @@
+{
+  "name": "nonuniform3",
+  "target": [
+    [
+      2.5,
+      -1.0,
+      0.0
+    ],
+    [
+      -1.0,
+      3.0,
+      -1.0
+    ],
+    [
+      0.0,
+      -1.0,
+      4.0
+    ]
+  ],
+  "strengths": [
+    34.3632005943583,
+    34.36247531216776,
+    34.36102483963121
+  ],
+  "ports": [
+    0,
+    1,
+    2
+  ],
+  "alpha": 1.2284541758091573e-06,
+  "target_condition": 3.0800407279349282,
+  "centers": [
+    -4.0,
+    0.0,
+    4.0
+  ],
+  "lengths": [
+    1.0,
+    0.5,
+    20.0
+  ],
+  "order": 12,
+  "spacings": [
+    0.0625,
+    0.05,
+    0.045454545454545456
+  ],
+  "template_sha256": "a9a9cf734426b2b36969212c76380ea3765802b023a953920e21d3c2661c1d76",
+  "policy": "Only isolated-component calibration and analytic nearest-pair coupling; no optimization or assembled response enters the design.",
+  "acceptance": "Equation operator norm below 1% on both finer full-Maxwell grids."
+}

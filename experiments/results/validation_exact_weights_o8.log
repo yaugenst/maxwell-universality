@@ -1,0 +1,70 @@
+{
+  "discretization_order": 8,
+  "manufactured_solution": [
+    {
+      "h": 0.5,
+      "unknowns": 108,
+      "relative_solution_error": 4.3506200443072174e-05,
+      "relative_solve_residual": 1.1427853556918184e-15,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    },
+    {
+      "h": 0.3333333333333333,
+      "unknowns": 450,
+      "relative_solution_error": 1.812082937784547e-06,
+      "relative_solve_residual": 4.201160637832455e-15,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    },
+    {
+      "h": 0.25,
+      "unknowns": 1176,
+      "relative_solution_error": 1.8561141339481256e-07,
+      "relative_solve_residual": 1.145794183331281e-14,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    },
+    {
+      "h": 0.2,
+      "unknowns": 2430,
+      "relative_solution_error": 3.147208882360557e-08,
+      "relative_solve_residual": 2.939587648926495e-14,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    },
+    {
+      "h": 0.16666666666666666,
+      "unknowns": 4356,
+      "relative_solution_error": 7.361646454442334e-09,
+      "relative_solve_residual": 5.4510113120853634e-14,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    }
+  ],
+  "last_observed_order": 7.968434993225062,
+  "bloch_cutoff_convergence": [
+    {
+      "rho": 0.5,
+      "cutoff": 2,
+      "ec": 1.5725683038666887,
+      "corner_gap": 0.012898561194443658,
+      "eigen_residual": 3.293285678353207e-14
+    },
+    {
+      "rho": 0.5,
+      "cutoff": 3,
+      "ec": 1.5725344295489645,
+      "corner_gap": 0.012871955050112405,
+      "eigen_residual": 9.242981679693056e-14
+    },
+    {
+      "rho": 0.5,
+      "cutoff": 4,
+      "ec": 1.5725345994767963,
+      "corner_gap": 0.012871866710028712,
+      "eigen_residual": 1.8664320236376766e-13
+    }
+  ],
+  "passed": true
+}

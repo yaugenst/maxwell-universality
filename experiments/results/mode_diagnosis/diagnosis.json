@@ -1,0 +1,206 @@
+[
+  {
+    "name": "local_design",
+    "strengths": [
+      8.481958097187785,
+      19.448630553396995,
+      8.48195809718778
+    ],
+    "direct_contribution_three_port_equation_norm": 0.19995780710794075,
+    "discarded_modes_contribution_three_port_equation_norm": 0.5373160031734984,
+    "combined_three_port_equation_norm": 0.6577621351087676,
+    "discarded_mode_self_energy": [
+      [
+        -0.0015906578608622657,
+        -0.01491495848083954,
+        0.023649216219889344
+      ],
+      [
+        -0.014914958480837764,
+        0.0211963302631053,
+        -0.014914958480843836
+      ],
+      [
+        0.02364921621987831,
+        -0.014914958480833962,
+        -0.001590657860866429
+      ]
+    ],
+    "ranks": [
+      {
+        "modes_per_defect": 1,
+        "relative_three_port_response_error": 0.9540539904898421,
+        "terminal_equation_prediction_error": 0.16667789239301276,
+        "model_terminal_equation_residual": 0.15937603722930554
+      },
+      {
+        "modes_per_defect": 2,
+        "relative_three_port_response_error": 0.8761602148036011,
+        "terminal_equation_prediction_error": 0.4160809926470789,
+        "model_terminal_equation_residual": 0.10844284151164935
+      },
+      {
+        "modes_per_defect": 4,
+        "relative_three_port_response_error": 0.0874427108062592,
+        "terminal_equation_prediction_error": 0.09463381795139629,
+        "model_terminal_equation_residual": 0.4206877475737145
+      },
+      {
+        "modes_per_defect": 8,
+        "relative_three_port_response_error": 0.08744267326867733,
+        "terminal_equation_prediction_error": 0.09463377732680155,
+        "model_terminal_equation_residual": 0.42068770694911983
+      },
+      {
+        "modes_per_defect": 16,
+        "relative_three_port_response_error": 0.08744188400950874,
+        "terminal_equation_prediction_error": 0.09463292316059616,
+        "model_terminal_equation_residual": 0.42068685278291446
+      },
+      {
+        "modes_per_defect": 32,
+        "relative_three_port_response_error": 0.08743985192227971,
+        "terminal_equation_prediction_error": 0.0946307239587288,
+        "model_terminal_equation_residual": 0.4206846535810471
+      },
+      {
+        "modes_per_defect": 64,
+        "relative_three_port_response_error": 0.05467646063460809,
+        "terminal_equation_prediction_error": 0.01842705528534531,
+        "model_terminal_equation_residual": 0.33123035531709005
+      },
+      {
+        "modes_per_defect": 128,
+        "relative_three_port_response_error": 0.05415041842832528,
+        "terminal_equation_prediction_error": 0.01822892799850863,
+        "model_terminal_equation_residual": 0.3311489072683246
+      },
+      {
+        "modes_per_defect": 256,
+        "relative_three_port_response_error": 0.04079032303409534,
+        "terminal_equation_prediction_error": 0.014573388919239705,
+        "model_terminal_equation_residual": 0.3307867294876982
+      },
+      {
+        "modes_per_defect": 512,
+        "relative_three_port_response_error": 0.006851068008495089,
+        "terminal_equation_prediction_error": 0.0022212330967628837,
+        "model_terminal_equation_residual": 0.3272834396654168
+      },
+      {
+        "modes_per_defect": 1024,
+        "relative_three_port_response_error": 0.0009204441945258544,
+        "terminal_equation_prediction_error": 0.00029269936648866163,
+        "model_terminal_equation_residual": 0.3262442847935167
+      },
+      {
+        "modes_per_defect": 1494,
+        "relative_three_port_response_error": 1.8851948250106273e-13,
+        "terminal_equation_prediction_error": 3.351896380478826e-14,
+        "model_terminal_equation_residual": 0.32605392962230506
+      }
+    ]
+  },
+  {
+    "name": "calibrated_device",
+    "strengths": [
+      12.500054068969126,
+      12.82462367451358,
+      12.500054068969126
+    ],
+    "direct_contribution_three_port_equation_norm": 0.21294431504082406,
+    "discarded_modes_contribution_three_port_equation_norm": 0.7840328034209751,
+    "combined_three_port_equation_norm": 0.8786764585721949,
+    "discarded_mode_self_energy": [
+      [
+        0.01448002486090777,
+        -0.035162795025628545,
+        0.03611255275595478
+      ],
+      [
+        -0.03516279502562692,
+        0.050046184945776534,
+        -0.0351627950256245
+      ],
+      [
+        0.03611255275597833,
+        -0.0351627950256469,
+        0.014480024860927684
+      ]
+    ],
+    "ranks": [
+      {
+        "modes_per_defect": 1,
+        "relative_three_port_response_error": 1.6267400964761345,
+        "terminal_equation_prediction_error": 1.2621762657617628,
+        "model_terminal_equation_residual": 1.2621762657618698
+      },
+      {
+        "modes_per_defect": 2,
+        "relative_three_port_response_error": 1.4591420242437285,
+        "terminal_equation_prediction_error": 1.1455991236125092,
+        "model_terminal_equation_residual": 1.1455991236126157
+      },
+      {
+        "modes_per_defect": 4,
+        "relative_three_port_response_error": 0.06723506206313457,
+        "terminal_equation_prediction_error": 0.08682901710377523,
+        "model_terminal_equation_residual": 0.08682901710388204
+      },
+      {
+        "modes_per_defect": 8,
+        "relative_three_port_response_error": 0.06723506206313437,
+        "terminal_equation_prediction_error": 0.08682901710377451,
+        "model_terminal_equation_residual": 0.08682901710388127
+      },
+      {
+        "modes_per_defect": 16,
+        "relative_three_port_response_error": 0.06723252553476933,
+        "terminal_equation_prediction_error": 0.08682512919499077,
+        "model_terminal_equation_residual": 0.08682512919509756
+      },
+      {
+        "modes_per_defect": 32,
+        "relative_three_port_response_error": 0.06722594903776224,
+        "terminal_equation_prediction_error": 0.08681473725731602,
+        "model_terminal_equation_residual": 0.08681473725742286
+      },
+      {
+        "modes_per_defect": 64,
+        "relative_three_port_response_error": 0.06714160129031141,
+        "terminal_equation_prediction_error": 0.08668885580684997,
+        "model_terminal_equation_residual": 0.08668885580695673
+      },
+      {
+        "modes_per_defect": 128,
+        "relative_three_port_response_error": 0.0665094057064103,
+        "terminal_equation_prediction_error": 0.08574308789703829,
+        "model_terminal_equation_residual": 0.08574308789714509
+      },
+      {
+        "modes_per_defect": 256,
+        "relative_three_port_response_error": 0.04210102034455277,
+        "terminal_equation_prediction_error": 0.05567483831729977,
+        "model_terminal_equation_residual": 0.05567483831740655
+      },
+      {
+        "modes_per_defect": 512,
+        "relative_three_port_response_error": 0.008661465768797246,
+        "terminal_equation_prediction_error": 0.010635134295594751,
+        "model_terminal_equation_residual": 0.010635134295701502
+      },
+      {
+        "modes_per_defect": 1024,
+        "relative_three_port_response_error": 0.0012888812342008935,
+        "terminal_equation_prediction_error": 0.001674758720240096,
+        "model_terminal_equation_residual": 0.0016747587203469025
+      },
+      {
+        "modes_per_defect": 1494,
+        "relative_three_port_response_error": 3.73534003870717e-13,
+        "terminal_equation_prediction_error": 6.306825493834283e-14,
+        "model_terminal_equation_residual": 5.574147238644725e-14
+      }
+    ]
+  }
+]

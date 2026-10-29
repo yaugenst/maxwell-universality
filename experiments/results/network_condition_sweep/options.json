@@ -1,0 +1,11 @@
+{
+  "spec": "network_condition_sweep.json",
+  "output": "results/network_condition_sweep",
+  "background": "results/network_fine/background",
+  "targets": null,
+  "free_scale": true,
+  "starts": 1,
+  "max_evaluations": 100,
+  "dense_solver": "cupy",
+  "warm_start": "results/network_fine/signed_spd/calibration.json"
+}

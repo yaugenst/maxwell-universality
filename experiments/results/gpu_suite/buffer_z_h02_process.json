@@ -1,0 +1,23 @@
+{
+  "command": [
+    "experiments/.venv/bin/python",
+    "experiments/maxwell.py",
+    "triple",
+    "--order",
+    "8",
+    "--solver",
+    "cudss",
+    "--strength",
+    "24",
+    "--h",
+    ".2",
+    "--lengths",
+    "6",
+    "6",
+    "14",
+    "--output",
+    "results/gpu_suite/buffer_z_h02"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 16.260459018871188
+}

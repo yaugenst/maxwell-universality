@@ -1,0 +1,8 @@
+{
+  "status": "PASS: exact scalar inequalities only; H1 remains assumed",
+  "L": "8818329545368141824",
+  "sin_lower": "12871/82320",
+  "rayleigh_lower": "956/177",
+  "mu_margin_above_16_over_3": "1989/30208",
+  "maximum_permittivity_bound": "6442975233/268435456"
+}

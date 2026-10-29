@@ -1,0 +1,9 @@
+import Maxwell.Defect.TorusChart
+#check MeasureTheory.integral_neg_eq_self
+#check MeasureTheory.integrable_neg_iff
+#check MeasureTheory.Integrable.comp_neg
+#check MeasureTheory.integrable_comp_neg_iff
+#check MeasureTheory.measurePreserving_neg
+#check MeasureTheory.integral_smul
+#check AnalyticAt.restrictScalars
+#check MeasureTheory.Integrable.comp_smul

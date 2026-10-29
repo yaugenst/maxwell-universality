@@ -1,0 +1,100 @@
+{
+  "target": [
+    [
+      1.2,
+      1.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.2,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      1.2
+    ]
+  ],
+  "terminals": [
+    0,
+    1,
+    2
+  ],
+  "alpha": 0.01905291787653857,
+  "strengths": [
+    13.590623592508729,
+    15.444815810632205,
+    6.771853309429753,
+    20.418193627710494,
+    18.233236085932038,
+    14.810295234228871
+  ],
+  "nominal_source_decoder_strengths": [
+    13.590623592508729,
+    15.444815810632205,
+    6.771853309429753
+  ],
+  "h": 0.16666666666666666,
+  "unknowns": 237444,
+  "lengths": [
+    8.0,
+    6.0,
+    8.0
+  ],
+  "material_continuous_enclosure": [
+    4.772534429548964,
+    19.283968091041405
+  ],
+  "decoded_response_real": [
+    [
+      0.8061143147338183,
+      -0.5112629930602487,
+      0.12912016357409165
+    ],
+    [
+      -0.5112629930603957,
+      1.556757665054648,
+      -0.6649834054390115
+    ],
+    [
+      0.12912016357432043,
+      -0.6649834054392024,
+      0.6648319961053502
+    ]
+  ],
+  "decoded_response_imag": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "worst_relative_equation_residual": 0.9618659647522644,
+  "per_basis_relative_equation_residuals": [
+    0.6912906615651057,
+    0.4833631042971704,
+    0.7541331107861263
+  ],
+  "discrete_pde_relative_residuals": [
+    1.1700161111861465e-12,
+    1.612092915160751e-12,
+    2.68647966325636e-12
+  ],
+  "full_field_relative_residual_amplification_bound": 9.383352430456982,
+  "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+  "factor_seconds": 22.152765405829996,
+  "factor_nnz": 6668306278,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

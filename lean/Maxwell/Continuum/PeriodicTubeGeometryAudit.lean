@@ -1,0 +1,23 @@
+import Maxwell.Continuum.PeriodicPoleTransition
+import Maxwell.Continuum.PeriodicTubeLattice
+import Maxwell.Continuum.PeriodicTubeShiftNonzero
+
+#print axioms Maxwell.Continuum.PeriodicBand.dualHessianDistance_eq_norm
+#print axioms Maxwell.Continuum.PeriodicBand.optimalTubeShift_energy
+#print axioms Maxwell.Continuum.PeriodicBand.optimalTubeShift_phase
+#print axioms Maxwell.Continuum.PeriodicBand.optimalTubeShift_norm_le
+#print axioms Maxwell.Continuum.PeriodicBand.optimalTubeShift_ne_zero
+#print axioms Maxwell.Continuum.PeriodicBand.optimalTubeShift_cell_analytic
+#print axioms Maxwell.Continuum.PeriodicBand.optimalTubeShift_cell_norm_le
+#print axioms Maxwell.Continuum.PeriodicBand.placedDisplacement_dualDistance
+#print axioms Maxwell.Continuum.PeriodicBand.tube_rate_log_three
+#print axioms Maxwell.Continuum.PeriodicBand.placedDisplacement_phase_lower
+#print axioms Maxwell.Continuum.PeriodicBand.placedDisplacement_phase_log_lower
+#print axioms Maxwell.Continuum.PeriodicBand.placedDisplacement_exponential_le
+#print axioms Maxwell.Continuum.PeriodicBand.transition_denominator_lower
+#print axioms Maxwell.Continuum.PeriodicBand.transition_fiber_norm_le
+#print axioms Maxwell.Continuum.PeriodicBand.transition_cell_norm_le
+#print axioms Maxwell.Continuum.PeriodicBand.transition_cell_analyticAt
+#print axioms Maxwell.Continuum.PeriodicBand.imaginaryPole_hessianEnergy
+#print axioms Maxwell.Continuum.PeriodicBand.imaginaryPole_transition_cell_norm_le
+#print axioms Maxwell.Continuum.PeriodicBand.imaginaryPole_transition_cell_analyticAt

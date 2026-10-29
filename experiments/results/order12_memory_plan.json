@@ -1,0 +1,12 @@
+{
+  "unknowns": 237444,
+  "order": 12,
+  "memory_estimates": {
+    "permanent_device_memory": 100783286404,
+    "peak_device_memory": 100783286404,
+    "permanent_host_memory": 18670880,
+    "peak_host_memory": 581865072,
+    "hybrid_min_device_memory": 52565445860,
+    "hybrid_max_device_memory": 96908324288
+  }
+}

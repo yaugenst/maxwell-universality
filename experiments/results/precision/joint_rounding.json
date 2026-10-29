@@ -1,0 +1,302 @@
+[
+  {
+    "target": [
+      [
+        3.0,
+        1.0
+      ],
+      [
+        1.0,
+        3.0
+      ]
+    ],
+    "terminals": [
+      0,
+      2
+    ],
+    "alpha": 0.04296875,
+    "strengths": [
+      12.5,
+      12.82421875,
+      12.5
+    ],
+    "nominal_source_decoder_strengths": [
+      12.5,
+      12.5
+    ],
+    "h": 0.16666666666666666,
+    "unknowns": 222180,
+    "lengths": [
+      6.0,
+      6.0,
+      10.0
+    ],
+    "material_continuous_enclosure": [
+      4.7734375,
+      16.491203927210332
+    ],
+    "decoded_response_real": [
+      [
+        0.3806650948659294,
+        -0.12114539339666063
+      ],
+      [
+        -0.12114539339666106,
+        0.38066509486592953
+      ]
+    ],
+    "decoded_response_imag": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "worst_relative_equation_residual": 0.03807880587707453,
+    "per_basis_relative_equation_residuals": [
+      0.027047245035490754,
+      0.027047245035492166
+    ],
+    "discrete_pde_relative_residuals": [
+      7.015499979438788e-14,
+      6.997225300249589e-14
+    ],
+    "full_field_relative_residual_amplification_bound": 14.70741346118993,
+    "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+    "factor_seconds": 20.282383085694164,
+    "factor_nnz": 5930041074,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "fractional_bits": 8,
+    "coefficient_step": 0.00390625,
+    "rounded_parameters": "Background constant, all defect strengths, alpha drive gain, and all physical spline sample values defining source/readout profiles. Geometry, bump/cosine function definitions, and solver arithmetic unchanged."
+  },
+  {
+    "target": [
+      [
+        3.0,
+        1.0
+      ],
+      [
+        1.0,
+        3.0
+      ]
+    ],
+    "terminals": [
+      0,
+      2
+    ],
+    "alpha": 0.04296875,
+    "strengths": [
+      12.5,
+      12.82421875,
+      12.5
+    ],
+    "nominal_source_decoder_strengths": [
+      12.5,
+      12.5
+    ],
+    "h": 0.16666666666666666,
+    "unknowns": 222180,
+    "lengths": [
+      6.0,
+      6.0,
+      10.0
+    ],
+    "material_continuous_enclosure": [
+      4.7724609375,
+      16.490227364710332
+    ],
+    "decoded_response_real": [
+      [
+        0.37500677037002095,
+        -0.12552887321030634
+      ],
+      [
+        -0.12552887321030665,
+        0.37500677037002095
+      ]
+    ],
+    "decoded_response_imag": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "worst_relative_equation_residual": 0.0020884113611422113,
+    "per_basis_relative_equation_residuals": [
+      0.0016596864453768169,
+      0.0016596864453758164
+    ],
+    "discrete_pde_relative_residuals": [
+      7.082034122573152e-14,
+      7.079615613276958e-14
+    ],
+    "full_field_relative_residual_amplification_bound": 14.841683733791742,
+    "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+    "factor_seconds": 19.403309350833297,
+    "factor_nnz": 5930041074,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "fractional_bits": 10,
+    "coefficient_step": 0.0009765625,
+    "rounded_parameters": "Background constant, all defect strengths, alpha drive gain, and all physical spline sample values defining source/readout profiles. Geometry, bump/cosine function definitions, and solver arithmetic unchanged."
+  },
+  {
+    "target": [
+      [
+        3.0,
+        1.0
+      ],
+      [
+        1.0,
+        3.0
+      ]
+    ],
+    "terminals": [
+      0,
+      2
+    ],
+    "alpha": 0.04296875,
+    "strengths": [
+      12.5,
+      12.82470703125,
+      12.5
+    ],
+    "nominal_source_decoder_strengths": [
+      12.5,
+      12.5
+    ],
+    "h": 0.16666666666666666,
+    "unknowns": 222180,
+    "lengths": [
+      6.0,
+      6.0,
+      10.0
+    ],
+    "material_continuous_enclosure": [
+      4.7724609375,
+      16.49040699334372
+    ],
+    "decoded_response_real": [
+      [
+        0.3750147208093092,
+        -0.12552582186061015
+      ],
+      [
+        -0.12552582186060893,
+        0.37501472080930753
+      ]
+    ],
+    "decoded_response_imag": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "worst_relative_equation_residual": 0.0020444042052047274,
+    "per_basis_relative_equation_residuals": [
+      0.0016352880581481698,
+      0.0016352880581550877
+    ],
+    "discrete_pde_relative_residuals": [
+      7.093509780337196e-14,
+      7.0719937123421e-14
+    ],
+    "full_field_relative_residual_amplification_bound": 14.841628849656336,
+    "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+    "factor_seconds": 19.47651337692514,
+    "factor_nnz": 5930041074,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "fractional_bits": 12,
+    "coefficient_step": 0.000244140625,
+    "rounded_parameters": "Background constant, all defect strengths, alpha drive gain, and all physical spline sample values defining source/readout profiles. Geometry, bump/cosine function definitions, and solver arithmetic unchanged."
+  },
+  {
+    "target": [
+      [
+        3.0,
+        1.0
+      ],
+      [
+        1.0,
+        3.0
+      ]
+    ],
+    "terminals": [
+      0,
+      2
+    ],
+    "alpha": 0.0428924560546875,
+    "strengths": [
+      12.50006103515625,
+      12.824630737304688,
+      12.50006103515625
+    ],
+    "nominal_source_decoder_strengths": [
+      12.50006103515625,
+      12.50006103515625
+    ],
+    "h": 0.16666666666666666,
+    "unknowns": 222180,
+    "lengths": [
+      6.0,
+      6.0,
+      10.0
+    ],
+    "material_continuous_enclosure": [
+      4.7725372314453125,
+      16.490455220315063
+    ],
+    "decoded_response_real": [
+      [
+        0.37479056431668956,
+        -0.12495953074268927
+      ],
+      [
+        -0.12495953074268815,
+        0.3747905643166876
+      ]
+    ],
+    "decoded_response_imag": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "worst_relative_equation_residual": 0.0006758657040004806,
+    "per_basis_relative_equation_residuals": [
+      0.0005943922809162288,
+      0.0005943922809238213
+    ],
+    "discrete_pde_relative_residuals": [
+      7.080313524351389e-14,
+      7.068890248921785e-14
+    ],
+    "full_field_relative_residual_amplification_bound": 14.803748737328867,
+    "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+    "factor_seconds": 19.369439105968922,
+    "factor_nnz": 5930041074,
+    "solver": "cudss",
+    "backend_version": "1.0.0",
+    "fractional_bits": 16,
+    "coefficient_step": 1.52587890625e-05,
+    "rounded_parameters": "Background constant, all defect strengths, alpha drive gain, and all physical spline sample values defining source/readout profiles. Geometry, bump/cosine function definitions, and solver arithmetic unchanged."
+  }
+]

@@ -1,0 +1,155 @@
+[
+  {
+    "case": "results/robustness/nominal",
+    "h": 0.2,
+    "unknowns": 127310,
+    "scope": "Uncertified finite-matrix spectral estimate using shift-invert Lanczos over the full electric space. Rayleigh quotients and absolute eigen-residuals are independently evaluated with the assembled Maxwell matrix. It is not a continuum or asymptotic condition bound.",
+    "largest_eigenvalue": 486.2035901807721,
+    "largest_eigen_residual": 0.0008751939580342037,
+    "nearest_eigenpairs": [
+      {
+        "rayleigh_eigenvalue": 0.004857013219571319,
+        "inverse_ritz_eigenvalue": 0.004857013219571141,
+        "absolute_eigen_residual": 6.610998433033025e-14,
+        "normalized_source_overlap": 1.407418879285002e-16
+      },
+      {
+        "rayleigh_eigenvalue": -0.008337337019266429,
+        "inverse_ritz_eigenvalue": -0.008337337019266308,
+        "absolute_eigen_residual": 5.436771538214048e-14,
+        "normalized_source_overlap": 3.360388758424444e-16
+      },
+      {
+        "rayleigh_eigenvalue": 0.018624011244502935,
+        "inverse_ritz_eigenvalue": 0.018624011244502935,
+        "absolute_eigen_residual": 6.814970352497147e-14,
+        "normalized_source_overlap": 0.021259026247688658
+      },
+      {
+        "rayleigh_eigenvalue": 0.03164837227537586,
+        "inverse_ritz_eigenvalue": 0.031648372275375855,
+        "absolute_eigen_residual": 5.54993637780914e-10,
+        "normalized_source_overlap": 0.007444692773186091
+      },
+      {
+        "rayleigh_eigenvalue": 0.03278382817712998,
+        "inverse_ritz_eigenvalue": 0.03278382817713075,
+        "absolute_eigen_residual": 1.0245090512223894e-09,
+        "normalized_source_overlap": 5.39990517038132e-12
+      },
+      {
+        "rayleigh_eigenvalue": -0.03697237979351067,
+        "inverse_ritz_eigenvalue": -0.03697237979351205,
+        "absolute_eigen_residual": 8.779947039926989e-09,
+        "normalized_source_overlap": 5.5184621197190735e-11
+      }
+    ],
+    "estimated_spectral_condition": 100103.4109237373,
+    "inverse_applications": 25,
+    "maximum_inverse_solve_relative_residual": 4.219065773731171e-12,
+    "factor_nnz": 2512490988,
+    "wall_seconds": 16.197258244734257
+  },
+  {
+    "case": "results/network_fine/conditioned_spd/h0.2",
+    "h": 0.2,
+    "unknowns": 136110,
+    "scope": "Uncertified finite-matrix spectral estimate using shift-invert Lanczos over the full electric space. Rayleigh quotients and absolute eigen-residuals are independently evaluated with the assembled Maxwell matrix. It is not a continuum or asymptotic condition bound.",
+    "largest_eigenvalue": 486.3282551429155,
+    "largest_eigen_residual": 0.0016233703119135643,
+    "nearest_eigenpairs": [
+      {
+        "rayleigh_eigenvalue": 3.233050928531022e-05,
+        "inverse_ritz_eigenvalue": 3.233050928550862e-05,
+        "absolute_eigen_residual": 7.270509659432985e-14,
+        "normalized_source_overlap": 0.013520205000865723
+      },
+      {
+        "rayleigh_eigenvalue": 0.00028797143881018766,
+        "inverse_ritz_eigenvalue": 0.0002879714388095332,
+        "absolute_eigen_residual": 4.860249620082874e-13,
+        "normalized_source_overlap": 0.04029769509980124
+      },
+      {
+        "rayleigh_eigenvalue": -0.00433044744428918,
+        "inverse_ritz_eigenvalue": -0.00433044744429029,
+        "absolute_eigen_residual": 7.236305075843962e-13,
+        "normalized_source_overlap": 1.1009659389197822e-14
+      },
+      {
+        "rayleigh_eigenvalue": 0.0151765230051248,
+        "inverse_ritz_eigenvalue": 0.01517652300511763,
+        "absolute_eigen_residual": 1.6162056135613874e-12,
+        "normalized_source_overlap": 4.243505779321016e-14
+      },
+      {
+        "rayleigh_eigenvalue": -0.020959963129094417,
+        "inverse_ritz_eigenvalue": -0.020959963129095892,
+        "absolute_eigen_residual": 6.674597597628104e-13,
+        "normalized_source_overlap": 4.097596404528032e-15
+      },
+      {
+        "rayleigh_eigenvalue": 0.021282774636110433,
+        "inverse_ritz_eigenvalue": 0.021282774636107366,
+        "absolute_eigen_residual": 1.0010661868617869e-12,
+        "normalized_source_overlap": 0.056430187593293116
+      }
+    ],
+    "estimated_spectral_condition": 15042393.88409155,
+    "inverse_applications": 25,
+    "maximum_inverse_solve_relative_residual": 7.130009173919394e-10,
+    "factor_nnz": 2858376392,
+    "wall_seconds": 16.884015436749905
+  },
+  {
+    "case": "results/network_fine/conditioned_spd/h0.15384615",
+    "h": 0.15384615384615385,
+    "unknowns": 302991,
+    "scope": "Uncertified finite-matrix spectral estimate using shift-invert Lanczos over the full electric space. Rayleigh quotients and absolute eigen-residuals are independently evaluated with the assembled Maxwell matrix. It is not a continuum or asymptotic condition bound.",
+    "largest_eigenvalue": 828.8212656753641,
+    "largest_eigen_residual": 0.004889176879794519,
+    "nearest_eigenpairs": [
+      {
+        "rayleigh_eigenvalue": 8.680039127187561e-05,
+        "inverse_ritz_eigenvalue": 8.680039127166062e-05,
+        "absolute_eigen_residual": 1.1500693100298683e-13,
+        "normalized_source_overlap": 0.013586738919426605
+      },
+      {
+        "rayleigh_eigenvalue": 0.0003414432327490776,
+        "inverse_ritz_eigenvalue": 0.00034144323274884437,
+        "absolute_eigen_residual": 1.8422926940698156e-13,
+        "normalized_source_overlap": 0.0402332753450325
+      },
+      {
+        "rayleigh_eigenvalue": -0.004303385674268902,
+        "inverse_ritz_eigenvalue": -0.004303385674265706,
+        "absolute_eigen_residual": 1.796020387762456e-12,
+        "normalized_source_overlap": 5.5415676824119235e-15
+      },
+      {
+        "rayleigh_eigenvalue": 0.01511987090926702,
+        "inverse_ritz_eigenvalue": 0.01511987090927579,
+        "absolute_eigen_residual": 3.0217712364588105e-12,
+        "normalized_source_overlap": 2.068448328798503e-14
+      },
+      {
+        "rayleigh_eigenvalue": -0.02100688719581468,
+        "inverse_ritz_eigenvalue": -0.02100688719581179,
+        "absolute_eigen_residual": 1.552921703988622e-12,
+        "normalized_source_overlap": 6.684282242490581e-15
+      },
+      {
+        "rayleigh_eigenvalue": 0.021371103506880363,
+        "inverse_ritz_eigenvalue": 0.021371103506880613,
+        "absolute_eigen_residual": 7.454909867206703e-13,
+        "normalized_source_overlap": 0.05631586564624766
+      }
+    ],
+    "estimated_spectral_condition": 9548589.050472545,
+    "inverse_applications": 25,
+    "maximum_inverse_solve_relative_residual": 4.5562807229571824e-10,
+    "factor_nnz": 9736485053,
+    "wall_seconds": 47.56231165397912
+  }
+]

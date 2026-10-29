@@ -1,0 +1,149 @@
+{
+  "config": {
+    "lengths": [
+      8.0,
+      6.0,
+      8.0
+    ],
+    "h": 0.2,
+    "rho": 0.5,
+    "detuning": 0.3,
+    "radius": 1.0,
+    "separation": 2.0,
+    "strength": 16.0,
+    "absorption": 0.0,
+    "order": 8,
+    "solver": "cudss",
+    "centers": [
+      [
+        -2,
+        0,
+        -2
+      ],
+      [
+        2,
+        0,
+        -2
+      ],
+      [
+        -2,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        -2
+      ],
+      [
+        -2,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "bloch_probe": {
+    "rho": 0.5,
+    "cutoff": 3,
+    "ec": 1.5725344295489645,
+    "corner_gap": 0.012871955050112405,
+    "eigen_residual": 9.242981679693056e-14
+  },
+  "unknowns": 136110,
+  "curl_nnz": 2084400,
+  "matrix_nnz": 19027510,
+  "centers": [
+    [
+      -2,
+      0,
+      -2
+    ],
+    [
+      2,
+      0,
+      -2
+    ],
+    [
+      -2,
+      0,
+      2
+    ],
+    [
+      0,
+      0,
+      -2
+    ],
+    [
+      -2,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "probe_gram": [
+    [
+      1.0000000000000016,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.000000000000002,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0000000000000018,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0000000000000018,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0000000000000018,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0000000000000022
+    ]
+  ],
+  "python": "3.12.13",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "threads": 2,
+  "code_sha256": "25bfe68180a90ddedfd9036c6ae77a019fb93f36819686278ad4905991541813",
+  "scope": "Numerical compact-parameter continuum experiment via Yee refinement; no proof certificate or physical momentum filter",
+  "material_sampling": "continuous scalar material at each electric edge"
+}

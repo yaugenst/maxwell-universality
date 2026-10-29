@@ -1,0 +1,36 @@
+{
+  "case": "results/direct_refinement_a/signed_spd/h0.14285714",
+  "raw_fields_sha256": "97cfc0b701a91a9d51508378ba58d642d37fedd34581a666684b891aa72c5069",
+  "source_and_decoder_reconstructed": true,
+  "plane": "y=0, linear interpolation of cell-centered vector components",
+  "geometry_isosurface": "25% of each local added-permittivity peak; not a material boundary",
+  "visualization_only_interpolation": true,
+  "quantitative_decoding": "Original staggered fields and probes, no spatial interpolation",
+  "basis_input": {
+    "b": [
+      1,
+      0,
+      0
+    ],
+    "decoded_x": [
+      0.3638851257615614,
+      0.10835933112374604,
+      -0.06638814323729016
+    ],
+    "equation_error": 0.0005621062757628959
+  },
+  "mixed_input": {
+    "b": [
+      1.0,
+      -0.6,
+      0.8
+    ],
+    "decoded_x": [
+      0.2457590124974826,
+      -0.26448866716935443,
+      0.2608377066261791
+    ],
+    "equation_error": 0.0003313200015740155
+  },
+  "interpretation": "Frequency-domain phasors. No time evolution, energy-flow trajectories, fabricated ports or theorem-scale construction is depicted."
+}

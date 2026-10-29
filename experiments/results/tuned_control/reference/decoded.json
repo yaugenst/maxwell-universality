@@ -1,0 +1,69 @@
+{
+  "h": 0.2,
+  "unknowns": 127310,
+  "strengths": [
+    12.500054068969126,
+    12.82462367451358,
+    12.500054068969126
+  ],
+  "material_continuous_enclosure": [
+    4.772534429548964,
+    16.490449820163068
+  ],
+  "source_definition": "Fixed reference cubic cardinal-spline background modes times the analytic bump, divided by fixed modal eigenvalues",
+  "source_reconstruction_relative_error_at_reference": 8.556659657079357e-15,
+  "target": [
+    [
+      3.0,
+      1.0
+    ],
+    [
+      1.0,
+      3.0
+    ]
+  ],
+  "right_hand_sides": [
+    [
+      1.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0,
+      -1.0,
+      1.0
+    ]
+  ],
+  "decoded_solutions": [
+    [
+      0.37499999999999317,
+      -0.1250000000000075,
+      0.5000000000000009,
+      0.2499999999999878
+    ],
+    [
+      -0.1250000000000067,
+      0.37499999999999134,
+      -0.49999999999999806,
+      0.24999999999998557
+    ]
+  ],
+  "decoded_relative_residuals": [
+    3.8173120119877016e-14,
+    4.576008140935187e-14,
+    5.749626275630271e-15,
+    5.3336944414291986e-14
+  ],
+  "discrete_pde_relative_residuals": [
+    4.8762147914292885e-14,
+    4.895655370033084e-14,
+    2.3180467176767093e-14,
+    6.506450968004314e-14
+  ],
+  "factor_seconds": 8.876409472897649,
+  "factor_nnz": 2512490988,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

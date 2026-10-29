@@ -1,0 +1,4987 @@
+{
+  "periodic": {
+    "target": [
+      [
+        3.0,
+        -0.6,
+        0.4
+      ],
+      [
+        -0.6,
+        2.5,
+        0.8
+      ],
+      [
+        0.4,
+        0.8,
+        3.5
+      ]
+    ],
+    "response": [
+      [
+        0.3638851257615614,
+        0.10835933112374575,
+        -0.06638814323728917
+      ],
+      [
+        0.10835933112374604,
+        0.4637686682718378,
+        -0.11823349666249722
+      ],
+      [
+        -0.06638814323729016,
+        -0.11823349666249776,
+        0.32035718983246325
+      ]
+    ],
+    "operator_error": 0.0007878172817407369,
+    "h": 0.14285714285714285,
+    "unknowns": 379610,
+    "lengths": [
+      8.0,
+      6.0,
+      8.0
+    ],
+    "centers": [
+      [
+        -2,
+        0,
+        -2
+      ],
+      [
+        2,
+        0,
+        -2
+      ],
+      [
+        -2,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        -2
+      ],
+      [
+        -2,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "strengths": [
+      14.872715582271603,
+      23.660676318928434,
+      12.482888307455715,
+      3.1704223969950336,
+      25.7129722737192,
+      5.064638463387147
+    ],
+    "material_enclosure": [
+      4.772534429548964,
+      21.231808300461573
+    ],
+    "calibration": {
+      "name": "signed_spd",
+      "target": [
+        [
+          3.0,
+          -0.6,
+          0.4
+        ],
+        [
+          -0.6,
+          2.5,
+          0.8
+        ],
+        [
+          0.4,
+          0.8,
+          3.5
+        ]
+      ],
+      "target_condition": 2.366820527863089,
+      "source_design": "results/network_signed_polish/signed_spd/calibration.json",
+      "alpha": 0.01804944288849926,
+      "strengths": [
+        14.872715582271603,
+        23.660676318928434,
+        12.482888307455715,
+        3.1704223969950336,
+        25.7129722737192,
+        5.064638463387147
+      ],
+      "nominal_source_decoder_strengths": [
+        14.85946858780678,
+        23.580698860720645,
+        12.529987596175173,
+        3.1570297249815744,
+        25.719207523582106,
+        5.0517978346881645
+      ],
+      "history": [
+        {
+          "name": "evaluation_0",
+          "strengths": [
+            14.85946858780678,
+            23.580698860720645,
+            12.529987596175173,
+            3.1570297249815744,
+            25.719207523582106,
+            5.0517978346881645
+          ],
+          "equation_operator_error": 0.0016155854883533602,
+          "frobenius_equation_error": 0.0016293940288561386
+        },
+        {
+          "name": "evaluation_1",
+          "strengths": [
+            14.872599389206606,
+            23.66044069844387,
+            12.482920763228657,
+            3.1704783418189355,
+            25.71296698319867,
+            5.0646846323090875
+          ],
+          "equation_operator_error": 1.0536878816163712e-06,
+          "frobenius_equation_error": 1.2298707228711678e-06
+        },
+        {
+          "name": "evaluation_2",
+          "strengths": [
+            14.872715582271603,
+            23.660676318928434,
+            12.482888307455715,
+            3.1704223969950336,
+            25.7129722737192,
+            5.064638463387147
+          ],
+          "equation_operator_error": 3.676189827154372e-12,
+          "frobenius_equation_error": 4.774283466013602e-12
+        }
+      ],
+      "calibration_converged": true,
+      "calibration_outcome": "Full Maxwell calibration reached 1e-7 equation tolerance",
+      "source_reference_h": 0.2,
+      "calibration_h": 0.16666666666666666,
+      "scope": "Full Maxwell material-only calibration. The source profiles, drive gain, decoder and reference-grid interpolation data remain fixed throughout tuning and verification.",
+      "verification": [
+        {
+          "target": [
+            [
+              3.0,
+              -0.6,
+              0.4
+            ],
+            [
+              -0.6,
+              2.5,
+              0.8
+            ],
+            [
+              0.4,
+              0.8,
+              3.5
+            ]
+          ],
+          "terminals": [
+            0,
+            1,
+            2
+          ],
+          "alpha": 0.01804944288849926,
+          "strengths": [
+            14.872715582271603,
+            23.660676318928434,
+            12.482888307455715,
+            3.1704223969950336,
+            25.7129722737192,
+            5.064638463387147
+          ],
+          "nominal_source_decoder_strengths": [
+            14.85946858780678,
+            23.580698860720645,
+            12.529987596175173
+          ],
+          "h": 0.16666666666666666,
+          "unknowns": 237444,
+          "lengths": [
+            8.0,
+            6.0,
+            8.0
+          ],
+          "material_continuous_enclosure": [
+            4.772534429548964,
+            21.231808300461573
+          ],
+          "decoded_response_real": [
+            [
+              0.36390559095292263,
+              0.10858835143103768,
+              -0.0664094050073382
+            ],
+            [
+              0.10858835143103836,
+              0.4639684106607252,
+              -0.11846001974335388
+            ],
+            [
+              -0.06640940500733883,
+              -0.11846001974335292,
+              0.3203805079412515
+            ]
+          ],
+          "decoded_response_imag": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "worst_relative_equation_residual": 3.676189827154372e-12,
+          "per_basis_relative_equation_residuals": [
+            2.808174192338776e-12,
+            1.7924728815464176e-12,
+            3.4197925797121085e-12
+          ],
+          "discrete_pde_relative_residuals": [
+            1.1528155680403863e-13,
+            6.278533007308096e-14,
+            1.3557980454417708e-13
+          ],
+          "full_field_relative_residual_amplification_bound": 14.292433797510695,
+          "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+          "factor_seconds": 22.45256403600797,
+          "factor_nnz": 6668306278,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0"
+        }
+      ]
+    },
+    "intermediate_refinement": {
+      "target": [
+        [
+          3.0,
+          -0.6,
+          0.4
+        ],
+        [
+          -0.6,
+          2.5,
+          0.8
+        ],
+        [
+          0.4,
+          0.8,
+          3.5
+        ]
+      ],
+      "terminals": [
+        0,
+        1,
+        2
+      ],
+      "alpha": 0.01804944288849926,
+      "strengths": [
+        14.872715582271603,
+        23.660676318928434,
+        12.482888307455715,
+        3.1704223969950336,
+        25.7129722737192,
+        5.064638463387147
+      ],
+      "nominal_source_decoder_strengths": [
+        14.85946858780678,
+        23.580698860720645,
+        12.529987596175173
+      ],
+      "h": 0.15384615384615385,
+      "unknowns": 302991,
+      "lengths": [
+        8.0,
+        6.0,
+        8.0
+      ],
+      "material_continuous_enclosure": [
+        4.772534429548964,
+        21.231808300461573
+      ],
+      "decoded_response_real": [
+        [
+          0.36335556308998646,
+          0.10758067177286096,
+          -0.06605056216996773
+        ],
+        [
+          0.10758067177286067,
+          0.4630769825215012,
+          -0.11743608449836263
+        ],
+        [
+          -0.06605056216996712,
+          -0.11743608449836232,
+          0.31986186518758064
+        ]
+      ],
+      "decoded_response_imag": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "worst_relative_equation_residual": 0.003965664265232732,
+      "per_basis_relative_equation_residuals": [
+        0.0021176200232559833,
+        0.003325234529058573,
+        0.0021248928544884403
+      ],
+      "discrete_pde_relative_residuals": [
+        1.351362481637492e-13,
+        7.274112714605206e-14,
+        1.5795228539993116e-13
+      ],
+      "full_field_relative_residual_amplification_bound": 14.28566567475828,
+      "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+      "factor_seconds": 32.74985480401665,
+      "factor_nnz": 9736485053,
+      "solver": "gpu_direct",
+      "backend_version": "1.0.0"
+    }
+  },
+  "waveguide_calibration": {
+    "platform": "Cutoff PEC waveguide; separable TE10 chain control, not the periodic construction",
+    "cross_section": [
+      1.0,
+      0.5
+    ],
+    "reference_spacing": 0.005,
+    "local_box_length": 12.0,
+    "radius": 1.0,
+    "separation": 4.0,
+    "mu": 0.02909782699697072,
+    "next_local_eigenvalue": 0.014740625491246157,
+    "resonant_strength": 34.36682746461125,
+    "kappa": 2.9781881070693568,
+    "coupling": 1.2284541758091573e-06,
+    "coupling_over_local_mode_gap": 8.556362291908648e-05,
+    "inside_fraction": 0.9900086689693706,
+    "material_enclosure_at_resonance": [
+      1.0,
+      13.642849282516563
+    ],
+    "local_eigen_residual": 5.230173268377894e-11,
+    "pair_projected_background": [
+      [
+        0.02909782699697077,
+        1.228454175809923e-06
+      ],
+      [
+        1.2284541758103129e-06,
+        0.02909782699697096
+      ]
+    ],
+    "pair_coupling_relative_check": 6.232792060245629e-13,
+    "pair_diagonal_relative_change": 8.215650382226158e-15,
+    "seconds": 0.22709044796647504
+  },
+  "waveguide_cases": {
+    "chain3": [
+      {
+        "name": "chain3",
+        "h": 0.0625,
+        "order": 12,
+        "unknowns": 107608,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            3.0,
+            -1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776
+        ],
+        "decoded_response": [
+          [
+            0.3827183375321965,
+            0.14415520661740097,
+            0.04821339633375176
+          ],
+          [
+            0.14415520661893788,
+            0.4309626391535086,
+            0.14415520661973333
+          ],
+          [
+            0.048213396333369185,
+            0.1441552066167247,
+            0.38271833753218765
+          ]
+        ],
+        "equation_error": 0.006679088350957268,
+        "fine_channel_equation_error": 0.00015834178787129172,
+        "full_vs_fine_channel_response_error": 0.006541545949028966,
+        "pde_relative_residuals": [
+          2.2686572759336872e-10,
+          2.6747165198381704e-10,
+          2.2153680910379869e-10
+        ],
+        "off_polarization_field_fraction": 1.5090878847158277e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.64124821510776
+        ],
+        "seconds": 10.075705796014518,
+        "factor_seconds": 8.998289573937654,
+        "factor_nnz": 987390586,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      },
+      {
+        "name": "chain3",
+        "h": 0.05,
+        "order": 12,
+        "unknowns": 216030,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            3.0,
+            -1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776
+        ],
+        "decoded_response": [
+          [
+            0.38179908765586185,
+            0.14348260251292588,
+            0.04790138771391607
+          ],
+          [
+            0.1434826025127224,
+            0.4297312383860925,
+            0.14348260251189932
+          ],
+          [
+            0.04790138771449711,
+            0.14348260251241962,
+            0.3817990876533644
+          ]
+        ],
+        "equation_error": 0.003218636576818444,
+        "fine_channel_equation_error": 0.00015834178787129172,
+        "full_vs_fine_channel_response_error": 0.00308098176285679,
+        "pde_relative_residuals": [
+          3.7077247934427474e-10,
+          4.3809452967854826e-10,
+          3.780346849836307e-10
+        ],
+        "off_polarization_field_fraction": 2.554701659956565e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.64124821510776
+        ],
+        "seconds": 20.55885118432343,
+        "factor_seconds": 18.82722029509023,
+        "factor_nnz": 3320254600,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      },
+      {
+        "name": "chain3",
+        "h": 0.045454545454545456,
+        "order": 12,
+        "unknowns": 290389,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            3.0,
+            -1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776
+        ],
+        "decoded_response": [
+          [
+            0.3813271853090922,
+            0.14313709685415138,
+            0.04774119523592817
+          ],
+          [
+            0.14313709685438467,
+            0.42909906885267063,
+            0.14313709685405068
+          ],
+          [
+            0.047741195236491285,
+            0.1431370968543167,
+            0.38132718530996856
+          ]
+        ],
+        "equation_error": 0.0014427509164464853,
+        "fine_channel_equation_error": 0.00015834178787129172,
+        "full_vs_fine_channel_response_error": 0.0013039519324337368,
+        "pde_relative_residuals": [
+          4.5687433398934956e-10,
+          5.373377083218603e-10,
+          4.671562305820668e-10
+        ],
+        "off_polarization_field_fraction": 3.1302646725974984e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.64124821510776
+        ],
+        "seconds": 31.229499413166195,
+        "factor_seconds": 29.108138089999557,
+        "factor_nnz": 5324281469,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      }
+    ],
+    "nonuniform3": [
+      {
+        "name": "nonuniform3",
+        "h": 0.0625,
+        "order": 12,
+        "unknowns": 107608,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            2.5,
+            -1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            4.0
+          ]
+        ],
+        "strengths": [
+          34.3632005943583,
+          34.36247531216776,
+          34.36102483963121
+        ],
+        "decoded_response": [
+          [
+            0.4707176333326101,
+            0.17187388101910703,
+            0.04307518365508582
+          ],
+          [
+            0.17187388102077605,
+            0.4278900432511374,
+            0.1072514409022352
+          ],
+          [
+            0.04307518365627926,
+            0.10725144090353933,
+            0.27753792882856254
+          ]
+        ],
+        "equation_error": 0.006852862952525239,
+        "fine_channel_equation_error": 0.0001596657252335734,
+        "full_vs_fine_channel_response_error": 0.0067136154809788445,
+        "pde_relative_residuals": [
+          2.794512890344876e-10,
+          2.689560453557555e-10,
+          1.7329111279961676e-10
+        ],
+        "off_polarization_field_fraction": 1.5036913826096893e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.641515031514706
+        ],
+        "seconds": 10.07347666984424,
+        "factor_seconds": 9.065387016162276,
+        "factor_nnz": 987390586,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      },
+      {
+        "name": "nonuniform3",
+        "h": 0.05,
+        "order": 12,
+        "unknowns": 216030,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            2.5,
+            -1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            4.0
+          ]
+        ],
+        "strengths": [
+          34.3632005943583,
+          34.36247531216776,
+          34.36102483963121
+        ],
+        "decoded_response": [
+          [
+            0.46934695534718324,
+            0.17101293907052406,
+            0.0428011383077754
+          ],
+          [
+            0.17101293906932163,
+            0.42667574325294494,
+            0.10680169755088126
+          ],
+          [
+            0.0428011383082921,
+            0.10680169755132629,
+            0.27704767604563296
+          ]
+        ],
+        "equation_error": 0.003300558903363406,
+        "fine_channel_equation_error": 0.0001596657252335734,
+        "full_vs_fine_channel_response_error": 0.0031612462995352446,
+        "pde_relative_residuals": [
+          4.714275546282936e-10,
+          4.4377319908043075e-10,
+          2.771293056681969e-10
+        ],
+        "off_polarization_field_fraction": 2.5486289278841305e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.641515031514706
+        ],
+        "seconds": 20.320938341785222,
+        "factor_seconds": 18.728604493662715,
+        "factor_nnz": 3320254600,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      },
+      {
+        "name": "nonuniform3",
+        "h": 0.045454545454545456,
+        "order": 12,
+        "unknowns": 290389,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            2.5,
+            -1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            4.0
+          ]
+        ],
+        "strengths": [
+          34.3632005943583,
+          34.36247531216776,
+          34.36102483963121
+        ],
+        "decoded_response": [
+          [
+            0.46864383525598236,
+            0.170570963785376,
+            0.04266042439878902
+          ],
+          [
+            0.17057096378507156,
+            0.4260523922179891,
+            0.10657050125013369
+          ],
+          [
+            0.042660424398727054,
+            0.1065705012499426,
+            0.2767957716246317
+          ]
+        ],
+        "equation_error": 0.001478148091388731,
+        "fine_channel_equation_error": 0.0001596657252335734,
+        "full_vs_fine_channel_response_error": 0.0013377922458753695,
+        "pde_relative_residuals": [
+          5.628911859805216e-10,
+          5.378915610342896e-10,
+          3.2658039148623506e-10
+        ],
+        "off_polarization_field_fraction": 3.180244498952677e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.641515031514706
+        ],
+        "seconds": 31.04347211914137,
+        "factor_seconds": 28.946183561813086,
+        "factor_nnz": 5324281469,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      }
+    ],
+    "chain4": [
+      {
+        "name": "chain4",
+        "h": 0.0625,
+        "order": 12,
+        "unknowns": 129176,
+        "lengths": [
+          1.0,
+          0.5,
+          24.0
+        ],
+        "target": [
+          [
+            3.0,
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776
+        ],
+        "decoded_response": [
+          [
+            0.3836102697087554,
+            0.1468220311362942,
+            0.05529454016985852,
+            0.018493522660497877
+          ],
+          [
+            0.14682203113544928,
+            0.43893628691107844,
+            0.16532740833986692,
+            0.0552945401693784
+          ],
+          [
+            0.05529454016961392,
+            0.1653274083406958,
+            0.43893628691009906,
+            0.14682203113641784
+          ],
+          [
+            0.018493522660774354,
+            0.055294540170065465,
+            0.14682203113712194,
+            0.3836102697102985
+          ]
+        ],
+        "equation_error": 0.007684035585224611,
+        "fine_channel_equation_error": 0.0001888069110196352,
+        "full_vs_fine_channel_response_error": 0.0075150350719508105,
+        "pde_relative_residuals": [
+          2.29359035765425e-10,
+          2.8481749095566765e-10,
+          2.8851693040740804e-10,
+          2.26635902745252e-10
+        ],
+        "off_polarization_field_fraction": 1.514603304623665e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.64124821510776
+        ],
+        "seconds": 12.055139927659184,
+        "factor_seconds": 10.837607459165156,
+        "factor_nnz": 1179384146,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      },
+      {
+        "name": "chain4",
+        "h": 0.05,
+        "order": 12,
+        "unknowns": 259310,
+        "lengths": [
+          1.0,
+          0.5,
+          24.0
+        ],
+        "target": [
+          [
+            3.0,
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776
+        ],
+        "decoded_response": [
+          [
+            0.38267737495271525,
+            0.1461134020163934,
+            0.0549027665138372,
+            0.018329181791293267
+          ],
+          [
+            0.14611340201795472,
+            0.43761146853398325,
+            0.16445435509326436,
+            0.05490276651343016
+          ],
+          [
+            0.05490276651561438,
+            0.16445435509539988,
+            0.4376114685320428,
+            0.14611340201382883
+          ],
+          [
+            0.018329181791794238,
+            0.05490276651439024,
+            0.146113402012968,
+            0.38267737494479254
+          ]
+        ],
+        "equation_error": 0.003707449996620658,
+        "fine_channel_equation_error": 0.0001888069110196352,
+        "full_vs_fine_channel_response_error": 0.0035385489911350263,
+        "pde_relative_residuals": [
+          3.728394859908965e-10,
+          4.494101964054907e-10,
+          4.609871935298003e-10,
+          3.672200884017306e-10
+        ],
+        "off_polarization_field_fraction": 2.530228497471382e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.64124821510776
+        ],
+        "seconds": 25.362768568098545,
+        "factor_seconds": 23.316529965028167,
+        "factor_nnz": 3814173170,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      },
+      {
+        "name": "chain4",
+        "h": 0.045454545454545456,
+        "order": 12,
+        "unknowns": 348557,
+        "lengths": [
+          1.0,
+          0.5,
+          24.0
+        ],
+        "target": [
+          [
+            3.0,
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776
+        ],
+        "decoded_response": [
+          [
+            0.38219850807406985,
+            0.14574948664586054,
+            0.054701749102344564,
+            0.018244933989997113
+          ],
+          [
+            0.14574948664635456,
+            0.43693150557700067,
+            0.16400614858122903,
+            0.054701749101550436
+          ],
+          [
+            0.05470174910281726,
+            0.16400614858337953,
+            0.4369315055743934,
+            0.145749486643896
+          ],
+          [
+            0.01824493399005602,
+            0.0547017491026475,
+            0.14574948664515705,
+            0.38219850806925837
+          ]
+        ],
+        "equation_error": 0.0016672368479050954,
+        "fine_channel_equation_error": 0.0001888069110196352,
+        "full_vs_fine_channel_response_error": 0.0014973348368942656,
+        "pde_relative_residuals": [
+          4.764549690400414e-10,
+          5.557542852538546e-10,
+          5.536422844519963e-10,
+          4.648435319284163e-10
+        ],
+        "off_polarization_field_fraction": 3.150491803875682e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.64124821510776
+        ],
+        "seconds": 38.905466279014945,
+        "factor_seconds": 36.22348464373499,
+        "factor_nnz": 6282578109,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      }
+    ],
+    "mediator2": [
+      {
+        "name": "mediator2",
+        "h": 0.0625,
+        "order": 12,
+        "unknowns": 107608,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            3.0,
+            1.0
+          ],
+          [
+            1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36392590716627,
+          34.36827842708874,
+          34.36392590716627
+        ],
+        "decoded_response": [
+          [
+            0.37730854867249225,
+            -0.12533211726765578
+          ],
+          [
+            -0.12533211726362903,
+            0.37730854867316854
+          ]
+        ],
+        "equation_error": 0.007905725628751997,
+        "fine_channel_equation_error": 0.00018860412304009974,
+        "full_vs_fine_channel_response_error": 0.005173545084609564,
+        "pde_relative_residuals": [
+          2.5669014626722947e-10,
+          2.576001954019708e-10
+        ],
+        "off_polarization_field_fraction": 1.487775692764996e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.643383061781943
+        ],
+        "seconds": 8.698376018088311,
+        "factor_seconds": 7.861204321030527,
+        "factor_nnz": 987390586,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      },
+      {
+        "name": "mediator2",
+        "h": 0.05,
+        "order": 12,
+        "unknowns": 216030,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            3.0,
+            1.0
+          ],
+          [
+            1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36392590716627,
+          34.36827842708874,
+          34.36392590716627
+        ],
+        "decoded_response": [
+          [
+            0.37611317618886664,
+            -0.12515769001153176
+          ],
+          [
+            -0.1251576900097344,
+            0.3761131761914932
+          ]
+        ],
+        "equation_error": 0.0038219447181872947,
+        "fine_channel_equation_error": 0.00018860412304009974,
+        "full_vs_fine_channel_response_error": 0.002434239350584657,
+        "pde_relative_residuals": [
+          4.3093922297720495e-10,
+          4.2591820337172534e-10
+        ],
+        "off_polarization_field_fraction": 2.532010530063146e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.643383061781943
+        ],
+        "seconds": 23.151677207555622,
+        "factor_seconds": 21.522461839951575,
+        "factor_nnz": 3320254600,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      },
+      {
+        "name": "mediator2",
+        "h": 0.045454545454545456,
+        "order": 12,
+        "unknowns": 290389,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            3.0,
+            1.0
+          ],
+          [
+            1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36392590716627,
+          34.36827842708874,
+          34.36392590716627
+        ],
+        "decoded_response": [
+          [
+            0.37550021913202136,
+            -0.1250684692237668
+          ],
+          [
+            -0.1250684692223012,
+            0.3755002191309889
+          ]
+        ],
+        "equation_error": 0.001726999633884535,
+        "fine_channel_equation_error": 0.00018860412304009974,
+        "full_vs_fine_channel_response_error": 0.0010300342337923765,
+        "pde_relative_residuals": [
+          5.245951080594957e-10,
+          5.316386156183818e-10
+        ],
+        "off_polarization_field_fraction": 3.093447036669271e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.643383061781943
+        ],
+        "seconds": 44.536451985593885,
+        "factor_seconds": 42.394716122653335,
+        "factor_nnz": 5324281469,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      }
+    ],
+    "indefinite3": [
+      {
+        "name": "indefinite3",
+        "h": 0.05,
+        "order": 12,
+        "unknowns": 216030,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            1.0,
+            -1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            1.0,
+            -1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            1.0
+          ]
+        ],
+        "strengths": [
+          34.36537662464226,
+          34.36537662464226,
+          34.36537662464226
+        ],
+        "decoded_response": [
+          [
+            0.010138841641683627,
+            -0.9899550221777563,
+            -0.9949573357665802
+          ],
+          [
+            -0.9899550221561981,
+            -0.9850307762919766,
+            -0.9899550221713859
+          ],
+          [
+            -0.9949573357718035,
+            -0.9899550221565329,
+            0.010138841626463356
+          ]
+        ],
+        "equation_error": 0.012131670225736179,
+        "fine_channel_equation_error": 0.0005869674996518809,
+        "full_vs_fine_channel_response_error": 0.011613908796758736,
+        "pde_relative_residuals": [
+          1.29910096749964e-09,
+          1.5989806475018114e-09,
+          1.2976727287677322e-09
+        ],
+        "off_polarization_field_fraction": 2.5568527358391205e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.642315548319543
+        ],
+        "seconds": 21.602226374670863,
+        "factor_seconds": 19.88766126567498,
+        "factor_nnz": 3320254600,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      },
+      {
+        "name": "indefinite3",
+        "h": 0.045454545454545456,
+        "order": 12,
+        "unknowns": 290389,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            1.0,
+            -1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            1.0,
+            -1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            1.0
+          ]
+        ],
+        "strengths": [
+          34.36537662464226,
+          34.36537662464226,
+          34.36537662464226
+        ],
+        "decoded_response": [
+          [
+            0.004593969179142953,
+            -0.995464071443769,
+            -0.9976832533595722
+          ],
+          [
+            -0.9954640714403895,
+            -0.9933027433004615,
+            -0.9954640714583157
+          ],
+          [
+            -0.9976832533568649,
+            -0.995464071449171,
+            0.004593969161190627
+          ]
+        ],
+        "equation_error": 0.0054821813352789244,
+        "fine_channel_equation_error": 0.0005869674996518809,
+        "full_vs_fine_channel_response_error": 0.004957198651486529,
+        "pde_relative_residuals": [
+          1.5866996339209094e-09,
+          1.9171680928392175e-09,
+          1.5691231370574388e-09
+        ],
+        "off_polarization_field_fraction": 3.166401816155873e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.642315548319543
+        ],
+        "seconds": 31.948104850947857,
+        "factor_seconds": 29.649193265940994,
+        "factor_nnz": 5324281469,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      },
+      {
+        "name": "indefinite3",
+        "h": 0.041666666666666664,
+        "order": 12,
+        "unknowns": 380100,
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "target": [
+          [
+            1.0,
+            -1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            1.0,
+            -1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            1.0
+          ]
+        ],
+        "strengths": [
+          34.36537662464226,
+          34.36537662464226,
+          34.36537662464226
+        ],
+        "decoded_response": [
+          [
+            0.001601171783789174,
+            -0.998450997150924,
+            -0.9991712533177042
+          ],
+          [
+            -0.9984509971438619,
+            -0.9977841775733403,
+            -0.9984509971444422
+          ],
+          [
+            -0.9991712533311793,
+            -0.9984509971356127,
+            0.0016011717832237176
+          ]
+        ],
+        "equation_error": 0.0018894174248562897,
+        "fine_channel_equation_error": 0.0005869674996518809,
+        "full_vs_fine_channel_response_error": 0.0013494803478274239,
+        "pde_relative_residuals": [
+          1.8558795207885465e-09,
+          2.2877526253111867e-09,
+          1.8511249051919141e-09
+        ],
+        "off_polarization_field_fraction": 3.8157290715102954e-14,
+        "material_continuous_enclosure": [
+          1.0,
+          13.642315548319543
+        ],
+        "seconds": 49.86764545319602,
+        "factor_seconds": 46.62007616693154,
+        "factor_nnz": 8279999612,
+        "solver": "gpu_direct",
+        "backend_version": "1.0.0"
+      }
+    ]
+  },
+  "raw_grid_checks": {
+    "chain3": {
+      "source_programming_relative_error": 0.0,
+      "response_reconstruction_error": 7.14032075279473e-16,
+      "design": {
+        "name": "chain3",
+        "target": [
+          [
+            3.0,
+            -1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776
+        ],
+        "ports": [
+          0,
+          1,
+          2
+        ],
+        "alpha": 1.2284541758091573e-06,
+        "target_condition": 2.7836116248912237,
+        "centers": [
+          -4.0,
+          0.0,
+          4.0
+        ],
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "order": 12,
+        "spacings": [
+          0.0625,
+          0.05,
+          0.045454545454545456
+        ],
+        "template_sha256": "a9a9cf734426b2b36969212c76380ea3765802b023a953920e21d3c2661c1d76",
+        "policy": "Only isolated-component calibration and analytic nearest-pair coupling; no optimization or assembled response enters the design.",
+        "acceptance": "Equation operator norm below 1% on both finer full-Maxwell grids."
+      }
+    },
+    "chain4": {
+      "source_programming_relative_error": 0.0,
+      "response_reconstruction_error": 1.639841359659732e-16,
+      "design": {
+        "name": "chain4",
+        "target": [
+          [
+            3.0,
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            -1.0,
+            3.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            3.0,
+            -1.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776,
+          34.36247531216776
+        ],
+        "ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "alpha": 1.2284541758091573e-06,
+        "target_condition": 3.341640786499875,
+        "centers": [
+          -6.0,
+          -2.0,
+          2.0,
+          6.0
+        ],
+        "lengths": [
+          1.0,
+          0.5,
+          24.0
+        ],
+        "order": 12,
+        "spacings": [
+          0.0625,
+          0.05,
+          0.045454545454545456
+        ],
+        "template_sha256": "a9a9cf734426b2b36969212c76380ea3765802b023a953920e21d3c2661c1d76",
+        "policy": "Only isolated-component calibration and analytic nearest-pair coupling; no optimization or assembled response enters the design.",
+        "acceptance": "Equation operator norm below 1% on both finer full-Maxwell grids."
+      }
+    },
+    "mediator2": {
+      "source_programming_relative_error": 0.0,
+      "response_reconstruction_error": 2.5589376332604516e-16,
+      "design": {
+        "name": "mediator2",
+        "target": [
+          [
+            3.0,
+            1.0
+          ],
+          [
+            1.0,
+            3.0
+          ]
+        ],
+        "strengths": [
+          34.36392590716627,
+          34.36827842708874,
+          34.36392590716627
+        ],
+        "ports": [
+          0,
+          2
+        ],
+        "alpha": 1.2284541758091573e-06,
+        "target_condition": 2.0,
+        "centers": [
+          -4.0,
+          0.0,
+          4.0
+        ],
+        "lengths": [
+          1.0,
+          0.5,
+          20.0
+        ],
+        "order": 12,
+        "spacings": [
+          0.0625,
+          0.05,
+          0.045454545454545456
+        ],
+        "template_sha256": "a9a9cf734426b2b36969212c76380ea3765802b023a953920e21d3c2661c1d76",
+        "policy": "Only isolated-component calibration and analytic nearest-pair coupling; no optimization or assembled response enters the design.",
+        "acceptance": "Equation operator norm below 1% on both finer full-Maxwell grids."
+      }
+    }
+  },
+  "waveguide_wall_changes": [
+    {
+      "h": 0.05,
+      "relative_response_change": 1.9964117179997613e-11
+    },
+    {
+      "h": 0.045454545454545456,
+      "relative_response_change": 1.2001061220805149e-11
+    }
+  ],
+  "waveguide_d3_chain4": [
+    {
+      "name": "chain4",
+      "h": 0.0625,
+      "order": 12,
+      "unknowns": 113000,
+      "lengths": [
+        1.0,
+        0.5,
+        21.0
+      ],
+      "target": [
+        [
+          3.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          3.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          3.0,
+          -1.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          3.0
+        ]
+      ],
+      "strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "decoded_response": [
+        [
+          0.3824769188183708,
+          0.14607522758691527,
+          0.05476101035101511,
+          0.01822614997100227
+        ],
+        [
+          0.1460752275869236,
+          0.4378506783407222,
+          0.16453108634748692,
+          0.0547610103509761
+        ],
+        [
+          0.05476101035102763,
+          0.16453108634751132,
+          0.4378506783407898,
+          0.14607522758683394
+        ],
+        [
+          0.018226149971022048,
+          0.05476101035101048,
+          0.1460752275868885,
+          0.3824769188183115
+        ]
+      ],
+      "equation_error": 0.004069945887105508,
+      "fine_channel_equation_error": 0.003714177437063447,
+      "full_vs_fine_channel_response_error": 0.0003907912804872666,
+      "pde_relative_residuals": [
+        1.1483528605617267e-11,
+        1.4121647341984814e-11,
+        1.4275017447934781e-11,
+        1.1312064451548705e-11
+      ],
+      "off_polarization_field_fraction": 1.562096665881181e-14,
+      "material_continuous_enclosure": [
+        1.0,
+        13.61145896920642
+      ],
+      "seconds": 9.650994245894253,
+      "factor_seconds": 8.442543883807957,
+      "factor_nnz": 1053374664,
+      "solver": "gpu_direct",
+      "backend_version": "1.0.0"
+    },
+    {
+      "name": "chain4",
+      "h": 0.05,
+      "order": 12,
+      "unknowns": 226850,
+      "lengths": [
+        1.0,
+        0.5,
+        21.0
+      ],
+      "target": [
+        [
+          3.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          3.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          3.0,
+          -1.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          3.0
+        ]
+      ],
+      "strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "decoded_response": [
+        [
+          0.38242977693130226,
+          0.14603967109495725,
+          0.054741441360116994,
+          0.018217975638161712
+        ],
+        [
+          0.1460396710950295,
+          0.4377838566708581,
+          0.16448728781406965,
+          0.05474144136013368
+        ],
+        [
+          0.054741441360142216,
+          0.16448728781400263,
+          0.4377838566709789,
+          0.14603967109504815
+        ],
+        [
+          0.018217975638165834,
+          0.054741441360096094,
+          0.14603967109496066,
+          0.38242977693139946
+        ]
+      ],
+      "equation_error": 0.0038874317232262035,
+      "fine_channel_equation_error": 0.003714177437063447,
+      "full_vs_fine_channel_response_error": 0.00019155919165243568,
+      "pde_relative_residuals": [
+        1.926972089871505e-11,
+        2.3242594885758367e-11,
+        2.3641342279955147e-11,
+        1.8962821012543158e-11
+      ],
+      "off_polarization_field_fraction": 2.605074075950163e-14,
+      "material_continuous_enclosure": [
+        1.0,
+        13.61145896920642
+      ],
+      "seconds": 21.570591766852885,
+      "factor_seconds": 19.64916648482904,
+      "factor_nnz": 3425198646,
+      "solver": "gpu_direct",
+      "backend_version": "1.0.0"
+    },
+    {
+      "name": "chain4",
+      "h": 0.045454545454545456,
+      "order": 12,
+      "unknowns": 304931,
+      "lengths": [
+        1.0,
+        0.5,
+        21.0
+      ],
+      "target": [
+        [
+          3.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          3.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          3.0,
+          -1.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          3.0
+        ]
+      ],
+      "strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "decoded_response": [
+        [
+          0.382404745841541,
+          0.14601996904320896,
+          0.054730452535104925,
+          0.018213360432904974
+        ],
+        [
+          0.14601996904314204,
+          0.4377477414601683,
+          0.16446291971908847,
+          0.05473045253501146
+        ],
+        [
+          0.05473045253503281,
+          0.16446291971897026,
+          0.43774774146028084,
+          0.14601996904317963
+        ],
+        [
+          0.018213360432908453,
+          0.05473045253502761,
+          0.1460199690433001,
+          0.38240474584167944
+        ]
+      ],
+      "equation_error": 0.0037882539147435796,
+      "fine_channel_equation_error": 0.003714177437063447,
+      "full_vs_fine_channel_response_error": 8.21760374944502e-05,
+      "pde_relative_residuals": [
+        2.3727090156193402e-11,
+        2.8537979178095032e-11,
+        2.8538864283269037e-11,
+        2.3917586792245553e-11
+      ],
+      "off_polarization_field_fraction": 3.291354025451894e-14,
+      "material_continuous_enclosure": [
+        1.0,
+        13.61145896920642
+      ],
+      "seconds": 33.069183350075036,
+      "factor_seconds": 30.66934415511787,
+      "factor_nnz": 5575800611,
+      "solver": "gpu_direct",
+      "backend_version": "1.0.0"
+    }
+  ],
+  "periodic_prescribed_targets": [
+    {
+      "radius": 3,
+      "target": [
+        [
+          3.0,
+          1.0
+        ],
+        [
+          1.0,
+          3.0
+        ]
+      ],
+      "alpha": 0.008016629971967153,
+      "strengths": [
+        18.000713106093688,
+        35.2275810320547,
+        18.000713106093688
+      ],
+      "predicted_inverse": [
+        [
+          0.015267386582800024,
+          -0.00267234148490252,
+          0.0
+        ],
+        [
+          -0.0026723414849025525,
+          -0.00041741762676753957,
+          -0.00267234148490252
+        ],
+        [
+          0.0,
+          -0.0026723414849025525,
+          0.015267386582800024
+        ]
+      ],
+      "predicted_terminal_schur": [
+        [
+          0.03237593340492106,
+          0.017108546822120825
+        ],
+        [
+          0.01710854682212124,
+          0.03237593340492106
+        ]
+      ],
+      "local_model_equation_error": 0.3519883458259499,
+      "fit_objective_norm": 0.11231345724100648,
+      "fit_evaluations": 12,
+      "fit_message": "`ftol` termination condition is satisfied.",
+      "verification": []
+    },
+    {
+      "radius": 3,
+      "target": [
+        [
+          4.0,
+          1.0
+        ],
+        [
+          1.0,
+          4.0
+        ]
+      ],
+      "alpha": 0.008016629971967153,
+      "strengths": [
+        15.953316905506261,
+        35.10380147514295,
+        15.953316905506261
+      ],
+      "predicted_inverse": [
+        [
+          0.024049889915901696,
+          -0.002987547090191694,
+          0.0
+        ],
+        [
+          -0.0029875470901915614,
+          -0.0011133652978021873,
+          -0.002987547090191694
+        ],
+        [
+          0.0,
+          -0.0029875470901915614,
+          0.024049889915901696
+        ]
+      ],
+      "predicted_terminal_schur": [
+        [
+          0.032066519887871826,
+          0.008016629971970484
+        ],
+        [
+          0.008016629971969773,
+          0.032066519887871826
+        ]
+      ],
+      "local_model_equation_error": 1.5536952669460528e-13,
+      "fit_objective_norm": 6.479139777562898e-14,
+      "fit_evaluations": 11,
+      "fit_message": "`gtol` termination condition is satisfied.",
+      "verification": [
+        {
+          "strengths": [
+            15.953316905506261,
+            35.10380147514295,
+            15.953316905506261
+          ],
+          "h": 0.3333333333333333,
+          "lengths": [
+            10.0,
+            10.0,
+            26.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -8.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              8.0
+            ]
+          ],
+          "reference": "results/r3_h0333_l10",
+          "mode": 0,
+          "mu": 0.03454112411251584,
+          "unknowns": 199578,
+          "response": [
+            [
+              39.440563494276795,
+              -7.168091496506322,
+              0.7736759682500023
+            ],
+            [
+              -7.16809149650631,
+              -40.4630024863332,
+              -7.168091496506612
+            ],
+            [
+              0.7736759682500005,
+              -7.168091496506643,
+              39.440563494276816
+            ]
+          ],
+          "inverse": [
+            [
+              0.024625794879651997,
+              -0.004143520591131917,
+              -0.001236126365674467
+            ],
+            [
+              -0.004143520591131911,
+              -0.023245870864079126,
+              -0.004143520591132091
+            ],
+            [
+              -0.001236126365674468,
+              -0.004143520591132108,
+              0.02462579487965192
+            ]
+          ],
+          "pde_relative_residuals": [
+            1.8732189918068035e-14,
+            4.5006951936601415e-14,
+            1.8748538916166512e-14
+          ],
+          "material_continuous_enclosure": [
+            5.039201096215631,
+            24.953167965884475
+          ],
+          "source_norms_squared": [
+            0.23969245166298048,
+            0.2396924516629806,
+            0.2396924516629809
+          ],
+          "inside_all_supports_fractions": [
+            0.16812248309785563,
+            0.1597069015532487,
+            0.16812248309785544
+          ],
+          "seconds": 16.37625929992646,
+          "factor_seconds": 15.420333070214838,
+          "factor_nnz": 4545157378,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.31618040341949294,
+              0.006202273955663676
+            ],
+            [
+              0.006202273955663662,
+              0.3161804034194931
+            ]
+          ],
+          "prescribed_target_equation_error": 0.6119133868757834,
+          "predicted_three_port_equation_error": 0.9284575731635764
+        },
+        {
+          "strengths": [
+            15.953316905506261,
+            35.10380147514295,
+            15.953316905506261
+          ],
+          "h": 0.2857142857142857,
+          "lengths": [
+            10.0,
+            10.0,
+            26.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -8.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              8.0
+            ]
+          ],
+          "reference": "results/r3_h0333_l10",
+          "mode": 0,
+          "mu": 0.03454112411251584,
+          "unknowns": 319396,
+          "response": [
+            [
+              39.102592083614624,
+              -8.429716638872426,
+              0.5693117454109398
+            ],
+            [
+              -8.429716638872451,
+              -49.24913574026744,
+              -8.429716638872737
+            ],
+            [
+              0.5693117454109364,
+              -8.4297166388727,
+              39.10259208361461
+            ]
+          ],
+          "inverse": [
+            [
+              0.024724566870677322,
+              -0.004021951025061618,
+              -0.0012270259141330248
+            ],
+            [
+              -0.004021951025061631,
+              -0.018928092260600375,
+              -0.004021951025061772
+            ],
+            [
+              -0.0012270259141330213,
+              -0.004021951025061754,
+              0.024724566870677273
+            ]
+          ],
+          "pde_relative_residuals": [
+            2.5613013661814583e-14,
+            5.931551418470054e-14,
+            2.5684623368590353e-14
+          ],
+          "material_continuous_enclosure": [
+            5.039201096215631,
+            24.953167965884475
+          ],
+          "source_norms_squared": [
+            0.23969147010554315,
+            0.23969147010554331,
+            0.23969147010554342
+          ],
+          "inside_all_supports_fractions": [
+            0.16706405052760098,
+            0.16041327552230356,
+            0.16706405052760098
+          ],
+          "seconds": 32.90701137203723,
+          "factor_seconds": 31.481141597032547,
+          "factor_nnz": 9330380500,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.3134710116791105,
+              0.004563961601654273
+            ],
+            [
+              0.0045639616016542464,
+              0.3134710116791104
+            ]
+          ],
+          "prescribed_target_equation_error": 0.5901748664038234,
+          "predicted_three_port_equation_error": 0.9112499018048302
+        }
+      ]
+    },
+    {
+      "radius": 4,
+      "target": [
+        [
+          3.0,
+          1.0
+        ],
+        [
+          1.0,
+          3.0
+        ]
+      ],
+      "alpha": 0.0005536933340878039,
+      "strengths": [
+        15.477581609002073,
+        15.724554253943468,
+        15.477581609002073
+      ],
+      "predicted_inverse": [
+        [
+          0.0011073866681754665,
+          -0.00020540829149588472,
+          0.0
+        ],
+        [
+          -0.0002054082914958058,
+          -7.620204835000336e-05,
+          -0.00020540829149588472
+        ],
+        [
+          0.0,
+          -0.0002054082914958058,
+          0.0011073866681754665
+        ]
+      ],
+      "predicted_terminal_schur": [
+        [
+          0.001661080002263385,
+          0.0005536933340881314
+        ],
+        [
+          0.0005536933340877057,
+          0.001661080002263385
+        ]
+      ],
+      "local_model_equation_error": 2.4726943403193526e-13,
+      "fit_objective_norm": 2.679960740525102e-13,
+      "fit_evaluations": 5,
+      "fit_message": "`gtol` termination condition is satisfied.",
+      "verification": [
+        {
+          "strengths": [
+            15.477581609002073,
+            15.724554253943468,
+            15.477581609002073
+          ],
+          "h": 0.5,
+          "lengths": [
+            12.0,
+            12.0,
+            28.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -8.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              8.0
+            ]
+          ],
+          "reference": "results/r4_h05_l12",
+          "mode": 0,
+          "mu": 0.06345080433794228,
+          "unknowns": 90344,
+          "response": [
+            [
+              727.0974287572338,
+              -568.5693587231192,
+              -98.6141104685794
+            ],
+            [
+              -568.5693587231174,
+              -976.8617898584511,
+              -568.5693587231154
+            ],
+            [
+              -98.6141104685806,
+              -568.5693587231194,
+              727.0974287572348
+            ]
+          ],
+          "inverse": [
+            [
+              0.0009930331985639454,
+              -0.0004510724074505395,
+              -0.0002180434940757119
+            ],
+            [
+              -0.0004510724074505386,
+              -0.0004986049266876184,
+              -0.00045107240745053626
+            ],
+            [
+              -0.00021804349407571194,
+              -0.0004510724074505399,
+              0.0009930331985639456
+            ]
+          ],
+          "pde_relative_residuals": [
+            1.1952833308158896e-13,
+            3.0954696607966186e-13,
+            1.2135799951653614e-13
+          ],
+          "material_continuous_enclosure": [
+            5.053784429548964,
+            17.838524661159713
+          ],
+          "source_norms_squared": [
+            0.25701666374186055,
+            0.25701666374186055,
+            0.25701666374186055
+          ],
+          "inside_all_supports_fractions": [
+            0.38503064318974467,
+            0.21019089706264066,
+            0.38503064318974506
+          ],
+          "seconds": 6.414562070276588,
+          "factor_seconds": 5.768726330250502,
+          "factor_nnz": 1513087950,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.4025889995352623,
+              -0.05460197561345074
+            ],
+            [
+              -0.054601975613451405,
+              0.4025889995352628
+            ]
+          ],
+          "prescribed_target_equation_error": 0.39194809568724587,
+          "predicted_three_port_equation_error": 0.9305030788491714
+        },
+        {
+          "strengths": [
+            15.477581609002073,
+            15.724554253943468,
+            15.477581609002073
+          ],
+          "h": 0.4,
+          "lengths": [
+            12.0,
+            12.0,
+            28.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -8.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              8.0
+            ]
+          ],
+          "reference": "results/r4_h05_l12",
+          "mode": 0,
+          "mu": 0.06345080433794228,
+          "unknowns": 178930,
+          "response": [
+            [
+              247.33526296284737,
+              -19.30219827139037,
+              20.851499236801658
+            ],
+            [
+              -19.30219827139095,
+              221.79864770454074,
+              -19.302198271388868
+            ],
+            [
+              20.851499236801583,
+              -19.302198271388463,
+              247.33526296284592
+            ]
+          ],
+          "inverse": [
+            [
+              0.004095687466264098,
+              0.0003286134345318431,
+              -0.00031964007663914956
+            ],
+            [
+              0.0003286134345318533,
+              0.004565789439279883,
+              0.0003286134345318133
+            ],
+            [
+              -0.00031964007663914804,
+              0.0003286134345318068,
+              0.0040956874662641165
+            ]
+          ],
+          "pde_relative_residuals": [
+            7.619361294455321e-14,
+            1.5400381233441462e-13,
+            7.608278313332189e-14
+          ],
+          "material_continuous_enclosure": [
+            5.053784429548964,
+            17.838524661159713
+          ],
+          "source_norms_squared": [
+            0.2569890806591089,
+            0.2569890806591089,
+            0.256989080659109
+          ],
+          "inside_all_supports_fractions": [
+            0.340752525322192,
+            0.3143522321699188,
+            0.3407525253221921
+          ],
+          "seconds": 14.519808725919574,
+          "factor_seconds": 13.54158627288416,
+          "factor_nnz": 4023508148,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.13694788638738267,
+              0.011545336133154008
+            ],
+            [
+              0.011545336133153969,
+              0.1369478863873819
+            ]
+          ],
+          "prescribed_target_equation_error": 0.7491948994915434,
+          "predicted_three_port_equation_error": 1.0306792002828187
+        },
+        {
+          "strengths": [
+            15.477581609002073,
+            15.724554253943468,
+            15.477581609002073
+          ],
+          "h": 0.3333333333333333,
+          "lengths": [
+            12.0,
+            12.0,
+            28.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -8.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              8.0
+            ]
+          ],
+          "reference": "results/r4_h05_l12",
+          "mode": 0,
+          "mu": 0.06345080433794228,
+          "unknowns": 312060,
+          "response": [
+            [
+              313.2459122288042,
+              440.788250777654,
+              158.3165357539127
+            ],
+            [
+              440.78825077765924,
+              1974.959348702399,
+              440.7882507777827
+            ],
+            [
+              158.31653575390254,
+              440.7882507777356,
+              313.24591222885846
+            ]
+          ],
+          "inverse": [
+            [
+              0.005046750923857819,
+              -0.0008121714167550995,
+              -0.0014078029041689356
+            ],
+            [
+              -0.0008121714167550834,
+              0.0008688742061318069,
+              -0.0008121714167554383
+            ],
+            [
+              -0.0014078029041689167,
+              -0.0008121714167553258,
+              0.005046750923857619
+            ]
+          ],
+          "pde_relative_residuals": [
+            5.617552522383816e-13,
+            2.070439586794281e-12,
+            5.617525921347733e-13
+          ],
+          "material_continuous_enclosure": [
+            5.053784429548964,
+            17.838524661159713
+          ],
+          "source_norms_squared": [
+            0.2570115511516031,
+            0.2570115511516031,
+            0.25701155115160307
+          ],
+          "inside_all_supports_fractions": [
+            0.2912007374686952,
+            0.2905624131108812,
+            0.29120073746869596
+          ],
+          "seconds": 32.93788019893691,
+          "factor_seconds": 31.523141151294112,
+          "factor_nnz": 9461055742,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.17344217353134217,
+              0.08765881052281493
+            ],
+            [
+              0.08765881052280931,
+              0.17344217353137223
+            ]
+          ],
+          "prescribed_target_equation_error": 0.8284332739829099,
+          "predicted_three_port_equation_error": 1.3446090760787153
+        }
+      ]
+    },
+    {
+      "radius": 4,
+      "target": [
+        [
+          4.0,
+          1.0
+        ],
+        [
+          1.0,
+          4.0
+        ]
+      ],
+      "alpha": 0.0005536933340878039,
+      "strengths": [
+        15.359880051528595,
+        15.738708003267588,
+        15.359880051528595
+      ],
+      "predicted_inverse": [
+        [
+          0.0016610800022633996,
+          -0.0002095625478922969,
+          0.0
+        ],
+        [
+          -0.00020956254789236017,
+          -7.931549609758716e-05,
+          -0.0002095625478922969
+        ],
+        [
+          0.0,
+          -0.00020956254789236017,
+          0.0016610800022633996
+        ]
+      ],
+      "predicted_terminal_schur": [
+        [
+          0.0022147733363514967,
+          0.00055369333408793
+        ],
+        [
+          0.0005536933340882643,
+          0.0022147733363514967
+        ]
+      ],
+      "local_model_equation_error": 2.3754054592197947e-13,
+      "fit_objective_norm": 3.931298437979415e-14,
+      "fit_evaluations": 4,
+      "fit_message": "`gtol` termination condition is satisfied.",
+      "verification": [
+        {
+          "strengths": [
+            15.359880051528595,
+            15.738708003267588,
+            15.359880051528595
+          ],
+          "h": 0.5,
+          "lengths": [
+            12.0,
+            12.0,
+            28.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -8.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              8.0
+            ]
+          ],
+          "reference": "results/r4_h05_l12",
+          "mode": 0,
+          "mu": 0.06345080433794228,
+          "unknowns": 90344,
+          "response": [
+            [
+              502.77085992659056,
+              -533.8805112255142,
+              -59.377106715175756
+            ],
+            [
+              -533.8805112255242,
+              -1914.876576355271,
+              -533.8805112255113
+            ],
+            [
+              -59.37710671517936,
+              -533.8805112255145,
+              502.7708599265928
+            ]
+          ],
+          "inverse": [
+            [
+              0.0015641249375564772,
+              -0.0003762103393921915,
+              -0.00021476613621885968
+            ],
+            [
+              -0.00037621033939220003,
+              -0.000312446906887715,
+              -0.00037621033939218897
+            ],
+            [
+              -0.00021476613621885976,
+              -0.0003762103393921927,
+              0.0015641249375564804
+            ]
+          ],
+          "pde_relative_residuals": [
+            9.444466619823762e-14,
+            3.8758261475734514e-13,
+            9.457162935524782e-14
+          ],
+          "material_continuous_enclosure": [
+            5.053784429548964,
+            17.84373153455155
+          ],
+          "source_norms_squared": [
+            0.25701666374186055,
+            0.25701666374186055,
+            0.25701666374186055
+          ],
+          "inside_all_supports_fractions": [
+            0.39589276316900124,
+            0.253207802628861,
+            0.3958927631690056
+          ],
+          "seconds": 6.256768947932869,
+          "factor_seconds": 5.754886558279395,
+          "factor_nnz": 1513087950,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.2783808737149462,
+              -0.032876708185612995
+            ],
+            [
+              -0.03287670818561499,
+              0.2783808737149474
+            ]
+          ],
+          "prescribed_target_equation_error": 0.22752082764666406,
+          "predicted_three_port_equation_error": 0.931298710918792
+        },
+        {
+          "strengths": [
+            15.359880051528595,
+            15.738708003267588,
+            15.359880051528595
+          ],
+          "h": 0.4,
+          "lengths": [
+            12.0,
+            12.0,
+            28.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -8.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              8.0
+            ]
+          ],
+          "reference": "results/r4_h05_l12",
+          "mode": 0,
+          "mu": 0.06345080433794228,
+          "unknowns": 178930,
+          "response": [
+            [
+              197.31057540999822,
+              -47.75588071794741,
+              24.074357391610555
+            ],
+            [
+              -47.75588071794789,
+              84.17613695493708,
+              -47.755880717945224
+            ],
+            [
+              24.074357391610697,
+              -47.755880717946454,
+              197.31057540999768
+            ]
+          ],
+          "inverse": [
+            [
+              0.005876699220016871,
+              0.003393179536649596,
+              0.00010423425028481005
+            ],
+            [
+              0.003393179536649643,
+              0.015729975291245136,
+              0.0033931795366494147
+            ],
+            [
+              0.00010423425028483851,
+              0.003393179536649516,
+              0.005876699220016819
+            ]
+          ],
+          "pde_relative_residuals": [
+            1.0136085509998818e-13,
+            2.4518057086007665e-13,
+            1.0116175882172043e-13
+          ],
+          "material_continuous_enclosure": [
+            5.053784429548964,
+            17.84373153455155
+          ],
+          "source_norms_squared": [
+            0.2569890806591089,
+            0.2569890806591089,
+            0.256989080659109
+          ],
+          "inside_all_supports_fractions": [
+            0.30493645939721165,
+            0.2987599383701354,
+            0.3049364593972105
+          ],
+          "seconds": 14.473929783795029,
+          "factor_seconds": 13.502441206015646,
+          "factor_nnz": 4023508148,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.10924955034954498,
+              0.013329811210182214
+            ],
+            [
+              0.013329811210182294,
+              0.10924955034954467
+            ]
+          ],
+          "prescribed_target_equation_error": 0.7122407825819125,
+          "predicted_three_port_equation_error": 1.0120060600708538
+        },
+        {
+          "strengths": [
+            15.359880051528595,
+            15.738708003267588,
+            15.359880051528595
+          ],
+          "h": 0.3333333333333333,
+          "lengths": [
+            12.0,
+            12.0,
+            28.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -8.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              8.0
+            ]
+          ],
+          "reference": "results/r4_h05_l12",
+          "mode": 0,
+          "mu": 0.06345080433794228,
+          "unknowns": 312060,
+          "response": [
+            [
+              -113.52341003645836,
+              93.17709428999763,
+              371.93719386735984
+            ],
+            [
+              93.1770942900109,
+              679.4794321896776,
+              93.1770942901527
+            ],
+            [
+              371.9371938673279,
+              93.17709429015865,
+              -113.52341003642817
+            ]
+          ],
+          "inverse": [
+            [
+              0.001117272334256198,
+              -0.0005888976172817908,
+              0.0031771717204445746
+            ],
+            [
+              -0.0005888976172817428,
+              0.0016332260919937646,
+              -0.0005888976172813411
+            ],
+            [
+              0.003177171720444269,
+              -0.000588897617281247,
+              0.0011172723342560973
+            ]
+          ],
+          "pde_relative_residuals": [
+            1.2719103370807264e-12,
+            4.217043598286685e-13,
+            1.2751822971570555e-12
+          ],
+          "material_continuous_enclosure": [
+            5.053784429548964,
+            17.84373153455155
+          ],
+          "source_norms_squared": [
+            0.2570115511516031,
+            0.2570115511516031,
+            0.25701155115160307
+          ],
+          "inside_all_supports_fractions": [
+            0.2822281220458084,
+            0.3033252035021224,
+            0.2822281220458099
+          ],
+          "seconds": 33.21293946914375,
+          "factor_seconds": 31.79549592267722,
+          "factor_nnz": 9461055742,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              -0.06285715540010349,
+              0.20593914494368037
+            ],
+            [
+              0.2059391449436627,
+              -0.06285715540008678
+            ]
+          ],
+          "prescribed_target_equation_error": 1.8063889010313006,
+          "predicted_three_port_equation_error": 1.8063889010312946
+        }
+      ]
+    },
+    {
+      "radius": 5,
+      "target": [
+        [
+          3.0,
+          1.0
+        ],
+        [
+          1.0,
+          3.0
+        ]
+      ],
+      "alpha": 2.8136785357009317e-05,
+      "strengths": [
+        11.366580378096218,
+        11.367763510083472,
+        11.366580378096218
+      ],
+      "predicted_inverse": [
+        [
+          5.627357071402102e-05,
+          2.2984219771418097e-05,
+          0.0
+        ],
+        [
+          2.2984219771418148e-05,
+          -1.877522082917074e-05,
+          2.2984219771418097e-05
+        ],
+        [
+          0.0,
+          2.2984219771418148e-05,
+          5.627357071402102e-05
+        ]
+      ],
+      "predicted_terminal_schur": [
+        [
+          8.44103560710314e-05,
+          2.8136785357010327e-05
+        ],
+        [
+          2.8136785357010452e-05,
+          8.44103560710314e-05
+        ]
+      ],
+      "local_model_equation_error": 4.2112399665844825e-14,
+      "fit_objective_norm": 8.809490001622933e-14,
+      "fit_evaluations": 5,
+      "fit_message": "`xtol` termination condition is satisfied.",
+      "verification": [
+        {
+          "strengths": [
+            11.366580378096218,
+            11.367763510083472,
+            11.366580378096218
+          ],
+          "h": 0.5,
+          "lengths": [
+            14.0,
+            14.0,
+            38.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -12.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              12.0
+            ]
+          ],
+          "reference": "results/r5_h05_l14",
+          "mode": 0,
+          "mu": 0.08785540696913303,
+          "unknowns": 168804,
+          "response": [
+            [
+              7295.410709365474,
+              6877.923685527301,
+              -6014.610533807138
+            ],
+            [
+              6877.923685527693,
+              -1633.4995806106076,
+              6877.923685527868
+            ],
+            [
+              -6014.610533807164,
+              6877.923685527864,
+              7295.410709365198
+            ]
+          ],
+          "inverse": [
+            [
+              4.601156666027658e-05,
+              7.112357295068416e-05,
+              -2.9119793517902757e-05
+            ],
+            [
+              7.112357295068655e-05,
+              -1.3244561714641278e-05,
+              7.112357295068805e-05
+            ],
+            [
+              -2.9119793517904793e-05,
+              7.112357295068633e-05,
+              4.6011566660272976e-05
+            ]
+          ],
+          "pde_relative_residuals": [
+            2.122825986049462e-12,
+            1.7887673676377201e-12,
+            2.1352824182449167e-12
+          ],
+          "material_continuous_enclosure": [
+            5.060534429548964,
+            16.242500917007586
+          ],
+          "source_norms_squared": [
+            0.26089322177756985,
+            0.26089322177756985,
+            0.26089322177756985
+          ],
+          "inside_all_supports_fractions": [
+            0.5584365723912498,
+            0.560802158986382,
+            0.5584365723912502
+          ],
+          "seconds": 13.16213796986267,
+          "factor_seconds": 12.349042897112668,
+          "factor_nnz": 3525919234,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.2052694052206434,
+              -0.1692318055957387
+            ],
+            [
+              -0.1692318055957394,
+              0.20526940522063566
+            ]
+          ],
+          "prescribed_target_equation_error": 0.855849601500398,
+          "predicted_three_port_equation_error": 0.8855867689203701
+        },
+        {
+          "strengths": [
+            11.366580378096218,
+            11.367763510083472,
+            11.366580378096218
+          ],
+          "h": 0.4,
+          "lengths": [
+            14.0,
+            14.0,
+            38.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -12.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              12.0
+            ]
+          ],
+          "reference": "results/r5_h05_l14",
+          "mode": 0,
+          "mu": 0.08785540696913303,
+          "unknowns": 333540,
+          "response": [
+            [
+              277.96947606164736,
+              -7.8812965322541855,
+              -1.6687866115856924
+            ],
+            [
+              -7.881296532254137,
+              283.073545131952,
+              -7.881296532253884
+            ],
+            [
+              -1.6687866115856609,
+              -7.881296532253755,
+              277.96947606162416
+            ]
+          ],
+          "inverse": [
+            [
+              0.0036005258423008352,
+              0.00010092686240503293,
+              2.4477305736531987e-05
+            ],
+            [
+              0.0001009268624050323,
+              0.0035382708355684955,
+              0.00010092686240503751
+            ],
+            [
+              2.4477305736531513e-05,
+              0.00010092686240503585,
+              0.0036005258423011366
+            ]
+          ],
+          "pde_relative_residuals": [
+            8.691872456318656e-14,
+            8.404733190396301e-14,
+            8.627775368731376e-14
+          ],
+          "material_continuous_enclosure": [
+            5.060534429548964,
+            16.242500917007586
+          ],
+          "source_norms_squared": [
+            0.2609646262901171,
+            0.2609646262901171,
+            0.26096462629011713
+          ],
+          "inside_all_supports_fractions": [
+            0.5029368290330509,
+            0.5434550412858418,
+            0.5029368290330295
+          ],
+          "seconds": 34.436249056831,
+          "factor_seconds": 32.98189721303061,
+          "factor_nnz": 9870881038,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.007821167483746911,
+              -4.6954290696837503e-05
+            ],
+            [
+              -4.6954290696836616e-05,
+              0.007821167483746259
+            ]
+          ],
+          "prescribed_target_equation_error": 0.984263756451113,
+          "predicted_three_port_equation_error": 1.0089462634974875
+        }
+      ]
+    },
+    {
+      "radius": 5,
+      "target": [
+        [
+          4.0,
+          1.0
+        ],
+        [
+          1.0,
+          4.0
+        ]
+      ],
+      "alpha": 2.8136785357009317e-05,
+      "strengths": [
+        11.363043385114675,
+        11.367826292681848,
+        11.363043385114675
+      ],
+      "predicted_inverse": [
+        [
+          8.441035607102091e-05,
+          2.3043349837938975e-05,
+          0.0
+        ],
+        [
+          2.304334983793754e-05,
+          -1.887194876798944e-05,
+          2.3043349837938975e-05
+        ],
+        [
+          0.0,
+          2.304334983793754e-05,
+          8.441035607102091e-05
+        ]
+      ],
+      "predicted_terminal_schur": [
+        [
+          0.00011254714142804155,
+          2.81367853570224e-05
+        ],
+        [
+          2.8136785357018892e-05,
+          0.00011254714142804155
+        ]
+      ],
+      "local_model_equation_error": 1.1881788720268116e-13,
+      "fit_objective_norm": 4.000019852673318e-13,
+      "fit_evaluations": 5,
+      "fit_message": "`xtol` termination condition is satisfied.",
+      "verification": [
+        {
+          "strengths": [
+            11.363043385114675,
+            11.367826292681848,
+            11.363043385114675
+          ],
+          "h": 0.5,
+          "lengths": [
+            14.0,
+            14.0,
+            38.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -12.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              12.0
+            ]
+          ],
+          "reference": "results/r5_h05_l14",
+          "mode": 0,
+          "mu": 0.08785540696913303,
+          "unknowns": 168804,
+          "response": [
+            [
+              5387.789661935185,
+              6676.237228476399,
+              -4209.028004651554
+            ],
+            [
+              6676.237228476338,
+              -4315.8327904315765,
+              6676.2372284767325
+            ],
+            [
+              -4209.028004651452,
+              6676.237228476546,
+              5387.78966193494
+            ]
+          ],
+          "inverse": [
+            [
+              7.500073354039755e-05,
+              7.084922083255436e-05,
+              -2.9200475104186815e-05
+            ],
+            [
+              7.084922083255412e-05,
+              -1.2509193743088357e-05,
+              7.084922083255718e-05
+            ],
+            [
+              -2.9200475104185477e-05,
+              7.084922083255561e-05,
+              7.500073354039472e-05
+            ]
+          ],
+          "pde_relative_residuals": [
+            1.7386792882342722e-12,
+            1.926763039841594e-12,
+            1.7578922777899326e-12
+          ],
+          "material_continuous_enclosure": [
+            5.060534429548964,
+            16.242524013434792
+          ],
+          "source_norms_squared": [
+            0.26089322177756985,
+            0.26089322177756985,
+            0.26089322177756985
+          ],
+          "inside_all_supports_fractions": [
+            0.5598870996488371,
+            0.5457559577888237,
+            0.5598870996488371
+          ],
+          "seconds": 13.194362768903375,
+          "factor_seconds": 12.318279415834695,
+          "factor_nnz": 3525919234,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.15159508126658408,
+              -0.11842851752852197
+            ],
+            [
+              -0.11842851752851911,
+              0.1515950812665772
+            ]
+          ],
+          "prescribed_target_equation_error": 0.8341671813096994,
+          "predicted_three_port_equation_error": 0.9799993780075836
+        },
+        {
+          "strengths": [
+            11.363043385114675,
+            11.367826292681848,
+            11.363043385114675
+          ],
+          "h": 0.4,
+          "lengths": [
+            14.0,
+            14.0,
+            38.0
+          ],
+          "centers": [
+            [
+              0.0,
+              0.0,
+              -12.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              12.0
+            ]
+          ],
+          "reference": "results/r5_h05_l14",
+          "mode": 0,
+          "mu": 0.08785540696913303,
+          "unknowns": 333540,
+          "response": [
+            [
+              275.7032318686372,
+              -7.874725565286878,
+              -1.6621329530200093
+            ],
+            [
+              -7.874725565286888,
+              283.0364474650286,
+              -7.874725565286692
+            ],
+            [
+              -1.6621329530199436,
+              -7.8747255652866475,
+              275.7032318686137
+            ]
+          ],
+          "inverse": [
+            [
+              0.0036301423332862014,
+              0.0001016886182535683,
+              2.4789514115761244e-05
+            ],
+            [
+              0.00010168861825356838,
+              0.0035387722990957767,
+              0.00010168861825357454
+            ],
+            [
+              2.478951411576036e-05,
+              0.00010168861825357393,
+              0.0036301423332865106
+            ]
+          ],
+          "pde_relative_residuals": [
+            8.556894451921098e-14,
+            8.418899355721972e-14,
+            8.646884418643553e-14
+          ],
+          "material_continuous_enclosure": [
+            5.060534429548964,
+            16.242524013434792
+          ],
+          "source_norms_squared": [
+            0.2609646262901171,
+            0.2609646262901171,
+            0.26096462629011713
+          ],
+          "inside_all_supports_fractions": [
+            0.5012139821661785,
+            0.5423748829349494,
+            0.5012139821661628
+          ],
+          "seconds": 34.518396112602204,
+          "factor_seconds": 32.954618715681136,
+          "factor_nnz": 9870881038,
+          "solver": "gpu_direct",
+          "backend_version": "1.0.0",
+          "decoded_terminal_response": [
+            [
+              0.007757402657321616,
+              -4.6767078133936056e-05
+            ],
+            [
+              -4.6767078133934206e-05,
+              0.0077574026573209555
+            ]
+          ],
+          "prescribed_target_equation_error": 0.9765874907936343,
+          "predicted_three_port_equation_error": 1.0081586347829552
+        }
+      ]
+    }
+  ],
+  "material_rounding": [
+    {
+      "name": "chain4",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": null,
+      "nominal_strengths": [
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751
+      ],
+      "actual_strengths": [
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751
+      ],
+      "equation_error": 0.07465699421296933,
+      "relative_pde_residual": 6.384281535018721e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 8,
+      "nominal_strengths": [
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751
+      ],
+      "actual_strengths": [
+        32.765625,
+        32.765625,
+        32.765625,
+        32.765625
+      ],
+      "equation_error": 0.07675653721943883,
+      "relative_pde_residual": 6.895184836133603e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 12,
+      "nominal_strengths": [
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751
+      ],
+      "actual_strengths": [
+        32.76416015625,
+        32.76416015625,
+        32.76416015625,
+        32.76416015625
+      ],
+      "equation_error": 0.07463999622997136,
+      "relative_pde_residual": 6.559608242892833e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 16,
+      "nominal_strengths": [
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751
+      ],
+      "actual_strengths": [
+        32.76417541503906,
+        32.76417541503906,
+        32.76417541503906,
+        32.76417541503906
+      ],
+      "equation_error": 0.07466195182118657,
+      "relative_pde_residual": 6.54133227930993e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 20,
+      "nominal_strengths": [
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751
+      ],
+      "actual_strengths": [
+        32.7641716003418,
+        32.7641716003418,
+        32.7641716003418,
+        32.7641716003418
+      ],
+      "equation_error": 0.07465646273696099,
+      "relative_pde_residual": 6.53385371800439e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 24,
+      "nominal_strengths": [
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751
+      ],
+      "actual_strengths": [
+        32.764171957969666,
+        32.764171957969666,
+        32.764171957969666,
+        32.764171957969666
+      ],
+      "equation_error": 0.07465697733708335,
+      "relative_pde_residual": 6.39452382450164e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 28,
+      "nominal_strengths": [
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751,
+        32.76417196969751
+      ],
+      "actual_strengths": [
+        32.764171969145536,
+        32.764171969145536,
+        32.764171969145536,
+        32.764171969145536
+      ],
+      "equation_error": 0.07465699341666489,
+      "relative_pde_residual": 6.528357939397719e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": null,
+      "nominal_strengths": [
+        33.281519797211374,
+        34.93646511475346,
+        33.281519797211374
+      ],
+      "actual_strengths": [
+        33.281519797211374,
+        34.93646511475346,
+        33.281519797211374
+      ],
+      "equation_error": 0.06555017116779034,
+      "relative_pde_residual": 6.511953034421024e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 8,
+      "nominal_strengths": [
+        33.281519797211374,
+        34.93646511475346,
+        33.281519797211374
+      ],
+      "actual_strengths": [
+        33.28125,
+        34.9375,
+        33.28125
+      ],
+      "equation_error": 0.06623473762055061,
+      "relative_pde_residual": 6.539992185050279e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 12,
+      "nominal_strengths": [
+        33.281519797211374,
+        34.93646511475346,
+        33.281519797211374
+      ],
+      "actual_strengths": [
+        33.281494140625,
+        34.9365234375,
+        33.281494140625
+      ],
+      "equation_error": 0.06558377633154522,
+      "relative_pde_residual": 6.54308469435394e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 16,
+      "nominal_strengths": [
+        33.281519797211374,
+        34.93646511475346,
+        33.281519797211374
+      ],
+      "actual_strengths": [
+        33.281524658203125,
+        34.93646240234375,
+        33.281524658203125
+      ],
+      "equation_error": 0.06555037045896168,
+      "relative_pde_residual": 7.581857029049656e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 20,
+      "nominal_strengths": [
+        33.281519797211374,
+        34.93646511475346,
+        33.281519797211374
+      ],
+      "actual_strengths": [
+        33.28151988983154,
+        34.9364652633667,
+        33.28151988983154
+      ],
+      "equation_error": 0.06555033272061025,
+      "relative_pde_residual": 6.196006892841932e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 24,
+      "nominal_strengths": [
+        33.281519797211374,
+        34.93646511475346,
+        33.281519797211374
+      ],
+      "actual_strengths": [
+        33.28151977062225,
+        34.93646514415741,
+        33.28151977062225
+      ],
+      "equation_error": 0.06555018155111378,
+      "relative_pde_residual": 6.188315935996903e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.0,
+      "coupling": 0.0004744388918671539,
+      "fractional_bits": 28,
+      "nominal_strengths": [
+        33.281519797211374,
+        34.93646511475346,
+        33.281519797211374
+      ],
+      "actual_strengths": [
+        33.281519796699286,
+        34.93646511435509,
+        33.281519796699286
+      ],
+      "equation_error": 0.06555017060778022,
+      "relative_pde_residual": 6.308499765694969e-11,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": null,
+      "nominal_strengths": [
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835
+      ],
+      "actual_strengths": [
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835
+      ],
+      "equation_error": 0.01652474730728584,
+      "relative_pde_residual": 2.5798388622649203e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 8,
+      "nominal_strengths": [
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835
+      ],
+      "actual_strengths": [
+        33.9921875,
+        33.9921875,
+        33.9921875,
+        33.9921875
+      ],
+      "equation_error": 0.018866709504023946,
+      "relative_pde_residual": 2.4824140333123334e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 12,
+      "nominal_strengths": [
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835
+      ],
+      "actual_strengths": [
+        33.99169921875,
+        33.99169921875,
+        33.99169921875,
+        33.99169921875
+      ],
+      "equation_error": 0.01619656969386467,
+      "relative_pde_residual": 2.707273552021167e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 16,
+      "nominal_strengths": [
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835
+      ],
+      "actual_strengths": [
+        33.99176025390625,
+        33.99176025390625,
+        33.99176025390625,
+        33.99176025390625
+      ],
+      "equation_error": 0.016525697973880156,
+      "relative_pde_residual": 2.615694426346093e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 20,
+      "nominal_strengths": [
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835
+      ],
+      "actual_strengths": [
+        33.99176025390625,
+        33.99176025390625,
+        33.99176025390625,
+        33.99176025390625
+      ],
+      "equation_error": 0.016525697973880156,
+      "relative_pde_residual": 2.615694426346093e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 24,
+      "nominal_strengths": [
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835
+      ],
+      "actual_strengths": [
+        33.991760075092316,
+        33.991760075092316,
+        33.991760075092316,
+        33.991760075092316
+      ],
+      "equation_error": 0.016524731602501445,
+      "relative_pde_residual": 2.676461573272292e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 28,
+      "nominal_strengths": [
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835,
+        33.991760077991835
+      ],
+      "actual_strengths": [
+        33.991760078817606,
+        33.991760078817606,
+        33.991760078817606,
+        33.991760078817606
+      ],
+      "equation_error": 0.016524751766636595,
+      "relative_pde_residual": 2.592287462350694e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": null,
+      "nominal_strengths": [
+        34.11586958505152,
+        34.49369605870482,
+        34.11586958505152
+      ],
+      "actual_strengths": [
+        34.11586958505152,
+        34.49369605870482,
+        34.11586958505152
+      ],
+      "equation_error": 0.016029894497119057,
+      "relative_pde_residual": 2.6863309590698546e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 8,
+      "nominal_strengths": [
+        34.11586958505152,
+        34.49369605870482,
+        34.11586958505152
+      ],
+      "actual_strengths": [
+        34.1171875,
+        34.4921875,
+        34.1171875
+      ],
+      "equation_error": 0.014838285097110814,
+      "relative_pde_residual": 2.717258423711052e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 12,
+      "nominal_strengths": [
+        34.11586958505152,
+        34.49369605870482,
+        34.11586958505152
+      ],
+      "actual_strengths": [
+        34.115966796875,
+        34.49365234375,
+        34.115966796875
+      ],
+      "equation_error": 0.01605777806022715,
+      "relative_pde_residual": 2.647288337457841e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 16,
+      "nominal_strengths": [
+        34.11586958505152,
+        34.49369605870482,
+        34.11586958505152
+      ],
+      "actual_strengths": [
+        34.115875244140625,
+        34.49369812011719,
+        34.115875244140625
+      ],
+      "equation_error": 0.01604920077582875,
+      "relative_pde_residual": 2.5448991094709784e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 20,
+      "nominal_strengths": [
+        34.11586958505152,
+        34.49369605870482,
+        34.11586958505152
+      ],
+      "actual_strengths": [
+        34.11586952209473,
+        34.493696212768555,
+        34.11586952209473
+      ],
+      "equation_error": 0.016030359064301197,
+      "relative_pde_residual": 2.7629495601837486e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 24,
+      "nominal_strengths": [
+        34.11586958505152,
+        34.49369605870482,
+        34.11586958505152
+      ],
+      "actual_strengths": [
+        34.11586958169937,
+        34.49369603395462,
+        34.11586958169937
+      ],
+      "equation_error": 0.016029792757380795,
+      "relative_pde_residual": 2.6369463314640495e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 2.5,
+      "coupling": 0.00010702246567027713,
+      "fractional_bits": 28,
+      "nominal_strengths": [
+        34.11586958505152,
+        34.49369605870482,
+        34.11586958505152
+      ],
+      "actual_strengths": [
+        34.11586958542466,
+        34.49369606003165,
+        34.11586958542466
+      ],
+      "equation_error": 0.016029900348512538,
+      "relative_pde_residual": 2.9196632262842794e-10,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": null,
+      "nominal_strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "actual_strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "equation_error": 0.003714177619548349,
+      "relative_pde_residual": 1.1058465933774254e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 8,
+      "nominal_strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "actual_strengths": [
+        34.28125,
+        34.28125,
+        34.28125,
+        34.28125
+      ],
+      "equation_error": 0.003471923220006657,
+      "relative_pde_residual": 1.1219642375001688e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 12,
+      "nominal_strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "actual_strengths": [
+        34.281494140625,
+        34.281494140625,
+        34.281494140625,
+        34.281494140625
+      ],
+      "equation_error": 0.003585226269892752,
+      "relative_pde_residual": 1.1530098356277194e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 16,
+      "nominal_strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "actual_strengths": [
+        34.281494140625,
+        34.281494140625,
+        34.281494140625,
+        34.281494140625
+      ],
+      "equation_error": 0.003585226269892752,
+      "relative_pde_residual": 1.1530098356277194e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 20,
+      "nominal_strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "actual_strengths": [
+        34.2814998626709,
+        34.2814998626709,
+        34.2814998626709,
+        34.2814998626709
+      ],
+      "equation_error": 0.003716863201438095,
+      "relative_pde_residual": 1.2455894252628532e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 24,
+      "nominal_strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "actual_strengths": [
+        34.28149974346161,
+        34.28149974346161,
+        34.28149974346161,
+        34.28149974346161
+      ],
+      "equation_error": 0.003714110997293026,
+      "relative_pde_residual": 1.2110172993885987e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 28,
+      "nominal_strengths": [
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654,
+        34.281499746350654
+      ],
+      "actual_strengths": [
+        34.2814997471869,
+        34.2814997471869,
+        34.2814997471869,
+        34.2814997471869
+      ],
+      "equation_error": 0.003714196935359356,
+      "relative_pde_residual": 1.1952751295382916e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": null,
+      "nominal_strengths": [
+        34.30989520099148,
+        34.39536450834186,
+        34.30989520099148
+      ],
+      "actual_strengths": [
+        34.30989520099148,
+        34.39536450834186,
+        34.30989520099148
+      ],
+      "equation_error": 0.0036866587371035407,
+      "relative_pde_residual": 1.1505371231750458e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 8,
+      "nominal_strengths": [
+        34.30989520099148,
+        34.39536450834186,
+        34.30989520099148
+      ],
+      "actual_strengths": [
+        34.30859375,
+        34.39453125,
+        34.30859375
+      ],
+      "equation_error": 0.022037433286537213,
+      "relative_pde_residual": 1.2429383831602167e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 12,
+      "nominal_strengths": [
+        34.30989520099148,
+        34.39536450834186,
+        34.30989520099148
+      ],
+      "actual_strengths": [
+        34.309814453125,
+        34.395263671875,
+        34.309814453125
+      ],
+      "equation_error": 0.0012196248337754145,
+      "relative_pde_residual": 1.109880078261832e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 16,
+      "nominal_strengths": [
+        34.30989520099148,
+        34.39536450834186,
+        34.30989520099148
+      ],
+      "actual_strengths": [
+        34.30989074707031,
+        34.39537048339844,
+        34.30989074707031
+      ],
+      "equation_error": 0.0037514856002606044,
+      "relative_pde_residual": 1.1274097693753537e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 20,
+      "nominal_strengths": [
+        34.30989520099148,
+        34.39536450834186,
+        34.30989520099148
+      ],
+      "actual_strengths": [
+        34.309895515441895,
+        34.39536476135254,
+        34.309895515441895
+      ],
+      "equation_error": 0.0036938332854079543,
+      "relative_pde_residual": 1.1838466890116624e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 24,
+      "nominal_strengths": [
+        34.30989520099148,
+        34.39536450834186,
+        34.30989520099148
+      ],
+      "actual_strengths": [
+        34.30989521741867,
+        34.39536452293396,
+        34.30989521741867
+      ],
+      "equation_error": 0.003687057544218581,
+      "relative_pde_residual": 1.093963151966742e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.0,
+      "coupling": 2.4141798563497177e-05,
+      "fractional_bits": 28,
+      "nominal_strengths": [
+        34.30989520099148,
+        34.39536450834186,
+        34.30989520099148
+      ],
+      "actual_strengths": [
+        34.30989520251751,
+        34.3953645080328,
+        34.30989520251751
+      ],
+      "equation_error": 0.003686666863044364,
+      "relative_pde_residual": 1.133781289013386e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": null,
+      "nominal_strengths": [
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124
+      ],
+      "actual_strengths": [
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124
+      ],
+      "equation_error": 0.0008371799452271167,
+      "relative_pde_residual": 5.0353287287536325e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 8,
+      "nominal_strengths": [
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124
+      ],
+      "actual_strengths": [
+        34.34765625,
+        34.34765625,
+        34.34765625,
+        34.34765625
+      ],
+      "equation_error": 0.013747155253899196,
+      "relative_pde_residual": 5.149838428126869e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 12,
+      "nominal_strengths": [
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124
+      ],
+      "actual_strengths": [
+        34.34765625,
+        34.34765625,
+        34.34765625,
+        34.34765625
+      ],
+      "equation_error": 0.013747155253899196,
+      "relative_pde_residual": 5.149838428126869e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 16,
+      "nominal_strengths": [
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124
+      ],
+      "actual_strengths": [
+        34.34754943847656,
+        34.34754943847656,
+        34.34754943847656,
+        34.34754943847656
+      ],
+      "equation_error": 0.0015844075569711952,
+      "relative_pde_residual": 5.037358969403789e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 20,
+      "nominal_strengths": [
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124
+      ],
+      "actual_strengths": [
+        34.34754276275635,
+        34.34754276275635,
+        34.34754276275635,
+        34.34754276275635
+      ],
+      "equation_error": 0.0008721411768771978,
+      "relative_pde_residual": 4.960303604775627e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 24,
+      "nominal_strengths": [
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124
+      ],
+      "actual_strengths": [
+        34.34754240512848,
+        34.34754240512848,
+        34.34754240512848,
+        34.34754240512848
+      ],
+      "equation_error": 0.000835713899473393,
+      "relative_pde_residual": 4.9313131738287625e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 28,
+      "nominal_strengths": [
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124,
+        34.347542419581124
+      ],
+      "actual_strengths": [
+        34.34754242002964,
+        34.34754242002964,
+        34.34754242002964,
+        34.34754242002964
+      ],
+      "equation_error": 0.0008372252859473357,
+      "relative_pde_residual": 5.35468579364797e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": null,
+      "nominal_strengths": [
+        34.35396836261702,
+        34.37326062627108,
+        34.35396836261702
+      ],
+      "actual_strengths": [
+        34.35396836261702,
+        34.37326062627108,
+        34.35396836261702
+      ],
+      "equation_error": 0.0008353157496755513,
+      "relative_pde_residual": 5.068961818790668e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 8,
+      "nominal_strengths": [
+        34.35396836261702,
+        34.37326062627108,
+        34.35396836261702
+      ],
+      "actual_strengths": [
+        34.35546875,
+        34.375,
+        34.35546875
+      ],
+      "equation_error": 0.19795614306111287,
+      "relative_pde_residual": 5.26486763076028e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 12,
+      "nominal_strengths": [
+        34.35396836261702,
+        34.37326062627108,
+        34.35396836261702
+      ],
+      "actual_strengths": [
+        34.35400390625,
+        34.373291015625,
+        34.35400390625
+      ],
+      "equation_error": 0.004579684753407018,
+      "relative_pde_residual": 5.0976461675567034e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 16,
+      "nominal_strengths": [
+        34.35396836261702,
+        34.37326062627108,
+        34.35396836261702
+      ],
+      "actual_strengths": [
+        34.353973388671875,
+        34.373260498046875,
+        34.353973388671875
+      ],
+      "equation_error": 0.0010209328892208391,
+      "relative_pde_residual": 5.3048507521453175e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 20,
+      "nominal_strengths": [
+        34.35396836261702,
+        34.37326062627108,
+        34.35396836261702
+      ],
+      "actual_strengths": [
+        34.35396862030029,
+        34.373260498046875,
+        34.35396862030029
+      ],
+      "equation_error": 0.0008353883272420964,
+      "relative_pde_residual": 5.023958462598602e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 24,
+      "nominal_strengths": [
+        34.35396836261702,
+        34.37326062627108,
+        34.35396836261702
+      ],
+      "actual_strengths": [
+        34.353968381881714,
+        34.373260617256165,
+        34.353968381881714
+      ],
+      "equation_error": 0.0008353656300056515,
+      "relative_pde_residual": 5.623362000559284e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 3.5,
+      "coupling": 5.445832650465089e-06,
+      "fractional_bits": 28,
+      "nominal_strengths": [
+        34.35396836261702,
+        34.37326062627108,
+        34.35396836261702
+      ],
+      "actual_strengths": [
+        34.35396836325526,
+        34.373260624706745,
+        34.35396836325526
+      ],
+      "equation_error": 0.0008352184331819024,
+      "relative_pde_residual": 5.169315285356691e-09,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": null,
+      "nominal_strengths": [
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776
+      ],
+      "actual_strengths": [
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776
+      ],
+      "equation_error": 0.00018881046388982003,
+      "relative_pde_residual": 2.1508006010434144e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 8,
+      "nominal_strengths": [
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776
+      ],
+      "actual_strengths": [
+        34.36328125,
+        34.36328125,
+        34.36328125,
+        34.36328125
+      ],
+      "equation_error": 0.672733869954568,
+      "relative_pde_residual": 3.55713252571591e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 12,
+      "nominal_strengths": [
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776
+      ],
+      "actual_strengths": [
+        34.362548828125,
+        34.362548828125,
+        34.362548828125,
+        34.362548828125
+      ],
+      "equation_error": 0.038245788140158894,
+      "relative_pde_residual": 2.5739085172140246e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 16,
+      "nominal_strengths": [
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776
+      ],
+      "actual_strengths": [
+        34.36247253417969,
+        34.36247253417969,
+        34.36247253417969,
+        34.36247253417969
+      ],
+      "equation_error": 0.0012202703742792973,
+      "relative_pde_residual": 2.165085352432711e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 20,
+      "nominal_strengths": [
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776
+      ],
+      "actual_strengths": [
+        34.36247539520264,
+        34.36247539520264,
+        34.36247539520264,
+        34.36247539520264
+      ],
+      "equation_error": 0.00022670457589606122,
+      "relative_pde_residual": 2.175877645970132e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 24,
+      "nominal_strengths": [
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776
+      ],
+      "actual_strengths": [
+        34.36247533559799,
+        34.36247533559799,
+        34.36247533559799,
+        34.36247533559799
+      ],
+      "equation_error": 0.00019938369807562362,
+      "relative_pde_residual": 2.2041098559713667e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "chain4",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 28,
+      "nominal_strengths": [
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776,
+        34.36247531216776
+      ],
+      "actual_strengths": [
+        34.36247531324625,
+        34.36247531324625,
+        34.36247531324625,
+        34.36247531324625
+      ],
+      "equation_error": 0.00018929465967313324,
+      "relative_pde_residual": 2.2025365461245016e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": null,
+      "nominal_strengths": [
+        34.36392590716627,
+        34.36827842708874,
+        34.36392590716627
+      ],
+      "actual_strengths": [
+        34.36392590716627,
+        34.36827842708874,
+        34.36392590716627
+      ],
+      "equation_error": 0.0001886098760374231,
+      "relative_pde_residual": 2.360721839091339e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 8,
+      "nominal_strengths": [
+        34.36392590716627,
+        34.36827842708874,
+        34.36392590716627
+      ],
+      "actual_strengths": [
+        34.36328125,
+        34.3671875,
+        34.36328125
+      ],
+      "equation_error": 0.6188034396789505,
+      "relative_pde_residual": 2.3000788526304627e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 12,
+      "nominal_strengths": [
+        34.36392590716627,
+        34.36827842708874,
+        34.36392590716627
+      ],
+      "actual_strengths": [
+        34.364013671875,
+        34.3681640625,
+        34.364013671875
+      ],
+      "equation_error": 0.03130228700967124,
+      "relative_pde_residual": 2.505286987137692e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 16,
+      "nominal_strengths": [
+        34.36392590716627,
+        34.36827842708874,
+        34.36392590716627
+      ],
+      "actual_strengths": [
+        34.363922119140625,
+        34.36827087402344,
+        34.363922119140625
+      ],
+      "equation_error": 0.003069162054923428,
+      "relative_pde_residual": 2.3956890891374783e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 20,
+      "nominal_strengths": [
+        34.36392590716627,
+        34.36827842708874,
+        34.36392590716627
+      ],
+      "actual_strengths": [
+        34.36392593383789,
+        34.36827850341797,
+        34.36392593383789
+      ],
+      "equation_error": 0.00021949991251230883,
+      "relative_pde_residual": 2.2998018634482964e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 24,
+      "nominal_strengths": [
+        34.36392590716627,
+        34.36827842708874,
+        34.36392590716627
+      ],
+      "actual_strengths": [
+        34.36392593383789,
+        34.368278443813324,
+        34.36392593383789
+      ],
+      "equation_error": 0.00019896688860349265,
+      "relative_pde_residual": 2.4049813484583516e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    },
+    {
+      "name": "mediator2",
+      "separation": 4.0,
+      "coupling": 1.2284541758091573e-06,
+      "fractional_bits": 28,
+      "nominal_strengths": [
+        34.36392590716627,
+        34.36827842708874,
+        34.36392590716627
+      ],
+      "actual_strengths": [
+        34.36392590776086,
+        34.36827842891216,
+        34.36392590776086
+      ],
+      "equation_error": 0.00018934038484875546,
+      "relative_pde_residual": 2.2206863808906718e-08,
+      "decoder": "Frozen nominal gains and fixed continuous source functions",
+      "scope": "Fine TE10 channel; only material strengths are quantized"
+    }
+  ],
+  "channel_refinement_max_error_change": 6.5604205401470495e-09,
+  "calibration_mu_refinement_change": 7.65533469948565e-14,
+  "computational_resources": {
+    "local_calibration_backend": "CPU",
+    "full_vector_backend": "GPU direct",
+    "floating_point_precision": "64-bit",
+    "host_numerical_library_threads": 2,
+    "concurrent_jobs_per_gpu": 1,
+    "periodic_plan_unknowns": 379610,
+    "periodic_plan_peak_device_memory_bytes": 112605351652,
+    "memory_scope": "Factorization-plan estimate for this backend and matrix; not a measured peak or a lower bound for other solvers."
+  },
+  "provenance": {
+    "files_sha256": {
+      "results/direct_refinement_a/signed_spd/h0.14285714/verification.json": "3dc3464d31a0377978a18d867b37923f32696b52c779651dea70e268397a60d5",
+      "results/direct_refinement_a/signed_spd/h0.14285714/metadata.json": "1ec03888f6b8e62252e076dc2c1fd3627a9edd0ef3e9b028f7e38222c860bad2",
+      "results/direct_refinement_a/signed_spd/h0.14285714/verification_fields.npz": "97cfc0b701a91a9d51508378ba58d642d37fedd34581a666684b891aa72c5069",
+      "results/direct_refinement_a/signed_spd/design.json": "46a46fd5639495b96de94cefe1ab6d402a4e63e56e6cc0d4b9af3965bce6ba2f",
+      "results/direct_refinement_a/signed_spd/h0.15384615/verification.json": "48978b5ccb736ab4aeebb1a8e9686aa55fbfc6067ec60a8876095c03eb2b4f10",
+      "results/local_compilation/waveguide_calibration/calibration.json": "c6feb13da9141024e38224e87fdbadd61fbb73c5c8657fa687a1399e9219072e",
+      "results/local_compilation/waveguide_calibration/template.npz": "a9a9cf734426b2b36969212c76380ea3765802b023a953920e21d3c2661c1d76",
+      "results/local_compilation/waveguide_chain3/verification.json": "b5dfc47db0e3c11b1bacd36b3bc034f3221541446c032ca0fb86d9bdc424d92a",
+      "results/local_compilation/waveguide_nonuniform3/verification.json": "55c97c7f7d5ea157bf0992dc93e782a558bb489c866b512ffc5889603cc3a5e4",
+      "results/local_compilation/waveguide_chain4/verification.json": "8ee216a08035bf853a8e8698419662bd7ad55d260a5196199e0054ca62a3af2e",
+      "results/local_compilation/waveguide_mediator2/verification.json": "03e9743c797836ebe158a5c94d05db8fa1ab13ee6cd8875cb82fe9bf720a5bf6",
+      "results/local_compilation/waveguide_indefinite3/verification.json": "5ba30f56f322120fe5d10cfc150b0dcfc0fe3fed9221ec30d4cb47dd73b7e12f",
+      "results/local_compilation/waveguide_chain3/frozen_design.json": "09d5ce97ad993cf9c14b052b2d2587741ca45d1db16e48b3a88c1800fd4e8b16",
+      "results/local_compilation/waveguide_chain3/fields.npz": "582a138ce7ee6a8ca3346c15bdb72de69823c6d49951d2a93f5c114b3d75445e",
+      "results/local_compilation/waveguide_chain4/frozen_design.json": "62a7b5a6f211e7cde8f8b4a0a800b610e82a536ad3b55cea787bb55b4f691904",
+      "results/local_compilation/waveguide_chain4/fields.npz": "30c1e57ac4a86f6694aed54cc18769293608022cef8586bc6938794c0258ff50",
+      "results/local_compilation/waveguide_mediator2/frozen_design.json": "2cb5aa80811951c1fc47469bca774533d15a324ac02d01c144340a053b144ca6",
+      "results/local_compilation/waveguide_mediator2/fields.npz": "c915f8e18646b4a8fd8687627ea8b2f6f50e2392636a43f9cd11262636644b95",
+      "results/local_compilation/waveguide_buffer/verification.json": "65db95b31410932f159281a9e33b1298035cdfff860afe0ea854044b4d12ea1b",
+      "results/local_compilation/compile_r3_h0333_l10/compiled_targets.json": "3315bb715665eca227f684da38328e4e2247990e75cc9bddf1fcb65577697228",
+      "results/local_compilation/compile_r4_h05_l12/compiled_targets.json": "189d1fb686d14e08f16d1435ce90f5c750c09d3f1aa31216a35120dd5a0a027f",
+      "results/local_compilation/compile_r5_h05_l14/compiled_targets.json": "4cdd038c93fb91e06d3cece2e29809a87c4795268b24226acde65a81725ac09a",
+      "results/local_compilation/waveguide_tradeoff/tradeoff.json": "6a95161e7f2e5ad145caae2bd7f74b58784e4889471c3af8117d28fd5f4d6468",
+      "results/local_compilation/waveguide_tradeoff_check/tradeoff.json": "ec9d69b699b099a7be3c13dc8c03d331c8830b82a9160a0a061f8d556ca8fc1d",
+      "results/local_compilation/waveguide_calibration_check/calibration.json": "945ff50f9ccd17cbd9f70c33f5a9f0de05f95b4a7253203135ced992eb182dd3",
+      "results/h0143_memory_plan.json": "ef59753f2386a34b75b4a156c6cecd566e37e8735d74a23135d29e4795e671cd",
+      "results/local_compilation/waveguide_chain4_d3/verification.json": "301ae83a74be688f8c68d5d79867afc1d555c40d897e121f09958e79a2b0162f"
+    },
+    "field_convention": "Frequency-domain electric phasors; discrete arrays carry sqrt(cell volume).",
+    "readout": "Original full-grid fields and probes; no display interpolation enters the decoded response.",
+    "periodic_display": "Cell-centered Ez interpolated to y=0.",
+    "waveguide_display": "Saved Ey centerline at x=0; y is immaterial in the invariant transverse channel."
+  }
+}

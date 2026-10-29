@@ -1,0 +1,100 @@
+{
+  "target": [
+    [
+      3.0,
+      -0.6,
+      0.4
+    ],
+    [
+      -0.6,
+      2.5,
+      0.8
+    ],
+    [
+      0.4,
+      0.8,
+      3.5
+    ]
+  ],
+  "terminals": [
+    0,
+    1,
+    2
+  ],
+  "alpha": 0.01804944288849926,
+  "strengths": [
+    14.872715582271603,
+    23.660676318928434,
+    12.482888307455715,
+    3.1704223969950336,
+    25.7129722737192,
+    5.064638463387147
+  ],
+  "nominal_source_decoder_strengths": [
+    14.85946858780678,
+    23.580698860720645,
+    12.529987596175173
+  ],
+  "h": 0.14285714285714285,
+  "unknowns": 379610,
+  "lengths": [
+    8.0,
+    6.0,
+    8.0
+  ],
+  "material_continuous_enclosure": [
+    4.772534429548964,
+    21.231808300461573
+  ],
+  "decoded_response_real": [
+    [
+      0.36388512576156146,
+      0.10835933112374574,
+      -0.06638814323728914
+    ],
+    [
+      0.10835933112374602,
+      0.4637686682718378,
+      -0.11823349666249722
+    ],
+    [
+      -0.06638814323729016,
+      -0.1182334966624978,
+      0.3203571898324632
+    ]
+  ],
+  "decoded_response_imag": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "worst_relative_equation_residual": 0.0007878172817407182,
+  "per_basis_relative_equation_residuals": [
+    0.0005621062757630366,
+    0.0007436129749127066,
+    0.0005517577949315423
+  ],
+  "discrete_pde_relative_residuals": [
+    1.5781305352934125e-13,
+    8.513475657144687e-14,
+    1.8554599894035315e-13
+  ],
+  "full_field_relative_residual_amplification_bound": 14.304661620836207,
+  "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+  "factor_seconds": 44.525111792143434,
+  "factor_nnz": 13486171062,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

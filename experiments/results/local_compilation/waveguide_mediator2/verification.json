@@ -1,0 +1,161 @@
+[
+  {
+    "name": "mediator2",
+    "h": 0.0625,
+    "order": 12,
+    "unknowns": 107608,
+    "lengths": [
+      1.0,
+      0.5,
+      20.0
+    ],
+    "target": [
+      [
+        3.0,
+        1.0
+      ],
+      [
+        1.0,
+        3.0
+      ]
+    ],
+    "strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "decoded_response": [
+      [
+        0.37730854867249225,
+        -0.12533211726765578
+      ],
+      [
+        -0.12533211726362903,
+        0.37730854867316854
+      ]
+    ],
+    "equation_error": 0.007905725628751997,
+    "fine_channel_equation_error": 0.00018860412304009974,
+    "full_vs_fine_channel_response_error": 0.005173545084609564,
+    "pde_relative_residuals": [
+      2.5669014626722947e-10,
+      2.576001954019708e-10
+    ],
+    "off_polarization_field_fraction": 1.487775692764996e-14,
+    "material_continuous_enclosure": [
+      1.0,
+      13.643383061781943
+    ],
+    "seconds": 8.698376018088311,
+    "factor_seconds": 7.861204321030527,
+    "factor_nnz": 987390586,
+    "solver": "cudss",
+    "backend_version": "1.0.0"
+  },
+  {
+    "name": "mediator2",
+    "h": 0.05,
+    "order": 12,
+    "unknowns": 216030,
+    "lengths": [
+      1.0,
+      0.5,
+      20.0
+    ],
+    "target": [
+      [
+        3.0,
+        1.0
+      ],
+      [
+        1.0,
+        3.0
+      ]
+    ],
+    "strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "decoded_response": [
+      [
+        0.37611317618886664,
+        -0.12515769001153176
+      ],
+      [
+        -0.1251576900097344,
+        0.3761131761914932
+      ]
+    ],
+    "equation_error": 0.0038219447181872947,
+    "fine_channel_equation_error": 0.00018860412304009974,
+    "full_vs_fine_channel_response_error": 0.002434239350584657,
+    "pde_relative_residuals": [
+      4.3093922297720495e-10,
+      4.2591820337172534e-10
+    ],
+    "off_polarization_field_fraction": 2.532010530063146e-14,
+    "material_continuous_enclosure": [
+      1.0,
+      13.643383061781943
+    ],
+    "seconds": 23.151677207555622,
+    "factor_seconds": 21.522461839951575,
+    "factor_nnz": 3320254600,
+    "solver": "cudss",
+    "backend_version": "1.0.0"
+  },
+  {
+    "name": "mediator2",
+    "h": 0.045454545454545456,
+    "order": 12,
+    "unknowns": 290389,
+    "lengths": [
+      1.0,
+      0.5,
+      20.0
+    ],
+    "target": [
+      [
+        3.0,
+        1.0
+      ],
+      [
+        1.0,
+        3.0
+      ]
+    ],
+    "strengths": [
+      34.36392590716627,
+      34.36827842708874,
+      34.36392590716627
+    ],
+    "decoded_response": [
+      [
+        0.37550021913202136,
+        -0.1250684692237668
+      ],
+      [
+        -0.1250684692223012,
+        0.3755002191309889
+      ]
+    ],
+    "equation_error": 0.001726999633884535,
+    "fine_channel_equation_error": 0.00018860412304009974,
+    "full_vs_fine_channel_response_error": 0.0010300342337923765,
+    "pde_relative_residuals": [
+      5.245951080594957e-10,
+      5.316386156183818e-10
+    ],
+    "off_polarization_field_fraction": 3.093447036669271e-14,
+    "material_continuous_enclosure": [
+      1.0,
+      13.643383061781943
+    ],
+    "seconds": 44.536451985593885,
+    "factor_seconds": 42.394716122653335,
+    "factor_nnz": 5324281469,
+    "solver": "cudss",
+    "backend_version": "1.0.0"
+  }
+]

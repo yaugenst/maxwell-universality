@@ -1,0 +1,60 @@
+{
+  "purpose": "File identity only, not proof validation",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2145,
+      "sha256": "a072d4e94bcc9b6856bdd90e59c5132849604cfb601ed211fc91359d43755e76"
+    },
+    {
+      "path": "adversarial_logical.md",
+      "bytes": 4964,
+      "sha256": "8e1ced1e34b5115030795ca8c5abc08fa3bf22e91e9c1e841263539addee705e"
+    },
+    {
+      "path": "clean_h2_scalar_verification.json",
+      "bytes": 267,
+      "sha256": "d23eaff5ccfa448fde659e2d00dd400c03b7e66ad61cacddaea9f2b2a90e93fc"
+    },
+    {
+      "path": "clean_verification_log.json",
+      "bytes": 3705,
+      "sha256": "948075835e74615063eeb95da4eef90f793f6cd2b6ef6cb1027bdd9f02dfb982"
+    },
+    {
+      "path": "h2_independent_review.md",
+      "bytes": 8432,
+      "sha256": "391b9188da0a03e405ec399d03c516085cac79a4f2e847fb29052ce8f354c5a0"
+    },
+    {
+      "path": "h2_scalar_verification.json",
+      "bytes": 267,
+      "sha256": "d23eaff5ccfa448fde659e2d00dd400c03b7e66ad61cacddaea9f2b2a90e93fc"
+    },
+    {
+      "path": "kwz_transfer.md",
+      "bytes": 11321,
+      "sha256": "a58c5c0c6735a6a2d450879aac9a77c1f283d82d8dc9fbbfd8fae289a1884fe6"
+    },
+    {
+      "path": "r5_constructive_proof.md",
+      "bytes": 20387,
+      "sha256": "fdf68adb19b83497c014ee75a9f16ba026c84fe0a108b39104e2e1f05f7d94ee"
+    },
+    {
+      "path": "verification_log.json",
+      "bytes": 3705,
+      "sha256": "f4561f0b04b213076e1b27e5e810605aac6daf396d2d1beaca5115cab35ae6a6"
+    },
+    {
+      "path": "verify_h2_scalar_bounds.py",
+      "bytes": 1159,
+      "sha256": "d12a3c6b1b5a8e11e5414a4444cddba9798385b2e2e71cca2f3235e24a962783"
+    },
+    {
+      "path": "verify_logical.py",
+      "bytes": 15782,
+      "sha256": "ae794d5a11b156dc6bbc4a45199bb70181a311f0b8932056d338077ccbb9b399"
+    }
+  ]
+}

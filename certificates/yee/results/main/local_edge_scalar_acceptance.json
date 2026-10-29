@@ -1,0 +1,14 @@
+{
+  "scope": "Exact scalar implication only; finite matrix hypotheses separate",
+  "radius": "1/20",
+  "tail_ratio_bound": "121/5880000",
+  "K4_upper": "106766165/41158971",
+  "R3_upper": "34552760/41158971",
+  "R4_upper": "3107885/41158971",
+  "g_relative_coefficient_lower": "2178546479/819200000000",
+  "g_relative_target": "1/400",
+  "band_coercivity_lower": "128/71575",
+  "band_coercivity_target": "1/600",
+  "assertions_enabled": true,
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+}

@@ -1,0 +1,65 @@
+{
+  "cpu_gpu_response_difference": {
+    "relative_response_difference": 8.748462011998384e-14,
+    "max_entry_difference": 8.756884106730922e-15
+  },
+  "fixed_device_response_change_h02_to_h0167": 0.01375390301456533,
+  "fixed_device_inverse_response_change_h02_to_h0167": 0.052963609610706626,
+  "fixed_device_bypass_ratio_change_h02_to_h0167": 0.0680865946366076,
+  "buffer_relative_response_changes": {
+    "buffer_z_h02": 5.93803900028311,
+    "buffer_xy_h02": 15.315011057313267
+  },
+  "perturbation_relative_response_changes": {
+    "strength_low_h02": 0.07546474858542086,
+    "strength_high_h02": 0.08089428474989398,
+    "absorption001_h02": 0.7306267229724027,
+    "absorption01_h02": 1.3103377116713277
+  },
+  "best_single_defect_inside_L2_squared_fraction": {
+    "modes_o8_h025": 0.028775310142212344,
+    "modes_o8_h02": 0.029274754123884063,
+    "modes_radius2_h0333": 0.19623941020413002
+  },
+  "modal_decoded_relative_residuals": {
+    "modal_h025": [
+      0.26437049111030037,
+      0.2643704911103007,
+      0.32555751513384534,
+      0.1838363878008896
+    ],
+    "modal_h02": [
+      0.26457173729330713,
+      0.26457173729330685,
+      0.32605392962230445,
+      0.18353540074506203
+    ],
+    "modal_radius2_h0333": [
+      0.6237503219591441,
+      0.6237503219591437,
+      0.8793134459649262,
+      0.07026230876905531
+    ]
+  },
+  "modal_worst_terminal_residuals": {
+    "modal_h025": 0.3255575151338451,
+    "modal_h02": 0.32605392962230445,
+    "modal_radius2_h0333": 0.8793134459649263
+  },
+  "modal_full_support_identity_errors": {
+    "modal_h025": 3.2099828094159132e-15,
+    "modal_h02": 1.6490600820559599e-15,
+    "modal_radius2_h0333": 1.9241155951939604e-14
+  },
+  "full_cavity_control_grid_spacings": [
+    0.2,
+    0.16666666666666666,
+    0.15384615384615385
+  ],
+  "full_cavity_control_worst_measured_equation_residual": [
+    5.957989203920663e-14,
+    0.0007364099682238764,
+    0.0009496859505829096
+  ],
+  "gate": "Local compilation gate FAIL; a separately calibrated full-cavity device solves the fixed two-variable target with sub-0.1-percent residual on two finer grids"
+}

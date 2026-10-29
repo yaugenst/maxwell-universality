@@ -1,0 +1,11 @@
+{
+  "spec": "network_eight_sites.json",
+  "output": "results/network_eight",
+  "background": null,
+  "targets": [
+    "unequal_spd"
+  ],
+  "free_scale": true,
+  "starts": 2,
+  "max_evaluations": 120
+}

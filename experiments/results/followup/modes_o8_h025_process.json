@@ -1,0 +1,19 @@
+{
+  "command": [
+    "experiments/.venv/bin/python",
+    "experiments/maxwell.py",
+    "modes",
+    "--order",
+    "8",
+    "--solver",
+    "cudss",
+    "--strength",
+    "24",
+    "--h",
+    ".25",
+    "--output",
+    "results/followup/modes_o8_h025"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 11.074878455139697
+}

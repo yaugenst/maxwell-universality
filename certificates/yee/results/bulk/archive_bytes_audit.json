@@ -1,0 +1,67 @@
+{
+  "status": "ALL_10_ARCHIVES_AND_FROZEN_ENTRY_BYTES_VERIFIED",
+  "archives": [
+    {
+      "name": "maxwell_h1_evidence_part1.zip",
+      "outer_sha256_verified": "8ae6a30e5f03d38185cd9151f3e24b9ce67bd3e177db9eba9a823cdcc481b99d",
+      "frozen_entries_checked": 311
+    },
+    {
+      "name": "maxwell_h1_evidence_part2.zip",
+      "outer_sha256_verified": "27e513e0721e96fe79dc6a205f86f882f0b0a83d13aaea788b1a216d6b444d9a",
+      "frozen_entries_checked": 302
+    },
+    {
+      "name": "maxwell_global_evidence_part1.zip",
+      "outer_sha256_verified": "6a182a1d95163cdbad7ef6bdb8a8f4fc462188ff38455ab618e7d77c215fea79",
+      "frozen_entries_checked": 266
+    },
+    {
+      "name": "maxwell_global_evidence_part2.zip",
+      "outer_sha256_verified": "2cc958886799d3f7b5fd9e31b5088aa5b510cba5e38604dfd653b30ee04297f7",
+      "frozen_entries_checked": 247
+    },
+    {
+      "name": "maxwell_global_evidence_part3.zip",
+      "outer_sha256_verified": "dda4a7d773263961b544330daebcf9e524743106c29e0658e48a2f19ab68aed4",
+      "frozen_entries_checked": 246
+    },
+    {
+      "name": "maxwell_global_evidence_part4.zip",
+      "outer_sha256_verified": "643504a122ce350f28d9fc05d603f4ca0f6396c9128ff61ad875cf6480e06e7e",
+      "frozen_entries_checked": 249
+    },
+    {
+      "name": "maxwell_global_evidence_part5.zip",
+      "outer_sha256_verified": "8f4f7f9906e929fc68e3737b1a78f4239862c667f9cff67fe04b37e99840eddb",
+      "frozen_entries_checked": 256
+    },
+    {
+      "name": "maxwell_global_evidence_part6.zip",
+      "outer_sha256_verified": "89a65ab1dcd2cd4f1523da01ed4c6eb722b3b137d112da9ede38951dc9846d30",
+      "frozen_entries_checked": 276
+    },
+    {
+      "name": "maxwell_global_evidence_part7.zip",
+      "outer_sha256_verified": "4a5915c0b1b225e30676ce7fdc171b0abd8cd792cf8715de734d7c426dee324f",
+      "frozen_entries_checked": 285
+    },
+    {
+      "name": "maxwell_global_evidence_part8.zip",
+      "outer_sha256_verified": "62abbd3b2fe0ceb702003cc83778eae8ebe8663f6180d3035f64901ee119c660",
+      "frozen_entries_checked": 287
+    }
+  ],
+  "unique_frozen_entries_checked": 2676,
+  "witnesses_checked": 2660,
+  "elapsed_seconds": 6.914448394003557,
+  "rejected_H1_archive": {
+    "path": "/workspace/scratch/afe058a3cc75/maxwell_research/work/bulk/clean_certificate/audit/rejected_evidence/2688_2176_640_4.npz.truncated",
+    "bytes": 91307,
+    "suffix": ".truncated",
+    "included_by_main_filter": true
+  },
+  "scope": "exact archive-byte check against frozen manifests, no matrix computation",
+  "duplicate_nonwitness_entries_checked": 64,
+  "cross_volume_metadata_conflicts": []
+}

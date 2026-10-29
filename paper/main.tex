@@ -1,0 +1,64 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{booktabs,longtable,array,enumitem,tabularx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{xurl}
+\usepackage[hidelinks,bookmarksnumbered]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{graphicx,capt-of,needspace,float}
+\usepackage[font=small,labelfont=bf]{caption}
+\captionsetup[table]{position=top,skip=6pt}
+\setlength{\parindent}{1.25em}
+\setlength{\parskip}{0.12em}
+\setlength{\emergencystretch}{2em}
+\setlist{itemsep=0.2em,topsep=0.5em,parsep=0em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\nnz}{\operatorname{nnz}}
+\newcommand{\polylog}{\operatorname{polylog}}
+\newcommand{\Ot}{\widetilde O}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\SI}{Supplementary Information}
+\input{si/macros}
+\hypersetup{pdftitle={Maxwell's equations are universal for sparse linear algebra},pdfauthor={Yannick Augenstein}}
+\title{\textbf{Maxwell's equations are universal for sparse linear algebra}}
+\author{Yannick Augenstein}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+\input{sections/introduction}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/methods}
+\input{sections/ai_use}
+\input{sections/backmatter}
+\begingroup\renewcommand{\bibfont}{\footnotesize}\setlength{\bibsep}{1pt}
+\bibliographystyle{unsrtnat}
+\bibliography{references}
+\endgroup
+\clearpage
+\input{si/si}
+\end{document}

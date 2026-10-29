@@ -1,0 +1,26 @@
+import Maxwell.Spectral.YeeTaylorRemainder
+import Maxwell.Spectral.YeeAnalytic
+import Maxwell.Spectral.YeeAnalyticInversion
+import Maxwell.Spectral.YeeTaylorCoefficients
+import Maxwell.Spectral.YeeDerivatives
+import Maxwell.Certificate.DerivativeBinding
+
+#print axioms Maxwell.Spectral.YeeTaylor.centeredFiber_gauge
+#print axioms Maxwell.Spectral.YeeTaylor.fiberCoefficient_hasSum
+#print axioms Maxwell.Spectral.YeeTaylor.fiberCoefficient_norm_le
+#print axioms Maxwell.Spectral.YeeTaylor.shiftedOperatorCoefficient_hasSum
+#print axioms Maxwell.Spectral.YeeTaylor.shiftedOperatorCoefficient_norm_le
+#print axioms Maxwell.Spectral.YeeAnalytic.holomorphicOperator_analyticAt
+#print axioms Maxwell.Spectral.YeeAnalytic.holomorphicOperator_real
+#print axioms Maxwell.Spectral.YeeAnalytic.holomorphicOperator_zero
+#print axioms Maxwell.Spectral.YeeInversion.shiftedOperator_taylorParity
+#print axioms Maxwell.Spectral.YeeTaylorRemainder.local_taylor_decomposition
+
+#print axioms Maxwell.Spectral.YeeAnalyticInversion.holomorphicOperator_reflection
+#print axioms Maxwell.Spectral.YeeTaylorCoefficients.fiberCoefficient_one_factored
+#print axioms Maxwell.Spectral.YeeTaylorCoefficients.fiberCoefficient_two_factored
+
+#print axioms Maxwell.Spectral.YeeDerivatives.operator_hasDerivAt_center
+#print axioms Maxwell.Spectral.YeeDerivatives.operator_hasDerivAt_deriv_center
+#print axioms Maxwell.Certificate.DerivativeBinding.fiberCoefficient_one_binding
+#print axioms Maxwell.Certificate.DerivativeBinding.fiberCoefficient_two_binding

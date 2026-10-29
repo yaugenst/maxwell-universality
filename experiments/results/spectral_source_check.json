@@ -1,0 +1,4 @@
+{
+  "relative_reconstruction_error": 2.376607738822035e-14,
+  "scope": "All six original reference source samples exactly reconstructed by the continuously defined PEC Fourier interpolants"
+}

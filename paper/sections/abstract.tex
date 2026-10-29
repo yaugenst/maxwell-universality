@@ -1,0 +1,17 @@
+Optical and wave-based analog computing has re-emerged as a route to
+accelerating linear algebra, with metamaterials and photonic circuits shown to
+invert matrices and solve integral equations. However, it has remained unclear
+which problems such passive structures can represent, and at what cost, once
+encoding, precision, conditioning and readout are accounted for. Here, we show
+that every polynomially conditioned sparse linear system can be compiled into a
+three-dimensional dielectric -- a cavity filled with lossless, isotropic
+material of bounded permittivity -- whose time-harmonic response encodes its
+solution. For $m$ nonzero coefficients, the volume of the structure and the
+cost of writing it down and reading out the answer scale as $\Ot(m^{3/2})$,
+coefficients require only $O(\log m)$ bits, and every field that approximately
+satisfies Maxwell's equations decodes to an approximate solution. We prove the
+construction for the continuum equations and give a computer-assisted version
+for the Yee discretization underlying finite-difference solvers. Read in reverse, it
+implies that electromagnetic simulation is, up to this overhead, as hard as
+general sparse linear algebra: a sufficiently fast general-purpose Maxwell
+solver would yield a faster sparse linear solver.

@@ -1,0 +1,181 @@
+\section{Methods}
+
+\subsection{Input class}
+
+Fix constants $c_\kappa,c_\eta,B_{\rm in}>0$. An input consists of a nonsingular
+$M\in\Q^{n\times n}$, a right-hand side $b\in\Q^n$ and a tolerance $\eta$, with
+\begin{equation}
+ m=\nnz(M),\qquad \kappa_2(M)\le m^{c_\kappa},\qquad m^{-c_\eta}\le\eta\le1.
+ \label{eq:methods-input}
+\end{equation}
+Every numerator and denominator has at most $B_{\rm in}\log_2(2+m)$ bits, and
+indices have $O(\log m)$ bits. Nonsingularity implies $n\le m$. The output is a
+rational vector $x$ with $\norm{Mx-b}_2\le\eta\norm b_2$. The encoder may
+replace $\eta$ by $\eta_0=m^{-\lceil c_\eta\rceil}$, so that the tolerance never has to be
+read to more than logarithmic precision. Constants in all asymptotic bounds
+depend only on $c_\kappa$, $c_\eta$ and $B_{\rm in}$.
+
+\subsection{Continuum realization}
+
+The domain $\Omega$ is a rectangular box with integer side lengths, and the
+field satisfies \cref{eq:maxwell} with $1\le\varepsilon(r)\le25$. Let
+$\mathcal C$ denote the self-adjoint curl-curl operator defined by the closed
+form $\langle\nabla\times E,\nabla\times F\rangle$ on
+$H_0(\operatorname{curl};\Omega)$, let $X$ be its domain with the graph norm
+$\norm E_X^2=\norm E_{L^2}^2+\norm{\mathcal CE}_{L^2}^2$, and set
+$A=\mathcal C-\varepsilon$. For fixed $c_\kappa,c_\eta,B_{\rm in}$, there are a randomized
+encoder, a decoder and explicit constants $C_{\rm res},c_A,c_\delta$ such that, with
+$\ell=1+\lceil\log_2(2+m)\rceil$, every run of the encoder satisfies
+\begin{align}
+ |\Omega|&\le C_{\rm res}m^{3/2}\ell^{24},&
+ N_{\rm desc}&\le C_{\rm res}m^{3/2}\ell^{64},\notag\\
+ T_{\rm enc}+T_{\rm dec}&\le C_{\rm res}m^{3/2}\ell^{4096},&
+ B_{\rm out}&\le C_{\rm res}\ell,\qquad \delta\ge m^{-c_\delta}.
+ \label{eq:methods-continuum-cost}
+\end{align}
+Here $N_{\rm desc}$ counts the unit cells of the box together with all
+coefficients and indices of the description, and $B_{\rm out}$ bounds the bit
+length of every output coefficient. For $m\ge2$, with probability at least
+$1-3/(64m)$, the operator $A:X\to L^2$ is invertible with
+\begin{equation}
+ \norm{A^{-1}}_{L^2\to L^2}\le L_b,\qquad
+ \norm A_{X\to L^2}\norm{A^{-1}}_{L^2\to X}\le702L_b\le m^{c_A},
+ \label{eq:methods-inverse}
+\end{equation}
+and every $E\in X$ with $\norm{AE-f}_{L^2}\le\delta\norm f_{L^2}$ decodes to a
+valid answer for every allowed error in the moment messages, whose range and
+precision both have $O(\ell)$ bits. The condition bound refers to the graph
+norm, since $A$ is unbounded on $L^2$. The complete statement is Theorem~\ref{c:thm:main}
+of the \SI, proved in Part~II.
+
+\subsection{Yee realization}
+
+The discrete target uses the Yee curl incidence matrix $C_{\rm Y}$ with unit
+grid spacing, frequency $\omega=1/8$ and PEC termination; $A$ now denotes the
+resulting Yee matrix. Every edge mass is
+the average of the permittivities of its four adjacent cells, and
+\begin{equation}
+ A=C_{\rm Y}^{\mathsf T}C_{\rm Y}-\omega^2D_\varepsilon,
+ \qquad 1\le\varepsilon_c\le25.
+ \label{eq:methods-discrete}
+\end{equation}
+The grid is uniform, without coordinate stretching or absorbing layers, and
+resolves the shortest wavelength in the material with ten cells. The
+realization has $\Ot(m^{3/2})$ unknowns, the same encoding and decoding cost,
+$O(\log m)$-bit coefficients and, with probability at least $1-3/(64m)$, a
+full matrix with $\kappa_2(A)\le m^{c_A}$ for which every vector meeting
+the residual tolerance decodes correctly. The decoder reads prescribed field
+coordinates to $O(\log m)$ bits. The spectral analysis of the discrete model is
+independent of the continuum one and does not rely on the resolution to
+approximate the continuum equations (Theorem~\ref{d:thm:main} and Part~III
+of the \SI). Its spectral input is a computer-assisted certificate for a
+periodic Yee background. The finite inequalities of this certificate have been
+checked in full; the final step, which binds the checked data to the exact Yee
+operator near the band minimum, is being completed as part of an ongoing formal
+verification, and the Yee result is conditional on it
+(Section~\ref{si:sec:yee-certificate}).
+
+\subsection{Logical network and routing}
+
+The compiler normalizes and rounds the coefficients within the error budget,
+expresses their arithmetic through a fixed alphabet of local relations, and
+adds variables to bound the degree of every site by three. The original system
+is embedded in a symmetric system, and sign mediators make all couplings of the
+realized network positive, with the required signs appearing after
+elimination of the mediators. Balanced routing then replaces every edge by a
+nearest-neighbor path in a cubic grid of side $O(\sqrt{m\log m})$. Every step
+preserves a polynomial inverse bound and a linear map from the residual of the
+network to the residual of $Mx=b$ (\SI, Part~I).
+
+\subsection{Band minimum, interactions and leakage}
+
+The background of \cref{eq:background} has a simple Bloch branch with
+$\lambda(k_*+q)=E_c+q^{\mathsf T}Hq+O(|q|^4)$ and $H$ positive definite.
+Exact rational arithmetic identifies the branch in the finite corner cluster,
+and estimates over all other Fourier components establish the expansion for
+the continuum operator. An integer placement matrix adapts the routing grid to
+the anisotropy of $H$.
+
+Defects are smooth bumps of radius $L$ and strength of order $L^{-2}$, analyzed
+through an auxiliary resolvent localized in momentum near $k_*$. Along the
+three routing directions, the coupling between neighboring defects at
+separation $d$ satisfies $h_j(d)\ge2^{-1024}L^2 8^{-d}$, while the full coupling
+block between defects displaced by $\nu\ne0$ lattice steps satisfies
+$\norm{G_h(\nu)}\le C_*L^5(3^{-d\norm \nu_1}+e^{-c_*L})$. The margin
+$(1/3)^2<1/8$ lets the useful couplings dominate the summed unwanted ones after
+diagonal tuning. The momentum cutoff leaves a residual in the actual Maxwell
+equation bounded by $e^{-c_*L^{1/3}}$ times explicit polynomial factors.
+Choosing $L=O(\ell^6)$, $d=O(\ell)$ and a boundary buffer of width $O(\ell^7)$
+makes all errors smaller than the required inverse-polynomial budgets. The
+uniform permittivity shift is sampled after all profiles are fixed, and a
+count of the eigenvalues of the finite-box operator gives
+\cref{eq:methods-inverse} (\SI, Part~II).
+
+\subsection{Finite description and recovery}
+
+The permittivity consists of the trigonometric background, dyadic shifts and
+polynomial profiles on balls of radius growing with $m$. Calibration uses
+finite algebra at $k_*$ and controlled Fourier tails and does not solve the
+assembled problem. Sources and weighting functions are given by finite
+coefficient lists with error bounds. If $E_{\rm ref}$ is the reference field
+constructed in the proof, with $\norm{AE_{\rm ref}-f}_{L^2}\le r_{\rm ref}$, then
+every field meeting the residual tolerance satisfies
+\begin{equation}
+ \norm{E-E_{\rm ref}}_{L^2}\le L_b\bigl(\delta\norm f_{L^2}+r_{\rm ref}\bigr).
+ \label{eq:methods-comparison}
+\end{equation}
+The decoder reads the moments $z_i=v_i\langle E,\widehat a_i\rangle$, whose
+real test fields $\widehat a_i$, weights $v_i$ and tolerances are part of the
+output. \Cref{eq:methods-comparison}, the approximation bounds for the test
+fields and the residual map of the logical network give \cref{eq:recovery}.
+
+\subsection{Algorithm transfer and conditional limits}
+
+For the continuum transfer, $N$ counts the volume and the description, and $B_{\rm out}$
+the coefficient and message lengths. The solver is assumed to satisfy
+\begin{equation}
+ T_{\rm Max}(N,B_{\rm out},\kappa_X,\delta)
+ =O\!\left(N^\theta B_{\rm out}\,\polylog(N,\kappa_X,\delta^{-1})\right),
+ \label{eq:methods-solver}
+\end{equation}
+where $\kappa_X$ is the condition bound of \cref{eq:methods-inverse}, and to
+return the prescribed moments of a residual field with a fixed positive
+probability, the cost of computing the moments included. A polynomial
+dependence on $\kappa_X$, as in unpreconditioned iterative methods, does not
+meet this assumption. Solver calls are capped, candidate answers are checked
+against $Mx=b$, and repetition amplifies the success probability, which gives
+\cref{eq:transfer} in the bit model.
+
+The conditional statement uses a real-number formulation: a full-column-rank
+$F_0$ with $m$ nonzeros and $\kappa_2(F_0)\le m^{c_\kappa}$, and the target
+\begin{equation}
+ \norm{F_0x-\Pi_{F_0}b}_2^2\le n^{-10c_\kappa}\norm{\Pi_{F_0}b}_2^2,
+ \label{eq:methods-realram}
+\end{equation}
+where $\Pi_{F_0}$ projects onto the column space. A reduction through a sparse
+saddle-point system preserves this criterion even when
+$\norm{\Pi_{F_0}b}\ll\norm b$. The hypothesis states that no randomized
+algorithm solves every such instance with probability at least $2/3$ in time
+$\Ot(m^{\gamma'})$ for any $\gamma'<\gamma$; it is a randomized
+exponent-gap version of the hypothesis used for structured linear systems and
+packing linear programs~\citep{kyngzhang2017,kyng2020}. For $\gamma>3/2$ it
+excludes $\theta<2\gamma/3$ in \cref{eq:methods-solver}. Conjugate gradients in
+exact arithmetic require $O(mn)\le O(m^2)$ operations, and their convergence
+under the condition-number bound limits the hypothesis further, so that
+\begin{equation}
+ \tfrac32<\gamma\le\min\{2,1+c_\kappa\}.
+ \label{eq:methods-gamma}
+\end{equation}
+Faster algorithms for the same model would restrict this range further
+(Theorems~\ref{d:thm:algorithm-transfer} and~\ref{c:thm:transfer} and
+Part~IV of the \SI).
+
+\subsection{Computer-assisted steps}
+
+The finite part of the continuum band analysis -- the decomposition of the
+corner cluster, orthogonality, ordering of eigenvalues, velocity and Hessian
+identities and placement inequalities -- is checked in exact rational
+arithmetic. The discrete spectral analysis uses exact matrix inequalities on a
+covering of the Brillouin zone. In both cases, the analytic arguments in the
+\SI\ show how these finite inequalities imply the required spectral
+properties (\SI, Part~V).

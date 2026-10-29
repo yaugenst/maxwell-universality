@@ -1,0 +1,182 @@
+{
+  "audited_finest_fields": [
+    {
+      "case": "results/direct_refinement_a/signed_spd/h0.14285714",
+      "unknowns": 379610,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 9.813077866773594e-17,
+      "raw_equation_operator_residual": 0.0007878172817407369,
+      "independent_two_curl_relative_residuals": [
+        2.672913091934925e-13,
+        1.3826704893016685e-13,
+        3.1393892823988517e-13
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        21.231808300461573
+      ]
+    },
+    {
+      "case": "results/direct_refinement_a/shift_50/h0.14285714",
+      "unknowns": 379610,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 1.3018518929051675e-16,
+      "raw_equation_operator_residual": 0.0013860522543334619,
+      "independent_two_curl_relative_residuals": [
+        3.759287292350625e-13,
+        2.1286170019171075e-13,
+        4.664264476401616e-13
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        21.964137839639385
+      ]
+    },
+    {
+      "case": "results/direct_refinement_a/shift_100/h0.14285714",
+      "unknowns": 379610,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 3.3537189618722464e-16,
+      "raw_equation_operator_residual": 0.004225967049687849,
+      "independent_two_curl_relative_residuals": [
+        6.973461321640739e-13,
+        4.884529135216602e-13,
+        9.862406307035725e-13
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        22.456438494476433
+      ]
+    },
+    {
+      "case": "results/direct_refinement_b/shift_150/h0.14285714",
+      "unknowns": 379610,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 1.2560739669470201e-15,
+      "raw_equation_operator_residual": 0.027768282385066952,
+      "independent_two_curl_relative_residuals": [
+        2.473716182922969e-12,
+        2.045502890840841e-12,
+        3.686658618597105e-12
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        24.90746659013574
+      ]
+    },
+    {
+      "case": "results/direct_refinement_b/shift_160/h0.14285714",
+      "unknowns": 379610,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 2.4725840765205216e-15,
+      "raw_equation_operator_residual": 0.08669730754609896,
+      "independent_two_curl_relative_residuals": [
+        6.485749223661898e-12,
+        5.734164929945583e-12,
+        9.871196930633964e-12
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        24.92015684536463
+      ]
+    },
+    {
+      "case": "results/direct_refinement_b/shift_200/h0.14285714",
+      "unknowns": 379610,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 7.216449660063518e-16,
+      "raw_equation_operator_residual": 0.043827431274662994,
+      "independent_two_curl_relative_residuals": [
+        1.6088720121193945e-12,
+        1.9291207829955914e-12,
+        2.0988296946995842e-12
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        24.947361560805497
+      ]
+    },
+    {
+      "case": "results/direct_refinement_b/conditioned_spd/h0.14285714",
+      "unknowns": 379610,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 4.3737714791252564e-15,
+      "raw_equation_operator_residual": 1.2458855464418161,
+      "independent_two_curl_relative_residuals": [
+        5.54047020677951e-11,
+        1.000191498938258e-11,
+        1.1825152716074527e-10
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        19.14133071890401
+      ]
+    },
+    {
+      "case": "results/spectral_refinement/signed_spd/h0.14285714",
+      "unknowns": 379610,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 9.412373634839028e-17,
+      "raw_equation_operator_residual": 0.0007481067322622218,
+      "independent_two_curl_relative_residuals": [
+        2.678788860777111e-13,
+        1.3825975335866562e-13,
+        3.138866728514996e-13
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        21.232837185657164
+      ]
+    },
+    {
+      "case": "results/spectral_refinement/shift_150/h0.14285714",
+      "unknowns": 379610,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 1.9357399876532506e-15,
+      "raw_equation_operator_residual": 0.02821399386533668,
+      "independent_two_curl_relative_residuals": [
+        2.4771176107946206e-12,
+        2.0460817563827464e-12,
+        3.692747311757122e-12
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        24.89940802580752
+      ]
+    },
+    {
+      "case": "results/spectral_refinement/conditioned_spd/h0.14285714",
+      "unknowns": 379610,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 3.4755478145461824e-15,
+      "raw_equation_operator_residual": 1.2478599327342232,
+      "independent_two_curl_relative_residuals": [
+        5.565623955633463e-11,
+        1.001115669657627e-11,
+        1.1813675669239074e-10
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        19.142703690264266
+      ]
+    },
+    {
+      "case": "results/order12_refinement/conditioned_spd/h0.16666667",
+      "unknowns": 237444,
+      "source_reconstruction_error": 0.0,
+      "decoder_reconstruction_error": 7.297394258384774e-16,
+      "raw_equation_operator_residual": 0.7139555522695155,
+      "independent_two_curl_relative_residuals": [
+        4.886093155325759e-12,
+        4.471355641358635e-12,
+        1.0904143815953818e-11
+      ],
+      "continuous_material_enclosure": [
+        4.772534429548964,
+        19.22970475649195
+      ]
+    }
+  ],
+  "source_snapshot_hashes_checked": 141,
+  "scope": "Independent replay of raw-field algebra and two-curl residuals at finite grids. No continuum error certificate or theorem verification."
+}

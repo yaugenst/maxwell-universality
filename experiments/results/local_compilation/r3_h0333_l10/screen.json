@@ -1,0 +1,653 @@
+{
+  "scope": "Complete admissible finite-grid single-defect mode enumeration; not a continuum or infinite-medium certificate.",
+  "config": {
+    "lengths": [
+      10.0,
+      10.0,
+      10.0
+    ],
+    "h": 0.3333333333333333,
+    "rho": 0.5,
+    "detuning": 0.03333333333333333,
+    "radius": 3.0,
+    "separation": 2.0,
+    "strength": 16.0,
+    "absorption": 0.0,
+    "order": 8,
+    "solver": "cudss",
+    "centers": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "support_coordinates": 9078,
+  "unknowns": 75690,
+  "maximum_strength": 35.23110414246896,
+  "modes": [
+    {
+      "eigenvalue": 0.03454112411251584,
+      "strength": 28.950997562863158,
+      "inside_fraction": 0.31310602023590617,
+      "bloch_overlap_squared": 8.786753096326812e-32,
+      "absolute_eigen_residual": 3.900973726878008e-14,
+      "index": 14
+    },
+    {
+      "eigenvalue": 0.04068830905662258,
+      "strength": 24.577084257996127,
+      "inside_fraction": 0.2653856891464595,
+      "bloch_overlap_squared": 1.3087956720724349e-31,
+      "absolute_eigen_residual": 2.2383792861120094e-14,
+      "index": 24
+    },
+    {
+      "eigenvalue": 0.04862741164195646,
+      "strength": 20.564532765243563,
+      "inside_fraction": 0.2626744330720481,
+      "bloch_overlap_squared": 7.662983320389986e-32,
+      "absolute_eigen_residual": 2.1710874115158587e-14,
+      "index": 35
+    },
+    {
+      "eigenvalue": 0.21300803522638526,
+      "strength": 4.694658579133874,
+      "inside_fraction": 0.25039631680107033,
+      "bloch_overlap_squared": 1.1493950527469341e-34,
+      "absolute_eigen_residual": 8.284668198801559e-15,
+      "index": 67
+    },
+    {
+      "eigenvalue": 0.03807274498715075,
+      "strength": 26.265508314083792,
+      "inside_fraction": 0.22015447183190093,
+      "bloch_overlap_squared": 4.4433880551978655e-32,
+      "absolute_eigen_residual": 3.428614826383978e-14,
+      "index": 19
+    },
+    {
+      "eigenvalue": 0.06947894029657065,
+      "strength": 14.392850491551872,
+      "inside_fraction": 0.21707704069466296,
+      "bloch_overlap_squared": 7.865114773459686e-35,
+      "absolute_eigen_residual": 1.140250422712118e-14,
+      "index": 47
+    },
+    {
+      "eigenvalue": 0.028592812634789688,
+      "strength": 34.973824113521154,
+      "inside_fraction": 0.2161740300768471,
+      "bloch_overlap_squared": 5.288752052644983e-34,
+      "absolute_eigen_residual": 7.420744254740882e-14,
+      "index": 0
+    },
+    {
+      "eigenvalue": 0.10625134104348793,
+      "strength": 9.411645915986199,
+      "inside_fraction": 0.21328640724171444,
+      "bloch_overlap_squared": 4.178934506898726e-31,
+      "absolute_eigen_residual": 1.085786825815139e-14,
+      "index": 55
+    },
+    {
+      "eigenvalue": 0.10809879786077181,
+      "strength": 9.250796676647337,
+      "inside_fraction": 0.20214668795520077,
+      "bloch_overlap_squared": 5.250464150475554e-32,
+      "absolute_eigen_residual": 1.0266099233051243e-14,
+      "index": 56
+    },
+    {
+      "eigenvalue": 0.03137000995850504,
+      "strength": 31.87757993455402,
+      "inside_fraction": 0.19313261295253012,
+      "bloch_overlap_squared": 9.637328591492142e-10,
+      "absolute_eigen_residual": 2.417690023665864e-14,
+      "index": 5
+    },
+    {
+      "eigenvalue": 1.6920942908033048,
+      "strength": 0.590983614468234,
+      "inside_fraction": 0.18379501762780717,
+      "bloch_overlap_squared": 3.513272743369513e-36,
+      "absolute_eigen_residual": 8.578417050020587e-15,
+      "index": 75
+    },
+    {
+      "eigenvalue": 0.1214260824010106,
+      "strength": 8.23546292712872,
+      "inside_fraction": 0.18214879353453972,
+      "bloch_overlap_squared": 8.017137605094755e-33,
+      "absolute_eigen_residual": 9.981707669235067e-15,
+      "index": 57
+    },
+    {
+      "eigenvalue": 0.053874365288703034,
+      "strength": 18.56170359764203,
+      "inside_fraction": 0.17989718075295674,
+      "bloch_overlap_squared": 7.419806418407455e-33,
+      "absolute_eigen_residual": 1.5926319997390408e-14,
+      "index": 38
+    },
+    {
+      "eigenvalue": 0.17355329703020114,
+      "strength": 5.761918771419154,
+      "inside_fraction": 0.17876525318275502,
+      "bloch_overlap_squared": 3.983027034748821e-32,
+      "absolute_eigen_residual": 8.312767711394353e-15,
+      "index": 63
+    },
+    {
+      "eigenvalue": 0.043499008129435475,
+      "strength": 22.989029934301122,
+      "inside_fraction": 0.1785682757668495,
+      "bloch_overlap_squared": 7.4686306453109885e-31,
+      "absolute_eigen_residual": 1.7729770478969752e-14,
+      "index": 31
+    },
+    {
+      "eigenvalue": 0.06034858235746623,
+      "strength": 16.570397529417384,
+      "inside_fraction": 0.17376610675205684,
+      "bloch_overlap_squared": 3.754477203680631e-31,
+      "absolute_eigen_residual": 1.2337177252048704e-14,
+      "index": 42
+    },
+    {
+      "eigenvalue": 0.19547173819306055,
+      "strength": 5.11582906687173,
+      "inside_fraction": 0.17294086948317555,
+      "bloch_overlap_squared": 1.24477847554562e-05,
+      "absolute_eigen_residual": 8.703209553136962e-15,
+      "index": 66
+    },
+    {
+      "eigenvalue": 1.1033067742341036,
+      "strength": 0.9063662286440529,
+      "inside_fraction": 0.1725493748255145,
+      "bloch_overlap_squared": 1.0663708278917986e-32,
+      "absolute_eigen_residual": 8.426450404299952e-15,
+      "index": 74
+    },
+    {
+      "eigenvalue": 0.056469512365970795,
+      "strength": 17.70867071631757,
+      "inside_fraction": 0.1720516833200787,
+      "bloch_overlap_squared": 0.0001685727136957549,
+      "absolute_eigen_residual": 1.5472725476013814e-14,
+      "index": 40
+    },
+    {
+      "eigenvalue": 0.34131075824443713,
+      "strength": 2.9298812763582105,
+      "inside_fraction": 0.1706350959907049,
+      "bloch_overlap_squared": 1.2356313770391886e-32,
+      "absolute_eigen_residual": 8.41061510191367e-15,
+      "index": 71
+    },
+    {
+      "eigenvalue": 0.0387478326649503,
+      "strength": 25.807895080143645,
+      "inside_fraction": 0.15567843866345568,
+      "bloch_overlap_squared": 2.5826075007956444e-33,
+      "absolute_eigen_residual": 1.813260390526389e-14,
+      "index": 20
+    },
+    {
+      "eigenvalue": 0.2618458794239408,
+      "strength": 3.8190404301950194,
+      "inside_fraction": 0.155533359671753,
+      "bloch_overlap_squared": 5.3350033000594394e-33,
+      "absolute_eigen_residual": 8.473936065743694e-15,
+      "index": 69
+    },
+    {
+      "eigenvalue": 0.04970062719385958,
+      "strength": 20.1204704338932,
+      "inside_fraction": 0.15501803291448668,
+      "bloch_overlap_squared": 6.924438433097771e-33,
+      "absolute_eigen_residual": 1.5758847477578314e-14,
+      "index": 36
+    },
+    {
+      "eigenvalue": 0.03466198792394814,
+      "strength": 28.850047556248068,
+      "inside_fraction": 0.1534060081141193,
+      "bloch_overlap_squared": 3.421283191696507e-32,
+      "absolute_eigen_residual": 2.0369597958127237e-14,
+      "index": 16
+    },
+    {
+      "eigenvalue": 0.03905510949531513,
+      "strength": 25.60484435768783,
+      "inside_fraction": 0.15231595908905543,
+      "bloch_overlap_squared": 1.6146641331922196e-32,
+      "absolute_eigen_residual": 2.101365759715459e-14,
+      "index": 22
+    },
+    {
+      "eigenvalue": 3.236520828313935,
+      "strength": 0.30897375702072954,
+      "inside_fraction": 0.15206140127365708,
+      "bloch_overlap_squared": 5.649653478910559e-05,
+      "absolute_eigen_residual": 7.591252120918517e-15,
+      "index": 76
+    },
+    {
+      "eigenvalue": 0.03687456397322139,
+      "strength": 27.11896473477512,
+      "inside_fraction": 0.15200710458080385,
+      "bloch_overlap_squared": 7.239702415291384e-31,
+      "absolute_eigen_residual": 2.3791644517739746e-14,
+      "index": 18
+    },
+    {
+      "eigenvalue": 0.030236464248712507,
+      "strength": 33.0726500219873,
+      "inside_fraction": 0.1505127758564608,
+      "bloch_overlap_squared": 2.9819772967140645e-34,
+      "absolute_eigen_residual": 3.9127300730465887e-14,
+      "index": 3
+    },
+    {
+      "eigenvalue": 0.06719376130133611,
+      "strength": 14.882334023770678,
+      "inside_fraction": 0.15043483459643095,
+      "bloch_overlap_squared": 1.6553829776525817e-32,
+      "absolute_eigen_residual": 1.2750854955415014e-14,
+      "index": 46
+    },
+    {
+      "eigenvalue": 0.16673872566240378,
+      "strength": 5.997406997248509,
+      "inside_fraction": 0.15018063687217645,
+      "bloch_overlap_squared": 1.1763934266099702e-32,
+      "absolute_eigen_residual": 8.727867348162125e-15,
+      "index": 62
+    },
+    {
+      "eigenvalue": 0.06359722984064742,
+      "strength": 15.723955312293521,
+      "inside_fraction": 0.1493852100714377,
+      "bloch_overlap_squared": 5.4404542722777045e-33,
+      "absolute_eigen_residual": 1.2004177150877513e-14,
+      "index": 45
+    },
+    {
+      "eigenvalue": 0.029210967085549384,
+      "strength": 34.23371766745437,
+      "inside_fraction": 0.14920415525870126,
+      "bloch_overlap_squared": 1.2118664910809329e-33,
+      "absolute_eigen_residual": 2.7958634925870048e-14,
+      "index": 2
+    },
+    {
+      "eigenvalue": 0.028732405094651983,
+      "strength": 34.803908573116,
+      "inside_fraction": 0.14797142847857964,
+      "bloch_overlap_squared": 1.5770258337633633e-34,
+      "absolute_eigen_residual": 3.3586758108095914e-14,
+      "index": 1
+    },
+    {
+      "eigenvalue": 0.1018894834291946,
+      "strength": 9.814555598320641,
+      "inside_fraction": 0.14704329312601752,
+      "bloch_overlap_squared": 3.0906992853265573e-31,
+      "absolute_eigen_residual": 1.01470368153045e-14,
+      "index": 53
+    },
+    {
+      "eigenvalue": 0.030664292488827453,
+      "strength": 32.61122037511058,
+      "inside_fraction": 0.14530366192053965,
+      "bloch_overlap_squared": 5.654284569334389e-32,
+      "absolute_eigen_residual": 2.4792581596671152e-14,
+      "index": 4
+    },
+    {
+      "eigenvalue": 0.03372669508971383,
+      "strength": 29.65010349635432,
+      "inside_fraction": 0.144281345060921,
+      "bloch_overlap_squared": 2.033894510955613e-31,
+      "absolute_eigen_residual": 2.5104903661785153e-14,
+      "index": 10
+    },
+    {
+      "eigenvalue": 0.036814175491379615,
+      "strength": 27.163449585721658,
+      "inside_fraction": 0.14212986614733153,
+      "bloch_overlap_squared": 0.0004118315132685309,
+      "absolute_eigen_residual": 1.9967433937387763e-14,
+      "index": 17
+    },
+    {
+      "eigenvalue": 0.041232443395017436,
+      "strength": 24.25274656705988,
+      "inside_fraction": 0.14168151552685002,
+      "bloch_overlap_squared": 5.191751786220087e-34,
+      "absolute_eigen_residual": 2.5317572745417806e-14,
+      "index": 26
+    },
+    {
+      "eigenvalue": 0.04234307506567611,
+      "strength": 23.61661259719453,
+      "inside_fraction": 0.13898317720324838,
+      "bloch_overlap_squared": 3.986461722804158e-30,
+      "absolute_eigen_residual": 1.3940936101285907e-14,
+      "index": 28
+    },
+    {
+      "eigenvalue": 0.054916341593570686,
+      "strength": 18.20951598343679,
+      "inside_fraction": 0.138947093612701,
+      "bloch_overlap_squared": 8.714555637953477e-32,
+      "absolute_eigen_residual": 1.3738999512447078e-14,
+      "index": 39
+    },
+    {
+      "eigenvalue": 0.04236016252630045,
+      "strength": 23.60708600631839,
+      "inside_fraction": 0.13752325341355687,
+      "bloch_overlap_squared": 5.576446942632155e-05,
+      "absolute_eigen_residual": 2.9895820961348156e-14,
+      "index": 29
+    },
+    {
+      "eigenvalue": 0.032008151250873175,
+      "strength": 31.242041821228906,
+      "inside_fraction": 0.13470535013428234,
+      "bloch_overlap_squared": 9.753625450376021e-31,
+      "absolute_eigen_residual": 1.9770384190972002e-14,
+      "index": 7
+    },
+    {
+      "eigenvalue": 0.1587059734716951,
+      "strength": 6.300960059189883,
+      "inside_fraction": 0.13444505730831727,
+      "bloch_overlap_squared": 3.0767144877255906e-30,
+      "absolute_eigen_residual": 8.647029563925245e-15,
+      "index": 60
+    },
+    {
+      "eigenvalue": 0.363105088705007,
+      "strength": 2.754023645238466,
+      "inside_fraction": 0.13314927432272775,
+      "bloch_overlap_squared": 3.0040224049146174e-30,
+      "absolute_eigen_residual": 9.280932109248277e-15,
+      "index": 72
+    },
+    {
+      "eigenvalue": 0.26818501313687604,
+      "strength": 3.728769137034592,
+      "inside_fraction": 0.13292861380858176,
+      "bloch_overlap_squared": 4.9390577600840035e-33,
+      "absolute_eigen_residual": 8.705616232381769e-15,
+      "index": 70
+    },
+    {
+      "eigenvalue": 0.04005986754055266,
+      "strength": 24.962638705375117,
+      "inside_fraction": 0.13283011731534317,
+      "bloch_overlap_squared": 1.6483580596567574e-31,
+      "absolute_eigen_residual": 1.264578148665087e-14,
+      "index": 23
+    },
+    {
+      "eigenvalue": 0.5626686620334864,
+      "strength": 1.7772448822473899,
+      "inside_fraction": 0.1304826310133768,
+      "bloch_overlap_squared": 0.00025485381085428674,
+      "absolute_eigen_residual": 8.58843904957603e-15,
+      "index": 73
+    },
+    {
+      "eigenvalue": 0.15938044631921844,
+      "strength": 6.274295392529703,
+      "inside_fraction": 0.1282511543733315,
+      "bloch_overlap_squared": 1.8597167415096315e-32,
+      "absolute_eigen_residual": 8.761816129839678e-15,
+      "index": 61
+    },
+    {
+      "eigenvalue": 0.12306058847182658,
+      "strength": 8.126078482299306,
+      "inside_fraction": 0.12646486560246767,
+      "bloch_overlap_squared": 2.313144759181768e-32,
+      "absolute_eigen_residual": 9.895276015177932e-15,
+      "index": 58
+    },
+    {
+      "eigenvalue": 0.04411125481331233,
+      "strength": 22.66995133627915,
+      "inside_fraction": 0.12224323144248149,
+      "bloch_overlap_squared": 2.763746547040079e-30,
+      "absolute_eigen_residual": 1.4860683860634688e-14,
+      "index": 33
+    },
+    {
+      "eigenvalue": 0.21498039549236023,
+      "strength": 4.651586939868371,
+      "inside_fraction": 0.12096574543541103,
+      "bloch_overlap_squared": 4.4555956465305307e-32,
+      "absolute_eigen_residual": 9.537324397971518e-15,
+      "index": 68
+    },
+    {
+      "eigenvalue": 0.03462658254771675,
+      "strength": 28.879546476235763,
+      "inside_fraction": 0.11887258332192217,
+      "bloch_overlap_squared": 1.855954837390627e-32,
+      "absolute_eigen_residual": 3.290694516660916e-14,
+      "index": 15
+    },
+    {
+      "eigenvalue": 0.03439526972127123,
+      "strength": 29.07376532016451,
+      "inside_fraction": 0.11725944388082138,
+      "bloch_overlap_squared": 0.0005841890279118507,
+      "absolute_eigen_residual": 1.2319103895108542e-14,
+      "index": 12
+    },
+    {
+      "eigenvalue": 0.04256626496257802,
+      "strength": 23.49278239185765,
+      "inside_fraction": 0.11680345596893314,
+      "bloch_overlap_squared": 8.464687344039429e-35,
+      "absolute_eigen_residual": 1.2147629538944419e-14,
+      "index": 30
+    },
+    {
+      "eigenvalue": 0.06111702948077956,
+      "strength": 16.362051763567564,
+      "inside_fraction": 0.11618309764269495,
+      "bloch_overlap_squared": 1.7838852382772384e-30,
+      "absolute_eigen_residual": 1.0635054054928076e-14,
+      "index": 43
+    },
+    {
+      "eigenvalue": 0.04099903374574048,
+      "strength": 24.390818725182594,
+      "inside_fraction": 0.11396231228191707,
+      "bloch_overlap_squared": 3.6147783730302178e-31,
+      "absolute_eigen_residual": 1.4055699508594491e-14,
+      "index": 25
+    },
+    {
+      "eigenvalue": 0.03153420847435907,
+      "strength": 31.71159348467918,
+      "inside_fraction": 0.11278966760999,
+      "bloch_overlap_squared": 1.5147599897244605e-31,
+      "absolute_eigen_residual": 3.364897687418129e-14,
+      "index": 6
+    },
+    {
+      "eigenvalue": 0.032926164619351155,
+      "strength": 30.370983427941876,
+      "inside_fraction": 0.11240243075581535,
+      "bloch_overlap_squared": 1.961030992218808e-35,
+      "absolute_eigen_residual": 2.99561268355325e-14,
+      "index": 8
+    },
+    {
+      "eigenvalue": 0.1295281279629417,
+      "strength": 7.720330832590296,
+      "inside_fraction": 0.11229103944741795,
+      "bloch_overlap_squared": 1.0755251031905533e-29,
+      "absolute_eigen_residual": 9.129249824122155e-15,
+      "index": 59
+    },
+    {
+      "eigenvalue": 0.041238601187771624,
+      "strength": 24.24912512058065,
+      "inside_fraction": 0.1118821917399748,
+      "bloch_overlap_squared": 3.4231712963026103e-32,
+      "absolute_eigen_residual": 1.8258092443276832e-14,
+      "index": 27
+    },
+    {
+      "eigenvalue": 0.059230856551069154,
+      "strength": 16.8830919934071,
+      "inside_fraction": 0.11044400041768161,
+      "bloch_overlap_squared": 8.746035690492664e-33,
+      "absolute_eigen_residual": 1.0719553914080813e-14,
+      "index": 41
+    },
+    {
+      "eigenvalue": 0.04768132144590419,
+      "strength": 20.97257310988179,
+      "inside_fraction": 0.10730263483209379,
+      "bloch_overlap_squared": 0.00026747086619395967,
+      "absolute_eigen_residual": 2.7740701564873652e-14,
+      "index": 34
+    },
+    {
+      "eigenvalue": 0.10477549644585313,
+      "strength": 9.544216290273456,
+      "inside_fraction": 0.10664640799843333,
+      "bloch_overlap_squared": 0.003628345206813302,
+      "absolute_eigen_residual": 9.674035048777642e-15,
+      "index": 54
+    },
+    {
+      "eigenvalue": 0.17609350687981137,
+      "strength": 5.678801096752121,
+      "inside_fraction": 0.10573826137948367,
+      "bloch_overlap_squared": 1.610052637267666e-31,
+      "absolute_eigen_residual": 8.499290950563445e-15,
+      "index": 64
+    },
+    {
+      "eigenvalue": 0.17766756259692168,
+      "strength": 5.628489440521689,
+      "inside_fraction": 0.10364311591600883,
+      "bloch_overlap_squared": 3.7808522636499834e-05,
+      "absolute_eigen_residual": 8.031839663837182e-15,
+      "index": 65
+    },
+    {
+      "eigenvalue": 0.06130482762400731,
+      "strength": 16.311929072424217,
+      "inside_fraction": 0.10300822262128004,
+      "bloch_overlap_squared": 0.0006214332224139945,
+      "absolute_eigen_residual": 1.1620828098959957e-14,
+      "index": 44
+    },
+    {
+      "eigenvalue": 0.053022602388874664,
+      "strength": 18.85988154006229,
+      "inside_fraction": 0.10183892328858671,
+      "bloch_overlap_squared": 2.704930107246624e-31,
+      "absolute_eigen_residual": 1.2800459699731294e-14,
+      "index": 37
+    },
+    {
+      "eigenvalue": 0.08356018176323263,
+      "strength": 11.967422507929616,
+      "inside_fraction": 0.0971889202481009,
+      "bloch_overlap_squared": 7.003957793200613e-30,
+      "absolute_eigen_residual": 1.0142077164290251e-14,
+      "index": 51
+    },
+    {
+      "eigenvalue": 0.043724147986364696,
+      "strength": 22.8706572009556,
+      "inside_fraction": 0.09513839920406406,
+      "bloch_overlap_squared": 1.1110225646514326e-31,
+      "absolute_eigen_residual": 1.2831568846259978e-14,
+      "index": 32
+    },
+    {
+      "eigenvalue": 0.03875106913794783,
+      "strength": 25.80573961560013,
+      "inside_fraction": 0.09393685001001453,
+      "bloch_overlap_squared": 7.614314689016848e-31,
+      "absolute_eigen_residual": 2.5543394652063228e-14,
+      "index": 21
+    },
+    {
+      "eigenvalue": 0.07593999988515684,
+      "strength": 13.168290775774139,
+      "inside_fraction": 0.09379537839502518,
+      "bloch_overlap_squared": 2.1737733507923437e-31,
+      "absolute_eigen_residual": 1.0563333349361178e-14,
+      "index": 48
+    },
+    {
+      "eigenvalue": 0.0791218719193841,
+      "strength": 12.638730299744203,
+      "inside_fraction": 0.09118882230341978,
+      "bloch_overlap_squared": 1.2593771345416895e-32,
+      "absolute_eigen_residual": 1.1608043527517157e-14,
+      "index": 49
+    },
+    {
+      "eigenvalue": 0.08297571729370926,
+      "strength": 12.051718654751712,
+      "inside_fraction": 0.08882562298977549,
+      "bloch_overlap_squared": 4.4291420055421833e-32,
+      "absolute_eigen_residual": 1.1420546182240776e-14,
+      "index": 50
+    },
+    {
+      "eigenvalue": 0.0329606469615174,
+      "strength": 30.339210306385425,
+      "inside_fraction": 0.08772302760714995,
+      "bloch_overlap_squared": 9.199470190044632e-33,
+      "absolute_eigen_residual": 2.3463466371332352e-14,
+      "index": 9
+    },
+    {
+      "eigenvalue": 0.10158133598108648,
+      "strength": 9.844328097694943,
+      "inside_fraction": 0.08526385758097266,
+      "bloch_overlap_squared": 2.387157357719655e-32,
+      "absolute_eigen_residual": 8.96801815252604e-15,
+      "index": 52
+    },
+    {
+      "eigenvalue": 0.03393199240233649,
+      "strength": 29.470712716861918,
+      "inside_fraction": 0.08144926190503485,
+      "bloch_overlap_squared": 2.854074049118413e-33,
+      "absolute_eigen_residual": 1.8646591125888392e-14,
+      "index": 11
+    },
+    {
+      "eigenvalue": 0.03446154303311067,
+      "strength": 29.017853293429123,
+      "inside_fraction": 0.054619959887306176,
+      "bloch_overlap_squared": 9.857892439844638e-33,
+      "absolute_eigen_residual": 2.0127258992244304e-14,
+      "index": 13
+    }
+  ],
+  "background_relative_residual": 1.731124747702066e-14,
+  "symmetry_error": 1.0642081708808454e-14,
+  "wall_seconds": 108.84906558785588,
+  "peak_rss_gib": 3.625408172607422,
+  "factor_nnz": 1194220924,
+  "factor_seconds": 7.386282860767096
+}

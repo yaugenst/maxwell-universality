@@ -1,0 +1,100 @@
+{
+  "target": [
+    [
+      2.5,
+      -0.6,
+      0.4
+    ],
+    [
+      -0.6,
+      2.0,
+      0.8
+    ],
+    [
+      0.4,
+      0.8,
+      3.0
+    ]
+  ],
+  "terminals": [
+    0,
+    1,
+    2
+  ],
+  "alpha": 0.018075568160970636,
+  "strengths": [
+    16.50293367039324,
+    27.324898025565297,
+    13.48796607236684,
+    4.906704322095823,
+    22.698515127706113,
+    7.950730345155252
+  ],
+  "nominal_source_decoder_strengths": [
+    16.50293367039324,
+    27.324898025565297,
+    13.48796607236684
+  ],
+  "h": 0.15384615384615385,
+  "unknowns": 302991,
+  "lengths": [
+    8.0,
+    6.0,
+    8.0
+  ],
+  "material_continuous_enclosure": [
+    4.772534429548964,
+    21.824802645260576
+  ],
+  "decoded_response_real": [
+    [
+      0.4598206852789233,
+      0.1803338707549199,
+      -0.1089202386763611
+    ],
+    [
+      0.18033387075492308,
+      0.6291629622331889,
+      -0.19060916390059987
+    ],
+    [
+      -0.10892023867636523,
+      -0.1906091639006013,
+      0.39789034862149336
+    ]
+  ],
+  "decoded_response_imag": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "worst_relative_equation_residual": 0.007138265110053653,
+  "per_basis_relative_equation_residuals": [
+    0.003541987673381569,
+    0.005220215502696623,
+    0.003627614938993553
+  ],
+  "discrete_pde_relative_residuals": [
+    1.8975309898901015e-13,
+    1.1009199823897942e-13,
+    2.3824240334686215e-13
+  ],
+  "full_field_relative_residual_amplification_bound": 19.152316535384948,
+  "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+  "factor_seconds": 32.21436837781221,
+  "factor_nnz": 9736485053,
+  "solver": "cudss",
+  "backend_version": "1.0.0"
+}

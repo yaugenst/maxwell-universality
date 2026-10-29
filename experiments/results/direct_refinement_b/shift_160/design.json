@@ -1,0 +1,213 @@
+{
+  "name": "shift_160",
+  "target": [
+    [
+      1.4,
+      -0.6,
+      0.4
+    ],
+    [
+      -0.6,
+      0.9,
+      0.8
+    ],
+    [
+      0.4,
+      0.8,
+      1.9
+    ]
+  ],
+  "target_condition": 34.38928846928533,
+  "source_design": "results/network_condition_sweep/shift_160/calibration.json",
+  "alpha": 0.020298944250861792,
+  "strengths": [
+    20.329947141079124,
+    35.73894310035254,
+    12.962680485487821,
+    10.097268684207972,
+    20.40679289329144,
+    9.558061557321926
+  ],
+  "nominal_source_decoder_strengths": [
+    20.47916996910324,
+    35.95438871018039,
+    12.87561223367682,
+    9.996260356168717,
+    20.411779888918844,
+    9.521688304248912
+  ],
+  "history": [
+    {
+      "name": "evaluation_0",
+      "strengths": [
+        20.47916996910324,
+        35.95438871018039,
+        12.87561223367682,
+        9.996260356168717,
+        20.411779888918844,
+        9.521688304248912
+      ],
+      "equation_operator_error": 0.15964471748626588,
+      "frobenius_equation_error": 0.1596564847825963
+    },
+    {
+      "name": "evaluation_1",
+      "strengths": [
+        20.30796686366427,
+        35.7099789306923,
+        12.981765572729024,
+        10.106667547790286,
+        20.406036827830818,
+        9.56179506037472
+      ],
+      "equation_operator_error": 0.026583429343352463,
+      "frobenius_equation_error": 0.026583522891092393
+    },
+    {
+      "name": "evaluation_2",
+      "strengths": [
+        20.32952778627139,
+        35.738409116534534,
+        12.963063785821017,
+        10.097435272737906,
+        20.40677185982944,
+        9.55813296239026
+      ],
+      "equation_operator_error": 0.0005072077917495253,
+      "frobenius_equation_error": 0.0005072086294133763
+    },
+    {
+      "name": "evaluation_3",
+      "strengths": [
+        20.329946982534164,
+        35.73894290991437,
+        12.962680632667146,
+        10.097268741203985,
+        20.406792882351873,
+        9.558061585979392
+      ],
+      "equation_operator_error": 1.9376266483510226e-07,
+      "frobenius_equation_error": 1.9376295309670996e-07
+    },
+    {
+      "name": "evaluation_4",
+      "strengths": [
+        20.329947141079124,
+        35.73894310035254,
+        12.962680485487821,
+        10.097268684207972,
+        20.40679289329144,
+        9.558061557321926
+      ],
+      "equation_operator_error": 7.846042694562241e-13,
+      "frobenius_equation_error": 8.008370095033345e-13
+    }
+  ],
+  "calibration_converged": true,
+  "calibration_outcome": "Full Maxwell calibration reached 1e-7 equation tolerance",
+  "source_reference_h": 0.2,
+  "calibration_h": 0.16666666666666666,
+  "scope": "Full Maxwell material-only calibration. The source profiles, drive gain, decoder and reference-grid interpolation data remain fixed throughout tuning and verification.",
+  "verification": [
+    {
+      "target": [
+        [
+          1.4,
+          -0.6,
+          0.4
+        ],
+        [
+          -0.6,
+          0.9,
+          0.8
+        ],
+        [
+          0.4,
+          0.8,
+          1.9
+        ]
+      ],
+      "terminals": [
+        0,
+        1,
+        2
+      ],
+      "alpha": 0.020298944250861792,
+      "strengths": [
+        20.329947141079124,
+        35.73894310035254,
+        12.962680485487821,
+        10.097268684207972,
+        20.40679289329144,
+        9.558061557321926
+      ],
+      "nominal_source_decoder_strengths": [
+        20.47916996910324,
+        35.95438871018039,
+        12.87561223367682
+      ],
+      "h": 0.16666666666666666,
+      "unknowns": 237444,
+      "lengths": [
+        8.0,
+        6.0,
+        8.0
+      ],
+      "material_continuous_enclosure": [
+        4.772534429548964,
+        24.92015684536463
+      ],
+      "decoded_response_real": [
+        [
+          3.741258741256726,
+          5.104895104892073,
+          -2.9370629370634713
+        ],
+        [
+          5.104895104892048,
+          8.741258741254175,
+          -4.755244755245679
+        ],
+        [
+          -2.9370629370610084,
+          -4.755244755241937,
+          3.1468531468537484
+        ]
+      ],
+      "decoded_response_imag": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "worst_relative_equation_residual": 7.846042694562241e-13,
+      "per_basis_relative_equation_residuals": [
+        4.667734377180718e-13,
+        6.200912522926117e-13,
+        1.9735580169145723e-13
+      ],
+      "discrete_pde_relative_residuals": [
+        2.690617169172752e-12,
+        2.4065822892721647e-12,
+        4.1211758190417304e-12
+      ],
+      "full_field_relative_residual_amplification_bound": 45.544549067000055,
+      "residual_bound_scope": "Finite matrix: equation error <= exact-device error + gain * relative Maxwell residual. The product norm bound covers arbitrary field residual directions and every right-hand side; no continuum or asymptotic conditioning claim.",
+      "factor_seconds": 22.250448182225227,
+      "factor_nnz": 6668306278,
+      "solver": "cudss",
+      "backend_version": "1.0.0"
+    }
+  ]
+}

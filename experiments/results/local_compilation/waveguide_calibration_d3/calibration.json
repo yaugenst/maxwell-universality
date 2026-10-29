@@ -1,0 +1,36 @@
+{
+  "platform": "Cutoff PEC waveguide; separable TE10 chain control, not the periodic construction",
+  "cross_section": [
+    1.0,
+    0.5
+  ],
+  "reference_spacing": 0.005,
+  "local_box_length": 12.0,
+  "radius": 1.0,
+  "separation": 3.0,
+  "mu": 0.02909782699697072,
+  "next_local_eigenvalue": 0.014740625491246157,
+  "resonant_strength": 34.36682746461125,
+  "kappa": 2.9781881070693568,
+  "coupling": 2.4141798563497194e-05,
+  "coupling_over_local_mode_gap": 0.0016815114389716738,
+  "inside_fraction": 0.9900086689693706,
+  "material_enclosure_at_resonance": [
+    1.0,
+    13.642849282516563
+  ],
+  "local_eigen_residual": 5.230173268377894e-11,
+  "pair_projected_background": [
+    [
+      0.02909782699697077,
+      2.4141798563508286e-05
+    ],
+    [
+      2.4141798563513684e-05,
+      0.029097826996970957
+    ]
+  ],
+  "pair_coupling_relative_check": 4.594102875898898e-13,
+  "pair_diagonal_relative_change": 8.215650382226158e-15,
+  "seconds": 0.21163253003032878
+}

@@ -1,0 +1,244 @@
+<div id="waveguide-local-compiler">
+  <style>
+    #waveguide-local-compiler .wg-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:end; }
+    #waveguide-local-compiler .wg-controls > label { flex:1 1 170px; }
+    #waveguide-local-compiler .wg-steps { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 4px; }
+    #waveguide-local-compiler canvas { display:block; width:100%; }
+    #waveguide-local-compiler .wg-legend { display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; }
+    #waveguide-local-compiler .wg-scale { display:inline-block; width:100px; height:10px; vertical-align:middle; }
+    #waveguide-local-compiler .wg-values { display:flex; flex-wrap:wrap; gap:12px 26px; margin:12px 0 8px; }
+    #waveguide-local-compiler .wg-value { flex:1 1 110px; }
+    #waveguide-local-compiler .wg-value span { display:block; }
+    #waveguide-local-compiler .wg-detail { margin-top:8px; }
+  </style>
+  <div class="wg-controls">
+    <label class="form-label">Assembled target
+      <select class="form-select" id="wg-case">
+        <option value="chain4">4-site chain</option>
+        <option value="chain3">3-site chain</option>
+        <option value="nonuniform3">Unequal diagonals</option>
+        <option value="mediator2">2 ports + mediator</option>
+        <option value="indefinite3">Indefinite chain</option>
+        <option value="chain4_d3">Closer 4-site chain</option>
+      </select>
+    </label>
+    <label class="form-label">Input b
+      <select class="form-select" id="wg-input"></select>
+    </label>
+    <label class="form-label">View
+      <select class="form-select" id="wg-view">
+        <option value="3d">3D cutaway</option>
+        <option value="section">Top section · y = 0</option>
+      </select>
+    </label>
+  </div>
+  <div class="wg-steps" role="group" aria-label="Construction and operation">
+    <button class="btn" type="button" data-stage="0" aria-pressed="false">1 · Component</button>
+    <button class="btn" type="button" data-stage="1" aria-pressed="true">2 · Assemble</button>
+    <button class="btn" type="button" data-stage="2" aria-pressed="false">3 · Drive</button>
+    <button class="btn" type="button" data-stage="3" aria-pressed="false">4 · Field</button>
+    <button class="btn" type="button" data-stage="4" aria-pressed="false">5 · Readout</button>
+  </div>
+  <canvas id="wg-canvas" role="img" aria-label="Cutaway of a rectangular PEC waveguide containing smooth dielectric slabs. The displayed electric field is transverse to the device length."></canvas>
+  <div class="wg-legend text-small">
+    <span id="wg-scale-label"></span>
+    <span><span class="wg-scale" id="wg-scale"></span> <span class="tabular-nums" id="wg-range"></span></span>
+  </div>
+  <div class="wg-values tabular-nums" id="wg-values" aria-live="polite"></div>
+  <div class="wg-detail text-small text-muted" id="wg-detail"></div>
+  <script type="application/json" id="wg-data">__WAVEGUIDE_DATA__</script>
+  <script>
+  (() => {
+    const root=document.getElementById('waveguide-local-compiler');
+    const data=JSON.parse(root.querySelector('#wg-data').textContent);
+    const canvas=root.querySelector('#wg-canvas'), ctx=canvas.getContext('2d');
+    const caseSelect=root.querySelector('#wg-case'), inputSelect=root.querySelector('#wg-input');
+    const viewSelect=root.querySelector('#wg-view'), buttons=[...root.querySelectorAll('[data-stage]')];
+    let name='chain4', inputIndex=0, stage=1;
+    const sample=document.createElement('canvas'); sample.width=sample.height=1;
+    const sampleCtx=sample.getContext('2d',{willReadFrequently:true});
+    const colorProbe=document.createElement('span');colorProbe.hidden=true;root.appendChild(colorProbe);
+    function color(token) {
+      colorProbe.style.color=`var(${token})`;
+      sampleCtx.fillStyle=getComputedStyle(colorProbe).color;sampleCtx.fillRect(0,0,1,1);
+      return [...sampleCtx.getImageData(0,0,1,1).data].slice(0,3);
+    }
+    const rgb=(c,a=1)=>`rgba(${c[0]},${c[1]},${c[2]},${a})`;
+    const blend=(a,b,t)=>a.map((v,i)=>Math.round(v+(b[i]-v)*t));
+    const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
+    const matvec=(a,b)=>a.map(row=>dot(row,b));
+    const fmt=(q,d=5)=>(q<0?'−':'+')+Math.abs(q).toFixed(d);
+    function well(z) { return Math.abs(z)<1?Math.exp(-1/(1-z*z)):0; }
+    function interp(z,values,q) {
+      if(q<z[0] || q>z[z.length-1])return 0;
+      const t=(q-z[0])/(z[z.length-1]-z[0])*(z.length-1),i=Math.min(z.length-2,Math.floor(t));
+      return values[i]+(values[i+1]-values[i])*(t-i);
+    }
+    function inputs() {
+      const n=data.cases[name].ports.length;
+      return [...Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>Number(i===j))),[1,-.6,.8,-.4].slice(0,n)];
+    }
+    function options() {
+      const choices=inputs();inputIndex=Math.min(inputIndex,choices.length-1);
+      inputSelect.replaceChildren(...choices.map((b,i)=>{
+        const opt=document.createElement('option');opt.value=String(i);
+        opt.textContent=i===choices.length-1?'Mixed signed input':`Drive T${i+1} only`;return opt;
+      }));
+      caseSelect.value=name;inputSelect.value=String(inputIndex);
+    }
+    function restore(state) {
+      const m=state?.modelContent,p=state?.privateContent;
+      if(m && Object.hasOwn(data.cases,m.target))name=m.target;
+      if(m && Number.isInteger(m.stage) && m.stage>=0 && m.stage<5)stage=m.stage;
+      if(m && Number.isInteger(m.input) && m.input>=0)inputIndex=m.input;
+      if(p && ['3d','section'].includes(p.view))viewSelect.value=p.view;
+      options();
+    }
+    function remember() {
+      window.openai?.setWidgetState({modelContent:{target:name,stage,input:inputIndex,b:inputs()[inputIndex]},privateContent:{view:viewSelect.value}}).catch(()=>{});
+    }
+    function draw() {
+      const c=data.cases[name], cal=data.calibration, b=inputs()[inputIndex];
+      const isComponent=stage===0, isSection=viewSelect.value==='section';
+      const centers=isComponent?[0]:c.centers, strengths=isComponent?[cal.resonant_strength]:c.strengths;
+      const L=isComponent?12:c.lengths[2], z=isComponent?cal.z:c.z;
+      const ports=isComponent?[0]:c.ports;
+      const width=root.clientWidth, height=width<430?310:330, dpr=window.devicePixelRatio||1;
+      canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);canvas.style.height=height+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
+      const bg=color('--background'), ink=color('--foreground'), muted=color('--muted-foreground');
+      const positive=color('--viz-series-1'), negative=color('--viz-series-2');
+      const font=getComputedStyle(root).fontFamily;ctx.font=`12px ${font}`;
+      const centerY=height*.48, span=width-100;
+      function project(z,x,y) {
+        if(isSection)return [width/2+z/L*(width-60),centerY-x*150];
+        return [width/2+z/L*span+x*58,centerY-y*160-x*58+z/L*18];
+      }
+      function line(points,stroke=rgb(muted,.5),weight=1) {
+        ctx.beginPath();points.forEach((p,i)=>{const q=project(...p);i?ctx.lineTo(...q):ctx.moveTo(...q);});
+        ctx.strokeStyle=stroke;ctx.lineWidth=weight;ctx.stroke();
+      }
+      function face(points,fill) {
+        ctx.beginPath();points.forEach((p,i)=>{const q=project(...p);i?ctx.lineTo(...q):ctx.moveTo(...q);});
+        ctx.closePath();ctx.fillStyle=fill;ctx.fill();
+      }
+      function label(text,z,x,y,align='center') {
+        const p=project(z,x,y),tw=ctx.measureText(text).width;
+        ctx.textAlign=align;ctx.fillStyle=rgb(bg,.94);
+        ctx.fillRect(p[0]-(align==='center'?tw/2:0)-3,p[1]-12,tw+6,16);
+        ctx.fillStyle=rgb(ink);ctx.fillText(text,...p);
+      }
+      function arrow(z,x,y,value) {
+        if(Math.abs(value)<.015 || isSection)return;
+        const a=project(z,x,y-.18*value),p=project(z,x,y+.18*value);
+        ctx.strokeStyle=rgb(value>=0?positive:negative);ctx.lineWidth=1.6;
+        ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...p);ctx.stroke();
+        const angle=Math.atan2(p[1]-a[1],p[0]-a[0]);
+        ctx.fillStyle=ctx.strokeStyle;ctx.beginPath();ctx.moveTo(...p);
+        for(const sign of [-1,1])ctx.lineTo(p[0]-6*Math.cos(angle+sign*.42),p[1]-6*Math.sin(angle+sign*.42));
+        ctx.closePath();ctx.fill();
+      }
+      let profile;
+      if(isComponent)profile=cal.field;
+      else if(stage===1)profile=c.epsilon;
+      else profile=c.z.map((_,i)=>dot((stage===2?c.source:stage===4?c.density:c.field).map(row=>row[i]),b));
+      const peak=stage===1?Math.max(...profile)-1:Math.max(...profile.map(Math.abs));
+      const texture=document.createElement('canvas');texture.width=600;texture.height=40;
+      const tc=texture.getContext('2d'), pixels=tc.createImageData(texture.width,texture.height);
+      for(let row=0;row<texture.height;row++)for(let col=0;col<texture.width;col++) {
+        const zz=-L/2+L*(col+.5)/texture.width, xx=-.5+(row+.5)/texture.height;
+        const longitudinal=stage===1?strengths.reduce((s,v,i)=>s+v*well(zz-centers[i]),0)/peak:interp(z,profile,zz)/peak;
+        const transverse=stage===1?1:Math.pow(Math.sin(Math.PI*(xx+.5)),stage===4?2:1);
+        const value=longitudinal*transverse, shade=Math.min(1,Math.abs(value));
+        const colr=blend(bg,value>=0?positive:negative,shade);
+        pixels.data.set([...colr,255],4*(row*texture.width+col));
+      }
+      tc.putImageData(pixels,0,0);
+      const a=project(-L/2,-.5,0),pz=project(L/2,-.5,0),px=project(-L/2,.5,0);
+      ctx.save();ctx.transform((pz[0]-a[0])/texture.width,(pz[1]-a[1])/texture.width,
+                              (px[0]-a[0])/texture.height,(px[1]-a[1])/texture.height,...a);
+      ctx.imageSmoothingEnabled=true;ctx.drawImage(texture,0,0);ctx.restore();
+      // Smooth full-cross-section slabs; no internal walls or sharp material interfaces.
+      for(const [i,center] of centers.entries()) {
+        if(stage===1 && !isSection)for(let j=0;j<48;j++) {
+          const lo=center-1+j/24,hi=lo+1/24;
+          const opacity=.62*well((lo+hi)/2-center)/Math.exp(-1);
+          face([[lo,-.5,-.25],[hi,-.5,-.25],[hi,-.5,.25],[lo,-.5,.25]],rgb(positive,opacity));
+          face([[lo,-.5,.25],[hi,-.5,.25],[hi,.5,.25],[lo,.5,.25]],rgb(positive,opacity*.55));
+        }
+        const port=ports.indexOf(i), title=isComponent?'One component':port<0?'A':`T${port+1}`;
+        label(title,center,0,.62);
+        if(!isComponent && stage===2)label(port<0?'—':width<430?fmt(b[port],1):`b${port+1} = ${fmt(b[port],1)}`,center,0,-.65);
+        else if(!isComponent && stage===1)label((width<430?'':'diag ')+c.diagonal[i].toFixed(1),center,0,-.65);
+        if(stage===0 || stage===2 || stage===3) {
+          const value=interp(z,profile,center)/peak;
+          for(const xx of [-.30,0,.30])arrow(center,xx,0,value*Math.sin(Math.PI*(xx+.5)));
+        }
+      }
+      if(isSection)line([[-L/2,-.5,0],[L/2,-.5,0],[L/2,.5,0],[-L/2,.5,0],[-L/2,-.5,0]],rgb(muted,.8));
+      else {
+        const vertices=[];for(const zz of [-L/2,L/2])for(const xx of [-.5,.5])for(const yy of [-.25,.25])vertices.push([zz,xx,yy]);
+        for(let i=0;i<8;i++)for(let j=i+1;j<8;j++)if(vertices[i].filter((v,k)=>v!==vertices[j][k]).length===1)
+          line([vertices[i],vertices[j]],rgb(muted,.65));
+      }
+      ctx.textAlign='left';ctx.fillStyle=rgb(muted);
+      ctx.fillText(`PEC guide · 1 × 0.5 × ${L}`,8,19);
+      ctx.fillText('Transverse dimensions enlarged',8,height-12);
+      if(width<430 && stage===1) {ctx.textAlign='center';ctx.fillText('Reduced diagonal',width/2,height-34);}
+      ctx.textAlign='right';ctx.fillText('z →',width-8,height-12);
+      if(isSection) {ctx.textAlign='left';ctx.fillText('x ↑',8,46);}
+      else {
+        const o=[width-52,46];ctx.strokeStyle=rgb(muted);ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(o[0],o[1]+18);ctx.lineTo(o[0],o[1]-9);ctx.moveTo(o[0],o[1]+18);ctx.lineTo(o[0]+16,o[1]+2);ctx.stroke();
+        ctx.fillStyle=rgb(ink);ctx.textAlign='center';ctx.fillText('y',o[0],o[1]-15);ctx.fillText('x',o[0]+24,o[1]+2);
+      }
+      root.querySelector('#wg-scale-label').textContent=['Isolated Ey / peak','Scalar permittivity ε','Signed source fy / peak','Signed Ey / peak','Signed overlap density / peak'][stage];
+      root.querySelector('#wg-scale').style.background=stage===1?`linear-gradient(to right,${rgb(bg)},${rgb(positive)})`:
+        `linear-gradient(to right,${rgb(negative)},${rgb(bg)},${rgb(positive)})`;
+      root.querySelector('#wg-range').textContent=stage===1?`1 → ${(1+peak).toFixed(3)}`:'−1 → +1';
+      const response=matvec(c.response,b),reference=matvec(c.reference,b),residual=matvec(c.target,response).map((v,i)=>v-b[i]);
+      const relativeError=Math.hypot(...residual)/Math.hypot(...b);
+      const values=root.querySelector('#wg-values');values.replaceChildren();
+      function value(primary,secondary) {
+        const div=document.createElement('div');div.className='wg-value';
+        const head=document.createElement('span');head.textContent=primary;
+        const tail=document.createElement('span');tail.className='text-small text-muted';tail.textContent=secondary;
+        div.append(head,tail);values.append(div);
+      }
+      if(stage===0) {
+        value((100*cal.inside_fraction).toFixed(2)+'% inside well','Electric-field norm squared');
+        value(cal.peak_epsilon.toFixed(3)+' peak ε','Positive scalar dielectric');
+      } else if(stage===1) {
+        c.strengths.forEach((v,i)=>value(`${c.ports.includes(i)?'T'+(c.ports.indexOf(i)+1):'A'}: v = ${v.toFixed(6)}`,
+          'Computed from local calibration'));
+      } else if(stage===4) {
+        response.forEach((v,i)=>value(`x${i+1} = ${fmt(v)}`,`Target: ${fmt(reference[i])}`));
+      } else b.forEach((v,i)=>value(`b${i+1} = ${fmt(v,1)}`,stage===2?'Local volume-source weight':'Same material and decoder'));
+      const details=[
+        'One isolated calibration · Transverse TE10 polarization · Decaying longitudinal tails',
+        name==='mediator2'?'Nearest neighbors −1 · Eliminate A → terminal coupling +1':'Nearest-neighbor entries −1 · No assembled-device fitting',
+        'Only source amplitudes change with b; dielectric and source shapes stay fixed',
+        'Saved full-vector Maxwell phasor · Arrows show electric polarization',
+        `Field overlap + known input term · This input: ${(100*relativeError).toFixed(3)}% equation error`
+      ];
+      root.querySelector('#wg-detail').textContent=details[stage];
+      buttons.forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.stage)===stage)));
+      canvas.setAttribute('aria-label',`${isComponent?'Isolated component':c.label}, ${['isolated mode','smooth dielectric slabs','signed volume source','computed electric field','signed field overlap'][stage]}. ${details[stage]}`);
+      canvas.dataset.stage=String(stage);canvas.dataset.target=name;canvas.dataset.input=String(inputIndex);
+      canvas.dataset.response=JSON.stringify(response);canvas.dataset.relativeError=String(relativeError);
+      caseSelect.disabled=isComponent;inputSelect.disabled=stage<2;
+    }
+    caseSelect.addEventListener('change',()=>{name=caseSelect.value;inputIndex=0;options();draw();remember();});
+    inputSelect.addEventListener('change',()=>{inputIndex=Number(inputSelect.value);draw();remember();});
+    viewSelect.addEventListener('change',()=>{draw();remember();});
+    buttons.forEach(button=>button.addEventListener('click',()=>{stage=Number(button.dataset.stage);draw();remember();}));
+    window.addEventListener('openai:set_globals',event=>{
+      if(event.detail?.globals?.widgetState){restore(event.detail.globals.widgetState);draw();}
+    });
+    new ResizeObserver(draw).observe(root);
+    new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+    restore(window.openai?.widgetState);draw();
+  })();
+  </script>
+</div>

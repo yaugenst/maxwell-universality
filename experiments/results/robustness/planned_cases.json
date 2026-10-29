@@ -1,0 +1,192 @@
+[
+  {
+    "name": "nominal",
+    "kind": "nominal"
+  },
+  {
+    "name": "material_bits_4",
+    "kind": "material_rounding",
+    "fractional_bits": 4,
+    "coefficient_step": 0.0625,
+    "rounded_coefficients": "background constant and all defect strengths; smooth geometry, rho, frequency and nominal source/decoder remain fixed"
+  },
+  {
+    "name": "material_bits_6",
+    "kind": "material_rounding",
+    "fractional_bits": 6,
+    "coefficient_step": 0.015625,
+    "rounded_coefficients": "background constant and all defect strengths; smooth geometry, rho, frequency and nominal source/decoder remain fixed"
+  },
+  {
+    "name": "material_bits_8",
+    "kind": "material_rounding",
+    "fractional_bits": 8,
+    "coefficient_step": 0.00390625,
+    "rounded_coefficients": "background constant and all defect strengths; smooth geometry, rho, frequency and nominal source/decoder remain fixed"
+  },
+  {
+    "name": "material_bits_10",
+    "kind": "material_rounding",
+    "fractional_bits": 10,
+    "coefficient_step": 0.0009765625,
+    "rounded_coefficients": "background constant and all defect strengths; smooth geometry, rho, frequency and nominal source/decoder remain fixed"
+  },
+  {
+    "name": "material_bits_12",
+    "kind": "material_rounding",
+    "fractional_bits": 12,
+    "coefficient_step": 0.000244140625,
+    "rounded_coefficients": "background constant and all defect strengths; smooth geometry, rho, frequency and nominal source/decoder remain fixed"
+  },
+  {
+    "name": "material_bits_16",
+    "kind": "material_rounding",
+    "fractional_bits": 16,
+    "coefficient_step": 1.52587890625e-05,
+    "rounded_coefficients": "background constant and all defect strengths; smooth geometry, rho, frequency and nominal source/decoder remain fixed"
+  },
+  {
+    "name": "uniform_strength_-0.01",
+    "kind": "uniform_strength",
+    "relative_change": -0.01
+  },
+  {
+    "name": "uniform_strength_-0.001",
+    "kind": "uniform_strength",
+    "relative_change": -0.001
+  },
+  {
+    "name": "uniform_strength_+0.001",
+    "kind": "uniform_strength",
+    "relative_change": 0.001
+  },
+  {
+    "name": "uniform_strength_+0.01",
+    "kind": "uniform_strength",
+    "relative_change": 0.01
+  },
+  {
+    "name": "mixed_strength_0_0.001",
+    "kind": "mixed_strength",
+    "relative_change": [
+      0.001,
+      -0.001,
+      0.001
+    ]
+  },
+  {
+    "name": "mixed_strength_0_0.01",
+    "kind": "mixed_strength",
+    "relative_change": [
+      0.01,
+      -0.01,
+      0.01
+    ]
+  },
+  {
+    "name": "mixed_strength_1_0.001",
+    "kind": "mixed_strength",
+    "relative_change": [
+      -0.001,
+      0.001,
+      -0.001
+    ]
+  },
+  {
+    "name": "mixed_strength_1_0.01",
+    "kind": "mixed_strength",
+    "relative_change": [
+      -0.01,
+      0.01,
+      -0.01
+    ]
+  },
+  {
+    "name": "mixed_strength_2_0.001",
+    "kind": "mixed_strength",
+    "relative_change": [
+      0.001,
+      0.001,
+      -0.001
+    ]
+  },
+  {
+    "name": "mixed_strength_2_0.01",
+    "kind": "mixed_strength",
+    "relative_change": [
+      0.01,
+      0.01,
+      -0.01
+    ]
+  },
+  {
+    "name": "mixed_strength_3_0.001",
+    "kind": "mixed_strength",
+    "relative_change": [
+      -0.001,
+      -0.001,
+      0.001
+    ]
+  },
+  {
+    "name": "mixed_strength_3_0.01",
+    "kind": "mixed_strength",
+    "relative_change": [
+      -0.01,
+      -0.01,
+      0.01
+    ]
+  },
+  {
+    "name": "material_shift_x_0.01",
+    "kind": "common_material_displacement",
+    "distance": 0.01,
+    "source_readout_positions": "fixed nominal positions"
+  },
+  {
+    "name": "material_shift_x_0.025",
+    "kind": "common_material_displacement",
+    "distance": 0.025,
+    "source_readout_positions": "fixed nominal positions"
+  },
+  {
+    "name": "radius_-0.001",
+    "kind": "radius_error",
+    "relative_change": -0.001,
+    "source_readout_profiles": "fixed nominal profiles"
+  },
+  {
+    "name": "radius_-0.01",
+    "kind": "radius_error",
+    "relative_change": -0.01,
+    "source_readout_profiles": "fixed nominal profiles"
+  },
+  {
+    "name": "absorption_0.0001",
+    "kind": "uniform_absorption",
+    "imaginary_permittivity": 0.0001,
+    "scope": "Dissipative robustness control outside the lossless theorem"
+  },
+  {
+    "name": "absorption_0.001",
+    "kind": "uniform_absorption",
+    "imaginary_permittivity": 0.001,
+    "scope": "Dissipative robustness control outside the lossless theorem"
+  },
+  {
+    "name": "absorption_0.01",
+    "kind": "uniform_absorption",
+    "imaginary_permittivity": 0.01,
+    "scope": "Dissipative robustness control outside the lossless theorem"
+  },
+  {
+    "name": "buffer_longitudinal",
+    "kind": "changed_cavity",
+    "scope": "Different PEC device, not a continuum refinement"
+  },
+  {
+    "name": "buffer_transverse",
+    "kind": "changed_cavity",
+    "scope": "Different PEC device, not a continuum refinement"
+  }
+]

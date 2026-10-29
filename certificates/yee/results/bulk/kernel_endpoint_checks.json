@@ -1,0 +1,7 @@
+{
+  "case_groups": 2000,
+  "primitive_calls": 8000,
+  "endpoint_comparisons": "exact fractions",
+  "undefined_behavior_sanitizer": true,
+  "status": "ARITHMETIC_ENDPOINT_CHECK_PASS"
+}

@@ -1,0 +1,51 @@
+{
+  "case": "results/robustness/nominal",
+  "h": 0.2,
+  "unknowns": 127310,
+  "scope": "Uncertified finite-matrix spectral estimate using shift-invert Lanczos over the full electric space. Rayleigh quotients and absolute eigen-residuals are independently evaluated with the assembled Maxwell matrix. It is not a continuum or asymptotic condition bound.",
+  "largest_eigenvalue": 486.2035901807721,
+  "largest_eigen_residual": 0.0008751939580342037,
+  "nearest_eigenpairs": [
+    {
+      "rayleigh_eigenvalue": 0.004857013219571319,
+      "inverse_ritz_eigenvalue": 0.004857013219571141,
+      "absolute_eigen_residual": 6.610998433033025e-14,
+      "normalized_source_overlap": 1.407418879285002e-16
+    },
+    {
+      "rayleigh_eigenvalue": -0.008337337019266429,
+      "inverse_ritz_eigenvalue": -0.008337337019266308,
+      "absolute_eigen_residual": 5.436771538214048e-14,
+      "normalized_source_overlap": 3.360388758424444e-16
+    },
+    {
+      "rayleigh_eigenvalue": 0.018624011244502935,
+      "inverse_ritz_eigenvalue": 0.018624011244502935,
+      "absolute_eigen_residual": 6.814970352497147e-14,
+      "normalized_source_overlap": 0.021259026247688658
+    },
+    {
+      "rayleigh_eigenvalue": 0.03164837227537586,
+      "inverse_ritz_eigenvalue": 0.031648372275375855,
+      "absolute_eigen_residual": 5.54993637780914e-10,
+      "normalized_source_overlap": 0.007444692773186091
+    },
+    {
+      "rayleigh_eigenvalue": 0.03278382817712998,
+      "inverse_ritz_eigenvalue": 0.03278382817713075,
+      "absolute_eigen_residual": 1.0245090512223894e-09,
+      "normalized_source_overlap": 5.39990517038132e-12
+    },
+    {
+      "rayleigh_eigenvalue": -0.03697237979351067,
+      "inverse_ritz_eigenvalue": -0.03697237979351205,
+      "absolute_eigen_residual": 8.779947039926989e-09,
+      "normalized_source_overlap": 5.5184621197190735e-11
+    }
+  ],
+  "estimated_spectral_condition": 100103.4109237373,
+  "inverse_applications": 25,
+  "maximum_inverse_solve_relative_residual": 4.219065773731171e-12,
+  "factor_nnz": 2512490988,
+  "wall_seconds": 16.197258244734257
+}

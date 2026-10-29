@@ -1,0 +1,2802 @@
+\subsection*{Proof structure}
+The finite compiler and balanced cubic routing of Part~I turn the sparse
+system into a local network with controlled residual transport;
+Lemma~\ref{c:lem:logical} states the interface used here. The physical construction supplies a
+local Bloch-band minimum, scalar defects and interaction estimates that
+realize this network. A finite-box inverse bound, including the
+infinite-dimensional gradient space, controls the remaining physical modes.
+Finite material, source and readout approximations complete the reduction.
+
+\subsection*{Why a local band minimum is sufficient}
+The periodic medium constructed below has a simple minimum on a small
+Bloch chart. The selected band is the top of the sixteen-fold corner
+cluster of Section~\ref{c:sec:edge}, and its minimum is local: the
+quadratic regime extends only over a chart of radius $q_0=\varrho2^{-40}$
+in Bloch momentum. A defect of radius $L$ must be localized in momentum
+inside this chart, which forces the defect radius to satisfy
+$L\ge\Ls$ in~\eqref{c:eq:masterconstants}. No assertion is made that its energy lies in a complete
+three-dimensional gap. A cutoff resolvent on that chart is an
+\emph{auxiliary proof operator}, not an implemented material or a physical
+filter. The auxiliary response differs from a genuine Maxwell response
+by a quantified $L^2$ residual. The full finite-box inverse bound controls
+that difference. This distinction allows all three spatial directions to
+be used without assuming an invariant physical sector.
+
+\section{A full-operator inverse bound on any finite PEC box}
+\label{c:sec:detuning}
+
+This section is independent of the particular dielectric platform.
+
+\begin{lemma}[The finite spectral count]
+\label{c:lem:count}
+Let $\Omega=\prod_{j=1}^3(0,N_j)$ with integer $N_j\ge1$, and let
+$1\le\varepsilon_0\le25$ be any bounded measurable real scalar function.
+For $A_0=\Cc-\varepsilon_0$, there are at most
+\begin{equation}
+ N_\Omega=2\prod_{j=1}^3(1+2N_j)\le54|\Omega|             \label{c:eq:count}
+\end{equation}
+spectral values in $[-1/4,1/4]$, counting multiplicity. These are isolated
+finite-multiplicity eigenvalues; there is no essential spectrum in that
+interval.
+\end{lemma}
+\begin{proof}
+Use the component families
+\[
+ \begin{array}{ll}
+ E_1:&\cos(i_1\pi r_1/N_1)\sin(i_2\pi r_2/N_2)\sin(i_3\pi r_3/N_3),\\
+ E_2:&\sin(i_1\pi r_1/N_1)\cos(i_2\pi r_2/N_2)\sin(i_3\pi r_3/N_3),\\
+ E_3:&\sin(i_1\pi r_1/N_1)\sin(i_2\pi r_2/N_2)\cos(i_3\pi r_3/N_3).
+ \end{array}
+\]
+The cosine index may be zero; the two sine indices are positive. After
+normalization these are a complete orthonormal component basis of $L^2$.
+Grouping by $(i_1,i_2,i_3)$ diagonalizes the curl form into the matrices
+$|p|^2I-pp^T$, with fixed harmless component signs. With three
+positive indices there is one zero direction and two eigenvalues
+$|p|^2$; with one zero index there is one positive direction.
+
+Here is a domain justification. Integration by parts against a compactly
+supported smooth vector field and Parseval show convergence of its block
+expansion in the curl-form norm. Every finite expansion has zero
+tangential trace. Its zero extension has no surface term in its curl;
+inward dilation and mollification approximate it in the form norm by
+compactly supported smooth fields, i.e., compactly supported smooth fields
+are dense in the fields with zero tangential trace~\citep[Chapter~3]{monk2003}. Taking closures therefore gives
+exactly $H_0(\curl;\Omega)$, not a smaller smooth subspace.
+
+Let $P_{\rm g}$ and $P_{\rm t}$ be the orthogonal projections onto $\ker\Cc$ and its
+orthogonal complement. The restriction $\Cc_{\rm t}$ to the complement has compact resolvent, with positive eigenvalues
+\[
+ \pi^2\sum_{j=1}^3(\nu_j/N_j)^2,
+\]
+with at least two positive indices and multiplicity at most two per
+triple. Write the bounded material blocks as
+$\varepsilon_{\rm gg}=P_{\rm g}\varepsilon_0P_{\rm g}\ge I$, $\varepsilon_{\rm tt}=P_{\rm t}\varepsilon_0P_{\rm t}\le25I$, and
+$\varepsilon_{\rm tg}=P_{\rm t}\varepsilon_0P_{\rm g}$. The compression of $A_0$ to $\ker\Cc$ is
+$-\varepsilon_{\rm gg}$, with spectrum in $[-25,-1]$, so the window $[-1/4,1/4]$ keeps
+distance $3/4$ from it. For $|\lambda|\le1/4$, the gradient block
+$-(\varepsilon_{\rm gg}+\lambda)$ is invertible. Its Schur operator is
+\begin{equation}
+ S_{\rm t}(\lambda)=\Cc_{\rm t}-\varepsilon_{\rm tt}-\lambda+\varepsilon_{\rm tg}(\varepsilon_{\rm gg}+\lambda)^{-1}\varepsilon_{\rm tg}^*.
+                                                               \label{c:eq:transverseschur}
+\end{equation}
+It has domain $D(\Cc_{\rm t})$, compact resolvent, and
+$S_{\rm t}(\lambda)\ge\Cc_{\rm t}-26I$. Moreover, for $\lambda_2>\lambda_1$,
+\[
+ S_{\rm t}(\lambda_2)\le S_{\rm t}(\lambda_1)-(\lambda_2-\lambda_1)I.
+\]
+Its ordered eigenvalues are continuous by the bounded-perturbation
+min--max inequality and strictly decrease in this sense. Each crosses
+zero at most once. Only as many of them as there are eigenvalues of $\Cc_{\rm t}$ at most $26$ can do so, because the others
+are positive throughout the interval. Schur factorization shows that
+these crossings are exactly the spectrum of $A_0$ in the interval, with
+the same nullity; at every other point it gives a bounded inverse into
+$D(\Cc)$. This also excludes essential spectrum there.
+
+Finally $\sqrt{26}/\pi<2$, so each index of a free eigenvalue at most
+26 is less than $2N_j$. Counting triples with multiplicity two gives
+\eqref{c:eq:count}. The infinite gradient space has not been counted as a
+finite collection of modes; it was eliminated as a uniformly invertible
+operator block.
+\end{proof}
+
+\begin{lemma}[Uniform scalar detuning]
+\label{c:lem:detuning}
+For $0<\tau\le1/64$ dyadic, let $J_{\rm grid}$ be the least power of two at least
+$64mN_\Omega$. Choose $j$ uniformly in $\{0,\ldots,J_{\rm grid}-1\}$ and put
+\begin{equation}
+ \sigma=\frac{(j+1/2)\tau}{J_{\rm grid}},\qquad
+ L_b=\frac{64mN_\Omega}{\tau}.                         \label{c:eq:detuning}
+\end{equation}
+Provided the material interval is preserved, $A=A_0-\sigma I$ satisfies
+\eqref{c:eq:maininverse}, apart from its final comparison
+$702L_b\le m^{c_A}$, except on an event of probability at most
+$3/(64m)$. That comparison is proved in Section~\ref{c:sec:cost}.
+\end{lemma}
+\begin{proof}
+An interval of radius $L_b^{-1}$ around one real eigenvalue contains at
+most $2J_{\rm grid}/(L_b\tau)+1$ grid points. Spectrum outside $[-1/4,1/4]$ is
+farther than $L_b^{-1}$ from the detuning interval. Lemma~\ref{c:lem:count}
+and a union bound give
+\[
+ \Pr\{\dist(\sigma,\spec A_0)<L_b^{-1}\}
+ \le\frac{2N_\Omega}{L_b\tau}+\frac{N_\Omega}{J_{\rm grid}}
+ \le\frac3{64m}.
+\]
+Singular draws are included; equality at the endpoint is harmless.
+Self-adjointness gives $\norm{A^{-1}}_{2\to2}\le L_b$ on the
+complementary event. If $E=A^{-1}f$, then
+$\norm{\Cc E}\le\norm f+25\norm E$, whence
+$\norm{A^{-1}}_{2\to X}\le27L_b$ and
+$\norm A_{X\to2}<26$. Their product is at most $702L_b$.
+\end{proof}
+
+The form representation in~\eqref{c:eq:domain} uses the first representation
+theorem~\citep[Chapter~VI, Section~2, Theorem~2.1]{kato1976}. Its hypotheses
+hold because $V$ is dense in $L^2$, complete in the form norm, and the
+form is nonnegative and symmetric. Bounded real multiplication preserves
+self-adjointness on its operator domain. The displayed Fourier argument
+also proves the required constant-coefficient decomposition directly.
+
+\section{An explicit scalar periodic medium with a simple local minimum}
+\label{c:sec:edge}
+
+Set
+\begin{equation}
+ \varrho=2^{-100},\qquad
+ V_0(r)=\cos(\pi r_1)+2\cos(\pi r_2)+4\cos(\pi r_3),
+ \qquad \varepsilon_{\rm per}=7+\varrho V_0.           \label{c:eq:background}
+\end{equation}
+The period is two in each coordinate. At the antiperiodic corner
+$k_*=(\pi/2,\pi/2,\pi/2)$, use local Bloch momentum $q$ and Fourier
+aliases $p_\nu(q)=k_*+q+\pi\nu$, $\nu\in\Z^3$. The free fiber is the direct
+sum of
+\begin{equation}
+ |p_\nu|^2I-p_\nu p_\nu^T-7I.                                \label{c:eq:freefiber}
+\end{equation}
+For complex momentum the squares and transpose in this formula are
+bilinear, not Hermitian. Real momenta give the self-adjoint fibers.
+The potential $V_0$ connects only neighboring aliases, with weights
+$1/2,1,2$.
+
+For complex $q$, the free fiber is the maximal multiplication operator
+on $\ell^2(\Z^3;\C^3)$ with domain
+\[
+ \left\{u:\sum_\nu\big\|[p_\nu(q)^2I-p_\nu(q)p_\nu(q)^T-7I]u_\nu\big\|^2
+                    <\infty\right\}.
+\]
+It is closed, since convergence of a sequence and of its image gives
+the defining identity in each finite alias block. The material
+convolution is bounded, so its addition uses this same domain.
+For real $q$ this is the self-adjoint Bloch fiber obtained by the
+unitary Fourier decomposition of the physical curl form. The Bloch
+transform groups ordinary Fourier frequencies modulo $\pi\Z^3$;
+Parseval proves this direct-integral decomposition, initially on
+smooth compactly supported fields and then by graph closure.
+
+We do not assume that these unbounded operator domains are independent
+of momentum. All complex inverses used below are constructed from the
+explicit free inverse
+\begin{equation}
+ (p^2I-pp^T-\mathcal EI)^{-1}
+   =\frac{I-pp^T/\mathcal E}{p^2-\mathcal E},                           \label{c:eq:freeinverse}
+\end{equation}
+and a bounded Neumann series. Multiplying the block formulas verifies
+both inverse identities; the image belongs to the maximal domain
+because the product with the free operator is the identity plus a
+bounded operator. Uniform bounds on the alias blocks and on the
+Neumann series prove holomorphy in the bounded-operator norm.
+This constructs the complex inverse and finite Schur operators
+without a common-domain perturbation assumption.
+
+\subsection{The corner cluster}
+At $q=0$, the eight wavevectors $p_\varsigma=\tfrac\pi2\varsigma$, $\varsigma\in\{\pm1\}^3$,
+have a sixteen-dimensional transverse eigenspace at
+$E_0=3\pi^2/4-7$. Let $P_\varsigma=I-\varsigma\varsigma^T/3$ and let $P_{\rm cl}$ be the projection onto this cluster. The first-order perturbation on
+this space is $K_{\rm cl}=-P_{\rm cl}V_0P_{\rm cl}$. Reflection parity $\varpi\in\{\pm1\}^3$ reduces
+it to the plane $\one^\perp\subset\R^3$. With
+$b_\varpi=(\varpi_1,2\varpi_2,4\varpi_3)$ and $P_1=I-\one\one^T/3$, the block is
+\begin{equation}
+ K_{\rm cl}(\varpi)=P_1\diag(b_\varpi)P_1-\frac{\varpi_1+2\varpi_2+4\varpi_3}{2}P_1.
+                                                               \label{c:eq:parityblock}
+\end{equation}
+To verify this, an amplitude $\phi\in\one^\perp$ at $\varsigma=(1,1,1)$ has
+amplitude $\varpi^{\iota(\varsigma)}\diag(\varsigma)\phi/\sqrt8$ at $\varsigma$, where
+$\iota_j(\varsigma)=(1-\varsigma_j)/2$. Toggling $\varsigma_j$ multiplies this amplitude by the
+polar reflection $I-2e_je_j^T$ and parity $\varpi_j$. Applying the coupling
+$-\varpi_j2^{j-2}$ gives~\eqref{c:eq:parityblock} after projection. Distinct parity embeddings are orthogonal, because
+the sum of a nontrivial sign character on $\{\pm1\}^3$ is zero.
+Each projected parity space has dimension two, so the eight spaces
+exhaust the sixteen-dimensional transverse cluster.
+
+The two roots of this block are
+\begin{equation}
+ -\frac{\varpi_1+2\varpi_2+4\varpi_3}{6}
+ \ \,\pm\,\frac{\sqrt{21-2\varpi_1\varpi_2-4\varpi_1\varpi_3-8\varpi_2\varpi_3}}3.
+                                                               \label{c:eq:clusterroots}
+\end{equation}
+The unique largest root is
+\begin{equation}
+ \lambda_*=(5+2\sqrt{19})/6,
+ \quad \varpi=(1,-1,-1),\qquad
+ \lambda_*-\lambda_{\rm next}>1/20.                  \label{c:eq:clustergap}
+\end{equation}
+The next root is $1/2+\sqrt3$. Substitution in the eight displayed
+quadratics proves the ordering; the accompanying exact program checks
+all sixteen intervals and also rebuilds the $24\times24$ corner
+projection and its parity intertwiners.
+
+Let $u_0$ be the normalized top cluster vector. Its eight wavevector
+blocks have equal norm by reflection symmetry. Projecting the free
+velocity onto the transverse cluster gives
+\[
+ \Upsilon(t)=\pi\diag_{\varsigma}(\varsigma\cdot t)I_{\varsigma^\perp}.
+\]
+Consequently
+\begin{equation}
+ \ip{u_0}{\Upsilon(t)u_0}=0,\qquad
+ \norm{\Upsilon(t)u_0}^2=\pi^2|t|^2.                    \label{c:eq:velocity}
+\end{equation}
+If $\lambda_K(t)$ is the top eigenvalue of $K_{\rm cl}+\Upsilon(t)$ near zero, ordinary
+finite-dimensional Schur elimination gives
+\begin{equation}
+ t^TH_0t=\ip{\Upsilon(t)u_0}{(\lambda_*-K_{\rm cl})^{-1}_{u_0^\perp}\Upsilon(t)u_0},
+ \qquad H_0=\tfrac12\lambda_K''(0).
+                                                               \label{c:eq:A0}
+\end{equation}
+Since $\norm{K_{\rm cl}}\le\norm{V_0}_\infty\le7$, the spectrum of $K_{\rm cl}$ lies in
+$[-7,7]$, so $(\lambda_*-K_{\rm cl})^{-1}\ge1/14$ on $u_0^\perp$. The gap
+\eqref{c:eq:clustergap} gives $(\lambda_*-K_{\rm cl})^{-1}\le20$ there.
+With~\eqref{c:eq:velocity} this gives
+\begin{equation}
+ \frac{\pi^2}{14}I\le H_0\le20\pi^2I.           \label{c:eq:A0bounds}
+\end{equation}
+The exact cluster roots lie in $[-2.29,2.29]$, so the lower constant is
+far from sharp. Reflections make $H_0$
+diagonal. Its exact entries are
+\begin{equation}
+ H_0=\pi^2\diag
+ \left(\frac{47}{31}+\frac{352\sqrt{19}}{589},\ 
+ 2+\frac{11\sqrt{19}}{38},\ 
+ \frac18+\frac{11\sqrt{19}}{152}\right).              \label{c:eq:explicitA0}
+\end{equation}
+For a direct verification, take
+$\phi^{(0)}_i=(\lambda^{\rm d}_i-\lambda_*)^{-1}$ with $\lambda^{\rm d}=(7/2,1/2,-3/2)$, normalize $\phi^{(0)}$,
+and evaluate~\eqref{c:eq:A0} in the parity block with the corresponding
+sign flipped. This uses only arithmetic in $\Q(\sqrt{19})$.
+
+\subsection{The continuum remainder, including every Fourier alias}
+\begin{lemma}[Local continuum band]
+\label{c:lem:edge}
+The actual continuum operator $A_{\rm per}=\curl\curl-\varepsilon_{\rm per}$
+has a simple analytic Bloch eigenvalue $\lambda(q)$ for
+$|q_j|<R_q:=\varrho2^{-12}$. It is real for real $q$ and even in each
+coordinate. With $E_c=\lambda(0)$ and $H=\tfrac12\lambda''(0)$,
+\begin{align}
+ |E_c-E_0-\varrho\lambda_*|&\le2^{16}\varrho^2,\\
+ \norm{\varrho H-H_0}&\le2^{40}\varrho,\\
+ (2\varrho)^{-1}I&\le H\le(256/\varrho)I.              \label{c:eq:edgebounds}
+\end{align}
+For $|q|\le R_q/2$,
+\begin{equation}
+ |\lambda(q)-E_c-q^THq|\le M_4|q|^4,
+ \qquad M_4=4\varrho R_q^{-4}.                       \label{c:eq:quartic}
+\end{equation}
+On the smaller chart $|q_j|\le2q_0$, $q_0=\varrho2^{-40}$, the selected
+band is separated from every other fiber spectral value by at least
+$\varrho/100$. The separated inverse and eigenprojection are bounded
+holomorphic operators. The selected cell eigenfunction has Fourier
+$\ell^1$ norm at most 32 in a complex neighborhood of this chart.
+\end{lemma}
+\begin{proof}
+Put $q=\varrho t$ and $\mathcal E=E_0+\varrho e$. Retain all three components
+of the eight central aliases. Every other free alias has transverse
+energy at least $11\pi^2/4-7$, while its longitudinal denominator at
+energy $\mathcal E$ is $-3\pi^2/4-\varrho e$. Formula~\eqref{c:eq:freeinverse}
+shows that its inverse norm is less than one for
+$|t_j|\le2^{-12}$ and $|e|\le8$. Indeed the transverse denominator is
+at least $2\pi^2-O(\varrho|p|)-8\varrho$; its ratio to the
+quadratic numerator is uniformly bounded, also as $|p|\to\infty$.
+Using $3<\pi<4$ gives the stated conservative bound. The eight central
+longitudinal directions have the same bound, since their diagonal
+free correction is $q^2-(s\cdot q)^2/3$.
+
+The potential has norm at most seven. Its complementary inverse is the
+Neumann series with ratio at most $7\varrho<1/4$, and has norm at most
+two. The cluster--complement coupling, divided by $\varrho$, has norm
+at most eight. Eliminating the complement therefore gives the exact
+sixteen-dimensional analytic Schur matrix
+\begin{equation}
+ K_{\rm cl}+\Upsilon(t)-eI+\varrho\Sigma_2(t,e),\qquad \norm{\Sigma_2(t,e)}\le256.
+                                                               \label{c:eq:feshbach}
+\end{equation}
+The bound is $2\cdot8^2$ for the self-energy plus less than one for
+the direct quadratic term. This derivation includes the infinitely many
+longitudinal aliases; none was discarded by a transverse approximation.
+
+On $|e-\lambda_*|=1/100$,
+$\norm{\Upsilon(t)}\le3\pi2^{-12}<1/400$, so the resolvent of $K_{\rm cl}+\Upsilon(t)$ is
+less than 140. Its contour projection $\Pi(t)$ has rank one and norm at
+most two. Hence
+$(K_{\rm cl}+\Upsilon(t)-e)^{-1}=\Pi(t)/(\lambda_K(t)-e)+\widetilde R(e)$, where the reduced
+resolvent $\widetilde R(e)=(K_{\rm cl}+\Upsilon(t)-e)^{-1}(I-\Pi(t))$ is analytic inside
+the circle. On the circle its norm is at most $140\cdot3$, so by the
+maximum principle it is at most $420$ inside. This bounds the resolvent
+near its root by $2/|e-\lambda_K(t)|+2048$. On the circle
+$|e-\lambda_K(t)|=2^{16}\varrho$, multiplication by
+$\varrho\Sigma_2$ has norm less than $1/16$. Homotopy of the finite
+Schur determinant, or its contour projection, thus leaves exactly one
+root and gives
+$|e_\varrho(t)-\lambda_K(t)|\le2^{16}\varrho$.
+The root is analytic because its contour projection has rank one.
+The complementary free inverse proves that this root is an actual
+continuum fiber eigenvalue. It is simple. The homotopy counts zeros of
+the Schur determinant with multiplicity, so the root is a simple zero,
+and the inverse Schur matrix (adjugate over determinant) has a simple
+pole with rank-one residue. The Feshbach formula writes the fiber
+resolvent as this inverse between two analytic lifting operators plus an
+analytic term; the Riesz projection of the full fiber therefore has rank
+one.
+
+Cauchy's estimate on the $t$-polydisc gives the Hessian error
+$2^{40}\varrho$. The finite inequalities in~\eqref{c:eq:A0bounds}
+then give~\eqref{c:eq:edgebounds}. Coordinate reflections of the scalar
+material, with the polar-vector action on fields, send $q_j$ to $-q_j$.
+Simplicity gives the asserted evenness. The analytic bound
+$|\lambda(q)-E_0|\le3\varrho$ and the one-variable Cauchy estimate
+on each complex line give~\eqref{c:eq:quartic}: after removing the
+constant and quadratic terms, the even tail is at most
+$3\varrho(|q|/R_q)^4/[1-(|q|/R_q)^2]$.
+
+The cluster gap persists on the smaller chart by the same Schur
+estimates. The other free spectrum stays a fixed distance away.
+For the cell eigenvector, the complementary Neumann series starts in
+finitely many neighboring aliases. Each potential application changes
+an alias by one, and its $\ell^1$ norm is at most seven. The free
+inverse has norm at most one on each noncentral $3\times3$ block.
+The geometric series, together with the eight central blocks, bounds
+the eigenvector's Fourier $\ell^1$ norm by 32. Cauchy bounds its
+derivatives. This proves all assertions without a finite-element
+spectral convergence assumption.
+\end{proof}
+
+For later normalization choose the analytic cell eigenfunction
+$\Phi_q$ with mean squared norm one for real $q$, real $\Phi_0$,
+and dual pairing $\langle\Phi_{-q},\Phi_q\rangle_{\rm bil}=1$.
+One construction is to apply the analytic rank-one projection to
+$\Phi_0$ and divide by the analytic square root of its nonzero pairing
+with $\Phi_0$. The transpose identity $A_{\rm per}(q)^T=A_{\rm per}(-q)$ in the
+antiperiodic cell gauge gives $\Pi(-q)=\Pi(q)^T$ for the analytic
+eigenprojection, and hence this normalization. The pairing stays away
+from zero: on $|t_j|\le2^{-39}$ the projection moves by $O(2^{-33})$
+from its value at $q=0$, where the pairing is one. At purely imaginary
+$q$, both the operator and the normalized eigenfunction are real.
+This fact will fix the sign of the useful coupling numerator.
+
+A real zeroth-order field, used only as a starting vector for calibration,
+is
+\begin{equation}
+ \Phi^{(0)}(r)=\sqrt8\begin{pmatrix}
+ \phi^{(0)}_1\sin(\pi r_1/2)\sin(\pi r_2/2)\sin(\pi r_3/2)\\
+ -\phi^{(0)}_2\cos(\pi r_1/2)\cos(\pi r_2/2)\sin(\pi r_3/2)\\
+ -\phi^{(0)}_3\cos(\pi r_1/2)\sin(\pi r_2/2)\cos(\pi r_3/2)
+ \end{pmatrix},                                      \label{c:eq:initialphi}
+\end{equation}
+where $\phi^{(0)}$ is the normalized vector following~\eqref{c:eq:explicitA0}.
+It is divergence-free, has mean squared norm one, and the selected
+actual field can be signed so that
+$\norm{\Phi_0-\Phi^{(0)}}_{\ell^1({\rm Fourier})}\le2^{16}\varrho$.
+This follows by the same isolated-cluster Schur equation and geometric
+complement series.
+
+\subsection{A fixed integer placement matrix}
+Use
+\begin{equation}
+ B=\diag(7180532256056349,\ 6388184103869743,\ 2347449745487106).
+                                                               \label{c:eq:B}
+\end{equation}
+The exact identities~\eqref{c:eq:explicitA0}, rational enclosures for $\pi$
+and $\sqrt{19}$, and~\eqref{c:eq:edgebounds} imply
+\begin{equation}
+ .99\,|y|\le|H^{-1/2}By|\le1.01\,|y|.               \label{c:eq:Bmetric}
+\end{equation}
+The verifier checks the stronger squared inequalities, allowing the full
+$2^{-60}=2^{40}\varrho$ Hessian error. This is an integer placement
+lattice, not a change to the Euclidean metric or to material tensors.
+
+\section{Smooth cutoffs and the auxiliary resolvent}
+\label{c:sec:cutoff}
+
+Define the fixed bump and its square root by
+\begin{equation}
+ w(y)=\begin{cases}\exp[-1/(1-|y|^2)],&|y|<1,\\0,&|y|\ge1,\end{cases}
+ \qquad q_w(y)=\sqrt{w(y)}.                           \label{c:eq:well}
+\end{equation}
+For a one-dimensional cutoff, normalize
+$\psi_0(s)=\exp[-1/(1-4s^2)]\one_{|s|<1/2}$ to have integral one and put
+$\psi=\one_{[-3/2,3/2]}*\psi_0$. Its normalization integral is between
+$1/8$ and one. Thus $0\le\psi\le1$, $\psi=1$ on $[-1,1]$, and
+$\psi=0$ outside $[-2,2]$. In the corner Bloch coordinates set
+\begin{equation}
+ \chi(q)=\prod_{j=1}^3\psi(q_j/q_0).                \label{c:eq:chi}
+\end{equation}
+It is a scalar multiplier on the Bloch torus, extended by zero outside
+this chart. In physical Fourier variables it is periodic modulo the
+reciprocal lattice. In particular, it commutes with every translation
+and every constant-coefficient derivative.
+
+\begin{lemma}[Quantitative Gevrey estimates]
+\label{c:lem:gevrey}
+The zero extensions in~\eqref{c:eq:well} are smooth. For every directional
+derivative of order $K$,
+\begin{equation}
+ \norm{\partial^K w}_\infty+\norm{\partial^K q_w}_\infty
+ \le2\cdot1024^K(K!)^2.                              \label{c:eq:gevreyder}
+\end{equation}
+They satisfy the Fourier tail bound
+\begin{equation}
+ \int_{|p|\ge R}(|(\mathcal Fw)(p)|+|(\mathcal Fq_w)(p)|)\dd p
+ \le2^{100}\exp(-\sqrt R/512).                       \label{c:eq:gevreytail}
+\end{equation}
+The cutoff $\chi$ has derivative bounds
+$2^{45}(2^{16}/q_0)^K(K!)^2$. All its values, and the values of $w,q_w$,
+can be enclosed to $N_{\rm b}$ bits in time polynomial in $N_{\rm b}$.
+\end{lemma}
+\begin{proof}
+For a real point inside the unit ball, let $s_y=1-|y|^2$.
+In the complex polydisc of radius $s_y/100$, the real part of
+$(1-z^2)^{-1}$ is at least $1/(2s_y)$; for the square root use
+$1/(4s_y)$ in the exponential. Cauchy's estimate gives
+$K!(100/s_y)^K e^{-1/(4s_y)}$. Maximizing in $s_y$ and using
+$K^K e^{-K}\le K!$ bounds coordinate derivatives by
+$400^K(K!)^2$. The directional expansion gives~\eqref{c:eq:gevreyder}
+with the displayed larger constant. These estimates also show that every
+derivative tends to zero at the boundary, justifying the smooth zero
+extension.
+
+Integrate by parts $K$ times in the direction of $p$ and use the
+support volume less than eight. Choosing an integer
+$K$ within one of $\sqrt{|p|}/64$ gives
+$|(\mathcal Fw)(p)|+|(\mathcal Fq_w)(p)|\le
+2^{20}e^{-\sqrt{|p|}/256}$. For small $|p|$ use the $L^1$
+bound. Radial integration and one further weakening of the exponent
+prove~\eqref{c:eq:gevreytail}. Rescaling the one-dimensional bump,
+dividing by its normalization at least $1/8$, and taking the three
+products gives the claimed cutoff bounds.
+
+For evaluation, if the positive denominator in the bump is less than
+$1/[4(N_{\rm b}+10)]$, the value is below $2^{-N_{\rm b}-2}$ and can be enclosed directly.
+Otherwise the exponential argument is $O(N_{\rm b})$. Its Taylor series with
+range reduction and a geometric factorial-tail bound uses polynomially
+many rational operations and bits. A periodic trapezoidal rule applied
+to a smooth compactly supported bump has error bounded by the sum of its
+Fourier coefficients at the aliased indices;~\eqref{c:eq:gevreytail}
+therefore gives $O(N_{\rm b}^2)$ nodes per dimension for fixed intervals.
+This encloses the normalization and the convolution defining $\psi$.
+Equivalently, one may integrate a polynomial approximation with the same
+Gevrey tail. Outward rational rounding gives certified intervals.
+\end{proof}
+
+For clarity, the following fixed constants are used throughout:
+\begin{equation}
+ \Cs=2^{2^{40}},\qquad \cs=2^{-1024},\qquad
+ c_u=2^{-1024},\qquad
+ \Ls=8^{\lceil64\cdot2^{40}/3\rceil},\qquad
+ \ds=\Cs^8.                                         \label{c:eq:masterconstants}
+\end{equation}
+Their size is only a convenience for a single majorant ledger. The proofs
+below give bounds far smaller than these numbers. Section~\ref{c:app:ledger}
+records the derivative and arithmetic majorants that justify their use;
+none is a supremum over inaccessible data.
+
+Let $L\ge\Ls$ be a power of eight and $h=L^{-1}$. Compute a dyadic $z_h$
+with
+\begin{equation}
+ |z_h-(E_c-h^2)|\le h^4.                              \label{c:eq:z}
+\end{equation}
+Section~\ref{c:sec:calibration} gives a certified terminating algorithm.
+For $0\le\sigma\le h^4/64$, define on the whole space
+\begin{equation}
+ R_\sigma=\chi(q)\big(A_{\rm per}(q)-z_h-\sigma\big)^{-1}
+ \quad\text{on the chart, and zero elsewhere}.         \label{c:eq:R}
+\end{equation}
+This inverse exists on the chart by Lemma~\ref{c:lem:edge}. It is a real
+self-adjoint bounded operator, with
+\begin{equation}
+ \norm{R_\sigma}\le4L^2,\quad
+ \norm{R_\sigma-R_0}\le16\sigma L^4,\quad
+ (A_{\rm per}-z_h-\sigma)R_\sigma=\chi.               \label{c:eq:Ridentities}
+\end{equation}
+The last equality holds as an operator into $L^2$, and
+$R_\sigma L^2\subset D(\curl\curl)$ on $\R^3$.
+The norm estimates follow from the selected denominator, at least
+$h^2/2$, and the fixed separation of all other bands. The denominator
+bound uses $\lambda(q)\ge E_c$ on the chart: there
+$M_4|q|^2\le M_4(4q_0)^2<10^{-6}/\varrho$, far below the smallest
+eigenvalue $(2\varrho)^{-1}$ of $H$, so~\eqref{c:eq:quartic} gives
+$\lambda(q)-E_c\ge q^THq/2$. The final factor
+$\chi$ in~\eqref{c:eq:Ridentities} can not be replaced by $I$; this is
+the main analytic issue of the proof.
+
+\section{A broad scalar defect with an isolated auxiliary mode}
+\label{c:sec:defect}
+
+Let $\mathbb B_L=\{r:|r|<L\}$, let $Q_h$ multiply by $q_w(hx)$ and restrict
+to $\mathbb B_L$, and define on $L^2(\mathbb B_L;\C^3)$
+\begin{equation}
+ S_h=Q_hR_0Q_h^*.                                    \label{c:eq:Sh}
+\end{equation}
+The adjoint includes the same multiplier and extension by zero. This is
+an infinite-dimensional self-adjoint operator; it is not declared compact.
+
+\begin{lemma}[An effective scalar operator with a quantitative gap]
+\label{c:lem:perron}
+Let $H$ satisfy~\eqref{c:eq:edgebounds}. The scalar compact operator
+\begin{equation}
+ T_H=\sqrt w\,(-\nabla\cdot H\nabla+1)^{-1}\sqrt w
+ \quad\text{on }L^2(\mathbb B_1)                              \label{c:eq:TA}
+\end{equation}
+has a simple largest eigenvalue $\mu_H$ and a real positive normalized
+eigenvector $u_H$. It satisfies
+\begin{equation}
+ 2^{-127}\le\mu_H\le2^{-92},\qquad
+ \dist(\mu_H,\spec T_H\setminus\{\mu_H\})\ge2^{-190}.
+                                                               \label{c:eq:perrongap}
+\end{equation}
+In addition,
+\begin{equation}
+ u_H(y)\ge2^{-29}\sqrt{w(y)},\qquad
+ \int\sqrt w\,u_H\ge2^{-32}.                         \label{c:eq:perronoverlap}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Fourier transformation gives the Yukawa kernel
+\[
+ Y_H(y)=\frac{e^{-|H^{-1/2}y|}}
+ {4\pi\sqrt{\det H}\,|H^{-1/2}y|}.
+\]
+It can also be obtained by changing variables in the radial fundamental
+solution of $-\Delta+1$, whose normalization follows by integrating its
+normal derivative over a small sphere. On $\mathbb B_1\times\mathbb B_1$ the bounds
+on $H$ imply
+\begin{equation}
+ Y_H(r-y)\ge Y_-:=\varrho2^{-24},\quad
+ Y_H(r-y)\le\frac{4\varrho}{|r-y|},\quad
+ \sup_r\norm{Y_H(r-\cdot)}_{L^2(\mathbb B_1)}\le Y_+:=32\varrho.
+                                                               \label{c:eq:yukawabounds}
+\end{equation}
+For example, $|H^{-1/2}(r-y)|<1$, so the exponential is at least
+$1/4$; inserting the extreme eigenvalues of $H$ proves the first
+inequality. Squaring the second and integrating over a radius-two ball
+gives the third. The Schur integral bound gives $\norm{T_H}\le256\varrho$.
+Also $\int w\ge1/8$: on the half-radius ball, $w\ge e^{-4/3}>1/4$,
+and its volume is $\pi/6$.
+
+The kernel is square integrable on $\mathbb B_1\times\mathbb B_1$, so $T_H$ is
+compact. It is nonnegative as a quadratic form and has a strictly
+positive kernel in the interior. Its largest Rayleigh quotient is
+attained; replacing an eigenvector by its absolute value does not
+reduce it, and the integral equation makes the resulting eigenvector
+strictly positive. Testing on $\sqrt w$ gives
+$\mu_H\ge Y_-\int w\ge\varrho2^{-27}=2^{-127}$.
+The integral equation and Cauchy--Schwarz give
+\[
+ u_H(r)\le(Y_+/\mu_H)\sqrt{w(r)},\qquad
+ \int\sqrt w\,u_H\ge\mu_H/Y_+,
+ \qquad u_H(r)\ge(Y_-/Y_+)\sqrt{w(r)}.
+\]
+These imply~\eqref{c:eq:perronoverlap}.
+
+For the spectral gap define the reversible Markov kernel
+\[
+ \mathcal K(r,y)=\frac{\sqrt{w(r)}Y_H(r-y)\sqrt{w(y)}u_H(y)}
+ {\mu_Hu_H(r)}.
+\]
+It has invariant measure $u_H^2\dd r$. The preceding upper bound on
+$u_H$ implies
+$\mathcal K(r,y)\ge\varsigma_0u_H(y)^2$, where
+$\varsigma_0=Y_-\mu_H/Y_+^2\ge2^{-61}$.
+Write $\mathcal K=\varsigma_0\Pi_{\rm c}+(1-\varsigma_0)\mathcal K_1$, where $\Pi_{\rm c}$ is the orthogonal projection onto constants and $\mathcal K_1$ is another
+Markov operator preserving that measure. Jensen's inequality makes
+$\mathcal K_1$ a contraction on $L^2(u_H^2\dd r)$. On the mean-zero subspace,
+$\norm{\mathcal K}\le1-\varsigma_0$. The unitary map $v\mapsto v/u_H$
+identifies $T_H/\mu_H$ with $\mathcal K$. This proves simplicity and a gap at
+least $\mu_H\varsigma_0\ge\varrho2^{-88}>2^{-190}$.
+No uncomputed scalar eigenvalue is a premise of this argument.
+\end{proof}
+
+\begin{lemma}[Quantitative effective-mass comparison]
+\label{c:lem:effectivemass}
+For every $L\ge\Ls$, the largest eigenvalue $\mu_h$ of $S_h$ is simple,
+real, and isolated. It and a real normalized eigenvector $u_h$ satisfy
+\begin{align}
+ 2^{-128}L^2&\le\mu_h\le2^{-90}L^2,
+ &\dist(\mu_h,\spec S_h\setminus\{\mu_h\})&\ge2^{-192}L^2,
+                                                               \label{c:eq:mugap}\\
+ \norm{u_h-h^{3/2}\Phi_0(r)u_H(hx)}_{L^2(\mathbb B_L)}&\le2^{2048} h\le\Cs h.
+                                                               \label{c:eq:modeapprox}
+\end{align}
+The sign can be chosen so that the normalized starting vector
+$h^{3/2}q_w(hx)\Phi^{(0)}(r)$ has overlap at least $2^{-48}$ with $u_h$.
+Moreover,
+\begin{equation}
+ \norm{u_h}_{H^1(\R^3)}\le2^{512}L^2\le\Cs L^2,                   \label{c:eq:modeH1}
+\end{equation}
+where zero extension is understood.
+\end{lemma}
+\begin{proof}
+Split $R_0$ into its selected-band part and the remaining part. The latter
+has norm at most $2^{112}$ by Lemma~\ref{c:lem:edge}; after multiplication
+by $h^2$ it is a bounded perturbation of norm at most $2^{112}h^2$.
+
+Write the selected normalized Bloch eigenvector in alias coordinates as
+$\phi(q)$. Define an isometry from the scaled momentum chart by
+\[
+ (\mathcal U_h v)(r)=h^{3/2}(2\pi)^{-3/2}
+ \int e^{ihp\cdot r}\Phi_{hp}(r)v(p)\dd p,
+\]
+and put
+\[
+ s_h(p)=\frac{h\sqrt{\chi(hp)}}{\sqrt{\lambda(hp)-z_h}},
+ \qquad s_H(p)=(1+p^THp)^{-1/2}.
+\]
+Extend $s_h$ by zero off the chart. The selected part of $h^2S_h$ is
+$B_hB_h^*$, where $B_h=Q_h\mathcal U_hs_h$. Its nonzero spectrum is
+that of $B_h^*B_h$.
+
+The latter operator has a concrete Fourier kernel. Up to the unitary
+Fourier factor $(2\pi)^{-3/2}$, its middle factor is
+\begin{equation}
+ \sum_{\nu,\nu'}\phi_\nu(hp)^*\phi_{\nu'}(hp')
+ (\mathcal Fw)\big(p-p'+\pi(\nu-\nu')/h\big).                \label{c:eq:umklapp}
+\end{equation}
+For $\nu=\nu'$ this is the kernel of multiplication by $w$ conjugated by
+Fourier transform, with the vector multipliers $\phi(hp)$ and $\phi(hp')$.
+For $\nu\ne\nu'$, the argument of $\mathcal Fw$ is at least
+$1/h$ in norm: both $hp,hp'$ lie in the very small fixed chart.
+The two Fourier $\ell^1$ bounds $32$ on $\phi$, the pointwise bound
+$|(\mathcal Fw)(p)|\le2^{20}e^{-\sqrt{|p|}/256}$ from the proof of
+Lemma~\ref{c:lem:gevrey}, and the volume, less than $h^{-3}$, of the
+scaled chart in the row and column Schur integrals make the norm of
+this off-alias part at most
+\begin{equation}
+ 2^{100}h^{-3}e^{-1/(512\sqrt h)}\le2^{512}h.           \label{c:eq:umklapperror}
+\end{equation}
+The last inequality follows by maximizing $s^8e^{-s/512}$ for $s\ge0$;
+the stated constant is deliberately larger than that maximum.
+
+The dispersion estimate gives
+\begin{equation}
+ \sup_p|s_h(p)-s_H(p)|\le2^{128}h,
+ \qquad
+ \sup_p s_H(p)\norm{\phi(hp)-\phi(0)}\le2^{128}h.            \label{c:eq:multipliererror}
+\end{equation}
+Here is an explicit check of the first assertion. On the chart the
+normalized denominator differs from $1+p^THp$ by at most
+$h^2+M_4h^2|p|^4$ and is at least one half of it. Applying the derivative
+of $s^{-1/2}$ bounds the difference by
+$C h^2(1+M_4|p|^4)/(1+2^{99}|p|^2)^{3/2}$.
+For $|p|\le4q_0/h$ its supremum is less than $2^{100}h$.
+Where the cutoff is not one, $s_H\le h/(q_0\sqrt{2^{99}})$,
+which fits the displayed bound. The second assertion follows from the
+Cauchy derivative bound on $\phi$, using
+$|p|s_H(p)\le2^{-99/2}$. These calculations use only the explicit
+powers in Lemma~\ref{c:lem:edge}.
+
+Multiplication by $w$ has norm at most one. Equations
+\eqref{c:eq:umklapperror}--\eqref{c:eq:multipliererror} therefore show
+\begin{equation}
+ \norm{B_h^*B_h-
+ s_H\mathcal Fw\mathcal F^{-1}s_H}\le2^{520}h.
+                                                               \label{c:eq:effectivecompare}
+\end{equation}
+The nonzero spectrum of the comparison operator is exactly that of
+$T_H$. The selected part is compact: its momentum chart is bounded,
+its multiplier is bounded for fixed $h$, and the spatial support of
+$Q_h$ is bounded, so its integral kernel is Hilbert--Schmidt.
+The separated part need not be compact, but its norm after scaling is
+at most $2^{112}h^2$. The min--max inequalities above that bounded
+essential spectrum, or the elementary isolated-eigenvalue Schur
+argument, now transfer~\eqref{c:eq:perrongap} to~\eqref{c:eq:mugap}.
+The choice $L\ge\Ls$ makes both errors smaller than $2^{-200}$, so the
+top eigenvalue of $h^2S_h$ lies in $[\mu_H-2^{-199},\mu_H+2^{-199}]$
+and the rest of its spectrum stays at distance at least
+$2^{-190}-2^{-198}$ from it. Multiplying by $L^2=h^{-2}$
+gives~\eqref{c:eq:mugap}.
+
+For completeness, eigenvectors can be compared without identifying two
+different Hilbert spaces. Let $y_H$ be the normalized top eigenvector
+of $s_H\mathcal Fw\mathcal F^{-1}s_H$. Projection of the perturbed
+eigenvector equation onto $y_H^\perp$ bounds its component there by
+twice the error in~\eqref{c:eq:effectivecompare} divided by the gap.
+Reconstruct the spatial eigenvector as $B_hy_h/\sqrt{\mu_hh^2}$.
+The operator $B_h$ differs by $O(h)$, with the explicit bounds just
+used, from
+\[
+ v\longmapsto h^{3/2}\Phi_0(r)\sqrt{w(hx)}
+       [\mathcal F^{-1}(s_Hv)](hx).
+\]
+To check this operator comparison, use the disjoint Bloch aliases on
+$|p|\le q_0/h$,~\eqref{c:eq:multipliererror}, and the bound
+$\sup_{|p|>q_0/h}s_H(p)\le2^{100}h$ on the remaining input.
+The comparison operator applied to $y_H/\sqrt{\mu_H}$ is exactly
+$h^{3/2}\Phi_0(r)u_H(hx)$. Finally the bounded separated-band
+perturbation is treated by the same gap projection. Explicitly, twice
+the comparison error $2^{520}h$ divided by the gap $2^{-190}$, the
+reconstruction factor $(\mu_hh^2)^{-1/2}\le2^{64}$, and the $O(h)$
+operator comparison with the constants of~\eqref{c:eq:multipliererror}
+give a product below $2^{2048}h$; Section~\ref{c:app:ledger} records
+these constants. This proves~\eqref{c:eq:modeapprox}.
+
+The starting-vector overlap is positive quantitatively. By
+\eqref{c:eq:perronoverlap}, its leading integral is at least
+$2^{-29}\int w(y)|\Phi_0(y/h)|^2\dd y$, apart from the
+$\Phi^{(0)}-\Phi_0$ error. The mean of $|\Phi_0|^2$ is one.
+Its nonconstant Fourier coefficients are absolutely summable, and
+\eqref{c:eq:gevreytail} shows that the integral is at least $1/16$.
+The field error $2^{16}\varrho$, the mode error $\Cs h$, and
+normalization leave the conservative overlap $2^{-48}$.
+
+For~\eqref{c:eq:modeH1}, use translations rather than an assumed elliptic
+regularity theorem for all polarizations. The cutoff $\chi$ commutes
+with translations. The local inverse without its factor $\chi$ has
+norm at most $4L^2$. Its resolvent identity under translation of
+$\varepsilon_{\rm per}$ gives
+\[
+ \norm{\mathcal T_aR_0\mathcal T_a^{-1}-R_0}\le2^{20}L^4|a|.
+\]
+Together with the derivative bound on $q_w(hx)$ this gives
+$\norm{\mathcal T_aS_h\mathcal T_a^{-1}-S_h}\le2^{32}L^4|a|$. Projecting $\mathcal T_au_h$ onto
+$u_h^\perp$, using the gap $2^{-192}L^2$, and choosing the real sign
+by positive overlap yields
+$\norm{\mathcal T_au_h-u_h}\le2^{256}L^2|a|$ for small $a$.
+The Fourier difference-quotient characterization then gives
+$u_h\in H^1$ with~\eqref{c:eq:modeH1}. Explicitly, Fatou applied to
+$|e^{iap_j}-1|^2/a^2$ bounds $\int p_j^2|(\mathcal Fu_h)(p)|^2\dd p$.
+This also justifies the zero extension across the ball boundary.
+\end{proof}
+
+Define the compactly supported source mode
+\begin{equation}
+ a_h=Q_h^*u_h=q_w(hx)u_h(r).                          \label{c:eq:source-mode}
+\end{equation}
+It satisfies the exact identity
+\begin{equation}
+ a_h=\mu_h^{-1}w(hx)R_0a_h.                           \label{c:eq:source-mode-equation}
+\end{equation}
+This identity, not a claim of an exact isolated eigenstate of the full
+infinite Maxwell operator, will control leakage.
+
+\begin{lemma}[Nonzero analytic source numerator]
+\label{c:lem:numerator}
+For real $\beta$ with $|\beta|\le h$, define the two analytic band
+source factors by
+\begin{align*}
+ F_h^+(q)&=(2\pi)^{-3/2}\int e^{-iq\cdot r}
+             \Phi_{-q}(r)\cdot a_h(r)\dd r,\\
+ F_h^-(q)&=(2\pi)^{-3/2}\int e^{iq\cdot r}
+             \Phi_q(r)\cdot a_h(r)\dd r.
+\end{align*}
+At $q=i\beta$ both are real and
+\begin{equation}
+ h^{3/2}F_h^\pm(i\beta)\ge2^{-48}.                   \label{c:eq:numeratorlower}
+\end{equation}
+The scaled product
+$\mathcal N_h(k)=h^3F_h^-(hk)F_h^+(hk)$ has uniformly bounded
+analytic derivatives of every fixed order on the neighborhoods used
+below. Up to order 32 the explicit bounds in
+Section~\ref{c:app:ledger} apply, independently of $h$.
+\end{lemma}
+\begin{proof}
+At imaginary momentum the cell functions are real by the normalization
+following Lemma~\ref{c:lem:edge}. Insert~\eqref{c:eq:modeapprox}, put
+$y=hx$, and use $e^{\pm\beta\cdot r}\ge e^{-1}$ on the support.
+The leading term is bounded below by
+\[
+ (2\pi)^{-3/2}e^{-1}2^{-29}
+ \int w(y)|\Phi_0(y/h)|^2\dd y.
+\]
+The last integral is at least $1/16$, as in the preceding proof.
+The change from $\Phi_0$ to $\Phi_{\pm i\beta}$ is at most a fixed
+explicit constant times $h$, by its Fourier $\ell^1$ Cauchy bound.
+The $L^2$ mode error contributes at most $\Cs h$ times a fixed
+support-volume and cell-field bound. Since $L\ge\Ls$, these errors
+are smaller than half the displayed positive lower bound, which proves
+\eqref{c:eq:numeratorlower}.
+
+Differentiation in $k$ introduces factors $hx$ of norm at most one,
+and derivatives of $\Phi_{hk}$ introduce $h$ times its fixed Cauchy
+constants. Cauchy--Schwarz bounds the rescaled $L^1$ norm of $a_h$ by a
+fixed number. Thus all fixed-order derivatives have the stated uniform
+bounds, even for real $k$ as large as the scaled chart. No differentiability
+of $u_h$ beyond its compact support is needed for this assertion.
+\end{proof}
+
+The scalar tuning interval is already explicit. At $v_* =1/\mu_h$,
+$v_*^{-1}I-S_h$ has a simple zero mode and complementary separation
+$2^{-192}L^2$. Every target diagonal in
+$[-2^{-196}L^2,2^{-196}L^2]$ is realized by
+$v=(\mu_h+\Theta_{ii})^{-1}$. These positive values are at most
+$2^{130}L^{-2}<1$. This is the auxiliary defect resonance used by the
+construction; its error as a physical Maxwell mode is established in
+Section~\ref{c:sec:leakage}.
+
+\section{Three-dimensional interactions with a strict rate margin}
+\label{c:sec:green}
+
+Translations below are ordinary Euclidean translations. For
+$R_\nu=2LdB\nu$, $\nu\in\Z^3\setminus\{0\}$, define
+\[
+ G_h(\nu)=Q_hR_0\mathcal T_{R_\nu}Q_h^*,\qquad
+ h_j(d)=\ip{u_h}{G_h(e_j)u_h}.
+\]
+Since $L$ is even, the corner phase $e^{ik_*\cdot R_\nu}$ equals one.
+
+\begin{lemma}[Full blocks and useful scalar couplings]
+\label{c:lem:interactions}
+For $L\ge\Ls$ and every integer $d\ge1$,
+\begin{equation}
+ \norm{G_h(\nu)}\le\Cs L^5
+       \big(3^{-d|\nu|_1}+e^{-\cs L}\big).              \label{c:eq:blockdecay}
+\end{equation}
+If $d\ge\ds$, $d^{15}\ge\Cs^4L$, and
+\begin{equation}
+ \Cs L^5e^{-\cs L}\le(c_u/4)L^2 8^{-d},              \label{c:eq:couplingtail}
+\end{equation}
+then, in all three coordinate directions,
+\begin{equation}
+ h_j(d)\ge c_uL^2 8^{-d}.                            \label{c:eq:couplinglower}
+\end{equation}
+The same upper bounds hold with $R_\sigma$ in place of $R_0$, after
+adding the norm error $16\sigma L^4$ for the whole compressed union.
+In particular the useful and unwanted exponential bases obey
+$(1/3)^2<1/8$.
+\end{lemma}
+This margin separates couplings with $|\nu|_1\ge2$ from the useful ones.
+Two occupied sites at $|\nu|_1=1$ would couple at the useful scale; the
+parity layout of Section~\ref{c:sec:network} places only intended
+terminal--mediator incidences at that distance. Condition
+\eqref{c:eq:couplingtail} is guaranteed by the parameter tests
+\eqref{c:eq:Ltailtest} and~\eqref{c:eq:tail-test}.
+
+\subsection{Contour movement for a smooth, nonanalytic cutoff}
+A compactly supported smooth cutoff cannot be treated as an analytic
+function. We give the error explicitly. If $\beta$ is real with
+$|\beta|\le h$, set $D_\beta=\beta\cdot\nabla_q$ and
+\begin{equation}
+ \chi_K(q+is\beta)=\sum_{j=0}^K\frac{(is)^j}{j!}D_\beta^j\chi(q),
+ \qquad
+ (\partial_s-iD_\beta)\chi_K
+ =-\frac{i(is)^K}{K!}D_\beta^{K+1}\chi.               \label{c:eq:almostanalytic}
+\end{equation}
+Use $K=\lfloor[4(2^{16}/q_0)|\beta|]^{-1}\rfloor$; $\beta=0$ needs no
+shift. Since $4\cdot2^{16}/q_0=2^{158}$ and $|\beta|\le h$, we have
+$K\ge\lfloor L/2^{158}\rfloor\ge1$, because $\Ls\ge2^{158}$.
+Lemma~\ref{c:lem:gevrey} and $K!\le K^K$ bound the last expression by
+$\Cs e^{-\cs L}$. Its support is in the cutoff transition, where the
+fiber inverse is uniformly bounded independently of $h$, including
+through the limiting contour used below. The sum $\chi_K$ and each
+of its first 32 derivatives are bounded by the fixed derivative
+majorants in Section~\ref{c:app:ledger}.
+
+Throughout, Bloch integrals carry the phase $e^{iq\cdot R}$, and the
+contour is shifted by $+is\beta$ with $\beta\cdot R\ge0$.
+For an analytic operator-valued integrand $Y$, differentiate
+\[
+ \mathcal J(s)=\int e^{i(q+is\beta)\cdot R}
+       Y(q+is\beta)\chi_K(q+is\beta)\dd q.
+\]
+Holomorphy turns the derivative of the exponential and $Y$ into a
+$q$-derivative. Integration by parts leaves exactly the last expression
+in~\eqref{c:eq:almostanalytic}. There is no boundary term because all
+cutoff derivatives vanish at the chart boundary. If $\beta\cdot R\ge0$,
+the exponential has modulus at most one along the movement. Hence the
+original integral differs from the shifted one by at most
+$\Cs e^{-\cs L}$ times the explicitly bounded source or cell factors.
+This is the only error introduced by moving the nonanalytic cutoff.
+
+\subsection{The upper bound}
+For real $q$ in the chart and
+$|H^{1/2}\beta|\le .99h$, the even Taylor expansion gives
+\begin{equation}
+ \operatorname{Re}(\lambda(q+i\beta)-z_h-\sigma)
+ \ge 2^{-8}(h^2+q^THq).                              \label{c:eq:tube}
+\end{equation}
+To verify it, the quadratic part is
+$h^2+q^THq-\beta^TH\beta$ up to $2h^4$.
+The quartic remainder and its mixed terms are absorbed using
+$M_4(4q_0)^2<10^{-6}/\varrho$ and $h\le\Ls^{-1}$.
+The other fiber directions remain separated by Lemma~\ref{c:lem:edge}.
+The inverse on this tube is therefore bounded by a fixed constant times
+$L^2$.
+
+For a displacement $R$ choose
+$\beta=.99h H^{-1}R/|H^{-1/2}R|$. The preceding contour calculation,
+applied between two period cells, gives an upper bound
+$\Cs L^2e^{-.99h|H^{-1/2}R|}+\Cs e^{-\cs L}$.
+Each radius-$L$ support meets at most a fixed multiple of $L^3$ cells.
+The row and column Schur bounds for the matrix of cell-block norms,
+and the bounded change of phase across a support, give
+\[
+ \norm{Q_hR_0\mathcal T_RQ_h^*}
+ \le\Cs L^5\big(e^{-.99h|H^{-1/2}R|}+e^{-\cs L}\big).
+\]
+For $R=2LdB\nu$,~\eqref{c:eq:Bmetric} and
+$|\nu|_2\ge|\nu|_1/\sqrt3$ show that the exponent per $d|\nu|_1$ is at least
+$2(.99)^2/\sqrt3>\log3$. This proves~\eqref{c:eq:blockdecay}.
+The elementary comparison follows, for example, from
+$\sqrt3<7/4$ and $\log3<11/10$, both certified by rational series.
+
+\subsection{The lower bound: pole and transverse Gaussian}
+For direction $e_j$, let $\beta_{j,h}>0$ be the unique small solution of
+\begin{equation}
+ E_c-\lambda(i\beta_{j,h}e_j)=E_c-z_h.
+                                                               \label{c:eq:betaroot}
+\end{equation}
+The even expansion, positivity of $H$, and the derivative of its
+quadratic term prove existence and uniqueness by monotonicity. They also
+give
+\begin{equation}
+ .99/\sqrt{H_{jj}}\le\beta_{j,h}/h\le1.01/\sqrt{H_{jj}},
+ \quad I_{j,h}:=2LB_{jj}\beta_{j,h}
+ \le2(1.01)^2<\log8-1/50.                            \label{c:eq:action}
+\end{equation}
+Coordinate reflection symmetry makes the transverse gradient zero at
+this point. For $0\le s<1$ the contour shifted by
+$is\beta_{j,h}e_j$ is nonsingular. At $s=1$, its only selected-band
+singularity is $q=0$. The real part of the denominator is at least a
+fixed positive multiple of $|q|^2$ there, so the inverse is bounded by
+$C(1+|q|^{-2})$, integrable in three dimensions. Dominated convergence
+justifies the limiting contour. All errors from
+\eqref{c:eq:almostanalytic} remain supported away from this singularity.
+
+Put $q=hk$, $b_{j,h}=\beta_{j,h}/h$, and
+\[
+ D_h(k)=h^{-2}(\lambda(hk)-z_h).
+\]
+After the shift the selected contribution has the form
+\begin{equation}
+ L^2e^{-I_{j,h}d}
+ \int e^{2iB_{jj}dk_j}
+ \frac{\mathcal N_h(k+ib_{j,h}e_j)}
+ {D_h(k+ib_{j,h}e_j)}\,
+ \chi_K(hk+i\beta_{j,h}e_j)\dd k.                   \label{c:eq:scaledgreen}
+\end{equation}
+The normalization of $\mathcal N_h$ already includes $(2\pi)^{-3}$.
+The other bands have the same exponential prefactor and a smooth
+integrand. The cutoff movement adds at most $\Cs L^5e^{-\cs L}$.
+
+Write $k=k_\parallel e_j+k_\perp$ with $k_\perp\perp e_j$. Near zero the denominator in
+\eqref{c:eq:scaledgreen} has
+\[
+ D(0,0)=0,\quad D_\parallel(0,0)=ic_{j,h},\quad D_\perp(0,0)=0,
+ \qquad c_{j,h}>0,
+\]
+with real positive transverse Hessian $Q_{j,h}$. The explicit bounds
+above give
+\begin{equation}
+ 1<c_{j,h}<2^{112},\qquad
+ 2^{98}I<Q_{j,h}<2^{110}I.                            \label{c:eq:polebounds}
+\end{equation}
+On a complex radius-one neighborhood after scaling, the analytic
+functions and their derivatives have bounds independent of $h$;
+$h\le\Ls^{-1}$ keeps this neighborhood far inside the Bloch chart.
+The elementary analytic implicit-function construction, by contraction
+in the $k_\parallel$ variable, gives the unique pole
+\begin{equation}
+ k_\parallel=p_h(k_\perp)=\frac{i}{2c_{j,h}}k_\perp^TQ_{j,h}k_\perp+O(|k_\perp|^3),
+ \qquad \operatorname{Im}p_h(k_\perp)\ge2^{-256}|k_\perp|^2
+                                                               \label{c:eq:pole}
+\end{equation}
+on $|k_\perp|\le2^{-4096}$. The explicit contraction and derivative bounds
+are recorded in Section~\ref{c:app:ledger}. In particular this is a
+uniform neighborhood, not one chosen separately for each input.
+
+Factor $D(k_\parallel,k_\perp)=(k_\parallel-p_h(k_\perp))d_1(k_\parallel,k_\perp)$ and divide the analytic numerator:
+\[
+ \frac{\mathcal N_h(k_\parallel e_j+k_\perp+ib_{j,h}e_j)}{D(k_\parallel,k_\perp)}
+   =\frac{\mathcal A_h(k_\perp)}{k_\parallel-p_h(k_\perp)}+\mathcal W_h(k_\parallel,k_\perp),
+ \quad \mathcal A_h(0)=\frac{\mathcal N_h(ib_{j,h}e_j)}{ic_{j,h}}.
+\]
+Choose smooth cutoffs equal to one on a smaller fixed neighborhood,
+with all poles over the transverse support inside the core of the
+longitudinal cutoff. For $T=2B_{jj}d>0$ and $k_\perp\ne0$,
+\[
+ \int_{\R}\frac{e^{iTu}}{k_\parallel-p_h(k_\perp)}\dd k_\parallel=2\pi i e^{iTp_h(k_\perp)}.
+\]
+This identity follows by closing the contour in the upper half-plane;
+alternatively integrate on a finite interval first. The oscillatory
+tails are bounded by $C/(TR)$ by integration by parts and then tend
+to zero. Replacing the full line by the longitudinal cutoff has error
+$O(T^{-16})$, since the removed region stays a fixed distance from the
+poles and its positive-order derivatives are integrable.
+
+Now put $k_\perp=T^{-1/2}y$. Taylor's formula and~\eqref{c:eq:pole} give
+\[
+ \int \mathcal A_h(k_\perp)e^{iTp_h(k_\perp)}\dd k_\perp
+ =\mathcal A_h(0)\frac{2\pi c_{j,h}}{T\sqrt{\det Q_{j,h}}}
+    +O(T^{-3/2}).
+\]
+Indeed the amplitude error is bounded by $C|k_\perp|$ and the exponent error
+by $CT|k_\perp|^3$, both against $e^{-2^{-257}T|k_\perp|^2}$. Their radial
+integrals are bounded by fixed constants times $T^{-3/2}$.
+The omitted Gaussian tails have the same bound after increasing the
+fixed constant. Thus the leading coefficient in~\eqref{c:eq:scaledgreen}
+is
+\begin{equation}
+ b^0_{j,h}=\frac{4\pi^2\mathcal N_h(ib_{j,h}e_j)}
+ {2B_{jj}\sqrt{\det Q_{j,h}}},\qquad
+ 2^{-512}\le b^0_{j,h}\le\Cs.                         \label{c:eq:leadingcoefficient}
+\end{equation}
+The lower bound follows from~\eqref{c:eq:numeratorlower},
+$B_{jj}<2^{53}$, and~\eqref{c:eq:polebounds}. In particular the leading
+term cannot cancel between polarizations.
+
+We also need a uniform bound on the remainder outside the pole chart,
+whose scaled domain grows like $1/h$. For $|k|$ outside a fixed
+neighborhood, the selected denominator and its derivatives satisfy
+\[
+ |D_h(k+ib_{j,h}e_j)|\ge c(1+|k|^2),\qquad
+ |\partial^K D_h(k+ib_{j,h}e_j)|
+ \le C_K(1+|k|)^{2-K}.
+\]
+For orders $K\ge3$ use $h^{K-2}$ from differentiation and
+$h\le4q_0/|k|$ on the scaled chart. The inverse-derivative recurrence
+then gives the corresponding order $-2$ symbol bounds. Each fixed
+numerator derivative is bounded by Lemma~\ref{c:lem:numerator}. The
+localized regular integrand consists of the regular quotient $\mathcal W_h$ times
+the pole-chart cutoffs, the selected quotient outside the pole chart,
+including the transition shell of $\chi_K$, and the other bands. Hence the
+$L^1$ norm of the sixteenth longitudinal derivative of the localized
+regular integrand is at most $\Cs/h$. The integral of
+$(1+|k|)^{-2}$ over a radius-$4q_0/h$ ball is $O(1/h)$.
+For the other bands the scaled inverse includes a factor $h^2$ and
+its integral over that ball is also $O(1/h)$. Derivatives of the
+shifted cutoff are bounded uniformly, as shown after
+\eqref{c:eq:almostanalytic}. Sixteen integrations by parts therefore
+bound this entire regular contribution by $\Cs Ld^{-16}$ inside the
+brackets of the following estimate:
+\begin{equation}
+ \left|h_j(d)-L^2e^{-I_{j,h}d}\frac{b^0_{j,h}}d\right|
+ \le\Cs L^2e^{-I_{j,h}d}
+       (d^{-3/2}+Ld^{-16})+\Cs L^5e^{-\cs L}.          \label{c:eq:greenremainder}
+\end{equation}
+This calculation includes the full regular spectral complement, not
+only the selected-band numerator. Here, as throughout, $\Cs$ is the
+fixed number in~\eqref{c:eq:masterconstants}.
+
+For $d\ge\Cs^8$ and $d^{15}\ge\Cs^4L$, the first two errors in
+\eqref{c:eq:greenremainder} are less than one quarter of the main term.
+Equation~\eqref{c:eq:action} gives a strict exponential margin; for these
+$d$, $e^{d/50}/d$ is larger than $2^{1024}$. The last error is absorbed
+by~\eqref{c:eq:couplingtail}. This proves~\eqref{c:eq:couplinglower} and
+completes Lemma~\ref{c:lem:interactions}.
+
+\begin{lemma}[Off-support and periodization estimates]
+\label{c:lem:cellbounds}
+Let $\Box_a=2a+[0,2)^3$ be period cells. For $0\le\sigma\le h^4/64$,
+let $\mathscr R_\sigma$ denote the local fiber inverse on the support
+of $\chi$, before multiplication by $\chi$, and define
+\begin{equation}
+ R_\sigma^{(j)}=
+ \chi\mathscr R_\sigma(\partial_j\varepsilon_{\rm per})
+       \mathscr R_\sigma.
+                                                               \label{c:eq:Rderivative}
+\end{equation}
+For $\mathcal R=R_\sigma$ or $\mathcal R=R_\sigma^{(j)}$,
+\begin{align}
+ \norm{\one_{\Box_a}\mathcal R\one_{\Box_b}}
+ &\le\Cs L^4\big(e^{-\cs\dist(\Box_a,\Box_b)/L}+e^{-\cs L}\big),
+                                                               \label{c:eq:cellspatial}\\
+ \norm{\one_{\Box_a}\mathcal R\one_{\Box_b}}
+ &\le\Cs L^4 e^{-\cs\sqrt{|a-b|/L}}.                 \label{c:eq:cellgevrey}
+\end{align}
+For $f_{\rm a}\in H^1$,
+\begin{equation}
+ \partial_j(R_\sigma f_{\rm a})=R_\sigma\partial_jf_{\rm a}+
+                         R_\sigma^{(j)}f_{\rm a}.            \label{c:eq:derivativeidentity}
+\end{equation}
+The auxiliary source $f_{\rm a}$ of Section~\ref{c:sec:assembly} belongs to $H^1$
+by Lemma~\ref{c:lem:auxrecovery}.
+\end{lemma}
+\begin{proof}
+The first estimate repeats the nonsingular tube argument. A product of
+two local inverses has norm at most a fixed constant times $L^4$ on
+a slightly smaller tube. Equation~\eqref{c:eq:Bmetric} is not needed:
+the smallest Euclidean decay rate is at least a fixed multiple of
+$h/\sqrt{\norm A}$, larger than $\cs h$.
+
+For the second estimate, the cell-fiber integrand is analytic in a
+complex strip of width at least $2^{-256}h$ over the real support of
+the cutoff. Cauchy's estimate, the Gevrey bounds on $\chi$, and the
+bounded cell gauge factors give derivatives of order $K$ at most
+\[
+ \Cs L^4(2^{512}L)^K(K!)^2.
+\]
+Integrating by parts in the cell Fourier coefficient and optimizing
+$K$ as in Lemma~\ref{c:lem:gevrey} proves~\eqref{c:eq:cellgevrey}, with
+the smaller constant $\cs$ in the exponent. This summable estimate,
+rather than the nondecaying error term in~\eqref{c:eq:cellspatial}, is
+used for periodization.
+
+For~\eqref{c:eq:derivativeidentity}, translate the periodic material and
+use the local resolvent identity, then differentiate at zero. The
+cutoff commutes with translations. The formula contains
+one factor $\chi$, not two, since $\chi$ is not a projection. The local
+inverse without $\chi$ in~\eqref{c:eq:Rderivative} is essential for
+this identity. The norm bounds justify the difference-quotient limit.
+No $H^1$ estimate on individual cell restrictions or artificial cell
+traces is used.
+\end{proof}
+
+\section{Leakage from the auxiliary channel}
+\label{c:sec:leakage}
+
+The estimates in this section are the replacement for a complete bulk
+band gap. They control the actual error produced by the cutoff in
+\eqref{c:eq:Ridentities}.
+
+\begin{lemma}[A nested momentum-cutoff estimate]
+\label{c:lem:leakage}
+Let $r_i\in2\Z^3$, $1\le i\le J$, and suppose the balls
+$\mathbb B_L+r_i$ are disjoint. Put
+\[
+ W(r)=\sum_i v_iw(h(r-r_i)),\qquad
+ 0\le v_i\le2^{130}h^2,
+ \qquad a_i=\mathcal T_{r_i}a_h.
+\]
+If $f_* =\sum_i c_i a_i$ and
+\begin{equation}
+ f_{\rm a}=f_*+WR_\sigma f_{\rm a},                                  \label{c:eq:tequation}
+\end{equation}
+then
+\begin{equation}
+ \norm{(1-\chi)f_{\rm a}}\le
+ \Cs(1+J)e^{-\cs L^{1/3}}
+       \left(\norm{f_{\rm a}}+\sum_i|c_i|\right).             \label{c:eq:leakage}
+\end{equation}
+No support or polarization condition is imposed on $f_{\rm a}$ in this lemma.
+\end{lemma}
+\begin{proof}
+Let $P_{\ge s}$ be the Bloch-momentum projection onto torus distance at least
+$s$ from the corner. On the support of $\chi$ with $|q|\ge q_0/4$,
+\eqref{c:eq:edgebounds} and~\eqref{c:eq:quartic} give
+\begin{equation}
+ \norm{P_{\ge s}R_\sigma}\le2^{192}\quad(s\ge q_0/4).
+                                                               \label{c:eq:highqbound}
+\end{equation}
+For example the quadratic denominator at $q_0/4$ is at least
+$2^{-187}$, and the other bands are separated. Disjointness gives
+$\norm W\le2^{130}h^2$, so their product is less than $1/4$.
+
+If the two Bloch-momentum sets are separated by $\Delta_q$, multiplication
+by $W$ between them has norm at most
+\begin{equation}
+ 2^{100}J\max_i v_i\,e^{-\sqrt{\Delta_q/h}/512}.         \label{c:eq:fouriercross}
+\end{equation}
+Indeed its physical Fourier convolution kernel is the sum of translated
+copies of $v_ih^{-3}(\mathcal Fw)(p/h)$. Frequencies in the two sets
+differ in physical momentum by at least their reciprocal-torus
+distance $\Delta_q$. Young's inequality and~\eqref{c:eq:gevreytail}
+prove~\eqref{c:eq:fouriercross}. Possible changes of reciprocal alias
+do not invalidate this lower bound on physical momentum difference.
+
+Apply $P_{\ge s}$ to~\eqref{c:eq:tequation}, split the input at $s-\Delta_q$,
+and use that $R_\sigma$ commutes with these projections. The high-input
+part is bounded by $\tfrac14\norm{P_{\ge s-\Delta_q}f_{\rm a}}$. The low-input
+part is bounded by~\eqref{c:eq:fouriercross} times $4L^2\norm{f_{\rm a}}$.
+The factor $h^2$ in $v_i$ cancels this $L^2$; the resulting constant
+is at most $2^{232}J$.
+
+First apply this argument to~\eqref{c:eq:source-mode-equation}. It holds
+also for every translated $a_i$, because the centers are period
+translations. Use $K=\lceil L^{1/3}\rceil$ nested cutoffs from
+$q_0/4$ to $q_0/2$, with step $\Delta_q=q_0/(4K)$ and coefficient
+$\mu_h^{-1}\le2^{128}h^2$. Iteration gives
+\[
+ \norm{P_{\ge q_0/2}a_i}\le
+ 4^{-K}\norm{a_i}+
+ 2^{233}e^{-\sqrt{q_0L/(4K)}/512}\norm{a_i}
+ \le\Cs e^{-\cs L^{1/3}},
+\]
+since $\norm{a_i}\le1$. The last comparison uses
+$K\le2L^{1/3}$ and $q_0=2^{-140}$; even the much larger exponent
+constant $2^{-84}$ would suffice.
+
+Now iterate the same inequality for $f_{\rm a}$ from $q_0/2$ to $q_0$.
+Every source term is at most
+$\Cs e^{-\cs L^{1/3}}\sum_i|c_i|$ by the preceding estimate.
+The geometric sum of the contraction factors is less than two.
+The initial remainder is $4^{-K}\norm{f_{\rm a}}$, and all low-input leakage
+terms have the same exponential bound. Finally $1-\chi$ vanishes on
+$|q|<q_0$, so its norm is bounded by that of $P_{\ge q_0}f_{\rm a}$.
+This proves~\eqref{c:eq:leakage} for every component. It also covers
+momentum outside the chart, where $R_\sigma$ is zero.
+\end{proof}
+
+For $E_{\rm a}=R_\sigma f_{\rm a}$ satisfying~\eqref{c:eq:tequation}, the exact
+physical residual in the infinite medium is therefore
+\begin{equation}
+ (A_{\rm per}-z_h-\sigma-W)E_{\rm a}-f_*
+       =-(1-\chi)f_{\rm a}.                                 \label{c:eq:physicalleakidentity}
+\end{equation}
+The construction below makes the right side smaller than the required
+inverse-polynomial budget. The cutoff is not being inserted into the
+physical equation.
+
+\section{Finite algebra and assembly of the auxiliary response}
+\label{c:sec:assembly}
+
+\subsection{The counted logical network}\label{c:sec:network}
+We use the logical interface of Lemma~\ref{c:lem:logical}.
+
+
+Thus $1\le\norm g\le\sqrt m$.
+Double the logical lattice. Put a terminal at each doubled vertex and
+one mediator at the midpoint of each actual edge. If $J$ is the total
+number of these sites, then $J\le2^{19}\ell_{\rm p}^3$. Multiply their coordinates
+by $2LdB$. All centers are in $2\Z^3$. At placement-lattice distance
+one the only occupied pairs are the intended terminal--mediator
+incidences: terminals have all coordinates even, and a midpoint has
+exactly one odd coordinate. Every other occupied pair is at distance
+at least two. This includes the two vertices of a parity detour in
+Section~\ref{d:app:routing}, which are lattice-adjacent but not joined
+by a path edge: after doubling they lie at distance two with no mediator
+between them. The physical balls are disjoint.
+
+\subsection{Explicit separation and diagonal tuning}
+For the moment suppose $L,d$ satisfy the tests below; their terminating
+selection is proved in Section~\ref{c:sec:parameters}. Put
+\begin{equation}
+ \zeta=3^{-d},\qquad
+ \alpha=(c_u/4)L^2 8^{-d}=2^{-1026}L^2 8^{-d}.         \label{c:eq:alpha}
+\end{equation}
+Require
+\begin{align}
+ d&\ge\ds, &d^{15}&\ge\Cs^4L, &\alpha&\le1,\\
+ \Cs^4L^{12}\zeta&\le\ee/2^{24},
+ &\Cs^4L^{12}\zeta^2&\le\alpha\ee/(2^{24}\overline K),          \label{c:eq:dtests}\\
+ J\Cs L^5e^{-\cs L}&\le\zeta^2/4.                   \label{c:eq:Ltailtest}
+\end{align}
+The last two inequalities imply~\eqref{c:eq:couplingtail}.
+Calibrate the three real numbers $-h_j(d)$ by dyadic $\beta_j$ with
+absolute error at most $\zeta^2/16$. Lemma~\ref{c:lem:interactions} gives
+$|\beta_j|\ge3\alpha$.
+
+Order terminals first and mediators second. Define the target matrix
+$\Theta$ by incidences $\beta_j$ for a mediator in direction $j$ and
+\begin{equation}
+ \Theta_{ii}=\alpha(\Gamma_{ii}-\deg i),\qquad
+ \Theta_{ee}=-\beta_j^2/\alpha.                            \label{c:eq:T}
+\end{equation}
+Its mediator Schur complement is exactly $\alpha\Gamma$. If $\Theta_{\rm tm},\Theta_{\rm mm}$
+are its incidence and mediator blocks, then
+\begin{equation}
+ \norm{\Theta_{\rm mm}^{-1}}\le\alpha^{-1},\quad
+ \norm{\Theta_{\rm tm}\Theta_{\rm mm}^{-1}}\le\sqrt6,\quad
+ \norm{\Theta^{-1}}\le16\overline K/\alpha.                         \label{c:eq:Tinverse}
+\end{equation}
+Indeed each mediator contributes
+$-\beta_j(-\beta_j^2/\alpha)^{-1}\beta_j=\alpha$ to both endpoint
+diagonals and to their mutual edge. The endpoint diagonal correction
+cancels the degree term in~\eqref{c:eq:T}. Each entry of
+$\Theta_{\rm tm}\Theta_{\rm mm}^{-1}$ has magnitude at most $1/3$; its row and column degrees
+are at most three and two. Triangular block factorization proves
+\eqref{c:eq:Tinverse}. For any residual vector,
+\begin{equation}
+ \norm{\Gamma z_{\rm t}-g}\le(4/\alpha)
+             \norm{\Theta z-\alpha g_\Theta}.                 \label{c:eq:mediatorres}
+\end{equation}
+
+Choose positive dyadic $v_i$ so that
+\begin{equation}
+ |v_i^{-1}-(\mu_h+\Theta_{ii})|\le\zeta^2.                \label{c:eq:vtuning}
+\end{equation}
+For terminals, $|\Theta_{ii}|\le6\alpha\le6$ and $L\ge\Ls$ give
+$|\Theta_{ii}|\le2^{-196}L^2$. For mediators, $|\beta_j|\le2\Cs L^5\zeta$
+and the second smallness test give the same bound.
+Thus the tuning interval following Lemma~\ref{c:lem:numerator} applies,
+and $0<v_i\le2^{130}L^{-2}<1$.
+To implement~\eqref{c:eq:vtuning}, enclose $\mu_h$ to $\zeta^2/16$,
+form the rational target, and round its reciprocal on a dyadic grid
+of spacing at most $\zeta^2/(16L^4)$. The reciprocal derivative is
+at most $4L^4$ on this interval. This is a finite precision rule,
+not an exact-real tuning instruction.
+
+Let $\tau$ be the largest power of two not exceeding
+\begin{equation}
+ \frac{\zeta^2}{2^{24}L^4}.                           \label{c:eq:tau}
+\end{equation}
+All $0\le\sigma\le\tau$ satisfy~\eqref{c:eq:Ridentities}; in particular
+$\norm{R_\sigma-R_0}\le\zeta^2/2^{20}$.
+Let $Q$ collect the translated $Q_h$ blocks, let $V_{\rm d}=\diag(v_iI)$,
+and set
+\begin{equation}
+ W=Q^*V_{\rm d}Q,\qquad
+ \MM=V_{\rm d}^{-1}-QR_\sigma Q^*.                          \label{c:eq:Mdef}
+\end{equation}
+Here the defect direct sum is infinite dimensional, and $\norm Q\le1$.
+
+\begin{lemma}[Stable auxiliary assembly]
+\label{c:lem:assembly}
+For every $0\le\sigma\le\tau$, $\MM$ is invertible and
+$\norm{\MM^{-1}}\le256\overline K/\alpha$. If $U$ inserts $u_h$ at every site,
+then its bright Schur block has the form
+\begin{equation}
+ S_b=\Theta+\Delta,\qquad
+ \norm\Delta\le\Cs^4L^{12}\zeta^2,
+ \qquad \norm{S_b^{-1}}\le32\overline K/\alpha.                \label{c:eq:bright}
+\end{equation}
+All complementary modes and all unwanted interactions are included.
+\end{lemma}
+The parity layout of Section~\ref{c:sec:network} is essential here:
+it places every unwanted occupied pair at $|\nu|_1\ge2$, so that all
+unwanted couplings enter the non-neighbor sum of order $\zeta^2$ below.
+Lemma~\ref{c:lem:interactions} alone does not exclude unwanted pairs at
+$|\nu|_1=1$, whose coupling would be of the useful size.
+\begin{proof}
+For $0<\zeta\le1/2$, the elementary identity
+$\sum_{\nu\in\Z^3}\zeta^{|\nu|_1}=((1+\zeta)/(1-\zeta))^3$ gives
+\[
+ \sum_{\nu\ne0}\zeta^{|\nu|_1}\le64\zeta,
+ \qquad\sum_{|\nu|_1\ge2}\zeta^{|\nu|_1}\le256\zeta^2.
+\]
+The matrix of block norms bounds the complete operator by its row and
+column sums. The geometric part of~\eqref{c:eq:blockdecay} therefore
+has norm at most $64\Cs L^5\zeta$, and its non-neighbor part at most
+$256\Cs L^5\zeta^2$. The nondecaying contour error is summed only
+over the finite collection:~\eqref{c:eq:Ltailtest} bounds it by
+$\zeta^2/4$. It has not been summed over an infinite lattice.
+The uniform detuning changes the whole compressed union by at most
+$\zeta^2/2^{20}$, independently of $J$.
+
+Write the bright/complement decomposition of $\MM$ as
+$\left(\begin{smallmatrix}\MM_{bb}&\MM_{bc}\\\MM_{bc}^*&\MM_{cc}\end{smallmatrix}\right)$.
+At infinite separation its complementary block is the direct sum of
+$\mu_hI-S_h$ on $u_h^\perp$, with gap $2^{-192}L^2$.
+On-site scalar shifts have no mixed block. The displayed row sums and
+\eqref{c:eq:dtests} give
+\[
+ \norm{\MM_{cc}^{-1}}\le2^{194}L^{-2},\qquad
+ \norm{\MM_{bc}}\le128\Cs L^5\zeta,\qquad
+ 1+\norm{\MM_{bc}}\norm{\MM_{cc}^{-1}}\le2.
+\]
+This is an inverse-perturbation argument, valid even though the
+complement may be indefinite. Direct bright errors consist of diagonal
+rounding, incidence calibration, detuning, and the non-neighbor sum.
+Adding $\MM_{bc}\MM_{cc}^{-1}\MM_{bc}^*$ bounds their sum by
+$\Cs^4L^{12}\zeta^2$. Equations~\eqref{c:eq:Tinverse} and
+\eqref{c:eq:dtests} make $\norm{\Theta^{-1}\Delta}<1/2$, proving the inverse
+bound for $S_b$. A second triangular factorization, with factors of
+norm at most two, gives $\norm{\MM^{-1}}\le256\overline K/\alpha$.
+\end{proof}
+
+\subsection{\texorpdfstring{A local $L^2$ source and its auxiliary logical response}{A local L2 source and its auxiliary logical response}}
+Put $g_\Theta=(g,0)$ and define the ideal source
+\begin{equation}
+ f_*=(\alpha/\mu_h)Q^*Ug_\Theta.                          \label{c:eq:idealsource}
+\end{equation}
+It is a compactly supported $H^1$ function, hence a genuine $L^2$ source.
+No unbounded operator is applied in its definition. Define, only for
+analysis,
+\begin{align}
+ w_d&=\MM^{-1}QR_\sigma f_*,\\
+ E_{\rm a}&=R_\sigma(f_*+Q^*w_d),\qquad
+ f_{\rm a}=f_*+Q^*w_d.                                      \label{c:eq:auxsolution}
+\end{align}
+Then $w_d=V_{\rm d}QE_{\rm a}$ and $f_{\rm a}=f_*+WE_{\rm a}$, so
+\eqref{c:eq:tequation} holds. The encoder never computes this inverse or
+this field.
+
+\begin{lemma}[Auxiliary recovery and magnitude bounds]
+\label{c:lem:auxrecovery}
+Let $z=U^*V_{\rm d}QE_{\rm a}$, i.e., $z_i=v_i\ip{E_{\rm a}}{a_i}$ are the
+volume moments~\eqref{c:eq:idealreadout} of $E_{\rm a}$. Then
+\begin{equation}
+ \norm{\Gamma z_{\rm t}-g}\le\ee\norm g/1024.                  \label{c:eq:auxlogical}
+\end{equation}
+Also
+\begin{align}
+ 2^{-256}\alpha L^{-2}\norm g&\le\norm{f_*}\le\norm g,\\
+ \norm{f_{\rm a}}&\le\Cs \overline K\norm g,
+ &\norm{E_{\rm a}}&\le\Cs \overline KL^2\norm g,\\
+ \norm{f_{\rm a}}_{H^1}&\le\Cs^4\overline K^2\alpha^{-1}L^4\norm g,
+ &\norm{E_{\rm a}}_{H^1}&\le\Cs^5\overline K^2\alpha^{-1}L^6\norm g.
+                                                               \label{c:eq:auxnorms}
+\end{align}
+\end{lemma}
+\begin{proof}
+On each diagonal block $Q_hR_0Q_h^*u_h=\mu_hu_h$.
+The off-site row sums and the detuning bound therefore give
+\[
+ QR_\sigma f_*=\alpha Ug_\Theta+\rho_s,
+ \qquad\norm{\rho_s}\le\alpha\ee\norm g/2^{24}.
+\]
+Here the factor $\mu_h^{-1}\le2^{128}L^{-2}$ is absorbed by the first
+smallness test in~\eqref{c:eq:dtests}. Eliminating the complement
+multiplies this error by at most two. Thus
+$\norm{S_bz-\alpha g_\Theta}\le\alpha\ee\norm g/2^{23}$ and
+$\norm z\le33\overline K\norm g$. Adding $\Delta z$, using the second test, and
+applying~\eqref{c:eq:mediatorres} proves~\eqref{c:eq:auxlogical} with
+room to spare.
+
+Since $\mu_h=\ip{a_h}{R_0a_h}\le4L^2\norm{a_h}^2$,
+$\norm{a_h}\ge2^{-65}$. Disjoint supports,~\eqref{c:eq:mugap}, and
+\eqref{c:eq:alpha} give the source bounds. From
+\eqref{c:eq:Ridentities} and Lemma~\ref{c:lem:assembly},
+\[
+ \norm{QR_\sigma f_*}\le2^{130}\alpha\norm g,
+ \quad\norm{w_d}\le2^{138}\overline K\norm g,
+ \quad\norm{E_{\rm a}}\le2^{141}\overline KL^2\norm g,
+\]
+which are smaller than the stated master bounds.
+
+For regularity, the exact identity
+\begin{equation}
+ (I-WR_\sigma)^{-1}=I+Q^*\MM^{-1}QR_\sigma            \label{c:eq:t-inverse}
+\end{equation}
+has norm at most $1+1024\overline KL^2/\alpha$. It is checked by direct
+multiplication. Translate~\eqref{c:eq:tequation}. The source derivative
+is bounded using~\eqref{c:eq:modeH1}. Disjointness gives
+$\norm{\nabla W}_\infty\le\Cs h^3$. The resolvent $R_\sigma$ commutes
+only with period translations; conjugation by a translation $\mathcal T_a$ moves
+$\varepsilon_{\rm per}$, and the resolvent identity used
+for~\eqref{c:eq:modeH1} gives
+$\norm{\mathcal T_aR_\sigma\mathcal T_a^{-1}-R_\sigma}\le\Cs L^4|a|$.
+Subtracting the translated equation and applying~\eqref{c:eq:t-inverse}
+therefore bounds its difference quotient by
+$\Cs^4\overline K^2\alpha^{-1}L^4G$. The Fourier difference-quotient argument
+proves $f_{\rm a}\in H^1$. Equation~\eqref{c:eq:derivativeidentity} then gives
+the last bound in~\eqref{c:eq:auxnorms}. Both $f_{\rm a}$ and its weak first
+derivatives are supported in the union of the well balls.
+\end{proof}
+
+\section{Finite PEC boundaries and the actual material}
+\label{c:sec:boundary}
+
+Choose an even integer-sided box containing every well ball at distance
+at least $\ell_{\rm buf}+4$ from its boundary. Translate the whole layout by an even
+integer vector if needed. Let $\vartheta_\Omega$ be a real $C^2$ cutoff,
+equal to one at distance at least two from the boundary and zero at
+distance at most one. It can be made as a product of the quintic ramp
+$10s^3-15s^4+6s^5$ on $[0,1]$ and its reflected copies; its first two
+derivatives are bounded by $2^{20}$. Put
+\begin{equation}
+ E_{\rm ref}=\vartheta_\Omega E_{\rm a}.                \label{c:eq:cutfield}
+\end{equation}
+It lies in $D(\Cc)$ for the finite PEC box. Indeed $E_{\rm a}\in H^1$
+by~\eqref{c:eq:auxnorms},
+its curl--curl belongs to $L^2$ by~\eqref{c:eq:Ridentities}, and the
+commutator with a $C^2$ cutoff is first order in $E_{\rm a}$.
+The resulting field has compact support inside the box.
+
+Define the explicit majorant
+\begin{equation}
+ \Xi=\Cs^{32}(1+N_\Omega)^2(1+J+m)^2
+                  (1+\overline K)^4(1+\alpha^{-1})^2L^{100}.   \label{c:eq:Pglobal}
+\end{equation}
+\begin{lemma}[A physical finite-box approximate solution]
+\label{c:lem:cutresidual}
+For the ideal scalar material
+$\varepsilon_{\rm id}=\varepsilon_{\rm per}+z_h+\sigma+W$,
+\begin{equation}
+ \norm{(\Cc-\varepsilon_{\rm id})E_{\rm ref}-f_*}
+ \le\Xi\big(e^{-\cs L^{1/3}}+e^{-\cs \ell_{\rm buf}/L}\big)\norm g.
+                                                               \label{c:eq:cutresidual}
+\end{equation}
+Furthermore $\norm{E_{\rm ref}}\le\Cs \overline KL^2\norm g$, and all ideal readout
+moments on the wells are unchanged by the cutoff.
+\end{lemma}
+\begin{proof}
+Equation~\eqref{c:eq:physicalleakidentity} gives the bulk error. In
+Lemma~\ref{c:lem:leakage}, $\sum_i|c_i|\le
+(\alpha/\mu_h)\sqrt m\,\norm g$, so~\eqref{c:eq:auxnorms} bounds it by the
+first term of~\eqref{c:eq:cutresidual}.
+
+The cutoff commutator is
+\[
+ [\curl\curl,\vartheta_\Omega]E
+   =\nabla\vartheta_\Omega\times\curl E
+       +\curl(\nabla\vartheta_\Omega\times E).
+\]
+Its norm is bounded by $2^{24}$ times the $H^1$ norm of $E$ on the
+boundary strip. Apply~\eqref{c:eq:cellspatial} to the compactly supported
+$f_{\rm a}$ and $\partial_jf_{\rm a}$, and use~\eqref{c:eq:derivativeidentity}.
+The matrix of cell-block norms between that support and the boundary
+strip has norm at most its entry bound times the geometric mean of
+the two cell counts, at most a fixed multiple of $N_\Omega$.
+Their cell separation is at least $\ell_{\rm buf}$ up to the already reserved fixed
+margin. Thus the boundary $H^1$ norm is bounded by
+\[
+ \Cs^8 N_\Omega \overline K^2\alpha^{-1}L^{10}
+        (e^{-\cs \ell_{\rm buf}/L}+e^{-\cs L})\norm g.
+\]
+The constant and powers are smaller than~\eqref{c:eq:Pglobal}.
+Since $L\ge1$, $e^{-\cs L}\le e^{-\cs L^{1/3}}$.
+This proves the residual bound. The cutoff equals one on the wells,
+so the other assertions follow immediately.
+\end{proof}
+
+The actual output material uses a finite radial polynomial $\widetilde p_{\rm r}(t)$
+with dyadic coefficients, approximating $e^{-1/[2(1-t)]}$ on
+$0\le t\le1$, with $\widetilde p_{\rm r}(1)=\widetilde p_{\rm r}'(1)=0$. Outside each ball it is zero.
+Set
+\begin{equation}
+ \overline\varepsilon_0(r)=7+z_h+\varrho V_0(r)
+       +\sum_i v_i \widetilde p_{\rm r}(|r-r_i|^2/L^2)^2\one_{|r-r_i|<L},
+ \qquad \overline\varepsilon=\overline\varepsilon_0+\sigma.
+                                                               \label{c:eq:actualmaterial}
+\end{equation}
+Section~\ref{c:sec:representation} constructs this polynomial with a
+prescribed uniform error and proves its cost. The polynomial square is
+nonnegative. The background is between six and eight; the well
+increments are less than one, and all approximation budgets are less
+than $1/16$. Thus $1\le\overline\varepsilon\le25$ on every draw
+(in fact it stays between six and ten).
+
+Let
+\begin{equation}
+ e_0=\frac{\ee}{2^{24}J_\Gamma L_b},\qquad J_\Gamma=8.
+                                                               \label{c:eq:e0}
+\end{equation}
+Here $J_\Gamma=8$ is an upper bound for $\norm\Gamma\le7$, which
+multiplies the moment errors in~\eqref{c:eq:final-logical}.
+Choose the material approximation so that
+\begin{equation}
+ \norm{\overline\varepsilon-
+          (\varepsilon_{\rm per}+z_h+\sigma+W)}_\infty
+       \le\frac{e_0}{4\Cs \overline KL^2}.                    \label{c:eq:materialprecision}
+\end{equation}
+Its additional residual on $E_{\rm ref}$ is at most $e_0\norm g/4$.
+This bounded-multiplication comparison is why the output polynomial
+need not retain the ideal well's Gevrey smoothness or exact Bloch
+localization. It is not justified by qualitative convergence.
+The random detuning of Lemma~\ref{c:lem:detuning} is applied to the
+\emph{actual} material~\eqref{c:eq:actualmaterial}, after its finite
+approximation has been fixed.
+
+\section{Terminating parameter selection}
+\label{c:sec:parameters}
+
+All choices in this section use integers and rational comparisons. In
+particular, the encoder does not need a real logarithm or a decision
+about an exact transcendental equality. The logical parameters
+$\overline K,\ee,J$ and the occupied sites have already been computed.
+Write $\ell=1+\lceil\log_2(2+m)\rceil$.
+
+For a candidate power of eight $L\ge\max(\Ls,\ell^6)$, starting with the
+least such power and multiplying by eight after each failure, choose $d$ by
+starting at one and doubling until the rational tests
+\eqref{c:eq:dtests} hold. The tests include $d\ge\ds$,
+$d^{15}\ge\Cs^4L$, and $\alpha\le1$; the definitions are
+$\zeta=3^{-d}$ and $\alpha=2^{-1026}L^2 8^{-d}$.
+Let $\tau$ be the largest integral power of two no greater than
+$\zeta^2/(2^{24}L^4)$. This implies
+\begin{equation}
+ \frac{\zeta^2}{2^{25}L^4}<\tau\le
+ \frac{\zeta^2}{2^{24}L^4}.                         \label{c:eq:tau-bracket}
+\end{equation}
+Every center is $2LdB$ times its doubled logical coordinate, followed
+by one even integer translation. The extrema of these centers are
+computed directly.
+
+For $t_{\rm b}$ a power of two, starting at one, put $\ell_{\rm buf}=Lt_{\rm b}$. Choose the smallest
+even integer side lengths containing the centers with margin at least
+$L+\ell_{\rm buf}+4$ on all sides. Compute $N_\Omega,L_b$ by
+\eqref{c:eq:count} and~\eqref{c:eq:detuning}, and compute $e_0$ and
+$\Xi$ by~\eqref{c:eq:e0} and~\eqref{c:eq:Pglobal}. Double $t_{\rm b}$ until
+\begin{equation}
+ \Xi\,2^{-\lfloor\cs \ell_{\rm buf}/L\rfloor}\le e_0/4.
+                                                               \label{c:eq:buffer-test}
+\end{equation}
+The dependence of $L_b$ and $\Xi$ on the candidate box is
+included at every test. Only dimensions and counts, not the ambient
+array, are written during this search.
+
+After the buffer test succeeds, require also
+\begin{align}
+ \Xi\,2^{-\lfloor\cs L^{1/3}\rfloor}&\le e_0/4,
+                                                               \label{c:eq:leak-test}\\
+ J\Cs L^5\,2^{-\lfloor\cs L\rfloor}&\le\zeta^2/4.
+                                                               \label{c:eq:tail-test}
+\end{align}
+If either test fails, replace $L$ by $8L$ and repeat. Because $L$ is a
+power of eight, its cube root is an integer. The floors here are floors
+of explicit rationals; they are ordinary integer divisions. The
+inequality $e^{-s}\le2^{-\lfloor s\rfloor}$ for $s\ge0$ proves that
+these rational tests imply all the corresponding exponential error
+budgets. Test~\eqref{c:eq:tail-test} implies
+\eqref{c:eq:couplingtail}: the second spacing test gives
+$\zeta^2\le c_uL^2 8^{-d}$ with ample margin.
+
+\begin{lemma}[Termination and size]
+\label{c:lem:parameters}
+The preceding procedure terminates. Its output satisfies
+\begin{equation}
+ L=O(\ell^6),\qquad d=O(\ell),\qquad \ell_{\rm buf}=O(\ell^7).
+                                                               \label{c:eq:polylogscales}
+\end{equation}
+Its arithmetic cost before the final geometry is written is polynomial
+in $\ell$, with an effectively specified fixed multiplicative constant.
+All inverse scales in the construction are polynomial in $m$.
+\end{lemma}
+\begin{proof}
+Here are explicit bounds, including the fixed constants. Put
+\begin{equation}
+ Z=\Cs^{128}(1+\lceil c_\kappa\rceil+\lceil c_\eta\rceil+
+                         \lceil B_{\rm in}\rceil)^8,
+ \qquad Z_L=8^{Z^8}.                                \label{c:eq:ZAL}
+\end{equation}
+The formulas in~\eqref{c:eq:logicalparameters}, using $n\le m$ and
+$N_{\rm r}\le 8+(\lceil c_\kappa\rceil+\lceil c_\eta\rceil+2)\log_2m$, give
+\[
+ \log_2(2+\overline K+\ee^{-1}+J)\le Z^{1/4}\ell.
+\]
+Here the residual factor is
+$T_{\rm res}=O(m^{7/2}\ell^{5/2})$ and
+$\ee^{-1}=O(m^{\lceil C\rceil+11/2}\ell^{5/2})$.
+The logarithms of the fixed coefficients and the displayed exponents are
+bounded by $Z^{1/4}$ with the stated value of $Z$.
+The power $Z^{1/4}$ only appears in this upper bound; the encoder never
+computes it.
+
+The first spacing inequality follows once a constant multiple of
+$\log_2(\ee^{-1})+\log_2L+\log_2\Cs+1$ is at most $d$.
+For the second, division by $\alpha$ leaves
+\[
+ 2^{1050}\Cs^4 L^{10}\overline K\ee^{-1}(8/9)^d\le1.
+\]
+The elementary inequality $(9/8)^8>2$ supplies an entirely rational
+sufficient test. The constraints $d\ge\ds$, $d^{15}\ge\Cs^4L$,
+and $\alpha\le1$ have the same form or the explicitly displayed
+fifteenth root. Doubling therefore stops with
+\begin{equation}
+ d\le Z(\ell+\log_2L+L^{1/15}).                    \label{c:eq:dcoarse}
+\end{equation}
+For example, to avoid the root in a sufficient candidate, the least
+integer whose fifteenth power exceeds $\Cs^4L$ can be found by
+integer doubling and bisection. Its value is at most
+$2\Cs^{4/15}L^{1/15}$, which is covered by~\eqref{c:eq:dcoarse}.
+
+The balanced logical box and $B_{jj}<2^{53}$ bound each physical side
+by
+\[
+ 2^{70}(1+\lceil c_\kappa\rceil+\lceil c_\eta\rceil)
+ Ld\sqrt{m\ell}+2\ell_{\rm buf}+16.
+\]
+Together with~\eqref{c:eq:tau-bracket}, this bounds the logarithms of
+$N_\Omega,L_b,e_0^{-1}$ and $\Xi$ by a fixed multiple of
+\[
+ \log_2\Cs+\ell+d+\log_2L+\log_2(1+t_{\rm b}).
+\]
+Substitution of the displayed formulas, allowing coefficient $Z^{1/4}$,
+is a conservative bound for that fixed multiple and all additive
+constants. Since $\cs=2^{-1024}$ and $Z\ge2^{2048}$, the first power
+of two $t_{\rm b}$ above $Z^3(\ell+d+\log_2L)$ satisfies
+\eqref{c:eq:buffer-test}. Indeed its linear left exponent
+$\lfloor\cs t_{\rm b}\rfloor$ exceeds the stated logarithmic bound, using
+$\log_2t_{\rm b}\le3\log_2Z+\log_2(\ell+d+\log_2L)+1$ and
+$\log_2s\le s$ for $s\ge1$. Thus
+\begin{equation}
+ t_{\rm b}\le Z^4(\ell+d+\log_2L).                         \label{c:eq:tcoarse}
+\end{equation}
+After this buffer has been chosen, all logarithmic right-hand budgets
+in~\eqref{c:eq:leak-test}--\eqref{c:eq:tail-test} are at most
+\begin{equation}
+ Z^6(\ell+\log_2L+L^{1/15}).                        \label{c:eq:budgetcoarse}
+\end{equation}
+This follows by inserting~\eqref{c:eq:dcoarse}--\eqref{c:eq:tcoarse};
+$\log_2t_{\rm b}$ adds only $O(\log Z+\log(\ell+d+\log_2L))$.
+
+Since the search starts at the least power of eight at least
+$\max(\Ls,\ell^6)$ and multiplies by eight, it reaches every larger
+power of eight unless it has stopped before. It therefore suffices to
+show that both stopping tests hold at the following candidate.
+Take $L$ to be the first power of eight at least $Z_L\ell^6$.
+Then $Z_L\ell^6\le L<8Z_L\ell^6$. Both
+$\lfloor\cs L^{1/3}\rfloor$ and $\lfloor\cs L\rfloor$ exceed
+\eqref{c:eq:budgetcoarse}. To check this without an asymptotic assertion,
+use $\log_2L\le3Z^8+6\ell+3$ and
+$L^{1/15}\le2Z_L^{1/15}\ell^{2/5}$. The smallest power of $Z_L$
+on the left is $Z_L^{1/3}$, and
+\[
+ Z_L^{1/3-1/15}=2^{(4/5)Z^8},\qquad
+ Z_L^{1/3}=2^{Z^8}.
+\]
+These exceed $2^{1028}Z^6(3Z^8+20)$ for $Z\ge2^{2048}$;
+repeated squaring, or the binomial lower bound for $2^N$, verifies
+this last integer inequality. Also $\ell^2\ge\ell$ and
+$\ell^2\ge\ell^{2/5}$. These comparisons prove both stopping tests
+at this candidate. The search must terminate no later, so
+\begin{equation}
+ L\le8Z_L\ell^6.                                   \label{c:eq:Lexplicit}
+\end{equation}
+Inserting this bound in~\eqref{c:eq:dcoarse} gives
+$d\le Z^3Z_L\ell$ after increasing only the displayed conservative
+constant;~\eqref{c:eq:tcoarse} then gives $t_{\rm b}\le Z^8Z_L\ell$.
+This proves~\eqref{c:eq:polylogscales}.
+
+All searched integers have $O(\ell)$ bits, with fixed constants as
+above. The tested powers $2^{\lfloor\cs \ell_{\rm buf}/L\rfloor}$,
+$2^{\lfloor\cs L^{1/3}\rfloor}$ and $2^{\lfloor\cs L\rfloor}$ have
+polynomially many bits in $\ell$ (at most $O(\ell^6)$, with a fixed
+constant of order $Z_L$). The number of doublings is $O(\ell)$, also with such a
+fixed constant. Ordinary exact rational arithmetic therefore has
+polynomial-in-$\ell$ cost. In particular no failed candidate requires
+a large ambient matrix or continuum eigenproblem to be constructed.
+Finally $\alpha^{-1}=2^{1026}L^{-2}8^d$,
+$\tau^{-1}<2^{25}L^4 3^{2d}$, and
+$L_b=64mN_\Omega/\tau$ are polynomial in $m$ by the bounds just proved.
+The same is true of every later precision budget.
+\end{proof}
+
+The finite scalar data and templates are calibrated only after this
+parameter search. The actual material approximation is fixed before
+sampling $\sigma$. Consequently the counting argument in
+Lemma~\ref{c:lem:detuning} is applied to one fixed self-adjoint operator,
+not to an operator chosen as a function of its own random detuning.
+
+\section{Finite calibration without a continuum-solver oracle}
+\label{c:sec:calibration}
+
+This section gives algorithms for $z_h,\mu_h,u_h$ and the three
+interactions. Their error estimates refer to the infinite operators
+already defined, not to an unproved convergence property of a mesh.
+Only the fixed corner matrix is inverted densely. Every other operation
+is a finite Fourier operation, a convergent geometric series, or a
+fixed-precision elementary function calculation.
+
+\subsection{Elementary certified arithmetic and the edge energy}
+Rational enclosures for $\pi$ follow from
+$\pi=16\arctan(1/5)-4\arctan(1/239)$ and the alternating arctangent
+series. The next term bounds its remainder. Square roots are enclosed
+by integer bisection or integer square root. Exponentials and sine and
+cosine use range reduction, Taylor series, and factorial geometric-tail
+bounds. On arguments of magnitude $O(N_{\rm b})$ these procedures take a fixed
+polynomial number of bit operations in $N_{\rm b}$ for $N_{\rm b}$ accurate bits.
+Arguments outside this range are reduced, or the exponentially small
+quantity is enclosed directly. The same statements for $\chi$ were
+proved in Lemma~\ref{c:lem:gevrey}. Throughout, intervals are rounded
+outward to a dyadic grid. Exact Gaussian elimination on a fixed-size rational matrix has
+polynomial bit cost: clearing denominators uses only a fixed number
+of entries, and every intermediate determinant has fixed order.
+For a real symmetric matrix its ordered eigenvalues can be enclosed
+without a root-separation assumption. At a rational trial value,
+compute the inertia after subtraction of that value by symmetric
+elimination. A nonzero diagonal gives a one-by-one pivot. If all
+remaining diagonals vanish but an off-diagonal entry is nonzero,
+its two-by-two block has one positive and one negative eigenvalue
+and is an invertible pivot. An entirely zero remaining matrix
+contributes only zeros. Congruence preserves the inertia at each
+step. Counting positive eigenvalues therefore decides on which side
+of the trial value the largest eigenvalue lies, including equality.
+Bisection of an initial row-sum bound gives an interval of width
+$2^{-N_{\rm b}}$ in $O(N_{\rm b})$ steps, with polynomial bit cost in the entry
+lengths and $N_{\rm b}$. Interval matrix errors are added by the min--max
+norm bound. These are explicit finite algorithms, not assumptions
+about floating-point software.
+
+For a local fiber, retain all 24 components of the eight central
+aliases. Let $D_{\rm free}(q,\mathcal E)$ be the complementary free diagonal operator.
+For $|q_j|\le3q_0$ and $\mathcal E$ in the edge window or within $2h^2$ of
+$E_c$, its inverse is explicitly~\eqref{c:eq:freeinverse}, with norm
+at most one. The complementary material inverse is
+\begin{equation}
+ \big(D_{\rm free}-\varrho V_{cc}\big)^{-1}
+ =\sum_{a=0}^{\infty}
+       (D_{\rm free}^{-1}\varrho V_{cc})^aD_{\rm free}^{-1}.              \label{c:eq:neumanncalibration}
+\end{equation}
+The tail after $K$ terms has norm at most $2(7\varrho)^K\le2^{1-K}$.
+Each term changes a Fourier alias by at most $K$. The 24 by 24
+central Schur matrix is consequently computable with a certified
+operator-norm error at most $2^{10-K}$ using only aliases within
+$K+2$ steps of the central set.
+
+At $q=0$, the largest eigenvalue of that Schur matrix is zero exactly
+at $E_c$ in the interval supplied by Lemma~\ref{c:lem:edge}. In that
+interval all other Schur eigenvalues are negative. Its derivative
+with respect to $\mathcal E$ is
+\[
+ -I-A_{{\rm per},0c}(A_{{\rm per},cc}-\mathcal E)^{-2}A_{{\rm per},c0},
+\]
+with the central and complementary alias blocks of the fiber as subscripts,
+so its quadratic-form derivative lies between $-2I$ and $-I$.
+The largest Schur eigenvalue therefore decreases at a rate between
+one and two. This follows also by the min--max principle applied to
+the two Schur matrices, and does not assume differentiability of an
+ordered multiple eigenvalue.
+
+Start with a rational bracket around
+$E_0+\varrho\lambda_*$ of half-width $2^{17}\varrho^2$; enclose its
+endpoints accurately enough that the narrower band enclosure lies
+strictly inside. At a midpoint evaluate the largest eigenvalue of
+the rational approximating 24 by 24 matrix, and enlarge its interval
+by the Neumann error. Request a total width at most one sixty-fourth
+of the current bracket width. If the resulting interval has a
+strict sign, retain the appropriate half bracket. If it contains zero,
+the slope bound places $E_c$ in an interval of width at most one
+eighth of the old bracket centered at the midpoint; intersect with
+that interval. Each step contracts by at least two. Hence $N_{\rm b}$ edge
+bits take polynomial-in-$N_{\rm b}$ work. Taking $N_{\rm b}$ a fixed amount larger
+than $4\log_2L$ and rounding supplies~\eqref{c:eq:z}. The possible
+exact equality of a midpoint and $E_c$ causes no nontermination.
+
+\subsection{Finite approximation of the local inverse}
+On the real chart at $\mathcal E=z_h$, the exact full fiber inverse has norm
+at most $4L^2$. Its central Schur inverse is a compression of the
+full inverse and has the same bound. Approximate the Schur matrix
+to norm error at most $2^{-N_{\rm b}}/(2^{20}L^4)$, invert the rational
+approximation, and enclose its inverse using the inverse-perturbation
+identity. The approximate inverse exists because its perturbation
+relative to $4L^2$ is less than one half. Exact elimination or a
+rational inverse followed by a residual test therefore succeeds.
+The complementary inverse and the off-diagonal Schur factors use
+\eqref{c:eq:neumanncalibration}. The block inverse formula then
+approximates the full local inverse to norm error $2^{-N_{\rm b}}$ once
+\begin{equation}
+ K\ge N_{\rm b}+16\lceil\log_2L\rceil+2^{20}.               \label{c:eq:NeumannN}
+\end{equation}
+This deliberately weak bound covers all block products. Multiplication
+by an enclosure of $\chi(q)$ gives the same precision for $R_0$.
+
+The approximation is an operator-norm statement on the \emph{whole}
+fiber, including arbitrarily high longitudinal aliases. No high
+frequency has been removed on the assertion that its curl energy is
+large. Formula~\eqref{c:eq:freeinverse} treats those directions exactly
+before the small-potential series is truncated. On a finitely supported
+Fourier input, the truncated formula produces finitely supported output;
+its alias radius increases by at most $2K+4$.
+
+All computations at a rational Bloch-grid index involve $\pi$ times
+rational numbers and the already enclosed $z_h$. Noncentral free
+denominators are bounded away from zero. The central inverse is
+bounded by $4L^2$. Thus $N_{\rm b}+O(\log L+\log(2+|\nu|))$ working bits
+suffice for the free entries, and a fixed multiple of that number
+suffices for the fixed-size Schur calculation. An interval straddling
+the edge of the cutoff support does not require a sign decision:
+the inverse is valid on the larger chart $|q_j|\le3q_0$, while the
+cutoff value is enclosed using its smooth defining formula.
+
+\subsection{Periodization, with a norm error bound}
+For calibration only, take a torus of side $2M_{\rm tor}$, with $M_{\rm tor}$ a multiple
+of four. Place either one well, or the two wells needed for a
+particular interaction, well inside it. Use a centered placement
+so that the distance between these supports and any nontrivial
+periodic image is at least $M_{\rm tor}/2$. A sufficient geometric condition
+is $M_{\rm tor}\ge16(L+2Ld\max B_{jj}+1)$.
+
+The periodized kernel is the sum of all translates by $2M_{\rm tor}\Z^3$.
+Lemma~\ref{c:lem:cellbounds} makes that sum converge in the relevant
+cell-block norms. On one or two well supports, the norm of the image
+error is at most
+\begin{equation}
+ \Cs^2 L^{10}
+       \exp\left(-\frac{\cs}{8}\sqrt{M/L}\right).
+                                                               \label{c:eq:perioderror}
+\end{equation}
+To verify the factor, each support has at most $2^6L^3$ period cells.
+For image index $j\ne0$ the cell distance is at least
+$M_{\rm tor}|j|/4$. Sum the bound~\eqref{c:eq:cellgevrey} using shells with at
+most $2^{10}(s+1)^2$ indices at $\ell^\infty$ distance $s$.
+The elementary substitution $u=\sqrt s$ bounds the tail by a fixed
+polynomial in $\cs^{-1}$ and $M_{\rm tor}/L$, times
+$e^{-(\cs/8)\sqrt{M/L}}$. Weakening the exponent once absorbs that
+polynomial; the remaining constants are less than $\Cs^2$.
+The row and column Schur bounds give~\eqref{c:eq:perioderror}.
+
+Choose the least multiple of four with the geometric condition and
+\begin{equation}
+ M_{\rm tor}\ge\Cs^4 L(N_{\rm b}+d+\lceil\log_2L\rceil+2)^2.
+                                                               \label{c:eq:Mcalibration}
+\end{equation}
+Then~\eqref{c:eq:perioderror} is less than $2^{-N_{\rm b}-20}$.
+The side $2M_{\rm tor}$ is an auxiliary calculation domain, \emph{not} a
+physical internal boundary or an additional device volume. Its
+computational cost is counted below. The periodic kernel is exactly
+diagonalized by the finite set of Bloch momenta $q=\pi j/M_{\rm tor}$ modulo
+$\pi\Z^3$, with the antiperiodic corner included because $M_{\rm tor}$ is even.
+For each such momentum its alias space is still infinite until the
+certified Neumann application above is made. This is a direct
+Fourier-series identity for periodization, not a quadrature assumption.
+
+\subsection{Multiplication and the isolated eigenvector}
+On this torus approximate $q_w(hx)$ by a real trigonometric polynomial
+$\widetilde q_w(r)$. The tail estimate~\eqref{c:eq:gevreytail} gives a uniform
+error at most $2^{-N_{\rm b}}$ with Fourier index radius
+\begin{equation}
+ N_Q\le\Cs^4(1+M_{\rm tor}/L)(N_{\rm b}+\lceil\log_2M_{\rm tor}\rceil+2)^2.
+                                                               \label{c:eq:NQ}
+\end{equation}
+For clarity, the Fourier coefficient of the scaled compact bump is
+$(L/(2M_{\rm tor}))^3$ times its Fourier transform at $\pi L\nu/M_{\rm tor}$ with the
+fixed normalization factor. Summing the tail outside $|\nu|_\infty>N_Q$
+is bounded by the rescaled integral in~\eqref{c:eq:gevreytail}, plus
+one layer of cubes; increasing the fixed factor in~\eqref{c:eq:NQ}
+covers that layer. The coefficients are computed by a periodic
+trapezoidal rule on a grid with a fixed larger index radius. Its
+alias error is bounded by the same Fourier tail. There are
+$O(N_Q^3)$ nodes. Each bump value has the certified evaluation
+procedure in Lemma~\ref{c:lem:gevrey}. Rounding coefficients with an
+extra $O(\log N_Q)$ guard bits controls their total uniform error.
+Thus multiplication is approximated in \emph{operator norm}, rather
+than just on a set of sampled fields.
+
+The exact torus compression with the compact bump acts as zero
+outside its support. On that support it differs from $S_h$ by
+\eqref{c:eq:perioderror}. Replacing both bump factors by $\widetilde q_w$, and
+using the norm-$2^{-N_{\rm b}}$ inverse approximation, changes its norm by
+at most $2^{10}L^2 2^{-N_{\rm b}}$. All these comparisons take place in the
+same $L^2$ space after extension by zero; the extra zero subspace
+on the torus creates no ambiguity about the isolated largest
+positive eigenvalue.
+
+Here is an explicit polynomial-in-precision eigenvector algorithm.
+Scale $S_h$ to $T_h=2^{90}L^{-2}S_h$. Lemma~\ref{c:lem:effectivemass}
+gives
+\begin{equation}
+ 2^{-38}\le\lambda_{\rm top}(T_h)\le1,
+ \qquad
+ \max_{\lambda\ne\lambda_{\rm top}}
+       \frac{|\lambda|}{\lambda_{\rm top}}
+       \le1-2^{-104}.                              \label{c:eq:powergap}
+\end{equation}
+For the negative spectrum use the separated-band bound
+$2^{112}$ on $R_0$, while the selected part is nonnegative.
+Since $L\ge\Ls$, its scaled negative norm is less than
+$2^{-38}(1-2^{-104})$. The positive complementary spectrum uses
+the gap $2^{-192}L^2$ and the upper eigenvalue bound.
+
+Start with the normalized vector in Lemma~\ref{c:lem:effectivemass},
+whose overlap is at least $2^{-48}$. Apply an approximation to
+$T_h$ successively
+\begin{equation}
+ t_{\rm pw}=\left\lceil2^{106}(N_{\rm b}+200)\right\rceil            \label{c:eq:powersteps}
+\end{equation}
+times, then normalize. The exact normalized power has error at most
+$2^{-N_{\rm b}-20}$ by~\eqref{c:eq:powergap}. Its unnormalized norm is at
+least $2^{-48-38t_{\rm pw}}$. Request each operator application and the
+starting vector to absolute accuracy
+\begin{equation}
+ 2^{-N_{\rm work}},\qquad
+ N_{\rm work}=N_{\rm b}+40t_{\rm pw}+\lceil\log_2(t_{\rm pw}+1)\rceil+256.
+                                                               \label{c:eq:workbits}
+\end{equation}
+The telescoping product bound, using $\|T_h\|\le1$, makes the total
+unnormalized error at most
+$2(t_{\rm pw}+1)2^{-N_{\rm work}}$. Dividing by the proved lower norm and
+using the elementary Lipschitz bound for normalization leaves less
+than $2^{-N_{\rm b}-10}$. Torus, multiplier, and Neumann errors are allocated
+inside the same per-application budget. Consequently the returned
+normalized vector is within $2^{-N_{\rm b}}$ of $u_h$ in $L^2$, with its
+sign fixed by the starting vector. Taking the real part and
+renormalizing uses another two guard bits. A Rayleigh quotient,
+computed by one more certified application, then encloses $\mu_h$
+to absolute error $2^{-N_{\rm b}}$ after adding $O(\log L)$ bits.
+This algorithm is intentionally slow in its \emph{fixed} gap constant;
+its dependence on requested precision remains polynomial.
+
+Every vector in this procedure is a finite Fourier polynomial. A
+truncated inverse application increases the ordinary torus Fourier
+radius by at most $(2K+4)M_{\rm tor}$, and multiplication by $\widetilde q_w$ increases it
+by at most $N_Q$. The initial carrier has radius at most $M_{\rm tor}$. For its initial bump
+approximation, a uniform multiplier error $e$ produces an $L^2$
+error at most $2^7(1+M_{\rm tor}/L)^2e$ after the $h^{3/2}$ scaling.
+The exact unnormalized starting vector has norm at least $1/4$
+by the overlap calculation in Lemma~\ref{c:lem:effectivemass}.
+Thus using uniform error at most
+$2^{-N_{\rm work}}/[2^{12}(1+M_{\rm tor}/L)^2]$, and allocating the
+same accuracy to the fixed carrier coefficients, supplies the
+requested normalized starting-vector precision. These are only
+$O(\log M_{\rm tor})$ extra guard bits after $M_{\rm tor}$ is chosen. Each multiplier
+and inverse application is likewise assigned its stated operator
+error before summation; the explicit factors $4L^2$ and $2^{90}L^{-2}$
+require only $O(\log L)$ further bits.
+Thus after all applications the radius is bounded by
+\begin{equation}
+ N_{\rm all}\le M_{\rm tor}+(t_{\rm pw}+2)(2N_Q+(2K+4)M_{\rm tor}).
+                                                               \label{c:eq:allfreq}
+\end{equation}
+All $M_{\rm tor}^3$ Bloch-grid entries, all Fourier coefficients, and even naive
+quadratic-time convolutions therefore cost a fixed polynomial in
+$L,d,N_{\rm b},\log L$. With $L=O(\ell^6)$ and $N_{\rm b},d=O(\ell)$, this is a
+fixed polynomial in $\ell$. There is no dense solve of dimension
+comparable to $m$ in this calculation.
+
+\subsection{Interaction and tuning calibration}
+Use the two-well torus and the same mode approximation to evaluate
+\[
+ h_j(d)=\langle a_h,R_0\mathcal T_{2LdBe_j}a_h\rangle.
+\]
+Fourier translation is multiplication by explicitly computable unit
+phases, and the inner product of two finite Fourier vectors is a
+finite sum. The inverse norm $4L^2$ bounds the error from either
+source-mode approximation;~\eqref{c:eq:perioderror} bounds images;
+and~\eqref{c:eq:NeumannN} bounds the inverse error. Requesting each
+of these errors at most $\zeta^2/(2^{12}L^2)$ suffices for the
+absolute interaction error $\zeta^2/16$. There is no division by a
+numerically guessed coupling. Its nonzero lower bound is already
+proved in Lemma~\ref{c:lem:interactions}.
+
+The same calculation supplies $\mu_h$ to $\zeta^2/16$ and the mode
+or source mode to any later required $L^2$ tolerance. The targets
+\eqref{c:eq:T}, their reciprocals, and the dyadic $v_i$ are then formed
+using~\eqref{c:eq:vtuning}. The three direction calibrations and the
+single-well data are shared by all sites. The targets $\Theta_{ii}$ take
+only finitely many values, $\alpha(\Gamma_{ii}-\deg i)$ with
+half-integer $\Gamma_{ii}\in[-3,3]$ and $\deg i\le3$ for terminals
+and three values $-\beta_j^2/\alpha$ for mediators, so only $O(1)$
+distinct $v_i$ are computed. Every requested bit count
+is $O(\ell)$ with fixed constants, by Lemma~\ref{c:lem:parameters}.
+This proves both termination and the cost of every input-dependent
+calibration. In particular, the effective-mass estimate, which is only
+$O(h)$, is \emph{not} used as an inverse-polynomial approximation to
+the shrinking couplings. It establishes isolation and overlap; the
+certified calculations in this section refine the actual auxiliary
+operator to the much smaller required error.
+
+\section{Finite material, source, and readout representations}
+\label{c:sec:representation}
+
+\subsection{The representation format}
+The box sides, centers, and common radius $L$ are integers. In a ball
+use the local coordinates $y=(r-r_i)/L$ and $t=|y|^2$. The material
+is exactly~\eqref{c:eq:actualmaterial}. Its background is the fixed
+finite expression in cosines in~\eqref{c:eq:background}; its only
+input-dependent background coefficient is the dyadic $z_h+\sigma$.
+A ball profile is specified by dyadic coefficients in the shifted
+Chebyshev basis $T_j(2t-1)$ for $\widetilde p_{\rm r}(t)$, followed by the stated
+square. This factored representation avoids large coefficients from
+unnecessary conversion to monomials.
+
+A source or readout template has the form
+\begin{equation}
+ \widehat a(r)=\widetilde p_{\rm r}(|y|^2)\widetilde P(y)\one_{|y|<1},
+                                                               \label{c:eq:templateformat}
+\end{equation}
+where $\widetilde P$ has three components and is a tensor-product Chebyshev
+polynomial on $[-1,1]^3$, with dyadic coefficients. A source is a
+sum of translates of this template with dyadic amplitudes; a readout
+uses its real $L^2$ inner product with $E$. Values on the sphere have
+no effect on these functions as $L^2$ objects. Both the formula and
+its finite coefficients, rather than a quadrature table with an
+unstated error, define the output function.
+
+The format has a direct evaluation algorithm. Integer translations,
+scaling, squared radius, polynomial recurrences, and the fixed cosines
+are evaluated to a requested precision by outward arithmetic. On
+their real domains, $|T_j|\le1$ and their derivatives are bounded
+by $j^2$. Polynomial evaluation therefore needs only logarithmically
+many guard bits in the number of coefficients and their magnitude.
+The indicators specify exact semialgebraic balls. Away from their
+boundaries membership is decided by the rational squared-radius
+comparison; arbitrary-real point evaluation at a boundary is not
+used as a computation primitive. The continuum instance is defined
+by these exact functions independently of any point evaluator.
+
+\subsection{A polynomial profile with endpoint matching}
+Let $p_{\rm r}(t)=e^{-1/[2(1-t)]}$ for $0\le t<1$, with $p_{\rm r}(1)=0$.
+The proof of Lemma~\ref{c:lem:gevrey}, now in one variable, bounds
+its derivatives by $2^{20K}(K!)^2$. Composition with
+$t=(1+\cos\varphi)/2$ gives a periodic even function with bounds
+$2^{30K}(K!)^2$; this follows by the product rule, or inductively
+by applying $-(\sin\varphi/2)\partial_t$ and differentiating its
+bounded trigonometric coefficients. Integrating its Fourier
+coefficients by parts $K$ times and choosing $K$ proportional to
+$\sqrt j$ gives
+\begin{equation}
+ |c_j|\le 2^{100}\exp(-2^{-40}\sqrt j)
+                                                               \label{c:eq:chebtail}
+\end{equation}
+for its Chebyshev coefficients. The same bound with a fixed
+polynomial factor in $j$ controls the once differentiated series,
+since $\|T_j'\|_\infty\le j^2$.
+
+Truncate at degree $D_{\rm pr}\le\Cs(N_{\rm b}+1)^2$, choosing the least larger
+integer for which the explicit tail bound is below $2^{-N_{\rm b}-20}$.
+The sum of $j^2e^{-2^{-40}\sqrt j}$ above $D_{\rm pr}$ is bounded by its
+first term plus the corresponding integral; the substitution
+$u=\sqrt j$ makes this an elementary exponential-polynomial bound.
+Compute the coefficients by the discrete cosine transform on a
+fixed larger grid. The aliased-coefficient error is again bounded
+by~\eqref{c:eq:chebtail}, and the samples have certified elementary
+function evaluations. Round coefficients with
+$N_{\rm b}+O(\log(D_{\rm pr}+2))$ fractional bits. If $\widetilde p^{\rm raw}_{\rm r}$ is the result,
+replace it by
+\begin{equation}
+ \widetilde p_{\rm r}(t)=\widetilde p^{\rm raw}_{\rm r}(t)-\widetilde p^{\rm raw}_{\rm r}(1)
+                     -(\widetilde p^{\rm raw}_{\rm r})'(1)(t-1).     \label{c:eq:endpointmatch}
+\end{equation}
+The endpoint values are exact dyadic sums because
+$T_j(1)=1$ and $T_j'(1)=j^2$; for the shifted basis the
+endpoint derivative is $2j^2$. The two correction coefficients have
+$O(N_{\rm b}+\log D_{\rm pr})$ bits after the allocated rounding. The exact identities
+$\widetilde p_{\rm r}(1)=\widetilde p_{\rm r}'(1)=0$ hold, and the uniform function and derivative
+errors are at most $2^{-N_{\rm b}}$. In particular the zero extension of
+$\widetilde p_{\rm r}(|y|^2)$ is $C^1$, while its square is nonnegative. All these
+operations take polynomial-in-$N_{\rm b}$ bit time.
+
+Since the well supports are disjoint, the material approximation
+error is at most $3\max_i v_i\,2^{-N_{\rm b}}$, with no factor $J$.
+Choose $N_{\rm b}$ so this is within~\eqref{c:eq:materialprecision}. This is
+$O(\ell)$ bits. The ball-profile degree is therefore $O(\ell^2)$.
+
+\subsection{Finite approximation of the calibrated mode}
+The calibration algorithm returns a finite real Fourier polynomial
+$\widetilde u(r)$ approximating $u_h$ on the ball in $L^2$, with the accuracy
+proved in Section~\ref{c:sec:calibration}. On the local cube put
+$\widetilde u_L(y)=\widetilde u(Ly)$. Each coordinate frequency has magnitude at most
+$\pi N_{\rm all}L/M_{\rm tor}$. Its coefficient $\ell^1$ norm is at most the
+square root of its number of Fourier coefficients times its $L^2$
+norm, with the explicit torus normalization. These are polynomially
+bounded in $L,d,N_{\rm b}$.
+
+A finite trigonometric polynomial of maximum coordinate frequency $k_f$
+and coefficient $\ell^1$ norm $a_f$ has a tensor Chebyshev approximation
+of coordinate degree
+\begin{equation}
+ D_f\le 16(k_f+N_{\rm b}+\log_2(2+a_f)+1)                  \label{c:eq:chebdegree}
+\end{equation}
+with uniform error $2^{-N_{\rm b}}$, after a fixed increase in $N_{\rm b}$.
+Here is a direct bound. Substitute $y_j=(s_j+s_j^{-1})/2$ and use
+$|s_j|=2$. The imaginary part of $y_j$ has magnitude at most $3/4$,
+so the function on this polyannulus is bounded by
+$a_f e^{(9/4)k_f}$. Cauchy's Laurent coefficient estimate gives a
+factor $2^{-j}$ in each coordinate. Summing the omitted geometric
+tails proves~\eqref{c:eq:chebdegree}. A tensor discrete cosine transform
+with a fixed larger degree gives coefficients with a certified
+alias bound by the same estimate. True coefficients are at most
+eight times the real-domain supremum, so their integer bits are
+bounded by $O(\log(2+a_f))$, not by $k_f$. Rounding each coefficient
+with $N_{\rm b}+O(\log(D_f+2))$ fractional bits controls the total uniform
+error. This gives a polynomial-cost construction, not only an
+existence result for a polynomial approximation.
+
+Use this procedure with a uniform tolerance smaller than the desired
+local $L^2$ tolerance divided by $8L^{3/2}$. Multiply the resulting
+$\widetilde P(y)$ by $\widetilde p_{\rm r}(|y|^2)$ as in~\eqref{c:eq:templateformat}.
+The multiplier approximation is in uniform norm, the calibrated
+mode approximation is in $L^2$, and the cube has volume $8L^3$.
+Their triangle inequality therefore gives a certified bound
+\begin{equation}
+ \|\widehat a-a_h\|_{L^2(\mathbb B_L)}\le e_a          \label{c:eq:atesterror}
+\end{equation}
+for any prescribed inverse-polynomial $e_a$.
+This does not require unproved regularity or spectral convergence
+of a piecewise-polynomial Maxwell discretization.
+
+For the chosen parameters, the index bounds are
+$M_{\rm tor}=O(\ell^8)$, $N_Q=O(\ell^4)$, $K=O(\ell)$,
+$t_{\rm pw}=O(\ell)$, and $N_{\rm all}=O(\ell^{10})$.
+Thus $k_f=O(\ell^8)$ and the degree in~\eqref{c:eq:chebdegree} is
+$O(\ell^8)$; the theorem's bound $O(\ell^{16})$ is conservative.
+All template coefficients have $O(\ell)$ bits. The intermediate
+exact arithmetic or guard precision may have a fixed polynomial
+number of bits in $\ell$, which is counted in the time bound.
+
+\subsection{Source rounding and stable observables}
+Define the rational budget
+\begin{equation}
+ e_f=\min\{e_0/4,\ 2^{-260}\alpha L^{-2}\},
+ \qquad
+ e_a\le\min\{e_f/4,e_0/4\}.                 \label{c:eq:sourcebudgets}
+\end{equation}
+Construct one shared template satisfying~\eqref{c:eq:atesterror} and
+$\|\widehat a\|\le2$. Enclose $\alpha/\mu_h$ to absolute error
+$e_f/16$. Multiply its dyadic approximation by the short rational
+nonzero entries of $g_\Theta$ and round each product to a dyadic amplitude
+with error at most $e_f/(16m)$. There are at most $m$ such amplitudes.
+Call the resulting finite source $f$. Disjoint supports and
+$\alpha/\mu_h\le1$ give
+\begin{equation}
+ \|f-f_*\|\le e_f \norm g\le e_0\norm g/4,
+ \qquad 0<\|f\|\le2\norm g.                              \label{c:eq:finite-source-error}
+\end{equation}
+For example the template error contributes at most $e_f\norm g/4$, the
+shared scalar error at most $e_f\norm g/8$ using $\|\widehat a\|\le2$,
+and the amplitude rounding at most
+$2\sqrt m\,e_f/(16m)\le e_f\norm g/8$.
+The lower source bound in~\eqref{c:eq:auxnorms} and the second term
+in $e_f$ ensure that the total error is less than one sixteenth of
+$\|f_*\|$, so $f$ is genuinely nonzero. It is a finite sum of
+bounded compactly supported functions, hence belongs to $L^2$.
+No derivative of an indicator is part of its definition.
+
+The ideal observable at well $i$ is
+\begin{equation}
+ z_i(E)=v_i\langle E,a_i\rangle_{L^2}.
+                                                               \label{c:eq:idealreadout}
+\end{equation}
+It is a bounded $L^2$ functional of norm at most one. The finite
+observable replaces $a_i$ by the translated template $\widehat a_i$.
+Its norm is at most two. Because supports are disjoint, the norm
+of the \emph{entire} template-error map is at most $e_a$:
+\[
+ \sum_i|\langle E,\widehat a_i-a_i\rangle|^2
+ \le e_a^2\sum_i\|E\|_{L^2(\mathbb B_L+r_i)}^2
+ \le e_a^2\|E\|^2.
+\]
+This is the stability of the prescribed volume readout. There is
+no point evaluation of an $H(\curl)$ field.
+
+Request the real part of each raw finite observable to absolute
+error at most
+\begin{equation}
+ h_y=\frac{\ee}{2^{24}J_\Gamma\max(1,J)}.            \label{c:eq:momentaccuracy}
+\end{equation}
+Multiply by the computed $v_i$ and round with an additional absolute
+error at most $h_y$. A dyadic grid no coarser than $h_y$ fixes the
+message format. Reserve a signed integer range larger than $8L_bm$.
+The decoder consumes only this fixed number of bits per message,
+rejecting a malformed message or overflow. The integer and fractional
+bit counts are $O(\ell)$ on every draw.
+
+Producing the moments to this accuracy is part of the continuum
+solver's output obligation, and its cost is included in the solver
+bound below. No finite-time integration oracle for an arbitrary
+unrepresented $L^2$ function is granted to the decoder. The theorem
+specifies a finite list of stable observables, explicit kernels, and
+finite accuracies; the decoder reads and processes exactly those bits.
+
+\subsection{Geometric and profile resolution}
+The only material-support interfaces are the explicit spheres and the
+external box. Their radii are $L\ge1$, their mutual gaps are at least
+$2Ld\min_j B_{jj}-2L\ge L$, and their boundary buffer is at least
+$\ell_{\rm buf}\ge L$. The fixed microscopic background has period two. There
+are no shrinking geometric supports, gaps, filaments, or layers.
+The smooth within-ball variation is specified by the counted degree
+and coefficients, rather than by an uncharged fine mesh.
+
+For a quantitative resolution bound, a tensor polynomial of degree $D_f$
+and coefficient sum $a_f$ has first derivative bounded by $3a_fD_f^2/L$
+in physical coordinates on the local cube. The radial profile obeys
+the analogous $4a_fD_f^2/L$ bound; the squared profile only changes the
+fixed factor. Here $D_f$ and the coefficient sums are fixed polynomials
+in $\ell$ (the radial profile is uniformly bounded with its first
+derivative by the preceding construction). The source and readout
+frequency and degree bounds above are also fixed polynomials in
+$\ell$. Thus even an explicit representation refined at the associated
+inverse-polylogarithmic resolution has only a polylogarithmic extra
+cost per unit volume. The proof does not rely on such a refinement
+for PDE accuracy. It relies on uniform multiplier error for material
+and $L^2$ error for source and readout. Small-amplitude polynomial
+oscillations or close level sets therefore hide neither a geometric
+list nor an uncounted discretization requirement.
+
+\section{Every-field recovery for the actual continuum operator}
+\label{c:sec:recovery}
+
+Fix all parameters, finite profiles, and source and test coefficients,
+then sample the detuning according to Lemma~\ref{c:lem:detuning} for
+$\overline\varepsilon_0$ in~\eqref{c:eq:actualmaterial}. Set
+\begin{equation}
+ A=\Cc-\overline\varepsilon,
+ \qquad \delta=e_0=\frac{\ee}{2^{24}J_\Gamma L_b}.
+                                                               \label{c:eq:finaldelta}
+\end{equation}
+The auxiliary estimates hold for every draw $0\le\sigma<\tau$.
+Tests~\eqref{c:eq:buffer-test}--\eqref{c:eq:leak-test}, the material
+budget~\eqref{c:eq:materialprecision}, and the finite source budget
+prove
+\begin{equation}
+ \|AE_{\rm ref}-f\|\le e_0\norm g.                          \label{c:eq:comparison-residual}
+\end{equation}
+On the common event of Lemma~\ref{c:lem:detuning}, take any
+$E\in X$ satisfying~\eqref{c:eq:physicalres}. By~\eqref{c:eq:finite-source-error},
+\begin{align}
+ \|E-E_{\rm ref}\|&\le L_b(\delta\|f\|+e_0\norm g)
+                 \le3L_be_0\norm g,                     \label{c:eq:fieldcomparison}\\
+ \|E\|&\le L_b(1+\delta)\|f\|\le3L_b\norm g.             \label{c:eq:fieldrange}
+\end{align}
+Here $\delta<1/2$. Both inequalities apply to every residual field,
+not only the exact solution and not only a Bloch-localized field.
+All polarizations and all unwanted finite-box modes are controlled
+by the full inverse bound in~\eqref{c:eq:fieldcomparison}.
+
+The ideal moments of $E_{\rm ref}$ equal those of $E_{\rm a}$ because
+the cutoff is one on all well supports. Their terminal vector $z_{\rm t}$
+satisfies~\eqref{c:eq:auxlogical}. At well $i$ the first-moment error is
+$v_i\ip{E}{\widehat a_i}-v_i\ip{E_{\rm ref}}{a_i}
+=v_i\ip{E-E_{\rm ref}}{a_i}+v_i\ip{E}{\widehat a_i-a_i}$, plus at most
+$2h_y$ from rounding. The first term uses $\norm{a_i}\le1$ and
+\eqref{c:eq:fieldcomparison}, the second the template-error map of
+Section~\ref{c:sec:representation} with~\eqref{c:eq:atesterror}
+and~\eqref{c:eq:fieldrange}; with $0<v_i<1$ and disjoint supports this
+shows that the finite moments of $E$ differ from this vector by at most
+\[
+ 3L_be_0\norm g+3L_be_a\norm g+2\sqrt J\,h_y
+ \le\frac{6\ee\norm g}{2^{24}J_\Gamma}.
+\]
+Consequently, with $\widehat z$ the decoded moment vector,
+\begin{equation}
+ \|\Gamma\widehat z_{\rm t}-g\|
+ \le\ee\norm g/1024+J_\Gamma\frac{6\ee\norm g}{2^{24}J_\Gamma}
+ <\ee\norm g/2.                                         \label{c:eq:final-logical}
+\end{equation}
+Lemma~\ref{c:lem:logical} gives the desired rational answer to
+$Mx=b$. Since the material, source, and test fields are real,
+replacing a complex field by its real part cannot increase its
+residual; requesting real parts of the moments implements exactly
+that replacement. The argument also allows every set of moment
+errors within the specified absolute bounds.
+
+By~\eqref{c:eq:fieldrange} and $\|\widehat a_i\|\le2$, the raw moments
+have magnitude at most $6L_b\sqrt m<8L_bm$. Thus the fixed message
+range is adequate on the same event. No union over solutions or
+outputs is needed. On bad draws the finite format and all costs
+are unchanged; only correctness and the inverse bound are not
+asserted.
+
+\section{\texorpdfstring{Complete resource accounting and proof of Theorem~\ref{c:thm:main}}{Complete resource accounting and proof of the continuum realization theorem}}
+\label{c:sec:cost}
+
+\subsection{Physical volume and finite data}
+The logical side lengths are $O(\sqrt{m\ell})$. Doubling the lattice,
+inserting mediators, multiplying by $2LdB$, and adding the buffer give
+\begin{equation}
+ \max_j N_j=O\big(Ld\sqrt{m\ell}+\ell_{\rm buf}+L+1\big),
+ \qquad
+ |\Omega|=O(m^{3/2}\ell^{24}).                       \label{c:eq:volume-final}
+\end{equation}
+Here Lemma~\ref{c:lem:parameters} gives $L=O(\ell^6)$ and $d=O(\ell)$.
+The sharper exponent from these bounds is $45/2$; 24 is a convenient
+integer upper bound. The estimate counts the entire rectangular box,
+including empty space between all routes and wells and the external
+buffer. In vacuum wavelength units the volume is $|\Omega|/(2\pi)^3$;
+using the shortest material wavelength changes this only by a fixed
+factor because $1\le\varepsilon\le25$.
+
+There are $J=O((m\ell)^{3/2})$ well records. Each records an integer
+center, the common integer radius, a dyadic increment, and a pointer
+to a counted polynomial profile. The background has a fixed finite
+formula. Even if the common source and test templates are copied at
+every site rather than shared, the degree bounds in
+Section~\ref{c:sec:representation} give at most
+$O(m^{3/2}\ell^{64})$ coefficient and index slots.
+Only at most $m$ source amplitudes are nonzero. The readout has at
+most $J$ messages, each of $O(\ell)$ bits, and the final rational
+answer has $n\le m$ coordinates of $O(\ell)$ bits.
+
+An explicit ambient format can enumerate all unit cubes of the box.
+For each cube, the candidate nearby placement site is located by
+integer division in the diagonal lattice $2LdB\Z^3$, followed by a
+constant number of neighbor checks and a lookup in the sorted occupied
+site table. The balls are separated by much more than their radii,
+so at most one can meet a given cube. A partial intersection is
+represented by its exact quadratic inequality, not by a polygonal or
+voxel approximation to the sphere. This enumeration costs
+$O(|\Omega|\operatorname{polylog}m)$ and does not hide the background
+volume in a sparse list.
+
+\subsection{Numerical scales and operation counts}
+The explicit inverse quantities are
+\begin{equation}
+ \alpha^{-1}=2^{1026}L^{-2}8^d,
+ \quad \tau^{-1}<2^{25}L^4 3^{2d},
+ \quad L_b=64mN_\Omega/\tau,
+ \quad \delta^{-1}=2^{24}J_\Gamma L_b\ee^{-1}.
+                                                               \label{c:eq:inverse-scales}
+\end{equation}
+Equations~\eqref{c:eq:logicalparameters} and
+\eqref{c:eq:polylogscales} show that all are polynomial in $m$.
+So are the reciprocals of every material, source, mode, interaction,
+and message tolerance. All output coefficients and all integer
+indices therefore require $O(\ell)$ bits.
+
+The local-calibration bounds can be checked directly from the formulas:
+$M_{\rm tor}=O(\ell^8)$, $N_Q=O(\ell^4)$, $K=O(\ell)$,
+$t_{\rm pw}=O(\ell)$, and $N_{\rm all}=O(\ell^{10})$.
+A coefficient array therefore has $O(\ell^{30})$ entries. Using
+naive convolution takes $O(\ell^{60})$ scalar operations per product;
+there are polynomially many such products and Bloch-grid operations.
+The tensor polynomial conversion has at most $O(\ell^{48})$
+coefficient slots under the stated conservative degree bound. It may
+be implemented by direct discrete cosine transforms and direct Fourier
+sample evaluation, whose quadratic product counts are still fixed
+polynomials in $\ell$. Dyadic interval operations, elementary series,
+and the 24 by 24 rational inverses use polynomial bit time in the
+working precision. For example schoolbook arithmetic and exact
+fixed-size elimination, with the displayed guard bits, give a total
+bound less than a fixed constant times $\ell^{1024}$ for the shared
+calibration and templates. Allowing $\ell^{4096}$ covers their
+replication at all sites, all parameter searches, and all ambient
+and finite-output operations. No claim of optimal logarithmic powers
+is needed.
+
+For fully explicit constants, use $Z,Z_L$ from~\eqref{c:eq:ZAL} and set
+\begin{equation}
+ C_{\rm res}=2^{Z^{16}},\qquad c_A=c_\delta=C_{\rm res}.                         \label{c:eq:theoremconstants}
+\end{equation}
+Here is a conservative bookkeeping check. The fixed analytic constants
+are at most powers $\Cs^{1024}$. The parameter bounds are
+$L\le8Z_L\ell^6$, $d\le Z^3Z_L\ell$, and
+$\ell_{\rm buf}/L\le Z^8Z_L\ell$. All the displayed finite algorithms use at
+most degree 1024 in those constants, the bit target, and the local
+array sizes; even allowing degree 4096, the logarithm of their fixed
+multiplicative constant is less than
+$2^{20}Z^9<Z^{16}$. The same bound covers the fixed-startup arithmetic
+needed to form the constants themselves. Thus $C_{\rm res}$ bounds the
+multiplicative constants in~\eqref{c:eq:resources}.
+The powers of $m$ in~\eqref{c:eq:inverse-scales} are at most
+$2^{20}Z^4Z_L+\lceil c_\kappa\rceil+\lceil c_\eta\rceil+100$.
+Their fixed coefficients and logarithmic factors can be absorbed in
+$m^{C_{\rm res}}$ for $m\ge2$: use $\ell\le3m$, and absorb a constant factor $c_{\rm f}$ by
+an extra exponent $\lceil\log_2c_{\rm f}\rceil$. The resulting exponent is
+strictly smaller than $C_{\rm res}$. This proves the explicit bounds
+$702L_b\le m^{c_A}$ and $\delta\ge m^{-c_\delta}$, not just an unspecified
+polynomial assertion.
+
+\subsection{The uniform encoder and decoder}
+The complete algorithm, in its dependency order, is as follows.
+\begin{enumerate}
+\item Normalize and round the input; build the finite circuit, sign
+mediators, and balanced three-dimensional route of
+Sections~\ref{d:app:logical}--\ref{d:app:routing}. Compute $\Gamma,g,\overline K,\ee$ and the doubled
+terminal--mediator sites.
+\item Use Section~\ref{c:sec:parameters} to choose $L,d,\ell_{\rm buf}$, the actual
+integer box, $\tau,N_\Omega,L_b$, and all error budgets. This step
+writes only counts and dimensions until its stopping tests pass.
+\item Verify the fixed corner certificate. Compute $z_h$, the isolated
+single-well data, and the three actual auxiliary interactions to the
+prescribed tolerances by Section~\ref{c:sec:calibration}. Compute and
+round every $v_i$ by~\eqref{c:eq:vtuning}.
+\item Form the finite radial profile and the finite source and readout
+templates, with the global budgets in
+Section~\ref{c:sec:representation}. These determine the actual
+$\overline\varepsilon_0$ before detuning.
+\item Draw the fixed number of fair bits for the midpoint grid in
+Lemma~\ref{c:lem:detuning}, form $\sigma$, and output the actual material,
+source, geometry, $\delta$, test kernels, message accuracies, and
+message ranges. Enumerate the ambient unit cubes as just described.
+\item The decoder consumes the fixed-width moment messages, forms
+$\widehat z$, and performs the coordinate selection, rational rounding,
+and rescaling in Section~\ref{d:app:logical-residual}. It performs no solve
+of the original system or of the assembled auxiliary system. Its side
+information is $O(m)$ words passed by the encoder: the coordinate-selection
+map and the scale $\nu_M/(ma_M)$ of Section~\ref{d:app:logical-residual} (and, in
+the Real-RAM bridge of Section~\ref{d:app:real-transfer}, the scales
+$ma_F,\nu_F$).
+\end{enumerate}
+All loops and all refinement rules above have proved stopping bounds.
+The physical medium and its fixed data are given explicitly; there is
+no search for an unspecified photonic crystal or an assumed numerical
+spectral certificate. The fixed verification and any enormous fixed
+startup cost are included in~\eqref{c:eq:theoremconstants}.
+
+If $b=0$, return $x=0$ directly. A required physical output can be
+the unit cube with $\varepsilon=1$, $f=0$, and $\delta=1$, with a
+decoder that returns zero. Its curl eigenvalues are zero or at least
+$2\pi^2$, so $\spec(\Cc-1)\subset\{-1\}\cup[2\pi^2-1,\infty)$, and
+\eqref{c:eq:maininverse} holds with $L_b=1$. The finitely many bounded input sizes
+can similarly be solved by counted exact rational elimination and
+accompanied by that dummy instance. In particular the tolerance bound
+also holds at $m=1$. Their lengths and costs are bounded by the
+fixed input constants; the inverse-event statement of Theorem~\ref{c:thm:main}
+is stated for $m\ge2$.
+
+\begin{proof}[Proof of Theorem~\ref{c:thm:main}]
+Lemma~\ref{c:lem:logical} applies to every sparse input
+satisfying~\eqref{c:eq:input}, without
+any geometric restriction on its graph. Lemmas~\ref{c:lem:edge}--\ref{c:lem:numerator}
+prove the continuum local spectral platform, including all fiber
+polarizations and aliases, a simple tunable auxiliary mode, and a
+nonzero source numerator. Lemma~\ref{c:lem:interactions} supplies the
+three useful couplings and the full-block upper bound with a strict
+rate margin. Lemma~\ref{c:lem:assembly} includes the entire infinite
+defect complement and the sum of unwanted interactions.
+
+The auxiliary channel is not substituted for the physical equation:
+Lemma~\ref{c:lem:leakage} proves its actual leakage residual, and
+Lemma~\ref{c:lem:cutresidual} puts it inside the finite PEC box in the
+correct operator domain. The terminating choices in
+Lemma~\ref{c:lem:parameters} make both errors small relative to the
+shrinking useful interactions and to the full inverse bound. Sections
+\ref{c:sec:calibration}--\ref{c:sec:representation} replace every input-
+dependent datum by the stated finite representation with proved
+error and cost.
+
+Apply Lemma~\ref{c:lem:detuning} to that actual material. On its one
+common event, the full continuum operator has~\eqref{c:eq:maininverse},
+and Section~\ref{c:sec:recovery} proves successful decoding for every
+field and every finite message error in the theorem. The bounds in
+this section prove all physical, computational, and numerical resource
+claims, on unsuccessful draws as well. This completes the proof.
+\end{proof}
+
+\section{Explicit analytic majorants for the continuum constants}
+\label{c:app:ledger}
+
+This section supplies the numerical envelope for the analytic constants
+of Part~II. It replaces ``take a sufficiently large platform constant''
+by finite arithmetic bounds.
+
+\subsection{Fixed-order derivative envelope}
+Set
+\begin{equation}
+ M_*=2^{16384},\qquad
+ M_j=(j!)^4M_*^{(j+1)^2}\quad(0\le j\le32).
+                                                               \label{c:eq:Mj}
+\end{equation}
+All derivatives below are directional derivatives along unit vectors;
+mixed derivatives can be bounded by expansion in the three coordinate
+directions, adding at most $3^j$, already absorbed in~\eqref{c:eq:Mj}.
+The following list gives the underlying numbers before this envelope
+is used.
+\begin{center}
+\begin{tabular}{@{}p{0.49\textwidth}p{0.42\textwidth}@{}}
+\toprule
+Quantity & Explicit bound used \\
+\midrule
+Local analytic momentum radius & $R_q=2^{-112}$ \\
+Real cutoff chart scale & $q_0=2^{-140}$ \\
+Hessian and quartic constant & $2^{99}I\le H\le2^{108}I$,
+ $M_4=2^{350}$ \\
+Nonselected fiber inverse on the small chart & $2^{112}$ \\
+Cell eigenfunction Fourier $\ell^1$ norm & $32$ \\
+Scaled denominator on a complex radius-two neighborhood & $2^{256}$ \\
+Scaled source numerator on that neighborhood & $2^{128}$ \\
+Pole contraction radius in transverse variables & $2^{-1024}$ \\
+Final pole neighborhood & $|k_\perp|\le2^{-4096}$ \\
+Regular-region denominator lower factor & $M_*^{-1}(1+|k|^2)$ \\
+Fixed cutoff derivative bases & at most $2^{4200}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The first five lines follow directly from Lemma~\ref{c:lem:edge} and
+its Neumann construction. For the scaled denominator, insert the
+Taylor series in $h^{-2}(\lambda(hk)-z_h)$.
+On a complex polydisc of radius two around the shifted origin,
+$|k|<4$, its quadratic term is at most $2^{112}$ and its quartic
+remainder at most $2^{358}h^2<1$. The shift $|b_{j,h}|<1$ and the
+constant term are covered by $2^{256}$. The same argument on a
+slightly larger polydisc bounds derivatives by Cauchy's formula;
+for instance $j!2^{4j+256}$ suffices up to order 32.
+
+For the numerator, compact support gives
+\[
+ h^{3/2}\int|a_h(r)|\dd r\le\sqrt{|\mathbb B_1|}<3.
+\]
+On the stated complex neighborhood $|e^{\pm ihk\cdot r}|\le e^8$,
+and the cell Fourier $\ell^1$ norm is at most 32. Thus each scaled
+source factor has magnitude less than $2^{20}$, and their product
+is below $2^{40}$; the table uses a larger number. Derivatives with
+respect to scaled momentum introduce bounded $hx$ factors and
+$h$ times the fixed cell derivative constants. Cauchy's estimates
+therefore give the claimed derivative envelope, also on the whole
+real scaled chart with the allowed imaginary shifts.
+
+\subsection{The pole chart and its remainders}
+Write the shifted denominator as $D(k_\parallel,k_\perp)$, with
+$D_\parallel(0)=ic$, $c\ge1$, $D_\perp(0)=0$. Its second transverse derivative
+is $Q_{j,h}$, where~\eqref{c:eq:polebounds} gives
+$2^{98}I<Q_{j,h}<2^{110}I$. The preceding Cauchy bound implies, for
+$|k_\parallel|,|k_\perp|\le1/8$,
+\[
+ |D(k_\parallel,k_\perp)-icu-\tfrac12k_\perp^TQ_{j,h}k_\perp|
+ \le2^{280}(|k_\parallel|^2+|k_\parallel||k_\perp|+|k_\perp|^3).
+\]
+Consider the map
+$k_\parallel\mapsto-[D(k_\parallel,k_\perp)-icu]/(ic)$. On
+$|k_\perp|\le2^{-1024}$ and $|k_\parallel|\le2^{300}|k_\perp|^2$ it maps the latter
+disc strictly into itself and has derivative in $k_\parallel$ of magnitude
+less than one half. Indeed the derivative remainder is at most
+$2^{282}(|k_\parallel|+|k_\perp|)$, and the quadratic main term is at most
+$2^{110}|k_\perp|^2$. Iteration from zero converges geometrically and
+uniformly on smaller complex polydiscs. Its limit $p(k_\perp)$ is
+holomorphic, is the unique zero in that disc, and obeys the same
+size bound. This is a direct quantitative proof of the implicit
+function used in~\eqref{c:eq:pole}.
+
+Cauchy's estimate on the transverse radius $2^{-1024}$ bounds the
+third-order remainder in $p$ by $2^{1400}|k_\perp|^3$ on the smaller
+half-radius polydisc. Differentiating $D(p(k_\perp),k_\perp)=0$ at zero gives
+$p(k_\perp)=iw^TQ_{j,h}k_\perp/(2c)+O(|k_\perp|^3)$. The imaginary part of the quadratic
+form is at least $2^{-15}|k_\perp|^2$. On $|k_\perp|\le2^{-4096}$ the cubic
+bound is less than $2^{-2696}|k_\perp|^2$, giving the weaker stated
+$\operatorname{Im}p(k_\perp)\ge2^{-256}|k_\perp|^2$.
+The factor
+\[
+ d_1(k_\parallel,k_\perp)=\int_0^1D_\parallel(p(k_\perp)+t(k_\parallel-p(k_\perp)),k_\perp)\dd t
+\]
+is analytic and differs from $ic$ by less than $c/2$ on this
+neighborhood. Cauchy division of the numerator can consequently
+be performed by subtracting its value at $k_\parallel=p(k_\perp)$ and dividing
+by $k_\parallel-p(k_\perp)$; the analytic remainder is the integral of the
+corresponding derivative along that segment. These formulas bound
+all derivatives without division by a small, unlocated zero.
+
+One explicit choice of the auxiliary cutoffs is
+$\psi(k_\parallel/2^{-2048})\prod_{j=1}^2\psi(k_{\perp,j}/2^{-4100})$,
+with smaller copies for the core where a cutoff equals one.
+All poles over the transverse support have magnitude less than
+$2^{-7890}$, so they lie strictly inside the longitudinal core.
+The derivative bases of these cutoffs are at most $2^{4200}$.
+On the regular region outside the smaller pole neighborhood,
+\eqref{c:eq:tube} at its limiting value gives a denominator lower
+bound $M_*^{-1}(1+|k|^2)$. For small $k$ outside that neighborhood
+use $|k|\ge2^{-4104}$ and the positive quadratic real part; for
+$|k|\ge1$ use the symbol's quadratic lower bound. The interval
+between these regions is covered by the same inequality after
+weakening to $M_*^{-1}$.
+
+The scaled symbol derivatives obey
+\[
+ |\partial^jD_h(k+ib_{j,h}e_j)|
+ \le j!M_*(1+|k|)^{2-j}\quad(0\le j\le32)
+\]
+on that regular region. For $j\le2$ this is the quadratic Taylor
+estimate. For $j\ge3$, differentiation contributes $h^{j-2}$;
+on the scaled chart $h|k|\le4q_0$, so the Cauchy bound
+$3\varrho j!R_q^{-j}$ gives the displayed inequality. For bounded
+$k$ use the already proved radius-two bounds.
+The recurrence
+\[
+ \partial^K(D^{-1})=-D^{-1}\sum_{a=1}^K
+       \binom{K}{a}(\partial^aD)(\partial^{K-a}D^{-1})
+\]
+then bounds its derivatives by $(K!)^4M_*^{(K+1)^2}$ times
+$(1+|k|)^{-2-K}$. The same recurrence applies to an invertible
+matrix or bounded operator, preserving the order of the factors;
+Cauchy's estimate is an alternative for the uniformly separated
+complement. Leibniz's rule and the geometric-cutoff bounds give
+$M_{32}^{16}$ as a common bound for the coefficient of
+$(1+|k|)^{-2}$ in the sixteenth derivative of every regular
+selected-band integrand.
+
+For the other bands a useful explicit source bound avoids assuming
+that their source coefficients have rapid decay. The rescaled Bloch
+transform of $a_h$ has fiber norm at most a constant: Cauchy--Schwarz
+over its at most $2^6L^3$ support cells, multiplied by $h^{3/2}$,
+gives this bound. Its $j$th scaled-momentum derivative inserts
+$h$ times a cell coordinate, of magnitude at most a fixed constant
+on the support. Thus the same bound holds for each $j\le32$ with
+the factor $M_j$. The nonselected resolvent and its derivatives
+are uniformly bounded, and their scaled contribution has the
+extra factor $h^2$. Integrating over a chart of volume $O(h^{-3})$
+gives at most $M_{32}^{16}/h$. For the selected regular part,
+$\int_{|k|\le4q_0/h}(1+|k|)^{-2}\dd k\le M_*/h$ gives the
+same bound. This verifies the $L d^{-16}$ term in
+\eqref{c:eq:greenremainder} for the entire complement.
+
+For the transverse Gaussian remainder, the amplitude error is
+bounded by $M_3^4|k_\perp|$ and the phase error by $M_3^4T|k_\perp|^3$.
+Both exact and quadratic phases have imaginary part at least
+$2^{-256}|k_\perp|^2$. The identity
+$e^a-e^b=(a-b)\int_0^1e^{(1-t)b+ta}\dd t$ therefore preserves
+the Gaussian majorant on the segment between them. Polar
+integration gives
+\[
+ \int_{\R^2}|k_\perp|e^{-cT|k_\perp|^2}\dd k_\perp=O(c^{-3/2}T^{-3/2}),
+\]
+\[
+ T\int_{\R^2}|k_\perp|^3e^{-cT|k_\perp|^2}\dd k_\perp
+       =O(c^{-5/2}T^{-3/2}),\qquad c\ge2^{-257}.
+\]
+The gamma factors at these integer and half-integer arguments are
+bounded by $2^{20}$ using their elementary factorial formulas.
+The omitted Gaussian tail outside the fixed cutoff has a bound
+of the same form, since $\sup_{T\ge1}\sqrt T e^{-aT}\le a^{-1/2}$
+and its $a$ is explicitly at least $2^{-8500}$.
+The full-line longitudinal tail differentiated 16 times is bounded
+by $16!$ times a power of the reciprocal longitudinal-core radius,
+at most $2^{40000}$. These bounds are all below $M_{32}^{32}$.
+They justify every fixed remainder coefficient in
+\eqref{c:eq:greenremainder}.
+
+\subsection{Arbitrary-order cutoff and spatial estimates}
+The preceding fixed-order envelope is not used as a claim about
+arbitrarily high derivatives. Those estimates have their own explicit
+factorial bounds. Recall $2^{16}/q_0=2^{156}$. In
+\eqref{c:eq:almostanalytic}, $2^{156}|\beta|K\le1/4$. After using
+$K!\le K^K$, the defect from holomorphy is at most
+\[
+ 2^{45}2^{156}|\beta|(K+1)^2 4^{-K}
+ \le2^{60}2^{-K}.
+\]
+Since $K\ge2^{-159}L$ for the nonzero shifts used here, weakening
+the exponent gives $\Cs e^{-\cs L}$. For a fixed additional
+$q$-derivative of order $j\le32$, each term of the truncated
+Taylor sum is bounded by $4^{-a}$ times a polynomial of degree
+$2j$ in its index $a$, multiplied by
+$2^{45}2^{156j}(j!)^2$. Summing that geometric-polynomial series is
+bounded by $(2j+2)!2^{10j+100}2^{156j}$, below $M_j^4$.
+This verifies the uniform fixed derivative bounds for the shifted
+cutoff, independently of the truncation order or of $L$.
+
+For the summable cell estimate, the real local inverse has an
+analytic strip of width at least $2^{-256}h$. To check it, split
+off the rank-one pole and use the Taylor estimate and positive
+quadratic form: a complex displacement with that width changes
+$h^2+q^THq$ by at most one quarter of its magnitude, by
+$2ab\le a^2+b^2$ and $H\le2^{108}I$. The separated spectrum
+stays separated by the complementary Neumann argument.
+Cauchy's formula, one or two local inverse factors, the Gevrey
+cutoff, and bounded cell gauge derivatives give
+\[
+ \|\partial^K(\hbox{cell integrand})\|
+ \le\Cs L^4(2^{512}L)^K(K!)^2\qquad(K\ge0).
+\]
+Integrating by parts in its cell Fourier coefficient and choosing
+$K$ proportional to $2^{-258}\sqrt{|a-b|/L}$ yields exponential
+rate at least $2^{-260}$ in that square root. The chosen
+$\cs=2^{-1024}$ is smaller. This proves
+\eqref{c:eq:cellgevrey} with the stated constants, including the
+product inverse in~\eqref{c:eq:Rderivative}. The nonsingular contour
+estimate similarly has a Euclidean rate at least $2^{-256}/L$,
+again larger than the stated $\cs/L$.
+
+For the nested-cutoff leakage, the high-momentum bound $2^{192}$
+follows from $H\ge2^{99}I$ and $q_0=2^{-140}$, with a factor four
+for the denominator remainder. The low-input constant after the
+$h^2$ cancellation is at most $2^{232}J$. With
+$K\le2L^{1/3}$, the Fourier-tail exponent satisfies
+\[
+ \frac1{512}\sqrt{q_0L/(4K)}
+ \ge2^{-82}L^{1/3}.
+\]
+Together with the contraction $4^{-K}$ this proves the stated
+leakage rate with $\cs=2^{-1024}$. The finite geometric sums of
+contraction factors are below two. Hence no factor exponential
+in $K$ is hidden in the leakage constant.
+
+\subsection{Effective comparison and regularity constants}
+The Fourier-alias error in~\eqref{c:eq:umklapperror}, divided by $h$,
+is bounded by $2^{100}s^8e^{-s/512}$ with $s=h^{-1/2}$.
+Its maximum occurs at $s=4096$ and is below $2^{196}$.
+For~\eqref{c:eq:multipliererror}, the quartic contribution is at most
+\[
+ h^2 M_4|p|/2^{297/2}
+ \le h\,2^{350-138-297/2}<2^{64}h;
+\]
+the cutoff tail is at most $2^{91}h$, and the eigenvector-multiplier
+error from its Cauchy derivative is below $2^{70}h$.
+Thus the displayed $2^{128}h$ and final $2^{520}h$ operator bounds
+are conservative. Dividing by the scalar gap $2^{-190}$ and
+reconstructing through an eigenvalue at least $2^{-128}$ gives
+spatial-mode error less than $2^{2048}h$. The bounded separated
+part contributes only $2^{112}h^2$ before that gap division.
+
+For translations, the material derivative is at most $7\pi\varrho$,
+and the local inverse norm is at most $4L^2$. The resolvent identity
+therefore bounds its translation difference by $2^{20}L^4|a|$.
+The bump factors add at most $2^{15}L|a|$, so $2^{32}L^4|a|$
+bounds the translated compression. The spectral gap
+$2^{-192}L^2$ then gives the normalized eigenvector difference
+quotient below $2^{256}L^2$, and its full $H^1$ norm below
+$2^{512}L^2$. This establishes the constants used for the cutoff
+field's domain, without assuming ellipticity of curl--curl on the
+whole vector space.
+
+\subsection{Closing the fixed constant ledger}
+All scalar, matrix, and derivative estimates just listed use at most
+32 derivatives. Their product, inverse-derivative, Gaussian, and
+finite-support summations are bounded by $M_{32}^{1024}$.
+For an explicit check on the combinatorics, a derivative product is
+summed with the binomial theorem; the resulting factors are bounded
+by $2^j(j!)^4$, already present in $M_j$. The inverse recurrence
+has at most $j$ terms at its $j$th step and is bounded by induction
+by $M_j^4$. Cauchy division and the two cutoff products use at most
+six such families; the pole/Gaussian remainder and the regular
+integral use fewer than sixteen further products of their norms.
+Even assigning 32 factors $M_{32}^{16}$ to each of these stages
+stays below $M_{32}^{1024}$. The large support factors are the
+explicit powers of $L$, or the finite counts $J,N_\Omega$, not
+part of this fixed constant.
+
+Finally
+\[
+ \log_2(M_{32}^{1024})
+ =1024\bigl(4\log_2(32!)+16384\cdot33^2\bigr)
+ <2^{35}<2^{40}=\log_2\Cs.
+\]
+Thus the common analytic coefficient $\Cs$ used in the interaction,
+cell, leakage, and comparison estimates exceeds this fully specified
+envelope. Whenever several such estimates are composed later, the
+proof uses the displayed powers $\Cs^4,\Cs^5,\Cs^{32}$ rather
+than silently replacing a product by $\Cs$.
+Also $L\ge\Ls\ge\Cs^{64}$ makes every fixed smallness requirement
+used above strict, for example $2^{520}h<2^{-200}$ and the errors
+in the positive source numerator. The value $d\ge\Cs^8$ absorbs
+the fixed large-distance thresholds in the Gaussian asymptotic.
+No constant in this ledger is defined by the outcome of a
+nonterminating search or an inaccessible exact eigenfunction.

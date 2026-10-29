@@ -1,0 +1,38 @@
+{
+  "status": "PASS_FIGURE_DATA_AND_EXACT_COMPARISONS",
+  "scope": "Figure extraction, coordinate transforms, exact scalar comparisons and slice-area audit; not a new full matrix replay.",
+  "data_sha256": "1a0f9b6315a33a29cdacbd1f110acc2a660449d63cdb75f418d553e9791e137a",
+  "minimum_center_interval_gap": "1271707736888977/37778931862957161709568",
+  "center_gap_strictly_above": "33/1000000000",
+  "outside_minus_selected_upper": "2583104158763406699/1208925819614629174706176",
+  "outside_minus_named_selected_upper": "11194849/5242880000000",
+  "outside_gap_strictly_above": "1/500000",
+  "quadratic_coefficient_strictly_above": "1/600",
+  "all_local_boxes_wholly_inside_radius": "1/20",
+  "slice_polygon_counts": {
+    "matrix": 166,
+    "gamma": 1,
+    "L_ball": 33
+  },
+  "canonical_slice_total_area": "5/16",
+  "source_classification_counts": {
+    "matrix": 2056,
+    "gamma": 1,
+    "L_ball": 660
+  },
+  "rendering": {
+    "matplotlib": "3.10.8",
+    "numpy": "2.4.1",
+    "threads": 1,
+    "native_width_mm": 160,
+    "minimum_font_points": 7.5,
+    "setting_height_mm": 140.97,
+    "certification_height_mm": 153.67
+  },
+  "output_sha256": {
+    "spectral_setting.pdf": "47e290c78af1065005a7bb5f60c311ddd5ba2b00489cb10328658f37cfde8766",
+    "spectral_setting.png": "d2a56ff5f7934a397e206a132ae117ac9e820972405acae0a0df1dc11a7c5284",
+    "spectral_certification.pdf": "0d6a38b983587c8e12b8235bdf64a31c0753039df4ff1fd61b8f58b27c1c4994",
+    "spectral_certification.png": "0afd89a02ff7696aed2d2d4d901de206373ff6eb6cc9042bee867bbf2c38f96c"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "discretization_order": 12,
+  "manufactured_solution": [
+    {
+      "h": 0.3333333333333333,
+      "unknowns": 450,
+      "relative_solution_error": 1.0886504287416364e-05,
+      "relative_solve_residual": 1.0832760389786892e-15,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    },
+    {
+      "h": 0.25,
+      "unknowns": 1176,
+      "relative_solution_error": 4.0598161743088807e-07,
+      "relative_solve_residual": 2.845904662381757e-15,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    },
+    {
+      "h": 0.2,
+      "unknowns": 2430,
+      "relative_solution_error": 3.008910845019415e-08,
+      "relative_solve_residual": 5.2308287665646654e-15,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    },
+    {
+      "h": 0.16666666666666666,
+      "unknowns": 4356,
+      "relative_solution_error": 3.516146922806569e-09,
+      "relative_solve_residual": 9.561813216839152e-15,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    },
+    {
+      "h": 0.14285714285714285,
+      "unknowns": 7098,
+      "relative_solution_error": 5.668357942090711e-10,
+      "relative_solve_residual": 2.0017152056409952e-14,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    },
+    {
+      "h": 0.125,
+      "unknowns": 10800,
+      "relative_solution_error": 1.1601229740477367e-10,
+      "relative_solve_residual": 3.070158755312436e-14,
+      "curl_gradient_max": 0.0,
+      "symmetry_max": 0.0
+    }
+  ],
+  "last_observed_order": 11.880153636065526,
+  "bloch_cutoff_convergence": [
+    {
+      "rho": 0.5,
+      "cutoff": 2,
+      "ec": 1.5725683038666887,
+      "corner_gap": 0.012898561194443658,
+      "eigen_residual": 3.293285678353207e-14
+    },
+    {
+      "rho": 0.5,
+      "cutoff": 3,
+      "ec": 1.5725344295489645,
+      "corner_gap": 0.012871955050112405,
+      "eigen_residual": 9.242981679693056e-14
+    },
+    {
+      "rho": 0.5,
+      "cutoff": 4,
+      "ec": 1.5725345994767963,
+      "corner_gap": 0.012871866710028712,
+      "eigen_residual": 1.8664320236376766e-13
+    }
+  ],
+  "passed": true
+}
