@@ -50,3 +50,22 @@ For the detailed contract and failure semantics, see
 the recorded reference run under `yee/recorded-run/`. These historical receipts
 are useful for comparison and witness generation; they are not used as a
 shortcut by a fresh computational replay.
+
+## Provenance of the Yee documents
+
+The documents under `yee/`, including `REPRODUCE.md` and the notes in
+`yee/results/`, are preserved from the original research bundle and keep its
+names. They therefore refer to files that this repository distributes under
+other names or not at all:
+
+| Original reference | In this repository |
+| --- | --- |
+| The eleven `maxwell_*` ZIP volumes rooted at `maxwell_sparse_reduction/` | `certificates/yee/` plus the `yee-witnesses` and `yee-receipts` archive groups |
+| `work/bulk/` witness matrices | `yee/work/bulk/`, restored by `yee-witnesses` |
+| `verification/publication_independent_retry/` | `yee/recorded-run/`, restored by `yee-receipts` |
+| Other `verification/` runs and their monitoring and audit scripts | Not distributed; `reproduce.py` creates fresh runs |
+| `theorem_and_proof.md`, `obligations.md` | Parts III and V of the Supplementary Information |
+
+Run the commands above rather than the research-directory commands in
+`REPRODUCE.md`; its description of the checks and their failure semantics
+still applies.

@@ -3,13 +3,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 2145,
-      "sha256": "a072d4e94bcc9b6856bdd90e59c5132849604cfb601ed211fc91359d43755e76"
-    },
-    {
-      "path": "adversarial_logical.md",
-      "bytes": 4964,
-      "sha256": "8e1ced1e34b5115030795ca8c5abc08fa3bf22e91e9c1e841263539addee705e"
+      "bytes": 1967,
+      "sha256": "617522ce3cb0c61f9febaa1362b64647d43c0a3e46cd468253e98557a95ae6de"
     },
     {
       "path": "clean_h2_scalar_verification.json",
@@ -20,11 +15,6 @@
       "path": "clean_verification_log.json",
       "bytes": 3705,
       "sha256": "948075835e74615063eeb95da4eef90f793f6cd2b6ef6cb1027bdd9f02dfb982"
-    },
-    {
-      "path": "h2_independent_review.md",
-      "bytes": 8432,
-      "sha256": "391b9188da0a03e405ec399d03c516085cac79a4f2e847fb29052ce8f354c5a0"
     },
     {
       "path": "h2_scalar_verification.json",

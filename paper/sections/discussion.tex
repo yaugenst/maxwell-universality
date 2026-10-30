@@ -42,9 +42,8 @@ the physical mechanism -- an iterative feedback loop or a stationary
 response -- together with hardware scaling where stated, and the treatment of
 accuracy and input and output costs. Theoretical constructions are marked as
 such. This work gives a sparse-system reduction with bounds on size, encoding
-and decoding cost and accuracy. The numerical illustrations in
-\cref{fig:numerical} concern small restricted systems; physical fabrication
-remains a separate step.}
+and decoding cost and accuracy; its simulated examples
+(\cref{fig:numerical}) are a signed $3\times3$ system and a four-site chain.}
 \label{tab:prior}
 \small
 \setlength{\tabcolsep}{3pt}
@@ -62,7 +61,7 @@ Work & Problem & Largest example & Mechanism & Accuracy and I/O \\
 \citet{ye2024} & Fixed diffusion operator on a mesh & $5\times5$ (expt.) & Stationary, one node per grid point & Comparison with simulation \\
 \citet{Sun2019PNAS} & Programmable matrix, signs by differences & 4 (expt.), 100 (sim.) & Stationary electronic feedback, $\sim n^2$ cells & Empirical, grows with $\kappa$ \\
 \midrule
-This work & Any sparse nonsingular system, signed and nonsymmetric & -- (theory) & Stationary response, volume $\Ot(m^{3/2})$ & Residual guarantee; encoding and decoding $\Ot(m^{3/2})$ \\
+This work & Any sparse nonsingular system, signed and nonsymmetric & 4 (sim.) & Stationary response, volume $\Ot(m^{3/2})$ & Residual guarantee; encoding and decoding $\Ot(m^{3/2})$ \\
 \bottomrule
 \end{tabularx}
 \end{table}

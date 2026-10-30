@@ -4,7 +4,8 @@ Companion material for *Maxwell's equations are universal for sparse linear
 algebra*: manuscript sources, Lean developments, exact certificate checkers,
 and numerical illustrations.
 
-**Paper:** arXiv link to be added.
+**Paper:** Y. Augenstein, *Maxwell's equations are universal for sparse linear
+algebra*, [arXiv:2610.38913](https://arxiv.org/abs/2610.38913) (2026).
 
 ![Numerical devices and their decoded responses](paper/figures/fig_numerical.png)
 
@@ -74,3 +75,30 @@ See [reproduction](docs/reproduction.md) for archive selection, CPU and GPU
 requirements, and complete replay commands. The formal development and numerical
 experiments have different verification scopes; [the evidence map](docs/evidence.md)
 states them explicitly.
+
+## Citation
+
+If you use this material, please cite the paper:
+
+```bibtex
+@misc{augenstein2026maxwell,
+  title         = {Maxwell's equations are universal for sparse linear algebra},
+  author        = {Augenstein, Yannick},
+  year          = {2026},
+  eprint        = {2610.38913},
+  archivePrefix = {arXiv},
+  primaryClass  = {physics.optics},
+  doi           = {10.48550/arXiv.2610.38913},
+  url           = {https://arxiv.org/abs/2610.38913}
+}
+```
+
+[`CITATION.cff`](CITATION.cff) provides the same reference in machine-readable form.
+
+## License
+
+The manuscript sources and figures in `paper/`, and the numerical and certificate
+data in this repository and its release archives, are licensed under
+[CC BY 4.0](LICENSE-CC-BY-4.0). All other material, including the Python
+scripts, checkers and Lean sources (also the generated modules in the
+`lean-generated` archives), is licensed under the [MIT License](LICENSE).

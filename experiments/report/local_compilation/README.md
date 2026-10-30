@@ -78,26 +78,28 @@ All failures, intermediate pair evaluations and final physical verifications are
 
 This is a successful **restricted local compiler and a positive control for the experimental workflow**. Chain matrices, including indefinite ones, are already easy numerical problems. The waveguide's exact transverse symmetry is additional exploitable structure. These results establish neither general sparse-matrix realization nor computational advantage, fabrication readiness, arbitrary branching or an arbitrary signed interaction graph.
 
-The next substantive bridge is a junction that preserves component calibration when assembled into a branching or cyclic network. Longer chains alone would not establish that capability. For the paper, this control can illustrate the mechanism and the precision/locality tradeoff, while the periodic-platform results identify what remains unimplemented at practical scales. The manuscript and paused Lean work were not edited.
+The next substantive bridge is a junction that preserves component calibration when assembled into a branching or cyclic network. Longer chains alone would not establish that capability. For the paper, this control can illustrate the mechanism and the precision/locality tradeoff, while the periodic-platform results identify what remains unimplemented at practical scales.
 
 ## Artifacts and reproduction
 
-All new work is under `experiments/three_defect/`. Results are in [the archived local-compilation directory](../../results/local_compilation/); [summary.json](summary.json) contains the plotted measurements. The PNG figures have corresponding [results PDF](local_compilation_results.pdf) and [device PDF](waveguide_device.pdf) exports.
+The solver is `experiments/waveguide_control.py`. Results are in [the archived local-compilation directory](../../results/local_compilation/); [summary.json](summary.json) contains the plotted measurements. The PNG figures have corresponding [results PDF](local_compilation_results.pdf) and [device PDF](waveguide_device.pdf) exports.
 
-Run from `experiments/three_defect`. The component calibration is small enough for the CPU:
+Run from the repository root. The component calibration is small enough for the CPU:
 
 ```bash
-uv run --script waveguide_control.py calibrate --output replay-waveguide-calibration
+uv run --script experiments/waveguide_control.py calibrate \
+  --output build/waveguide-calibration
 ```
 
-For full-vector verification, use the pinned [GPU environment](../../results/local_compilation/gpu_environment.txt), one job per GPU, and two host library threads:
+For full-vector verification, create the pinned [GPU environment](../../results/local_compilation/gpu_environment.txt) as described in the [experiments guide](../../README.md), and run one job per GPU with two host library threads:
 
 ```bash
 OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 \
-  uv run --no-project --python .venv/bin/python python waveguide_control.py verify \
-  --reference replay-waveguide-calibration --name chain4 --output replay-waveguide-chain4
+  build/cuda-env/bin/python experiments/waveguide_control.py verify \
+  --reference build/waveguide-calibration --name chain4 \
+  --output build/waveguide-chain4 --solver cudss
 ```
 
 The other names are `chain3`, `nonuniform3`, `mediator2`, and `indefinite3`. For the recorded indefinite check, add `--h 0.05 0.045454545454545456 0.041666666666666664`. The wall test uses `--name chain3 --buffer-extra 4 --h 0.05 0.045454545454545456`. Every output directory must be new.
 
-The periodic stages are implemented in `local_library.py`, `local_transfer.py` and `local_compile.py`; each archived case contains the executed source and parameters. `waveguide_tradeoff.py` reproduces the fine-channel spacing and material-rounding study. `uv run --script analyze_local.py` regenerates both figures, the summary and the verification table from the archived results. GPU runs used one device per job and two host numerical-library threads; timings are resource records, not solver benchmarks.
+The periodic stages are implemented in `local_library.py`, `local_transfer.py` and `local_compile.py`; each archived case contains the executed source and parameters. `waveguide_tradeoff.py` reproduces the fine-channel spacing and material-rounding study. `uv run --script experiments/analyze_local.py` regenerates both figures, the summary and the verification table from the archived results. GPU runs used one device per job and two host numerical-library threads; timings are resource records, not solver benchmarks.

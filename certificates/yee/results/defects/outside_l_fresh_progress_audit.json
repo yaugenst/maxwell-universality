@@ -2737,7 +2737,7 @@
   "proposal_sha256_after": "b90a4820ebf763da72ff23e46fcbe542fae9dc50ac82a8492f2eb0641afd8343",
   "proposal_sha256_before": "b90a4820ebf763da72ff23e46fcbe542fae9dc50ac82a8492f2eb0641afd8343",
   "proposed_matrix_boxes": 2056,
-  "receipt_directory": "/workspace/scratch/afe058a3cc75/maxwell_research/work/bulk/global_certificate/verification_final/accepted_points",
+  "receipt_directory": "work/bulk/global_certificate/verification_final/accepted_points",
   "scope": "geometry/comparator audit; receipt matching alone is not a fresh exact matrix replay",
   "source_sha256_after": {
     "exact_geometry.py": "7f5ba3dc39978079c5b486d7453a6ac230095e9f0c9e6609ae7bfd5fb4e2df57",

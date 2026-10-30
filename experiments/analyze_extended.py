@@ -237,7 +237,7 @@ Matrix condition numbers also include the mesh-dependent largest curl eigenvalue
 
 ## Reproduction and evidence
 
-All work is confined to this experiment directory; the manuscript and paused Lean work were not edited. [Protocol and commands](../README.md), [full Maxwell tuning](../refine_device.py), [precision experiment](../precision.py), [robustness experiment](../robustness.py), [spectral diagnostic](../conditioning.py), and [machine-readable extended results](extended_summary.json) accompany this report. Regenerate the figures and report with `uv run --script analyze_extended.py`.
+[Protocol and commands](../README.md), [full Maxwell tuning](../refine_device.py), [precision experiment](../precision.py), [robustness experiment](../robustness.py), [spectral diagnostic](../conditioning.py), and [machine-readable extended results](extended_summary.json) accompany this report. Regenerate the figures and report with `uv run --script analyze_extended.py`.
 
 The extended runs used one GPU per job with two host numerical-library threads per job. Dense calibration used CuPy/cuSOLVER; sparse field solves used cuDSS. The 379,610-unknown case was admitted after cuDSS's memory plan estimated 112.6 GB peak device memory, within the allocated device memory. The twelfth-order test also had a checked memory plan (100.8 GB at its largest grid). These are resource records, not performance benchmarks. Run directories preserve source snapshots, dependency versions and raw field outputs. All failed scientific candidates remain in the record. [Independent raw-field audit](full_field_audit.json) reconstructs source programming, decoding and two-curl PDE residuals directly from saved fields.
 """

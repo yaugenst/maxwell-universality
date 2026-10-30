@@ -256,8 +256,8 @@ $\Gamma$. Three defects carry the sources and readout functions, while three
 auxiliary defects adjust the cavity response. The material remains scalar and
 positive, with $4.77<\varepsilon<21.24$. Once calibrated, the structure,
 source profiles and decoder are fixed, and changing the source amplitudes
-changes the right-hand side. A full-vector Maxwell solve on the finer grid
-gives $\norm{\Gamma X-I}_2=7.88\times10^{-4}$, where $X$ is the decoded
+changes the right-hand side. A full-vector Maxwell solve on a grid finer than
+the calibration grid gives $\norm{\Gamma X-I}_2=7.88\times10^{-4}$, where $X$ is the decoded
 response to all basis inputs; this bounds the relative equation error for
 every right-hand side.
 
@@ -270,8 +270,8 @@ entries $-1$, the material strengths follow directly from
 $v_i=(\mu+t\Gamma_{ii})^{-1}$. This rule transfers from three to four sites
 without changing the common strength, and a detuned auxiliary well produces
 a positive effective coupling by elimination. Five prescribed targets,
-including an indefinite chain, have equation errors below $0.55\%$ on both
-finer full-vector grids, with the assembled responses used only for
+including an indefinite chain, have equation errors below $0.55\%$ on the two
+finer of three full-vector grids, with the assembled responses used only for
 verification. The component calibration, refinement tests and material-precision
 study are given in Section~\ref{n:sec:numerical} of the \SI.
 
@@ -280,7 +280,9 @@ study are given in Section~\ref{n:sec:numerical} of the \SI.
 \includegraphics[width=\linewidth]{figures/fig_numerical.pdf}
 \caption{\textbf{Calibrated cavities and reusable components give two numerical realizations.}
 \textbf{a}, A prescribed signed matrix is encoded by six smooth spherical
-dielectric defects in an $8\times6\times8$ PEC cavity. The plotted section is
+dielectric defects in an $8\times6\times8$ PEC cavity. The left block shows
+the target system $\Gamma x=b$; blue, red and gray cells mark positive, negative
+and zero entries. The plotted section is
 the signed electric-field phasor $E_z$ at $y=0$ for $b=(1,0,0)$, normalized by
 its peak absolute value in the section. Solid circles mark the support of the
 three terminal defects T1--T3; dashed circles mark the auxiliary defects A1--A3.
@@ -290,7 +292,8 @@ cavity response and held fixed during refinement.
 with the target solution (black ticks). The reported error $\norm{\Gamma X-I}_2$
 covers all inputs; the displayed field was computed at $h=1/7$.
 \textbf{c}, Four translated copies of one dielectric well realize a chain
-using the local rule $v_i=(\mu+t\Gamma_{ii})^{-1}$. Blue regions mark the
+using the local rule $v_i=(\mu+t\Gamma_{ii})^{-1}$; the target system is
+shown as in \textbf{a}. Blue regions mark the
 supports of smooth wells spanning the waveguide cross-section; the transverse
 dimensions are enlarged. The curve is the computed $E_y$ along the centerline
 for $b=(1,0,0,0)$ at $h=1/22$, normalized by its peak absolute value.

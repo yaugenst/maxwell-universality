@@ -10,7 +10,7 @@ a: the implied sparse-solver exponent max{3/2, 3 theta/2} against the Maxwell-so
    reference exponents.
 b: the conditional exclusion theta < 2 gamma / 3 under a hardness exponent gamma in (3/2, 2].
 
-Reference exponents (see NOTES.md): m = O~(n), polynomial condition number.
+Reference exponents: m = O~(n), polynomial condition number.
   2        Kelner 2026 (arXiv:2609.38101), O~(mn log(kappa/eps)) bit operations: best known
   2.2716   Nie, STOC 2022: O~(n^{(3w-4)/(w-1)}) with w < 2.37286 (superseded)
   2.3316   Peng & Vempala, SODA 2021 / J. ACM 2025: O(n^{(5w-4)/(w+1)}) with w < 2.372864 (superseded)

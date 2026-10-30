@@ -7,15 +7,18 @@
 
 a: the input system (the actual 2 x 2 example compiled by the logical compiler);
 b: the compiled logical network, exactly as routed into its integer grid box by the compiler
-   (data: maxwell_paper_draft/figures/logical_translation_*.{json,npz,json.gz});
+   (data: logical_translation_*.{json,json.gz} written by si/logical_translation.py);
 c: readout moments and the decoded answer of that example (exact logical decoding).
 
-Run: uv run --script fig1_concept.py
+Run from the paper directory:
+    FIGS1_DATA_DIR=build/logical uv run --script figures/si/logical_translation.py
+    FIGS1_DATA_DIR=build/logical uv run --script figures/fig1_concept.py
 """
 from __future__ import annotations
 
 import gzip
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -31,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import figstyle as st
 
 HERE = Path(__file__).resolve().parent
-SRC = HERE.parents[1] / "maxwell_paper_draft" / "figures"
+SRC = Path(os.environ["FIGS1_DATA_DIR"])  # written by si/logical_translation.py
 Z_COMPRESS = 6          # routing axis compressed for display (stated in the caption)
 
 data = json.loads((SRC / "logical_translation_data.json").read_text())

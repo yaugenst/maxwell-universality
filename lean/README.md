@@ -89,7 +89,10 @@ uv run --script verify_continuum_analysis.py
 It checks dependency revisions and source hashes as well as compilation,
 axiom inventories, and kernel replay. Accepted logical axioms are
 `propext`, `Classical.choice`, and `Quot.sound`. Its receipt and logs are
-written to `evidence/continuum-analysis/`.
+written to `evidence/continuum-analysis/`, replacing the recorded receipt that
+the `lean-evidence` archive restores there. To compare a fresh run with the
+recorded one, copy that directory first; `assets.py verify --groups
+lean-evidence` reports the replaced files afterwards.
 
 The verifier runs one compiler at a time with a 6,000 MB Lean memory limit
 and at most two CPU cores where affinity is available. Plan for at least
@@ -104,10 +107,11 @@ platform/instance components. Their declared hypotheses and audit output
 determine the scope. Full certificate regeneration additionally needs the
 `yee-witnesses` and `yee-receipts` asset groups.
 
-`verify.py` is the existing whole-development gate for the discrete theorem
-`Maxwell.Realization.quantitative_realization`. It requires every project
-source to be reachable from `Maxwell.lean` and checks the theorem's exact
-type. The current default root does not meet that import-closure requirement.
+`verify.py` is the whole-development gate for the final discrete theorem
+`Maxwell.Realization.quantitative_realization`. That theorem is not yet stated
+in this snapshot, so the gate does not pass. It requires every project source
+to be reachable from `Maxwell.lean` and checks the theorem's exact type; the
+current default root also does not meet that import-closure requirement.
 A complete continuum realization also needs its own final theorem and type
 check; the component scope reports do not supply that conclusion.
 

@@ -24,18 +24,24 @@ See the [paper](../paper/README.md), [Lean](../lean/README.md),
 
 ## Companion archives
 
-The archives accompany the `artifact-2026-10-29` release in
-[`yaugenst/maxwell-universality`](https://github.com/yaugenst/maxwell-universality).
-During preparation, the repository is private and the release is a draft.
-Use an account with access to download them:
+The archives are attached to the
+[`artifact-2026-10-30` release](https://github.com/yaugenst/maxwell-universality/releases/tag/artifact-2026-10-30).
+With the [GitHub CLI](https://cli.github.com/):
 
 ```bash
-gh release download artifact-2026-10-29 --repo yaugenst/maxwell-universality \
+gh release download artifact-2026-10-30 --repo yaugenst/maxwell-universality \
   --dir .release-assets --pattern '*.tar.gz'
 ```
 
 For a smaller download, replace the pattern with a group prefix such as
-`'demo-fields-*.tar.gz'` or `'lean-generated-*.tar.gz'`.
+`'demo-fields-*.tar.gz'` or `'lean-generated-*.tar.gz'`. Individual archives
+can also be fetched directly:
+
+```bash
+mkdir -p .release-assets
+curl -fL -o .release-assets/demo-fields-01.tar.gz \
+  https://github.com/yaugenst/maxwell-universality/releases/download/artifact-2026-10-30/demo-fields-01.tar.gz
+```
 
 List the groups and compressed sizes:
 

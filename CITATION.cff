@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this material, please cite the paper as below."
+type: software
+title: "Maxwell's equations are universal for sparse linear algebra: companion repository"
+abstract: >-
+  Manuscript sources, Lean developments, exact certificate checkers, and
+  numerical illustrations for the paper "Maxwell's equations are universal
+  for sparse linear algebra".
+authors:
+  - family-names: Augenstein
+    given-names: Yannick
+repository-code: "https://github.com/yaugenst/maxwell-universality"
+url: "https://arxiv.org/abs/2610.38913"
+license:
+  - MIT
+  - CC-BY-4.0
+keywords:
+  - Maxwell's equations
+  - sparse linear systems
+  - optical computing
+  - computational complexity
+  - Lean
+preferred-citation:
+  type: article
+  title: "Maxwell's equations are universal for sparse linear algebra"
+  authors:
+    - family-names: Augenstein
+      given-names: Yannick
+  journal: "arXiv preprint arXiv:2610.38913"
+  year: 2026
+  month: 10
+  doi: "10.48550/arXiv.2610.38913"
+  url: "https://arxiv.org/abs/2610.38913"

@@ -1,6 +1,8 @@
 # Manuscript and figures
 
-**Paper:** arXiv link to be added.
+**Paper:** [arXiv:2610.38913](https://arxiv.org/abs/2610.38913). The arXiv
+listing records each submitted version; this directory holds the current
+source.
 
 `main.tex` builds the article and supplementary information as one document.
 This directory is the source for manuscript releases and the arXiv submission

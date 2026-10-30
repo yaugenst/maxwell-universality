@@ -2,49 +2,49 @@
   "status": "PASS_NONNEGATIVE_FIXED_PARAMETERS",
   "files": [
     {
-      "path": "/workspace/scratch/afe058a3cc75/maxwell_research/work/bulk/clean_certificate/cover_screen_complete.json",
+      "path": "work/bulk/clean_certificate/cover_screen_complete.json",
       "records": 604,
       "parameters": 24764,
       "sha256": "8e5107d1279a74fc84ea659195c3d9ebba76fc1797aa199a8940c2cf2f6fd590",
       "status": "ALL_NONNEGATIVE_WITH_REQUIRED_STRICT_POSITIVITY"
     },
     {
-      "path": "/workspace/scratch/afe058a3cc75/maxwell_research/work/bulk/edge_isolation/lower_1over256_proposal.json",
+      "path": "work/bulk/edge_isolation/lower_1over256_proposal.json",
       "records": 1,
       "parameters": 41,
       "sha256": "b4cbaa16e89caea7623bee78126135dd8f26323c5486a0865b79ba4678afe62c",
       "status": "ALL_NONNEGATIVE_WITH_REQUIRED_STRICT_POSITIVITY"
     },
     {
-      "path": "/workspace/scratch/afe058a3cc75/maxwell_research/work/bulk/edge_isolation/upper_5over256_proposal.json",
+      "path": "work/bulk/edge_isolation/upper_5over256_proposal.json",
       "records": 1,
       "parameters": 41,
       "sha256": "abd6123674256c2cc965367921666e839e237a23a05b7970f0b9e0cb74fa75c1",
       "status": "ALL_NONNEGATIVE_WITH_REQUIRED_STRICT_POSITIVITY"
     },
     {
-      "path": "/workspace/scratch/afe058a3cc75/maxwell_research/work/bulk/edge_isolation/upper_3over128_proposal.json",
+      "path": "work/bulk/edge_isolation/upper_3over128_proposal.json",
       "records": 1,
       "parameters": 41,
       "sha256": "b455ad8b6c029ec7a0d0fe4cfd7afc162ea1de78aea49a067da57da5b39afacf",
       "status": "ALL_NONNEGATIVE_WITH_REQUIRED_STRICT_POSITIVITY"
     },
     {
-      "path": "/workspace/scratch/afe058a3cc75/maxwell_research/work/bulk/edge_isolation/upper_7over256_proposal.json",
+      "path": "work/bulk/edge_isolation/upper_7over256_proposal.json",
       "records": 1,
       "parameters": 41,
       "sha256": "822e34310e4710c787a752587ebb1f8fd232d8deca47dba8e0bc1e69c9d31746",
       "status": "ALL_NONNEGATIVE_WITH_REQUIRED_STRICT_POSITIVITY"
     },
     {
-      "path": "/workspace/scratch/afe058a3cc75/maxwell_research/work/bulk/edge_isolation/uniform_local_isolation_proposal.json",
+      "path": "work/bulk/edge_isolation/uniform_local_isolation_proposal.json",
       "records": 1,
       "parameters": 41,
       "sha256": "6da9f130d06491d089f63a8d243c3317631c9f51a7aa614fc4bbe37a161bb13e",
       "status": "ALL_NONNEGATIVE_WITH_REQUIRED_STRICT_POSITIVITY"
     },
     {
-      "path": "/workspace/scratch/afe058a3cc75/maxwell_research/work/bulk/global_certificate/cover_proposals.json",
+      "path": "work/bulk/global_certificate/cover_proposals.json",
       "records": 2056,
       "parameters": 84296,
       "sha256": "b90a4820ebf763da72ff23e46fcbe542fae9dc50ac82a8492f2eb0641afd8343",

@@ -10,7 +10,8 @@ three-dimensional routing of Part~I
 and~III give their separate spectral, interaction, boundary and recovery
 analyses. Part~IV proves the algorithm transfers and their conditional
 consequences, and Part~V describes the finite computer-assisted
-certificates.
+certificates and the formal proofs. Part~VI details the numerical
+illustrations.
 
 \subsection{Conventions and notation}\label{si:sec:notation}
 
@@ -25,7 +26,9 @@ electromagnetic platform, but never on $m$.
 
 Every symbol below has one meaning throughout the main text and this
 supplement; a hat ($\widehat F$, $\widehat a$, $\widehat x$) always marks a finite
-(rounded or truncated) approximation of the unhatted object.
+(rounded or truncated) approximation of the unhatted object. The numerical
+illustrations in the main text and in Part~VI define their own symbols, e.g.,
+the grid spacing $h$ and the decoded response matrix $X$.
 \begin{itemize}
 \item \emph{Input.} $M\in\Q^{n\times n}$, $b$, $x$, $m=\nnz(M)$; tolerance
 $\eta$, its rounded value $\eta_0$, the logical tolerances $\eta_*$ and
@@ -188,7 +191,8 @@ balls have radius $L$, their centers and the box sides are integers, and
 $L=O(\ell^6)$. No ball, gap, or boundary buffer shrinks with $m$.
 The material profile degree is $O(\ell^2)$; source and readout degrees
 are at most a fixed multiple of $\ell^8$. These degrees and every
-coefficient are counted in~\eqref{c:eq:resources}. Section~\ref{c:sec:representation}
+coefficient are counted in~\eqref{c:eq:volume-description}
+and~\eqref{c:eq:resources}. Section~\ref{c:sec:representation}
 gives the exact finite format, its evaluation algorithms, and its
 approximation bounds. The shortest background period is two; the vacuum
 wavelength is $2\pi$. Therefore~\eqref{c:eq:volume-description} is also the physical

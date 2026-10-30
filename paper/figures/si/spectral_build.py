@@ -4,12 +4,13 @@
 # ///
 """Render FIG-2/3 from exact saved data; optionally refresh from frozen sources.
 
-    uv run --script figures/spectral_build.py
-    uv run --script figures/spectral_build.py --refresh-from ../maxwell_sparse_reduction
+    uv run --script figures/si/spectral_build.py
+    uv run --script figures/si/spectral_build.py --refresh-from ROOT
 
-The first command needs only the paper bundle. The second extracts exact data
-from the research release, verifies source bindings and rational inequalities,
-then renders. Neither command modifies research evidence or executes the matrix
+The first command needs only the bundled data. The second extracts exact data
+from the original research directory ROOT (with its ``work/``, ``verification/``
+and ``snapshot/`` trees, which the companion archives do not reproduce),
+verifies source bindings and rational inequalities, then renders. Neither command modifies research evidence or executes the matrix
 verifiers. Exact rational computations precede conversion to display floats.
 """
 from __future__ import annotations

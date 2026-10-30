@@ -56,7 +56,7 @@
   "witnesses_checked": 2660,
   "elapsed_seconds": 6.914448394003557,
   "rejected_H1_archive": {
-    "path": "/workspace/scratch/afe058a3cc75/maxwell_research/work/bulk/clean_certificate/audit/rejected_evidence/2688_2176_640_4.npz.truncated",
+    "path": "work/bulk/clean_certificate/audit/rejected_evidence/2688_2176_640_4.npz.truncated",
     "bytes": 91307,
     "suffix": ".truncated",
     "included_by_main_filter": true

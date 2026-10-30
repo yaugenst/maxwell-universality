@@ -41,10 +41,15 @@ interpolation to a central section and the field normalization in
 The first cavity has dimensions $8\times6\times8$ and background
 \begin{equation}
  \varepsilon_{\rm bg}(r)=7+E_c-0.3+
- \tfrac12\bigl[\cos(\pi r_1)+2\cos(\pi r_2)+4\cos(\pi r_3)\bigr],
+ \varrho\bigl[\cos(\pi r_1)+2\cos(\pi r_2)+4\cos(\pi r_3)\bigr],
+ \qquad \varrho=\tfrac12,
  \label{n:eq:periodic-background}
 \end{equation}
-where $E_c=1.5725344295489645$. Six radius-one bumps add
+where $E_c=1.5725344295489645$ is the eigenvalue at $k_*$ of the selected
+corner branch of ${\nabla\times\nabla\times-\varepsilon_{\rm per}}$ for this
+modulation, computed in a truncated plane-wave basis. The selected branch
+of ${\nabla\times\nabla\times-\varepsilon_{\rm bg}}$ therefore has eigenvalue
+$0.3$ at $k_*$. Six radius-one bumps add
 $v_i w(\lVert r-c_i\rVert)$, where
 $w(s)=\exp[-1/(1-s^2)]$ for $|s|<1$ and zero otherwise. The terminal centers
 are $(-2,0,-2)$, $(2,0,-2)$ and $(-2,0,2)$; the auxiliary centers are
@@ -60,7 +65,8 @@ The final strengths are approximately
 $(14.87272,23.66068,12.48289,3.17042,25.71297,5.06464)$, with continuous
 material enclosure $[4.7725344,21.2318084]$.
 
-We use compatible staggered derivatives of order eight. Material calibration
+We use compatible staggered derivatives of order eight on a uniform grid of
+spacing $h$. Material calibration
 at $h=1/6$ gives $e_{\rm eq}=3.68\times10^{-12}$. Holding the material,
 source functions and decoder fixed gives $e_{\rm eq}=3.9657\times10^{-3}$
 at $h=2/13$ and $7.8782\times10^{-4}$ at $h=1/7$, the latter on
@@ -139,9 +145,11 @@ multiplies a bump of peak $1/e$.
 All five designs use the same isolated calibration and coupling rule, with
 no fitting against their assembled responses. Wells are centered at
 $z_i=4[i-(n-1)/2]$, $i=0,\ldots,n-1$, in a waveguide of length $12+4(n-1)$.
-The verifier assembles the complete three-component matrix
+For verification, we assemble the complete three-component matrix
 $C^{\mathsf T}C-\operatorname{diag}(\varepsilon)$ with compatible derivatives
-of order 12, and solves every basis input. The invariant channel follows from
+of order 12, and solve for every basis input. A design meets the accuracy
+criterion if its equation error is below $1\%$ on the two finer of three
+grids. The invariant channel follows from
 the material and source symmetry; the numerical operator has no modal
 projection. The largest system has 380\,100 electric unknowns, and all
 algebraic residuals are below $10^{-8}$.
@@ -165,7 +173,7 @@ The full-vector errors decrease on refinement (\cref{n:fig:controls}b,
 \cref{n:tab:waveguide-errors}). The independent finer channel calculation
 separates the remaining model error from the observed grid dependence.
 Halving the isolated calibration spacing to $0.0025$ changes $\mu$ by
-$7.66\times10^{-14}$, or $6.24\times10^{-8}$ of the useful coupling. Keeping
+$7.66\times10^{-14}$, or $6.23\times10^{-8}$ of the useful coupling. Keeping
 the sources and material fixed while comparing channel spacings $0.01$ and
 $0.005$ changes the equation errors in the 70 spacing-and-rounding cases
 below by at most $6.6\times10^{-9}$. These are numerical refinement checks;
@@ -208,7 +216,8 @@ For $p=12$, the four-site errors are $0.3585\%$ at $d=3$ and $3.8246\%$ at
 $d=4$; at $d=4$, using $p=16$ gives $0.1220\%$
 (\cref{n:fig:controls}d). Thus the more isolated assembly requires finer
 material settings to preserve the accuracy of its weaker coupling. The
-rounding study contains 70 cases: five separations from 2 to 4, the four-site
+rounding study contains 70 cases: five separations from 2 to 4 in steps of
+$0.5$, the four-site
 chain and the two-terminal mediator, and nominal strengths or
 $p\in\{8,12,16,20,24,28\}$. These particular roundings can cancel other
 errors and do not give worst-case tolerance bounds. Geometric errors,
