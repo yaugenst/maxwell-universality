@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Can Light Solve Any Sparse Linear System?</title>
+<meta name="description" content="Any sparse linear system can be written into an ordinary dielectric. AI did the math, overnight, and I am still working out what to make of that.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Schibsted+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (~68ch), a strip of the actual background permittivity as masthead,
+   footnotes as hover/tap popovers mirrored in a list at the end. */
+:root {
+  --paper: #f5f7f8;
+  --ink: #15191d;
+  --muted: #5a6670;
+  --rule: #d5dde2;
+  --accent: #0d6e8c;
+  --accent-soft: #dcecf1;
+  --pop: #ffffff;
+  --viz-1: #2563b6;
+  --viz-2: #d27b13;
+  --viz-3: #7c4da8;
+  --font-display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Literata", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --measure: 68ch;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12171b; --ink: #e3e9ed; --muted: #95a3ad; --rule: #2a343b;
+    --accent: #5cc3e0; --accent-soft: #173039; --pop: #1b2329;
+    --viz-1: #6aa6ef; --viz-2: #f0a24a; --viz-3: #b592e3; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12171b; --ink: #e3e9ed; --muted: #95a3ad; --rule: #2a343b;
+  --accent: #5cc3e0; --accent-soft: #173039; --pop: #1b2329;
+    --viz-1: #6aa6ef; --viz-2: #f0a24a; --viz-3: #b592e3; color-scheme: dark;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  -webkit-text-size-adjust: 100%;
+}
+.column { max-width: var(--measure); margin: 0 auto; padding-block: 2.5rem 4rem; }
+
+#eps { display: block; width: 100%; height: 72px; border-radius: 3px; }
+.eps-label {
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
+  margin-top: 0.4rem; letter-spacing: 0.02em;
+}
+
+header { display: grid; gap: 0.9rem; margin-top: 2.2rem; margin-bottom: 2.5rem; }
+h1 {
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.015em; margin: 0; text-wrap: balance;
+}
+.dek { font-size: 1.2rem; color: var(--muted); margin: 0; font-style: italic; }
+.byline {
+  font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted);
+  display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; letter-spacing: 0.02em;
+}
+
+h2 {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; line-height: 1.25;
+  margin: 2.6rem 0 0.6rem; text-wrap: balance;
+}
+p, ul { margin: 0 0 1.1rem; }
+ul { padding-left: 1.3rem; }
+li { margin-bottom: 0.45rem; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.m { font-style: italic; white-space: nowrap; }
+.m sup, .m sub { font-style: italic; }
+sup { line-height: 0; }
+
+figure { margin: 2rem 0; }
+figure img {
+  display: block; width: 100%; height: auto; max-width: 100%;
+  background: #ffffff; border-radius: 4px; border: 1px solid var(--rule);
+}
+figcaption { font-size: 0.92rem; line-height: 1.5; color: var(--muted); margin-top: 0.7rem; }
+figcaption strong { color: var(--ink); font-family: var(--font-display); font-weight: 500; }
+
+.closing { font-style: italic; }
+.paperlink {
+  margin-top: 2.2rem; padding: 1rem 1.1rem; border: 1px solid var(--rule); border-radius: 4px;
+  font-size: 1rem; background: var(--accent-soft);
+}
+
+/* footnote references and popovers */
+.fnref {
+  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
+  color: var(--accent); background: none; border: 0; padding: 0 0.12em; margin: 0;
+  cursor: pointer; vertical-align: super; line-height: 0; text-decoration: none;
+}
+.fnref:hover { text-decoration: underline; }
+.fn-pop {
+  position: absolute; z-index: 20; width: min(340px, calc(100vw - 32px));
+  background: var(--pop); color: var(--ink); border: 1px solid var(--rule); border-radius: 6px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16); padding: 0.8rem 0.95rem;
+  font-size: 0.92rem; line-height: 1.5;
+}
+.fn-pop p { margin: 0; }
+.fn-pop .n { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); margin-right: 0.35rem; }
+
+.footnotes { margin-top: 3.5rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); font-size: 0.95rem; line-height: 1.55; }
+.footnotes h2 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.8rem; }
+.footnotes ol { padding-left: 1.4rem; margin: 0; display: grid; gap: 0.7rem; }
+.footnotes li { margin: 0; }
+.footnotes li:target { background: var(--accent-soft); border-radius: 3px; }
+.back { font-family: var(--font-mono); font-size: 0.8rem; text-decoration: none; margin-left: 0.3rem; }
+
+/* device explorer */
+.explorer { margin: 1.6rem 0 2rem; padding: 1rem 1rem 0.9rem; border: 1px solid var(--rule); border-radius: 6px; background: var(--pop); }
+.explorer-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: end; }
+.explorer label { display: grid; gap: 0.25rem; flex: 1 1 200px; min-width: 0;
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+.explorer select { font: 0.9rem var(--font-body); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); border-radius: 4px; padding: 0.35rem 0.5rem; max-width: 100%; }
+.explorer-stages { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.9rem 0 0.5rem; }
+.explorer-stages button { font: 500 0.85rem var(--font-display); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 0.3rem 0.8rem; cursor: pointer; }
+.explorer-stages button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--pop); }
+.explorer canvas { display: block; width: 100%; touch-action: pan-y; cursor: grab; }
+.explorer canvas:active { cursor: grabbing; }
+.explorer-legend, .explorer-values { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; align-items: center;
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.explorer-values { font-size: 0.85rem; color: var(--ink); padding: 0.5rem 0 0.2rem; font-variant-numeric: tabular-nums; }
+.explorer-scale { display: inline-block; width: 90px; height: 9px; border-radius: 2px; vertical-align: middle; margin-right: 0.3rem; }
+.explorer-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.35rem; }
+.explorer-detail { font-size: 0.85rem; line-height: 1.45; color: var(--muted); margin-top: 0.3rem; }
+.explorer-status { font-size: 0.9rem; color: var(--muted); padding: 2rem 0; text-align: center; }
+.matrix { display: inline-grid; grid-template-columns: repeat(3, auto); gap: 0 0.9rem; padding: 0.15rem 0.6rem;
+  border-left: 1.5px solid var(--ink); border-right: 1.5px solid var(--ink); border-radius: 3px;
+  font-family: var(--font-mono); font-size: 0.85rem; text-align: right; vertical-align: middle; font-variant-numeric: tabular-nums; }
+.display-math { display: flex; align-items: center; gap: 0.6rem; justify-content: center; margin: 0 0 1.1rem; font-style: italic; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .fn-pop { animation: pop-in 120ms ease-out; }
+  @keyframes pop-in { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+}
+</style>
+<style>body { margin: 0; } img { max-width: 100%; }</style>
+</head>
+<body>
+
+
+<div class="column">
+  <canvas id="eps" aria-hidden="true"></canvas>
+  <div class="eps-label">ε(r) = 7 + ϱ[cos πr₁ + 2 cos πr₂ + 4 cos πr₃], a slice through the background dielectric, with the modulation ϱ = 2<sup>−100</sup> exaggerated so you can see it</div>
+
+  <header>
+    <h1>Can Light Solve Any Sparse Linear System?</h1>
+    <p class="dek">Any sparse linear system can be written into an ordinary dielectric. AI did the math, overnight, and I am still working out what to make of that.</p>
+    <div class="byline"><span>Yannick Augenstein</span><span>30 October 2026</span><a href="https://arxiv.org/abs/2610.38913">arXiv:2610.38913</a><a href="https://github.com/yaugenst/maxwell-universality">GitHub</a></div>
+  </header>
+
+  <main>
+    <p>2026 has been a strange year for mathematics. In September, OpenAI announced that one of its internal models had produced a <a href="https://openai.com/index/navier-stokes-solution/">proposed solution to the Navier–Stokes problem</a>, one of the seven <a href="https://www.claymath.org/millennium/navier-stokes-equation/">Millennium Prize Problems</a>; the Clay Mathematics Institute is still reviewing it. Earlier this week, OpenAI <a href="https://openai.com/index/building-scientific-understanding-with-academic-communities/">announced</a> that its models had <a href="https://github.com/openai/math/blob/main/lean/docs/378.md">refuted the Exponential Time Hypothesis</a> (ETH), a widely used conjecture in theoretical computer science, and experts are checking that proof right now. Whatever the final verdicts, it is clear that AI systems can now produce long, serious mathematical arguments, and that the bottleneck is shifting from finding proofs to checking them.</p>
+
+    <p>This post is about a much smaller result. It started as a bit of curiosity about optical computing and about electromagnetic simulation, which I like a lot (I work at <a href="https://www.flexcompute.com">Flexcompute</a>, after all).</p>
+
+    <h2>Where this started</h2>
+
+    <p>The ETH news got me thinking about its cousins. ETH is a statement of the form “this problem can not be solved faster than some bound”. There is a similar hypothesis for linear algebra, the <a href="https://doi.org/10.1137/1.9781611975994.17">Sparse Linear Equation Time Hypothesis</a> (SLTH). Roughly, it says that general sparse linear systems <span class="m">Mx = b</span> can not be solved faster than some exponent of their size, no matter how clever the algorithm.</p>
+
+    <p>Every electromagnetic simulation is, at its core, a sparse linear system. When you discretize Maxwell's equations on a grid, a photonic device becomes millions or billions of coupled equations. So I was curious: could there ever be a Maxwell solver that runs in near-linear time? That would be absolutely wild: the cost of a solve would grow only in proportion to the size of the device, regardless of how resonant or complicated it is, so a device ten times larger would take about ten times longer, and full-wave simulation and inverse design of entire systems, not just their components, would become routine. For some structured problems this actually happens. Graph Laplacians, i.e., the systems behind diffusion and electrical networks, <a href="https://doi.org/10.1137/090771430">can be solved in nearly linear time</a>. For wave problems, the folklore is that this can not be done, but as far as I know nobody had ever turned that folklore into a statement.</p>
+
+    <p>There is a standard way to make such a statement: show that the structured problem is secretly as hard as the general one. If you can translate <em>any</em> sparse linear system into a Maxwell problem, cheaply, then a fast Maxwell solver would be a fast general sparse solver. People have done this for other physical systems, e.g., for the <a href="https://doi.org/10.1137/17M1161774">stiffness matrices of trusses</a>, but not for light.</p>
+
+    <h2>The optical computing side</h2>
+
+    <p>The same translation answers a question from the other direction. Optical analog computing <a href="https://doi.org/10.1038/s42254-023-00645-5">has been having a moment</a>: <a href="https://doi.org/10.1126/science.aaw2498">metamaterials that solve integral equations</a>, <a href="https://doi.org/10.1038/s41377-022-00950-1">photonic circuits that invert matrices</a>, <a href="https://doi.org/10.1038/nphoton.2017.93">optical neural networks</a>. Reading these papers, I had often wondered which problems a piece of passive optical material can actually represent. And what would it cost, once you count everything, i.e., how big the structure must be, how precisely you must build it, and how hard it is to write the problem in and read the answer out? The demonstrations encode a fixed kernel or a matrix with a handful of entries, so they do not answer this.</p>
+
+    <p>Both questions, the solver one and the optical computing one, are really the same question: how expressive is a dielectric?</p>
+
+    <h2>The answer</h2>
+
+    <p>Here is what we now know. Take any sparse linear system <span class="m">Mx = b</span> with <span class="m">m</span> nonzero coefficients. The matrix can be nonsymmetric, its entries can have either sign, and its sparsity pattern can be anything; we only ask that it is reasonably well-conditioned, i.e., that its condition number grows at most polynomially with <span class="m">m</span>. Then there is a compiler that turns it into a three-dimensional dielectric structure inside a metal box<a class="fnref" href="#fn-1" id="ref-1" data-fn="1">1</a>, together with a source and a list of field measurements, such that:</p>
+
+    <ul>
+      <li>every electric field that approximately solves Maxwell's equations in that structure gives you an approximate solution of <span class="m">Mx = b</span>;</li>
+      <li>the material is completely ordinary: lossless, isotropic, with a permittivity between 1 and 25<a class="fnref" href="#fn-2" id="ref-2" data-fn="2">2</a>, i.e., roughly the range from air to common high-index ceramics, with no metals inside and no exotic metamaterial properties;</li>
+      <li>the size of the structure, the work of writing it down and the work of reading out the answer all grow like <span class="m">m<sup>3/2</sup></span>, up to logarithmic factors.<a class="fnref" href="#fn-3" id="ref-3" data-fn="3">3</a></li>
+    </ul>
+
+    <figure>
+      <img src="fig1_concept.png" width="1889" height="1133" alt="A two-by-two sparse matrix is compiled into a routed network of sites inside a three-dimensional box, and the answer is read out from field measurements.">
+      <figcaption><strong>Equations in, dielectric out.</strong> A small signed, nonsymmetric system (left) is compiled into a local network of sites, routed through a 3D box (center; this is the actual network the compiler produced for this example). Each site becomes a weak defect in a periodic dielectric. Reading a few field measurements and rounding returns the answer (right). Run backwards, a Maxwell solver for these structures is a solver for sparse linear systems.</figcaption>
+    </figure>
+
+    <p>That last point is what makes it a real statement and not a trick. Anything can be “computed by physics” if you are allowed to hide the work in an uncounted step, e.g., an infinitely precise material or a measurement with unlimited resolution. Here, everything is counted: the whole box including empty space, the bits in every material coefficient (only logarithmically many), the conditioning of the full electromagnetic problem, and the cost of decoding.</p>
+
+    <h2>How it works, roughly</h2>
+
+    <p>If you have worked with photonic crystals, the mechanism will look familiar. The background is a weakly modulated periodic dielectric (the strip at the top of this page). Raising the permittivity slightly over a broad region creates a localized mode, much like a defect cavity in a photonic crystal. Each unknown of the linear system lives in the amplitude of one such mode, and neighboring modes couple through their overlapping tails, which gives you a tight-binding network written in glass.</p>
+
+    <p>Two problems have to be solved to make this work for arbitrary equations. First, a reciprocal dielectric only gives you symmetric couplings of one sign, while the matrix is arbitrary. This is solved at the algebra level: the system is embedded in a larger symmetric one, and extra “mediator” modes produce couplings of either sign once you eliminate them. Second, an arbitrary sparse matrix connects variables in an arbitrary pattern, while physics is local. So the network is routed through 3D space like wires on a chip, and that is where the <span class="m">m<sup>3/2</sup></span> comes from: it is the same volume <a href="https://doi.org/10.1007/978-94-017-2973-4_11">Kolmogorov and Barzdin found in 1967</a> for packing an arbitrary network of wires into three dimensions.<a class="fnref" href="#fn-4" id="ref-4" data-fn="4">4</a></p>
+
+    <p>The hard part, and most of the 80 pages of supplementary math, is controlling everything this tight-binding picture ignores: all the other electromagnetic modes, the leakage of the defect modes into them (there is no complete band gap here), the accumulated effect of millions of tiny unwanted couplings, the metal walls, and the resonances of the box. The proof shows that all of these errors can be pushed below what the algebra needs, with only logarithmic overhead.</p>
+
+    <h2>A small one to play with</h2>
+
+    <p>The theorem is about very large systems, but you can already see the mechanism in a tiny one. Below is a numerical example: a metal box filled with the same kind of periodic dielectric, with six defects that together encode the signed 3×3 system</p>
+
+    <div class="display-math" aria-label="Gamma equals the matrix with rows 3, minus 0.6, 0.4; minus 0.6, 2.5, 0.8; 0.4, 0.8, 3.5">
+      <span>Γ =</span>
+      <span class="matrix"><span>3.0</span><span>−0.6</span><span>0.4</span><span>−0.6</span><span>2.5</span><span>0.8</span><span>0.4</span><span>0.8</span><span>3.5</span></span>
+    </div>
+
+    <p>Three defects (T1–T3) are where the input <span class="m">b</span> goes in and the answer <span class="m">x</span> comes out. The other three (A1–A3) are only there to shape the couplings. Every field you see comes from a full-vector Maxwell solve of the whole box, about 380,000 unknowns, with nothing reduced or filtered out. Pick an input and step through it: the material, the source that writes <span class="m">b</span> in, the field the cavity settles into, and the overlaps that read <span class="m">x</span> back out. In the 3D view you can drag to rotate. The decoded answer solves <span class="m">Γx = b</span> to within 0.08% for every input.<a class="fnref" href="#fn-5" id="ref-5" data-fn="5">5</a></p>
+
+    <div class="explorer" id="device-explorer">
+      <div class="explorer-controls">
+        <label for="dx-input">Input b
+          <select id="dx-input">
+            <option value="0">Drive T1 · (1, 0, 0)</option>
+            <option value="1">Drive T2 · (0, 1, 0)</option>
+            <option value="2">Drive T3 · (0, 0, 1)</option>
+            <option value="3">Mixed · (1, −0.6, 0.8)</option>
+          </select>
+        </label>
+        <label for="dx-view">View
+          <select id="dx-view">
+            <option value="3d">3D cutaway</option>
+            <option value="front">Front section</option>
+          </select>
+        </label>
+      </div>
+      <div class="explorer-stages" role="group" aria-label="Step">
+        <button type="button" data-stage="0" aria-pressed="true">1 · Material</button>
+        <button type="button" data-stage="1" aria-pressed="false">2 · Source</button>
+        <button type="button" data-stage="2" aria-pressed="false">3 · Field</button>
+        <button type="button" data-stage="3" aria-pressed="false">4 · Readout</button>
+      </div>
+      <p class="explorer-status" id="dx-status">Loading the solved fields…</p>
+      <canvas id="dx-canvas" role="img" aria-label="Metal cavity with six smooth dielectric defects and a computed field section through its centre. Drag horizontally to rotate." hidden></canvas>
+      <div class="explorer-legend"><span id="dx-scale-label">Permittivity ε</span><span><span id="dx-scale" class="explorer-scale"></span><span id="dx-scale-range">4.77 → 21.23</span></span><span>section y = 0</span></div>
+      <div class="explorer-values" id="dx-values" aria-live="polite"></div>
+      <div class="explorer-detail" id="dx-detail"></div>
+    </div>
+
+    <h2>What it means</h2>
+
+    <p>For optical computing, this is a positive and a sobering answer at the same time. Positive: a passive, ordinary dielectric loses no generality, it can represent any well-conditioned sparse linear system. Sobering: this says nothing about speed. The construction is an ideal lossless cavity at a single frequency, and the time and energy to get it into its steady state and measure it, fabrication errors, absorption and noise are all outside the theorem.</p>
+
+    <p>For Maxwell solvers, the result puts a ceiling on what a general-purpose solver can achieve. Encode, solve, decode: a solver that handles all of these structures in time <span class="m">N<sup>θ</sup></span>, with <span class="m">N</span> the size of the structure, solves sparse linear systems in time <span class="m">m<sup>3θ/2</sup></span> (up to logarithms, and as long as it is not slower than encoding). The <a href="https://arxiv.org/abs/2609.38101">best known algorithm</a> for sparse, well-conditioned systems runs in about <span class="m">m<sup>2</sup></span> bit operations. So a general Maxwell solver with <span class="m">θ &lt; 4/3</span> would beat every known sparse linear solver. If SLTH holds in its strongest form<a class="fnref" href="#fn-6" id="ref-6" data-fn="6">6</a>, no such Maxwell solver exists. Fast solvers get their speed from structure that real devices have, e.g., smooth geometry, absorbing boundaries or moderate quality factors, and that these worst-case cavities do not have.</p>
+
+    <p>Note that the translation itself needs no hypothesis. SLTH only enters when you turn it into a lower bound on solvers.</p>
+
+    <h2>How it was made</h2>
+
+    <p>The constructions, the proofs and the computer-assisted certificates were produced by AI systems (OpenAI Astra 6 in ChatGPT and in the Codex app, and Claude Opus 5.5 in Claude Code). My part was the question, the requirements, steering when an approach went nowhere, and insisting that every cost is counted. The proofs were then audited by independent AI reviewers<a class="fnref" href="#fn-7" id="ref-7" data-fn="7">7</a>, and the finite certificates are machine-checked.</p>
+
+    <p>Most of it happened overnight, with some massaging in the evening before and the morning after. The question sits between photonics, spectral theory and complexity theory, and without AI it would most likely have stayed a passing thought.</p>
+
+    <h2>So what is the point?</h2>
+
+    <p>Anyone who has spent time in academic publishing knows that the system has been strained for a while. AI strains it further. The parallel to software is obvious: code can now be produced faster than anyone can reasonably review it, and the same is now true for proofs. This paper took a night to generate, and checking it carefully will take people far longer than that. We seem to be on some kind of exponential, but it is not clear to me what exactly is growing. It is not really a knowledge explosion, or a technological singularity, if nobody is able to absorb and build on what is being produced.</p>
+
+    <p>It also changes what it means to put a name on a paper. Traditionally, authorship is about credit: you did the work, so you get the recognition. Here, putting my name on the paper is much less about credit and much more about taking responsibility for its content. The work is not really mine, in the sense that I did very little of it. I had some ideas and things I wanted to explore, and now I have answers that came out of something close to an oracle. That takes some time to digest, and I expect it will take a long time for academic norms to catch up.</p>
+
+    <p>To be clear, the math in this paper is well beyond my own math chops. I understand the construction and the physics behind it, but I could not have written these proofs myself. So it is a fair question what the point of all this is. Not long ago, a result like this would have been a significant achievement, maybe even part of the theoretical foundations of a broad field. What it is now, when it took one night and someone who could not have done it alone, nobody knows.</p>
+
+    <p>Nonetheless, or maybe exactly because of that, I think these results are worth sharing. Tokens were spent to produce them, and if nothing else they should add to what the field knows. The same struggle is playing out at a much larger scale with the proofs OpenAI has been generating, which will take humans orders of magnitude longer to dissect and digest than it took to produce them.</p>
+
+    <p>What I do not intend to do is submit this to a journal. Journals are already swamped with AI-generated papers, and this one would just add to the pile. Nobody has the time or the energy to referee a hundred pages of spectral theory and complexity theory that took a night to produce. Which, again, raises real questions about the future of academic publishing.</p>
+
+    <p class="closing">We live in interesting times.</p>
+
+    <p class="paperlink">The paper, with the full proofs in the supplementary information, is on arXiv: <a href="https://arxiv.org/abs/2610.38913">arXiv:2610.38913</a>. Code, data, certificates and the Lean development are on <a href="https://github.com/yaugenst/maxwell-universality">GitHub</a>.</p>
+  </main>
+
+  <section class="footnotes" aria-label="Footnotes">
+    <h2>Footnotes</h2>
+    <ol>
+      <li id="fn-1"><p>A perfectly conducting one. This is a theorist's box: no losses, no fabrication errors, no fingerprints on the glass. <a class="back" href="#ref-1" aria-label="Back to text">↩</a></p></li>
+      <li id="fn-2"><p>The continuum construction actually only needs values between 6 and 10. <a class="back" href="#ref-2" aria-label="Back to text">↩</a></p></li>
+      <li id="fn-3"><p>Before anyone gets excited: this is pretty useless in practice, because the constants are galactic, as usually happens with existence proofs like this one. The background modulation alone is 2<sup>−100</sup>, and some fixed constants in the proof are numbers like 2<sup>2<sup>40</sup></sup>. Just writing that number down in decimal would take about 330 gigabytes. So this is an asymptotic statement, not a device you could build or a benchmark you could run. <a class="back" href="#ref-3" aria-label="Back to text">↩</a></p></li>
+      <li id="fn-4"><p>It is entirely possible that 3/2 is not the best exponent. It is just the best this construction can do. <a class="back" href="#ref-4" aria-label="Back to text">↩</a></p></li>
+      <li id="fn-5"><p>This is a demonstration of the mechanism, not of the compiler. Unlike in the theorem, the six defect strengths were tuned for this one target with full Maxwell solves, which is far more work than just solving a 3×3 system, and not every target I tried could be tuned this well.The background modulation is ϱ = 1/2 instead of 2<sup>−100</sup>. The material stays between 4.8 and 21.2. And it is a simulation, not a device anyone has built. <a class="back" href="#ref-5" aria-label="Back to text">↩</a></p></li>
+      <li id="fn-6"><p>SLTH comes with an exponent γ between 3/2 and 2: no algorithm solves general sparse systems in time <span class="m">m<sup>γ−δ</sup></span> for any δ &gt; 0. The strongest version, γ = 2, is the one that rules out Maxwell solvers with θ &lt; 4/3. <a class="back" href="#ref-6" aria-label="Back to text">↩</a></p></li>
+      <li id="fn-7"><p>Yes, AI checking AI. More on that below. <a class="back" href="#ref-7" aria-label="Back to text">↩</a></p></li>
+    </ol>
+  </section>
+</div>
+
+<script>
+(() => {
+  // Masthead: a 2D slice (r3 = 0) of the background permittivity with the modulation exaggerated.
+  const canvas = document.getElementById("eps");
+  function draw() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) return;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    const ctx = canvas.getContext("2d");
+    const img = ctx.createImageData(canvas.width, canvas.height);
+    const css = getComputedStyle(document.documentElement);
+    const hex = s => { s = s.trim().replace("#", ""); return [0, 2, 4].map(i => parseInt(s.slice(i, i + 2), 16)); };
+    const lo = hex(css.getPropertyValue("--paper")), hi = hex(css.getPropertyValue("--accent"));
+    const scale = 6 / canvas.height;                 // r units per device pixel: three periods tall
+    for (let y = 0; y < canvas.height; y++) {
+      for (let x = 0; x < canvas.width; x++) {
+        const r1 = x * scale, r2 = y * scale;
+        const v = (Math.cos(Math.PI * r1) + 2 * Math.cos(Math.PI * r2) + 4) / 7; // r3 = 0, normalised to [1/7, 1]
+        const t = Math.pow(v, 1.6);
+        const k = (y * canvas.width + x) * 4;
+        for (let c = 0; c < 3; c++) img.data[k + c] = lo[c] + (hi[c] - lo[c]) * t;
+        img.data[k + 3] = 255;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+  draw();
+  addEventListener("resize", draw);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  // Footnotes: show the text from the list at the bottom in a popover on hover, focus or tap.
+  let pop = null, owner = null, hideTimer = null, shownAt = 0;
+  function hide() {
+    if (pop) pop.remove();
+    if (owner) owner.setAttribute("aria-expanded", "false");
+    pop = owner = null;
+  }
+  function show(ref) {
+    if (owner === ref) return;
+    hide();
+    const src = document.getElementById("fn-" + ref.dataset.fn).querySelector("p").cloneNode(true);
+    src.querySelector(".back")?.remove();
+    pop = document.createElement("div");
+    pop.className = "fn-pop";
+    pop.id = "fn-pop";
+    pop.setAttribute("role", "tooltip");
+    const n = document.createElement("span");
+    n.className = "n"; n.textContent = ref.dataset.fn;
+    src.prepend(n);
+    pop.appendChild(src);
+    pop.addEventListener("mouseenter", () => clearTimeout(hideTimer));
+    pop.addEventListener("mouseleave", scheduleHide);
+    document.body.appendChild(pop);
+    owner = ref;
+    shownAt = Date.now();
+    ref.setAttribute("aria-expanded", "true");
+    ref.setAttribute("aria-describedby", "fn-pop");
+    const r = ref.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight;
+    const vw = document.documentElement.clientWidth;
+    const left = Math.min(Math.max(16, r.left + r.width / 2 - pw / 2), vw - pw - 16);
+    const below = r.bottom + 8 + ph < window.innerHeight || r.top < ph + 16;
+    pop.style.left = left + window.scrollX + "px";
+    pop.style.top = (below ? r.bottom + 8 : r.top - ph - 8) + window.scrollY + "px";
+    const pr = pop.getBoundingClientRect();
+    const shift = pr.left < 16 ? 16 - pr.left : pr.right > vw - 16 ? vw - 16 - pr.right : 0;
+    if (shift) pop.style.left = left + shift + window.scrollX + "px";
+  }
+  function scheduleHide() { clearTimeout(hideTimer); hideTimer = setTimeout(hide, 180); }
+  document.querySelectorAll(".fnref").forEach(ref => {
+    ref.setAttribute("role", "button");
+    ref.setAttribute("aria-expanded", "false");
+    ref.addEventListener("mouseenter", () => { clearTimeout(hideTimer); show(ref); });
+    ref.addEventListener("mouseleave", scheduleHide);
+    ref.addEventListener("focus", () => show(ref));
+    ref.addEventListener("blur", scheduleHide);
+    ref.addEventListener("click", e => {
+      e.preventDefault();
+      if (owner === ref && Date.now() - shownAt > 400) hide(); else show(ref);
+    });
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") hide(); });
+  document.addEventListener("click", e => {
+    if (pop && !pop.contains(e.target) && !e.target.closest(".fnref")) hide();
+  });
+  addEventListener("resize", hide);
+})();
+</script>
+<script>
+(() => {
+  // Device explorer: fields from the saved full-vector Maxwell solve, shown in the central plane y = 0.
+  const root = document.getElementById("device-explorer");
+  const canvas = root.querySelector("#dx-canvas"), ctx = canvas.getContext("2d");
+  const status = root.querySelector("#dx-status");
+  const input = root.querySelector("#dx-input"), view = root.querySelector("#dx-view");
+  const stageButtons = [...root.querySelectorAll("[data-stage]")];
+  const names = ["T1", "T2", "T3", "A1", "A2", "A3"];
+  const inputs = [[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, -0.6, 0.8]];
+  const EPS_MIN = 4.772534429548964, EPS_MAX = 21.231808300461573;
+  let data = null, stage = 0, inputIndex = 0, yaw = 0.32, drag = null;
+  const pitch = 0.18;
+
+  const hex = name => {
+    const s = getComputedStyle(document.documentElement).getPropertyValue(name).trim().replace("#", "");
+    return [0, 2, 4].map(i => parseInt(s.slice(i, i + 2), 16));
+  };
+  const rgb = (c, a = 1) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+  const mix = (a, b, t) => a.map((q, i) => Math.round(q + (b[i] - q) * t));
+  const fmt = q => (q >= 0 ? "+" : "−") + Math.abs(q).toFixed(4);
+
+  function draw() {
+    if (!data) return;
+    const b = inputs[inputIndex], isFront = view.value === "front";
+    const width = canvas.clientWidth, height = Math.min(460, Math.max(300, width * 0.66));
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
+    canvas.style.height = height + "px"; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, width, height);
+    const bg = hex("--pop"), ink = hex("--ink"), muted = hex("--muted");
+    const palette = [hex("--viz-1"), hex("--viz-2"), hex("--viz-3")];
+    const tone = stage === 1 ? palette[1] : palette[0];
+    const yA = isFront ? 0 : yaw, pA = isFront ? 0 : pitch;
+    const rotate = ([x, y, z]) => {
+      const hor = x * Math.cos(yA) + y * Math.sin(yA), depth = -x * Math.sin(yA) + y * Math.cos(yA);
+      return [hor, z * Math.cos(pA) - depth * Math.sin(pA), depth * Math.cos(pA) + z * Math.sin(pA)];
+    };
+    const corners = []; for (const x of [-4, 4]) for (const y of [-3, 3]) for (const z of [-4, 4]) corners.push([x, y, z]);
+    const proj = corners.map(rotate);
+    const xmax = Math.max(...proj.map(p => Math.abs(p[0]))), ymax = Math.max(...proj.map(p => Math.abs(p[1])));
+    const scale = Math.min((width - 56) / (2 * xmax), (height - 44) / (2 * ymax));
+    const project = p => { const q = rotate(p); return [width / 2 + scale * q[0], height / 2 - scale * q[1], q[2]]; };
+    const font = getComputedStyle(document.documentElement).getPropertyValue("--font-mono");
+    ctx.font = `11px ${font}`;
+    const line = (pts, stroke, lw = 1) => {
+      ctx.beginPath(); pts.forEach((p, i) => { const q = project(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
+      ctx.strokeStyle = stroke; ctx.lineWidth = lw; ctx.stroke();
+    };
+
+    // Combine the basis fields for this input before taking magnitudes, so interference is kept.
+    const n = data.n, field = Array.from({ length: n }, () => Array(n).fill(0)); let maximum = 0;
+    for (let z = 0; z < n; z++) for (let x = 0; x < n; x++) {
+      if (stage === 0) { field[z][x] = data.material[z][x]; continue; }
+      let scalar = 0;
+      for (let c = 0; c < 3; c++) {
+        const basis = stage === 1 ? data.source : data.field;
+        const value = b.reduce((s, q, k) => s + q * basis[k][c][z][x], 0);
+        if (stage === 1) scalar += value * value;
+        else if (stage === 2 && c === 2) scalar = value;
+        else if (stage === 3) scalar += value * data.source.reduce((s, f) => s + f[c][z][x], 0) / data.alpha;
+      }
+      field[z][x] = stage === 1 ? Math.sqrt(scalar) : scalar; maximum = Math.max(maximum, Math.abs(field[z][x]));
+    }
+    const tex = document.createElement("canvas"); tex.width = tex.height = n;
+    const tctx = tex.getContext("2d"), px = tctx.createImageData(n, n);
+    for (let z = 0; z < n; z++) for (let x = 0; x < n; x++) {
+      const t = stage === 0 ? (field[z][x] - EPS_MIN) / (EPS_MAX - EPS_MIN) : field[z][x] / maximum;
+      const pt = stage >= 2 && t < 0 ? palette[1] : tone;
+      const shade = stage >= 2 ? Math.min(1, Math.abs(t)) : 0.06 + 0.88 * Math.max(0, Math.min(1, t));
+      px.data.set([...mix(bg, pt, shade), 255], 4 * (z * n + x));
+    }
+    tctx.putImageData(px, 0, 0);
+    const p0 = project([-4, 0, -4]), pX = project([4, 0, -4]), pZ = project([-4, 0, 4]);
+    ctx.save();
+    ctx.transform((pX[0] - p0[0]) / n, (pX[1] - p0[1]) / n, (pZ[0] - p0[0]) / n, (pZ[1] - p0[1]) / n, p0[0], p0[1]);
+    ctx.imageSmoothingEnabled = false; ctx.drawImage(tex, 0, 0); ctx.restore();
+    for (let i = 0; i < 8; i++) for (let j = i + 1; j < 8; j++)
+      if (corners[i].filter((v, k) => v !== corners[j][k]).length === 1) line([corners[i], corners[j]], rgb(muted, 0.5));
+
+    const ordered = data.centers.map((p, i) => ({ p, i, depth: rotate(p)[2] })).sort((a, b) => b.depth - a.depth);
+    for (const { p, i } of ordered) {
+      const q = project(p), col = i < 3 ? palette[i] : muted;
+      if (stage === 0 && !isFront) {
+        const r = scale * Math.sqrt(1 - 1 / (1 - Math.log(0.25)));   // where the added permittivity drops to 25% of its peak
+        const g = ctx.createRadialGradient(q[0] - r * 0.3, q[1] - r * 0.4, 0, q[0], q[1], r);
+        g.addColorStop(0, rgb(mix(bg, col, 0.3), 0.95)); g.addColorStop(0.72, rgb(col, 0.76)); g.addColorStop(1, rgb(mix(col, ink, 0.25), 0.65));
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(q[0], q[1], r, 0, 2 * Math.PI); ctx.fill();
+      }
+      const ring = []; for (let t = 0; t <= 64; t++) { const a = t * 2 * Math.PI / 64; ring.push([p[0] + Math.cos(a), p[1], p[2] + Math.sin(a)]); }
+      ctx.setLineDash(i < 3 ? [] : [4, 3]); line(ring, rgb(col, 0.9), 1.25); ctx.setLineDash([]);
+      const lp = project([p[0], p[1], p[2] + 1.13]), tw = ctx.measureText(names[i]).width;
+      ctx.fillStyle = rgb(bg, 0.9); ctx.fillRect(lp[0] - tw / 2 - 3, lp[1] - 11, tw + 6, 15);
+      ctx.fillStyle = rgb(ink); ctx.textAlign = "center"; ctx.fillText(names[i], lp[0], lp[1]);
+    }
+    ctx.fillStyle = rgb(muted);
+    for (const [p, label] of [[[4.45, -3, -4], "x"], [[-4, -3.65, -4], "y"], [[-4, -3, 4.4], "z"]]) {
+      if (isFront && label === "y") continue; const q = project(p); ctx.fillText(label, q[0], q[1]);
+    }
+    ctx.textAlign = "right"; ctx.fillText(isFront ? "metal walls · 8 × 8 section" : "metal box · 8 × 6 × 8", width - 4, 14); ctx.textAlign = "left";
+
+    root.querySelector("#dx-scale").style.background = stage >= 2
+      ? `linear-gradient(to right,${rgb(palette[1])},${rgb(bg)},${rgb(palette[0])})`
+      : `linear-gradient(to right,${rgb(mix(bg, tone, 0.06))},${rgb(tone)})`;
+    root.querySelector("#dx-scale-label").textContent = ["Permittivity ε", "Source strength", "Field E_z", "Readout density"][stage];
+    root.querySelector("#dx-scale-range").textContent = stage === 0 ? "4.77 → 21.23" : stage === 1 ? "0 → peak" : "− → +";
+
+    const x = data.response.map(row => row.reduce((s, v, k) => s + v * b[k], 0));
+    const residual = Math.hypot(...data.target.map((row, i) => row.reduce((s, v, k) => s + v * x[k], 0) - b[i])) / Math.hypot(...b);
+    const values = root.querySelector("#dx-values"); values.replaceChildren();
+    const shown = stage === 3 ? x : b;
+    for (let i = 0; i < 3; i++) {
+      const span = document.createElement("span"), dot = document.createElement("span");
+      dot.className = "explorer-dot"; dot.style.background = rgb(palette[i]);
+      span.append(dot, document.createTextNode(`${stage === 3 ? "x" : "b"}${i + 1} = ${fmt(shown[i])}`)); values.append(span);
+    }
+    root.querySelector("#dx-detail").textContent = [
+      "The dielectric: the periodic background plus six smooth bumps in the permittivity. Rings mark each bump's extent. The material is the same for every input.",
+      "The input is written in as weak sources inside T1–T3, with signs and sizes given by b. Nothing about the material changes.",
+      "One component of the computed electric field in the central plane. Blue and orange have opposite signs. The field spreads through the whole box, including the auxiliary defects.",
+      `The field is weighted by the same profiles that wrote the input in and summed over each terminal, which gives x. Relative error in Γx = b: ${(100 * residual).toFixed(3)}%.`
+    ][stage];
+    stageButtons.forEach(btn => btn.setAttribute("aria-pressed", String(Number(btn.dataset.stage) === stage)));
+  }
+
+  input.addEventListener("change", () => { inputIndex = Number(input.value); draw(); });
+  view.addEventListener("change", draw);
+  stageButtons.forEach(btn => btn.addEventListener("click", () => { stage = Number(btn.dataset.stage); draw(); }));
+  canvas.addEventListener("pointerdown", e => { if (view.value === "3d") { drag = { x: e.clientX, yaw }; canvas.setPointerCapture(e.pointerId); } });
+  canvas.addEventListener("pointermove", e => { if (drag) { yaw = Math.max(-1.05, Math.min(1.05, drag.yaw + (e.clientX - drag.x) * 0.006)); draw(); } });
+  canvas.addEventListener("pointerup", () => { drag = null; });
+  canvas.addEventListener("pointercancel", () => { drag = null; });
+  new ResizeObserver(draw).observe(root);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  fetch("device_data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
+    data = d; status.hidden = true; canvas.hidden = false; draw();
+  }).catch(() => { status.textContent = "The field data could not be loaded. Reload the page to try again."; });
+})();
+</script>
+
+</body>
+</html>
