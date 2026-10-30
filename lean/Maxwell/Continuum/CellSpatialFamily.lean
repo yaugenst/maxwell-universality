@@ -16,19 +16,19 @@ def familyProjection (F : Finset Bloch.Alias) : FieldL2 →L[ℂ] FieldL2 :=
 
 theorem familyProjection_apply (F : Finset Bloch.Alias) (f : FieldL2) :
     familyProjection F f = ∑ a ∈ F, cellProjection a f := by
-  simp only [familyProjection, ContinuousLinearMap.sum_apply]
+  simp only [familyProjection, sum_apply]
 
 theorem familyProjection_ae (F : Finset Bloch.Alias) (f : FieldL2) (j : Fin 3) :
     familyProjection F f j =ᵐ[volume] fun x => if cellIndex x ∈ F then f j x else 0 := by
   classical
   have he : familyProjection F f j = ∑ a ∈ F, cellProjection a f j := by
     rw [familyProjection_apply]
-    exact (map_sum (PiLp.proj 2 (fun _ : Fin 3 => ScalarL2) j) (fun a => cellProjection a f) F)
+    rw [WithLp.ofLp_sum, Finset.sum_apply]
   rw [he]
   filter_upwards [Lp.coeFn_finsetSum F (fun a => cellProjection a f j),
     ae_all_iff.mpr (fun a : Bloch.Alias => cellProjection_ae a f j)] with x hsum hcell
   rw [hsum]
-  change (∑ a ∈ F, cellProjection a f j x) = _
+  simp only [Finset.sum_apply]
   have ht (a : Bloch.Alias) : cellProjection a f j x = if cellIndex x = a then f j x else 0 := by
     rw [hcell a]
     simp only [Set.indicator_apply, spatialBox_iff_index]
@@ -62,6 +62,7 @@ theorem cellProjection_orthogonal {a b : Bloch.Alias} (hab : a ≠ b) (f g : Fie
   rw [L2.inner_def]
   apply integral_eq_zero_of_ae
   filter_upwards [cellProjection_ae a f j, cellProjection_ae b g j] with x ha hb
+  change inner ℂ (cellProjection a f j x) (cellProjection b g j x) = (0 : ℂ)
   rw [ha, hb]
   by_cases hx : x ∈ spatialBox a
   · have hy : x ∉ spatialBox b := fun h => Set.disjoint_left.mp (spatialBox_disjoint hab) hx h
@@ -81,8 +82,13 @@ theorem familyProjection_norm_sq (F : Finset Bloch.Alias) (f : FieldL2) :
     · intro b _ hba
       exact cellProjection_orthogonal hba.symm f f
     · exact fun h => False.elim (h ha)
-  rw [norm_sq_eq_re_inner (𝕜 := ℂ), hi, Complex.re_sum]
-  exact Finset.sum_congr rfl fun _ _ => (norm_sq_eq_re_inner (𝕜 := ℂ) _).symm
+  rw [norm_sq_eq_re_inner (𝕜 := ℂ), hi]
+  change (∑ a ∈ F, inner ℂ (cellProjection a f) (cellProjection a f)).re = _
+  rw [Complex.re_sum]
+  apply Finset.sum_congr rfl
+  intro a _
+  simpa only [RCLike.re_eq_complex_re] using
+    (norm_sq_eq_re_inner (𝕜 := ℂ) (cellProjection a f)).symm
 
 theorem familyProjection_sum_norm_sq_le (F : Finset Bloch.Alias) (f : FieldL2) :
     (∑ a ∈ F, ‖cellProjection a f‖^2) ≤ ‖f‖^2 := by
@@ -98,8 +104,9 @@ theorem familyProjection_sum_norm_le (F : Finset Bloch.Alias) (f : FieldL2) :
   have hr := Real.sq_sqrt hc
   have hm := mul_le_mul_of_nonneg_right hb hc
   have hn : 0 ≤ ∑ a ∈ F, ‖cellProjection a f‖ := Finset.sum_nonneg (fun _ _ => norm_nonneg _)
-  nlinarith [Real.sqrt_nonneg (F.card : ℝ), norm_nonneg f,
-    sq_nonneg (Real.sqrt (F.card : ℝ) * ‖f‖)]
+  apply (sq_le_sq₀ hn (mul_nonneg (Real.sqrt_nonneg _) (norm_nonneg _))).mp
+  rw [mul_pow, hr]
+  exact (hs.trans hm).trans_eq (mul_comm _ _)
 
 #print axioms familyProjection_ae
 #print axioms familyProjection_sum_norm_le

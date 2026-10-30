@@ -1,0 +1,70 @@
+import Maxwell.Continuum.RationalArctanRuntime
+import Maxwell.Continuum.RuntimeCounterClear
+import Maxwell.Continuum.NatAssignCleanup
+
+/-! A reusable fixed arctangent call restores its index, constant, and
+countdown tapes to zero. Its data result is the original exact arctangent bank. -/
+namespace Maxwell.Continuum.RationalArctan.Runtime
+open Maxwell.Cost Maxwell.Cost.Structured Maxwell.Cost.RationalAccumulator RationalTaylor
+set_option maxHeartbeats 2500000
+set_option maxRecDepth 8192
+
+def clearIndices : List NatAssign.Instruction := [.literal 619 0,.literal 628 0]
+def cleanProgram (countTape : ℕ) : Code :=
+  .seq (program countTape) (.seq (.call (TapeOps.clear countTape)) (NatAssign.code clearIndices))
+def cleanCost (N W L : ℕ) : ℕ := costBound N W L+6*L+6*(2*N+1).bits.length+39
+def cleanValues (a b N i : ℕ) : ℕ :=
+  if i∈RationalArctan.ids then RationalArctan.values a b negativeSigns N i else 0
+
+theorem clean_executes (countTape N W : ℕ) (v : ℕ→ℕ)
+    (hcount : countTape∉ids) (hc4 : 4≤countTape) (hW : 2≤W) (hw : ∀i∈ids,(v i).bits.length≤W)
+    (input : List Bool) (tape : ℕ→Bool) (word : List Bool) (origin : ℤ) (s : Store)
+    (hn : addressValue word=N) (hword : s.val.tapes countTape=BitTape.shifted word origin)
+    (hs : NatAssign.Bank ids v s.val) (hz : NatAssign.Scratch s.val) :
+    ∃cost t,Executes input tape (cleanProgram countTape) cost s t ∧ cost≤cleanCost N W word.length ∧
+      NatAssign.Bank ids (cleanValues (v 610) (v 611) N) t.val ∧ NatAssign.Scratch t.val ∧
+      Blank t.val countTape ∧ BinaryPrecision.Frame (loopWorkspace countTape) s.val t.val := by
+  obtain ⟨c0,u,finalWord,e0,h0,hu,huw,hl,f0⟩ := program_executes countTape N W v hcount hc4 hW hw
+    input tape word origin s hn hword hs hz
+  obtain ⟨r,e1,zr,f1⟩ := RuntimeCounter.clear_executes countTape input tape finalWord origin u huw
+  have br : NatAssign.Bank ids (values (v 610) (v 611) N) r.val := by
+    intro i hi
+    exact word_of_eq (f1.tapes i (by simp only [Finset.mem_singleton];intro he;subst i;exact hcount hi)) (hu.data.bank i hi)
+  have zs : NatAssign.Scratch r.val := by
+    intro i hi
+    exact blank_of_eq (f1.tapes i (by simp only [Finset.mem_singleton];omega)) (hu.data.scratch i hi)
+  have hvalid : ∀a∈clearIndices,a.Valid ids := by simp [clearIndices,NatAssign.Instruction.Valid,ids]
+  obtain ⟨c2,t,e2,h2,bt,zt,f2⟩ := NatAssign.executes ids ids_ge clearIndices hvalid
+    (values (v 610) (v 611) N) input tape r br zs
+  have hc2 : c2≤6*(2*N+1).bits.length+35 := by
+    simpa [clearIndices,NatAssign.price,NatAssign.Instruction.price,NatAssign.Instruction.update,
+      NatAssign.Instruction.target,NatAssign.Instruction.value,values,
+      show (2:ℕ).bits.length=2 by decide] using h2
+  have hsub : NatAssign.changes clearIndices⊆loopWorkspace countTape := by
+    intro i hi
+    apply Finset.mem_insert_of_mem
+    simp only [NatAssign.changes,clearIndices,List.map_cons,List.map_nil,List.toFinset_cons,
+      List.toFinset_nil,Finset.mem_union,Finset.mem_insert,Finset.mem_singleton,Finset.notMem_empty,
+      NatAssign.Instruction.target] at hi
+    simp only [workspace,RationalArctan.workspace,Finset.mem_union,Finset.mem_insert,Finset.mem_singleton]
+    tauto
+  have hcount' : countTape∉NatAssign.changes clearIndices := by
+    intro hi
+    simp [NatAssign.changes,clearIndices,NatAssign.Instruction.target] at hi
+    have hc619 : countTape≠619 := by intro he;subst countTape;exact hcount (by simp [ids])
+    have hc628 : countTape≠628 := by intro he;subst countTape;exact hcount (by simp [ids])
+    omega
+  refine ⟨c0+(6*finalWord.length+4+c2),t,e0.seq (e1.seq e2),?_,?_,zt,
+    blank_of_eq (f2.tapes countTape hcount') zr,
+    f0.trans ((f1.mono (Finset.singleton_subset_iff.mpr (Finset.mem_insert_self _ _))).trans (f2.mono hsub))⟩
+  · unfold cleanCost
+    omega
+  · intro i hi
+    have hb := bt i hi
+    simp only [ids,RationalArctan.ids,Finset.mem_union,Finset.mem_insert,Finset.mem_singleton] at hi
+    rcases hi with (rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl)|(rfl|rfl)
+    all_goals simpa [clearIndices,NatAssign.values,NatAssign.Instruction.update,
+      NatAssign.Instruction.value,NatAssign.Instruction.target,values,cleanValues,RationalArctan.ids] using hb
+
+#print axioms clean_executes
+end Maxwell.Continuum.RationalArctan.Runtime

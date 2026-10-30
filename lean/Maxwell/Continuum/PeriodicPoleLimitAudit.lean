@@ -1,0 +1,16 @@
+import Maxwell.Continuum.PeriodicPoleLimitIntegral
+
+#print axioms Maxwell.Continuum.EvenTaylor.quadratic_difference_bound
+#print axioms Maxwell.Continuum.PeriodicBand.shifted_band_curvature_error
+#print axioms Maxwell.Continuum.PeriodicBand.shifted_band_curvature_lower
+#print axioms Maxwell.Continuum.PeriodicBand.pole_path_denominator_lower
+#print axioms Maxwell.Continuum.PeriodicBand.pole_path_denominator_ne_zero_before
+#print axioms Maxwell.Continuum.PeriodicBand.pole_limit_zero_iff
+#print axioms Maxwell.Continuum.PeriodicBand.pole_path_cell_norm_le
+#print axioms Maxwell.Continuum.PeriodicBand.poleLimitMajorant_integrableOn_ball
+#print axioms Maxwell.Continuum.PeriodicBand.poleContourMajorant_integrable
+#print axioms Maxwell.Continuum.PeriodicBand.poleContourIntegrand_norm_le
+#print axioms Maxwell.Continuum.PeriodicBand.poleContourIntegrand_integrable
+#print axioms Maxwell.Continuum.PeriodicBand.poleContour_integral_tendsto
+#print axioms Maxwell.Continuum.PeriodicBand.poleContour_integral_norm_difference_tendsto
+#print axioms Maxwell.Continuum.PeriodicBand.poleContour_initial_integral

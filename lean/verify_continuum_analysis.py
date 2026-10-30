@@ -58,16 +58,17 @@ def main() -> None:
         pending.extend(graph[module])
     tracked = [source(module) for module in graph]
     tracked.extend(ROOT / name for name in (
-        "lean-toolchain", "lakefile.toml", "lake-manifest.json", Path(__file__).name))
+        "lean-toolchain", "lakefile.toml", "lake-manifest.json", "ExactModuleCheck.lean",
+        Path(__file__).name))
     before = {str(path.relative_to(ROOT)): sha256(path) for path in tracked}
     environment = os.environ.copy()
     lean_path = subprocess.check_output(
         [lake, "env", "printenv", "LEAN_PATH"], cwd=ROOT, text=True).strip()
     environment["LEAN_PATH"] = str(BUILD) + os.pathsep + lean_path
     binaries = subprocess.check_output(
-        [lake, "env", "which", "lean", "leanchecker", "leanexport"],
+        [lake, "env", "which", "lean", "leanexport"],
         cwd=ROOT, text=True).splitlines()
-    lean, leanchecker, leanexport = binaries
+    lean, leanexport = binaries
     environment["PATH"] = str(Path(lean).parent) + os.pathsep + environment.get("PATH", "")
     checks: list[dict[str, object]] = []
     start = time.monotonic()
@@ -76,6 +77,8 @@ def main() -> None:
         "scope": "imported continuum analytic components; not the complete Maxwell reduction",
         "root": AUDIT,
         "modules": sorted(graph),
+        "replayed_modules": sorted(module for module in graph
+                                   if module == AUDIT or module.startswith("Maxwell.Continuum.")),
         "source_sha256": before,
         "checks": checks,
     }
@@ -143,8 +146,10 @@ def main() -> None:
                 raise RuntimeError(f"Unaccepted axioms for {name}: {used}")
             axioms[name] = sorted(used)
         receipt["theorem_axioms"] = axioms
-        for module in sorted(graph):
-            run([leanchecker, "--verbose", module], f"recheck-{module}.log")
+        for module in receipt["replayed_modules"]:
+            run([lean, "-j1", "-M6000", "-DautoImplicit=false", "-DwarningAsError=true",
+                 "--run", str(ROOT / "ExactModuleCheck.lean"), module],
+                f"recheck-{module}.log")
         export = EVIDENCE / "theorems.ndjson"
         run([leanexport, AUDIT, "--", *theorems], "export.log", output=export)
         run([lake, "check", f"--from-export={export}"], "transitive-check.log")

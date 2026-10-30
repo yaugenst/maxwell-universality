@@ -3,7 +3,7 @@
 \subsection{Input class}
 
 Fix constants $c_\kappa,c_\eta,B_{\rm in}>0$. An input consists of a nonsingular
-$M\in\Q^{n\times n}$, a right-hand side $b\in\Q^n$ and a tolerance $\eta$, with
+$M\in\Q^{n\times n}$ with $n\ge1$, a right-hand side $b\in\Q^n$ and a tolerance $\eta$, with
 \begin{equation}
  m=\nnz(M),\qquad \kappa_2(M)\le m^{c_\kappa},\qquad m^{-c_\eta}\le\eta\le1.
  \label{eq:methods-input}
@@ -12,8 +12,8 @@ Every numerator and denominator has at most $B_{\rm in}\log_2(2+m)$ bits, and
 indices have $O(\log m)$ bits. Nonsingularity implies $n\le m$. The output is a
 rational vector $x$ with $\norm{Mx-b}_2\le\eta\norm b_2$. The encoder may
 replace $\eta$ by $\eta_0=m^{-\lceil c_\eta\rceil}$, so that the tolerance never has to be
-read to more than logarithmic precision. Constants in all asymptotic bounds
-depend only on $c_\kappa$, $c_\eta$ and $B_{\rm in}$.
+read to more than logarithmic precision. The empty system is solved directly.
+Constants in all asymptotic bounds depend only on $c_\kappa$, $c_\eta$ and $B_{\rm in}$.
 
 \subsection{Continuum realization}
 
@@ -116,8 +116,9 @@ count of the eigenvalues of the finite-box operator gives
 The permittivity consists of the trigonometric background, dyadic shifts and
 polynomial profiles on balls of radius growing with $m$. Calibration uses
 finite algebra at $k_*$ and controlled Fourier tails and does not solve the
-assembled problem. Sources and weighting functions are given by finite
-coefficient lists with error bounds. If $E_{\rm ref}$ is the reference field
+assembled problem. Sources and weighting functions use tensor polynomials of
+coordinate degree $O(\ell^8)$, with $O(\ell)$ bits per coefficient and error
+bounds for the complete functions. If $E_{\rm ref}$ is the reference field
 constructed in the proof, with $\norm{AE_{\rm ref}-f}_{L^2}\le r_{\rm ref}$, then
 every field meeting the residual tolerance satisfies
 \begin{equation}
@@ -178,4 +179,7 @@ identities and placement inequalities -- is checked in exact rational
 arithmetic. The discrete spectral analysis uses exact matrix inequalities on a
 covering of the Brillouin zone. In both cases, the analytic arguments in the
 \SI\ show how these finite inequalities imply the required spectral
-properties (\SI, Part~V).
+properties (\SI, Part~V). The companion Lean development supplies formal
+proofs for the continuum operator, band and defect estimates, leakage,
+finite representations and residual-to-solution recovery; its theorem map
+and verification records specify the checked statements and dependencies.

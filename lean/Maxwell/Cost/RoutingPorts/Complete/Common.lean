@@ -7,7 +7,7 @@ import Maxwell.Cost.PhysicalEmit.Increment
 import Maxwell.Cost.IncidenceEncoding
 
 namespace Maxwell.Cost.RoutingPorts.Complete
-open Structured
+open Structured Logical.Routing
 open RationalAccumulator (Blank)
 
 structure Layout (n : ℕ) where
@@ -29,7 +29,7 @@ theorem encode_value {n : ℕ} (values : Vector ℕ n) (i : Fin n)
     (hi : values.get i ≤ n) : addressValue ((encode values).get i)=values.get i := by
   rw [encode_get,FixedWidth.bits_value]
   · exact addressValue_bits _
-  · simpa only [addressValue_bits,Nat.size_eq_bits_len] using hi.trans_lt (Nat.lt_size_self n)
+  · simpa only [Nat.size_eq_bits_len] using Nat.size_le_size hi
 
 theorem encode_set {n : ℕ} (values : Vector ℕ n) (i : Fin n) (v : ℕ) :
     encode (values.set i v)=(encode values).set i (FixedWidth.bits n.bits.length v.bits) := by

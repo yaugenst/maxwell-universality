@@ -64,10 +64,68 @@ import Maxwell.Continuum.TransverseGaussianDiagonal
 import Maxwell.Continuum.SeparatedCellPolynomial
 import Maxwell.Continuum.CellSpatialRestriction
 import Maxwell.Continuum.AlmostAnalyticContourBound
+import Maxwell.Continuum.PeriodicPoleLocalAudit
+import Maxwell.Continuum.PeriodicPoleContourBound
+import Maxwell.Continuum.WellInteractionLattice
+import Maxwell.Continuum.FullCellSummable
+import Maxwell.Continuum.CellSpatialBoundary
+import Maxwell.Continuum.AlmostAnalyticCutoffLedger
+import Maxwell.Continuum.PoleOscillatoryIntegral
+import Maxwell.Continuum.CellBlochWave
+import Maxwell.Continuum.UsefulCoupling
+import Maxwell.Continuum.PeriodicPoleIntegralAudit
+import Maxwell.Continuum.BoundaryCellH1
+import Maxwell.Continuum.FiniteAuxiliaryCollection
+import Maxwell.Continuum.FiniteAuxiliaryBlocks
+import Maxwell.Continuum.AuxiliaryMomentumProjection
+import Maxwell.Continuum.MomentumLeakageCross
+import Maxwell.Continuum.SchwartzMultiplier
+import Maxwell.Continuum.BoxResidualBudget
+import Maxwell.Continuum.ProfileRoundedCoefficients
+import Maxwell.Continuum.ProfileFiniteSeries
+import Maxwell.Continuum.FiniteAuxiliaryIdealSource
+import Maxwell.Continuum.FiniteAuxiliaryH1Bootstrap
+import Maxwell.Continuum.FiniteAuxiliarySourceInverseNorm
+import Maxwell.Continuum.ParameterExecutable
+import Maxwell.Continuum.ParameterSourcePrecision
+import Maxwell.Continuum.ParameterGeometry
+import Maxwell.Continuum.ParameterVolume
+import Maxwell.Continuum.ParameterRecords
+import Maxwell.Continuum.ParameterProfileResources
+import Maxwell.Continuum.ParameterSourceRegularity
+import Maxwell.Continuum.ParameterPowerCost
+import Maxwell.Continuum.ParameterSourceWords
+import Maxwell.Continuum.ParameterIterations
+import Maxwell.Continuum.ParameterSourceRegularityCoarse
+import Maxwell.Continuum.CalibrationLocalInverse
+import Maxwell.Continuum.PeriodicSamplingProductTail
+import Maxwell.Continuum.CalibrationGridPhase
+import Maxwell.Continuum.CalibrationPowerStability
+import Maxwell.Continuum.CalibrationRayleigh
+import Maxwell.Continuum.CalibrationLatticeWeight
+import Maxwell.Continuum.ContinuumDescription
+import Maxwell.Continuum.ContinuumRawReportWords
+import Maxwell.Continuum.ContinuumGridReports
+import Maxwell.Continuum.ContinuumFairDetuning
+import Maxwell.Continuum.FiniteDecoderCost
+import Maxwell.Continuum.ContinuumDecoder
+import Maxwell.Continuum.ContinuumBaseCases
+import Maxwell.Continuum.CalibrationSupercellRealization
+import Maxwell.Continuum.CalibrationSupercellOffsiteRounded
+import Maxwell.Continuum.ContinuumTemplateWords
+import Maxwell.Continuum.PhaseDataflowCost
+import Maxwell.Continuum.CutoffMonomialOuterLoop
+import Maxwell.Continuum.CutoffStoredQuery
+import Maxwell.Continuum.CutoffScalePreparationCost
+import Maxwell.Continuum.CalibrationPowerInitialized
+import Maxwell.Continuum.CalibrationNeumannCopied
+import Maxwell.Continuum.CalibrationRawCoefficientTable
 import Lean.Util.CollectAxioms
 
-/-! Complete declaration and axiom inventory for the imported continuum
-analytic components. This root does not assert the full reduction theorem. -/
+/-! Complete theorem inventory for the imported continuum components, and
+axiom inventory for all imported project modules. Shared algebraic proofs
+are checked as transitive dependencies of the exported continuum theorems.
+This root does not assert the full reduction theorem. -/
 
 open Lean Elab Command
 
@@ -82,7 +140,7 @@ run_cmd do
     if let some idx := env.getModuleIdxFor? name then
       if let some moduleName := env.header.modules[idx]? then
         if (`Maxwell).isPrefixOf moduleName.module then
-          if info.isTheorem then
+          if info.isTheorem && (`Maxwell.Continuum).isPrefixOf moduleName.module then
             declarations := declarations.push name
           if info matches .axiomInfo _ then
             liftIO <| IO.println s!"CONTINUUM_AXIOM\t{name}"

@@ -88,7 +88,7 @@ $L$ and the network matrix $\Gamma$.
 
 \subsection{Sparse input and accuracy}\label{si:sec:input}
 Fix constants $c_\kappa,c_\eta>0$ and an input bit-length constant $B_{\rm in}$. An
-input consists of a nonsingular matrix $M\in\Q^{n\times n}$ and
+input consists of a nonsingular matrix $M\in\Q^{n\times n}$, $n\ge1$, and
 $b\in\Q^n$, with
 \begin{equation}
  m=\nnz(M),\qquad \kappa_2(M)\le m^{c_\kappa},
@@ -103,7 +103,8 @@ relative residual
 \end{equation}
 The encoder may replace $\eta$ by $\eta_0=m^{-\lceil c_\eta\rceil}$, so it
 need not read an arbitrarily long representation of the requested
-tolerance. The case $b=0$ is answered directly by $x=0$.
+tolerance. The empty system is answered directly before this construction;
+for $n\ge1$, the case $b=0$ is answered by $x=0$.
 
 \subsection{The continuum model and its realization}\label{c:sec:statement}
 
@@ -149,7 +150,7 @@ Put $\ell=1+\lceil\log_2(2+m)\rceil$. Effectively specified constants
 $C_{\rm res},c_A,c_\delta$, depending only on $c_\kappa,c_\eta,B_{\rm in}$, satisfy, on every random draw,
 \begin{align}
  |\Omega|&\le C_{\rm res}m^{3/2}\ell^{24},
- &N_{\rm desc}&\le C_{\rm res}m^{3/2}\ell^{64},\\
+ &N_{\rm desc}&\le C_{\rm res}m^{3/2}\ell^{64},       \label{c:eq:volume-description}\\
  T_{\rm enc}+T_{\rm dec}&\le C_{\rm res}m^{3/2}\ell^{4096},
  &B_{\rm out}&\le C_{\rm res}\ell,
  &\delta&\ge m^{-c_\delta}.                              \label{c:eq:resources}
@@ -186,11 +187,11 @@ dyadic polynomial profiles on disjoint explicitly specified balls. The
 balls have radius $L$, their centers and the box sides are integers, and
 $L=O(\ell^6)$. No ball, gap, or boundary buffer shrinks with $m$.
 The material profile degree is $O(\ell^2)$; source and readout degrees
-are at most a fixed multiple of $\ell^{16}$. These degrees and every
+are at most a fixed multiple of $\ell^8$. These degrees and every
 coefficient are counted in~\eqref{c:eq:resources}. Section~\ref{c:sec:representation}
 gives the exact finite format, its evaluation algorithms, and its
 approximation bounds. The shortest background period is two; the vacuum
-wavelength is $2\pi$. Therefore~\eqref{c:eq:resources} is also the physical
+wavelength is $2\pi$. Therefore~\eqref{c:eq:volume-description} is also the physical
 volume bound in wavelength units, up to a fixed factor.
 
 Section~\ref{c:sec:cost} supplies one entirely explicit choice of the

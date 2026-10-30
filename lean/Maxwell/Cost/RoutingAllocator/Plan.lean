@@ -53,8 +53,9 @@ theorem values_at (v : ℕ → ℕ) (i : ℕ) (hi : i ∈ ids) :
   simp only [ids,Finset.mem_insert,Finset.mem_singleton] at hi
   rcases hi with rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|
     rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl
-  all_goals norm_num [statements,NatAssign.values,NatAssign.Instruction.update,
-    NatAssign.Instruction.value,NatAssign.Instruction.target,outputValues,slab,nextFrontier,parentOutput]
+  all_goals dsimp [statements,NatAssign.values,NatAssign.Instruction.update,
+    NatAssign.Instruction.value,NatAssign.Instruction.target,outputValues,slab,nextFrontier,parentOutput,
+    Function.update]
   all_goals ring
 
 /-- The finite arithmetic program has quadratic cost in canonical input-word

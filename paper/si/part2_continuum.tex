@@ -613,7 +613,7 @@ real, and isolated. It and a real normalized eigenvector $u_h$ satisfy
  2^{-128}L^2&\le\mu_h\le2^{-90}L^2,
  &\dist(\mu_h,\spec S_h\setminus\{\mu_h\})&\ge2^{-192}L^2,
                                                                \label{c:eq:mugap}\\
- \norm{u_h-h^{3/2}\Phi_0(r)u_H(hx)}_{L^2(\mathbb B_L)}&\le2^{2048} h\le\Cs h.
+ \norm{u_h-h^{3/2}\Phi_0(r)u_H(hx)}_{L^2(\mathbb B_L)}&\le2^{921} h\le\Cs h.
                                                                \label{c:eq:modeapprox}
 \end{align}
 The sign can be chosen so that the normalized starting vector
@@ -683,11 +683,12 @@ Cauchy derivative bound on $\phi$, using
 $|p|s_H(p)\le2^{-99/2}$. These calculations use only the explicit
 powers in Lemma~\ref{c:lem:edge}.
 
-Multiplication by $w$ has norm at most one. Equations
-\eqref{c:eq:umklapperror}--\eqref{c:eq:multipliererror} therefore show
+Multiplication by $w$ has norm at most one. The diagonal-alias
+comparison has norm at most $2^{133}h$, so adding the off-alias
+bound in~\eqref{c:eq:umklapperror} gives
 \begin{equation}
  \norm{B_h^*B_h-
- s_H\mathcal Fw\mathcal F^{-1}s_H}\le2^{520}h.
+ s_H\mathcal Fw\mathcal F^{-1}s_H}\le2^{513}h\le2^{520}h.
                                                                \label{c:eq:effectivecompare}
 \end{equation}
 The nonzero spectrum of the comparison operator is exactly that of
@@ -721,12 +722,17 @@ $|p|\le q_0/h$,~\eqref{c:eq:multipliererror}, and the bound
 $\sup_{|p|>q_0/h}s_H(p)\le2^{100}h$ on the remaining input.
 The comparison operator applied to $y_H/\sqrt{\mu_H}$ is exactly
 $h^{3/2}\Phi_0(r)u_H(hx)$. Finally the bounded separated-band
-perturbation is treated by the same gap projection. Explicitly, twice
-the comparison error $2^{520}h$ divided by the gap $2^{-190}$, the
-reconstruction factor $(\mu_hh^2)^{-1/2}\le2^{64}$, and the $O(h)$
-operator comparison with the constants of~\eqref{c:eq:multipliererror}
-give a product below $2^{2048}h$; Section~\ref{c:app:ledger} records
-these constants. This proves~\eqref{c:eq:modeapprox}.
+perturbation is treated by the same gap projection. The scalar-well
+argument above gives the stronger gap $2^{-188}$, so the conservative
+Gram error $2^{520}h$ gives an eigenvector error at most $2^{710}h$.
+On the eigenvalue interval bounded below by $2^{-128}$, the inverse
+square root and its Lipschitz constant are both bounded by $2^{200}$.
+Combining these estimates with the reconstruction error gives
+$2^{913}h$ for the selected spatial mode. Adding the separated-band
+perturbation gives $2^{920}h$; taking its real part and normalizing
+increases the error by at most a factor of two. This proves
+\eqref{c:eq:modeapprox}, with all constants below the majorant of
+Section~\ref{c:app:ledger}.
 
 The starting-vector overlap is positive quantitatively. By
 \eqref{c:eq:perronoverlap}, its leading integral is at least
@@ -1806,20 +1812,32 @@ one and two. This follows also by the min--max principle applied to
 the two Schur matrices, and does not assume differentiability of an
 ordered multiple eigenvalue.
 
-Start with a rational bracket around
-$E_0+\varrho\lambda_*$ of half-width $2^{17}\varrho^2$; enclose its
-endpoints accurately enough that the narrower band enclosure lies
-strictly inside. At a midpoint evaluate the largest eigenvalue of
-the rational approximating 24 by 24 matrix, and enlarge its interval
-by the Neumann error. Request a total width at most one sixty-fourth
-of the current bracket width. If the resulting interval has a
-strict sign, retain the appropriate half bracket. If it contains zero,
-the slope bound places $E_c$ in an interval of width at most one
-eighth of the old bracket centered at the midpoint; intersect with
-that interval. Each step contracts by at least two. Hence $N_{\rm b}$ edge
-bits take polynomial-in-$N_{\rm b}$ work. Taking $N_{\rm b}$ a fixed amount larger
-than $4\log_2L$ and rounding supplies~\eqref{c:eq:z}. The possible
-exact equality of a midpoint and $E_c$ causes no nontermination.
+Choose a rational $r_c$ with
+$|r_c-E_0-\varrho\lambda_*|\le2^{15}\varrho^2$, using 256-bit
+enclosures of $\pi$ and $\sqrt{19}$. The initial bracket
+$[a,b]=[r_c-2^{17}\varrho^2,r_c+2^{17}\varrho^2]$ has width
+$2^{-182}$ and strictly contains the band enclosure.
+Put $w=b-a$ and $c=(a+b)/2$. Approximate the central Schur
+matrix at $c$ to operator-norm error at most $w/64$, then test the
+rational matrix for negative definiteness by exact elimination.
+The slope bound gives $E_c\le c+w/64$ when the test is true and
+$E_c\ge c-w/64$ otherwise. Thus use the overlapping brackets
+\begin{equation}
+ [a,b]\longmapsto
+ \begin{cases}
+ [a,c+w/64],&\text{negative definite},\\
+ [c-w/64,b],&\text{otherwise}.
+ \end{cases}                                             \label{c:eq:edge-bracket-step}
+\end{equation}
+Both branches have width $33w/64$, including when $c=E_c$.
+Since $(33/64)^2<1/2$, $2N_{\rm b}$ steps give width at most
+$2^{-N_{\rm b}}$. If $a=a_0/d_0$ and $b=b_0/d_0$, the first branch stores
+$(64a_0,31a_0+33b_0,64d_0)$ and the second stores
+$(33a_0+31b_0,64b_0,64d_0)$; every step adds at most six magnitude bits.
+At step $k$, matrix error $2^{-(188+k)}$ is at most $w/64$, so the
+working precision and endpoint lengths grow linearly with the number
+of steps. Taking $N_{\rm b}$ a fixed amount larger than
+$4\log_2L$ and rounding supplies~\eqref{c:eq:z} in polynomial bit time.
 
 \subsection{Finite approximation of the local inverse}
 On the real chart at $\mathcal E=z_h$, the exact full fiber inverse has norm
@@ -1871,7 +1889,7 @@ cell-block norms. On one or two well supports, the norm of the image
 error is at most
 \begin{equation}
  \Cs^2 L^{10}
-       \exp\left(-\frac{\cs}{8}\sqrt{M/L}\right).
+       \exp\left(-\frac{\cs}{8}\sqrt{M_{\rm tor}/L}\right).
                                                                \label{c:eq:perioderror}
 \end{equation}
 To verify the factor, each support has at most $2^6L^3$ period cells.
@@ -1880,7 +1898,7 @@ $M_{\rm tor}|j|/4$. Sum the bound~\eqref{c:eq:cellgevrey} using shells with at
 most $2^{10}(s+1)^2$ indices at $\ell^\infty$ distance $s$.
 The elementary substitution $u=\sqrt s$ bounds the tail by a fixed
 polynomial in $\cs^{-1}$ and $M_{\rm tor}/L$, times
-$e^{-(\cs/8)\sqrt{M/L}}$. Weakening the exponent once absorbs that
+$e^{-(\cs/8)\sqrt{M_{\rm tor}/L}}$. Weakening the exponent once absorbs that
 polynomial; the remaining constants are less than $\Cs^2$.
 The row and column Schur bounds give~\eqref{c:eq:perioderror}.
 
@@ -1978,7 +1996,7 @@ its dependence on requested precision remains polynomial.
 Every vector in this procedure is a finite Fourier polynomial. A
 truncated inverse application increases the ordinary torus Fourier
 radius by at most $(2K+4)M_{\rm tor}$, and multiplication by $\widetilde q_w$ increases it
-by at most $N_Q$. The initial carrier has radius at most $M_{\rm tor}$. For its initial bump
+by at most $N_Q$. The stored initial carrier has radius at most $3M_{\rm tor}$. For its initial bump
 approximation, a uniform multiplier error $e$ produces an $L^2$
 error at most $2^7(1+M_{\rm tor}/L)^2e$ after the $h^{3/2}$ scaling.
 The exact unnormalized starting vector has norm at least $1/4$
@@ -1993,7 +2011,7 @@ error before summation; the explicit factors $4L^2$ and $2^{90}L^{-2}$
 require only $O(\log L)$ further bits.
 Thus after all applications the radius is bounded by
 \begin{equation}
- N_{\rm all}\le M_{\rm tor}+(t_{\rm pw}+2)(2N_Q+(2K+4)M_{\rm tor}).
+ N_{\rm all}\le3M_{\rm tor}+(t_{\rm pw}+2)(2N_Q+(2K+4)M_{\rm tor}).
                                                                \label{c:eq:allfreq}
 \end{equation}
 All $M_{\rm tor}^3$ Bloch-grid entries, all Fourier coefficients, and even naive
@@ -2056,7 +2074,7 @@ A source or readout template has the form
 where $\widetilde P$ has three components and is a tensor-product Chebyshev
 polynomial on $[-1,1]^3$, with dyadic coefficients. A source is a
 sum of translates of this template with dyadic amplitudes; a readout
-uses its real $L^2$ inner product with $E$. Values on the sphere have
+uses the real part of its $L^2$ pairing with $E$. Values on the sphere have
 no effect on these functions as $L^2$ objects. Both the formula and
 its finite coefficients, rather than a quadrature table with an
 unstated error, define the output function.
@@ -2166,10 +2184,14 @@ of a piecewise-polynomial Maxwell discretization.
 
 For the chosen parameters, the index bounds are
 $M_{\rm tor}=O(\ell^8)$, $N_Q=O(\ell^4)$, $K=O(\ell)$,
-$t_{\rm pw}=O(\ell)$, and $N_{\rm all}=O(\ell^{10})$.
-Thus $k_f=O(\ell^8)$ and the degree in~\eqref{c:eq:chebdegree} is
-$O(\ell^8)$; the theorem's bound $O(\ell^{16})$ is conservative.
-All template coefficients have $O(\ell)$ bits. The intermediate
+$t_{\rm pw}=O(\ell)$, with the conservative stored-radius bound
+$N_{\rm all}=O(\ell^{11})$. For the physical frequency, use
+$LN_Q/M_{\rm tor}=O(\ell^2)$ directly in~\eqref{c:eq:allfreq}:
+$LN_{\rm all}/M_{\rm tor}=O(\ell^8)$, so $k_f=O(\ell^8)$.
+The degree in~\eqref{c:eq:chebdegree} is therefore
+$O(\ell^8)$, giving $O(\ell^{24})$ tensor coefficients and
+$O(\ell^{25})$ encoded bits per template. Each coefficient, including
+its integer part, has $O(\ell)$ bits. The intermediate
 exact arithmetic or guard precision may have a fixed polynomial
 number of bits in $\ell$, which is counted in the time bound.
 
@@ -2196,7 +2218,7 @@ shared scalar error at most $e_f\norm g/8$ using $\|\widehat a\|\le2$,
 and the amplitude rounding at most
 $2\sqrt m\,e_f/(16m)\le e_f\norm g/8$.
 The lower source bound in~\eqref{c:eq:auxnorms} and the second term
-in $e_f$ ensure that the total error is less than one sixteenth of
+in $e_f$ ensure that the total error is at most one sixteenth of
 $\|f_*\|$, so $f$ is genuinely nonzero. It is a finite sum of
 bounded compactly supported functions, hence belongs to $L^2$.
 No derivative of an indicator is part of its definition.
@@ -2384,23 +2406,24 @@ indices therefore require $O(\ell)$ bits.
 
 The local-calibration bounds can be checked directly from the formulas:
 $M_{\rm tor}=O(\ell^8)$, $N_Q=O(\ell^4)$, $K=O(\ell)$,
-$t_{\rm pw}=O(\ell)$, and $N_{\rm all}=O(\ell^{10})$.
-A coefficient array therefore has $O(\ell^{30})$ entries. Using
-naive convolution takes $O(\ell^{60})$ scalar operations per product;
+$t_{\rm pw}=O(\ell)$, and $N_{\rm all}=O(\ell^{11})$.
+A coefficient array therefore has $O(\ell^{33})$ entries. Using
+naive convolution takes $O(\ell^{66})$ scalar operations per product;
 there are polynomially many such products and Bloch-grid operations.
-The tensor polynomial conversion has at most $O(\ell^{48})$
-coefficient slots under the stated conservative degree bound. It may
+The tensor polynomial conversion has $O(\ell^{24})$ coefficient slots. It may
 be implemented by direct discrete cosine transforms and direct Fourier
 sample evaluation, whose quadratic product counts are still fixed
 polynomials in $\ell$. Dyadic interval operations, elementary series,
 and the 24 by 24 rational inverses use polynomial bit time in the
-working precision. For example schoolbook arithmetic and exact
-fixed-size elimination, with the displayed guard bits, give a total
-bound less than a fixed constant times $\ell^{1024}$ for the shared
-calibration and templates. Allowing $\ell^{4096}$ covers their
-replication at all sites, all parameter searches, and all ambient
-and finite-output operations. No claim of optimal logarithmic powers
-is needed.
+working precision. The bit cost also includes allocation, address
+arithmetic, coefficient normalization, and serialization of the
+computed arrays. With schoolbook arithmetic, the resulting bound for
+the shared calibration and template construction is
+$O(\ell^{4096})$. Replication over the $O(m^{3/2}\ell^{3/2})$ sites
+copies the already computed coefficient lists, at
+$O(m^{3/2}\ell^{27})$ bit cost; it does not rerun calibration at
+every site. These costs, the parameter searches, and the ambient
+enumeration fit within~\eqref{c:eq:resources}.
 
 For fully explicit constants, use $Z,Z_L$ from~\eqref{c:eq:ZAL} and set
 \begin{equation}
@@ -2409,9 +2432,8 @@ For fully explicit constants, use $Z,Z_L$ from~\eqref{c:eq:ZAL} and set
 Here is a conservative bookkeeping check. The fixed analytic constants
 are at most powers $\Cs^{1024}$. The parameter bounds are
 $L\le8Z_L\ell^6$, $d\le Z^3Z_L\ell$, and
-$\ell_{\rm buf}/L\le Z^8Z_L\ell$. All the displayed finite algorithms use at
-most degree 1024 in those constants, the bit target, and the local
-array sizes; even allowing degree 4096, the logarithm of their fixed
+$\ell_{\rm buf}/L\le Z^8Z_L\ell$. Allowing degree 4096 in those constants,
+the bit target, and the local array sizes, the logarithm of their fixed
 multiplicative constant is less than
 $2^{20}Z^9<Z^{16}$. The same bound covers the fixed-startup arithmetic
 needed to form the constants themselves. Thus $C_{\rm res}$ bounds the
@@ -2456,6 +2478,15 @@ map and the scale $\nu_M/(ma_M)$ of Section~\ref{d:app:logical-residual} (and, i
 the Real-RAM bridge of Section~\ref{d:app:real-transfer}, the scales
 $ma_F,\nu_F$).
 \end{enumerate}
+The decoder can scan a complete ambient-grid message stream, including
+zero entries away from the prescribed readout sites. Its description
+and this stream together use $O(m^{3/2}\ell^{25})$ bits. Parsing,
+addressed selection and rational arithmetic on $O(\ell)$-bit words
+give the separate bound
+\begin{equation}
+ T_{\rm dec}=O(m^{3/2}\ell^{27}),                         \label{c:eq:decoder-cost}
+\end{equation}
+which is included in the joint encoding and decoding allowance.
 All loops and all refinement rules above have proved stopping bounds.
 The physical medium and its fixed data are given explicitly; there is
 no search for an unspecified photonic crystal or an assumed numerical
@@ -2750,11 +2781,12 @@ For~\eqref{c:eq:multipliererror}, the quartic contribution is at most
 \]
 the cutoff tail is at most $2^{91}h$, and the eigenvector-multiplier
 error from its Cauchy derivative is below $2^{70}h$.
-Thus the displayed $2^{128}h$ and final $2^{520}h$ operator bounds
-are conservative. Dividing by the scalar gap $2^{-190}$ and
-reconstructing through an eigenvalue at least $2^{-128}$ gives
-spatial-mode error less than $2^{2048}h$. The bounded separated
-part contributes only $2^{112}h^2$ before that gap division.
+Thus the displayed $2^{128}h$ multiplier bound and the
+$2^{513}h$ operator bound leave room for the $2^{520}h$ comparison
+used in the perturbation estimates. The scalar gap, reconstruction
+and real normalization give the spatial-mode bound $2^{921}h$ in
+\eqref{c:eq:modeapprox}. The bounded separated part contributes only
+$2^{112}h^2$ before gap division.
 
 For translations, the material derivative is at most $7\pi\varrho$,
 and the local inverse norm is at most $4L^2$. The resolvent identity

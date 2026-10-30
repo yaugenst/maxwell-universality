@@ -1,0 +1,24 @@
+{
+  "common": {
+    "description": "Finite input, scalar-material, Schur-complement and exponent identities shared by the reductions.",
+    "roots": ["Audit"],
+    "commands": ["lake build", "lake env lean Audit.lean"],
+    "receipts": [],
+    "boundary": "The default build imports Algebra, Complexity and Interfaces; it is not an end-to-end realization proof."
+  },
+  "continuum": {
+    "description": "Continuum analytic components and the finite parameter, representation and decoder constructions imported by the audit root.",
+    "roots": ["ContinuumAnalysisAudit"],
+    "commands": ["uv run --script verify_continuum_analysis.py"],
+    "receipts": ["evidence/continuum-analysis/validation.json", "checks/continuum-refresh.json"],
+    "boundary": "The verifier inventories the imported component theorems and replays their dependencies; it does not certify the complete continuum reduction or every continuum source."
+  },
+  "discrete": {
+    "description": "Navigation roots for the Yee stencil and selected discrete platform and instance components.",
+    "roots": ["Maxwell.TargetStencil", "Maxwell.Composition.SelectedPlatform", "Maxwell.Composition.SelectedInstance"],
+    "commands": [],
+    "component_audits": ["evidence/selected_platform_axioms.lean", "evidence/selected_instance_axioms.lean"],
+    "receipts": [],
+    "boundary": "These are selected component entry points, not a complete discrete audit. The selected-platform existence theorem has explicit PointClusterComplementGap, PointOtherSectorExclusion and PointRealEdgeExclusion hypotheses."
+  }
+}

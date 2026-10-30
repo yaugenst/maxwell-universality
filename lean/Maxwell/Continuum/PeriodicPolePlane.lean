@@ -43,7 +43,7 @@ theorem transverseMomentum_continuous (j : Fin 3) : Continuous (transverseMoment
     exact continuous_const
   · obtain ⟨l, rfl⟩ := Fin.exists_succAbove_eq hkj
     simp only [transverseMomentum_other]
-    exact Complex.continuous_ofReal.comp (PiLp.continuous_apply _ l)
+    exact Complex.continuous_ofReal.comp (PiLp.continuous_apply 2 (fun _ : Fin 2 => ℝ) l)
 
 theorem transverseMomentum_zero (j : Fin 3) : transverseMomentum j 0 = 0 := by
   funext k
@@ -97,7 +97,7 @@ theorem poleQuadraticPhase_real_plane {h z : ℝ} (D : Calibration h z)
   unfold poleQuadraticPhase
   rw [poleQuadratic_real_plane]
   unfold diagonalQuadratic
-  rw [Finset.sum_div]
+  rw [← Finset.sum_div]
   push_cast
   have hc : (poleSlope D hh j : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr
     (lt_trans (by norm_num : (0 : ℝ) < 1) (poleSlope_bounds D hh j).1).ne'

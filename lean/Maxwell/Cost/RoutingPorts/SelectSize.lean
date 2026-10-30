@@ -23,7 +23,7 @@ theorem frame_renamed {s t : Store}
     split_ifs <;> simp only [not_or]
     all_goals (repeat' constructor)
     all_goals (try omega)
-    all_goals trace_state
+    all_goals simp_all
   have h := hf.tapes (shiftBank i) ho
   change t.val.tapes (shiftBank i)=s.val.tapes i
   simpa only [renamed_tape,shiftBank_involutive i] using h

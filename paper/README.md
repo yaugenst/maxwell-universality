@@ -55,8 +55,8 @@ Outputs are written to `build/arxiv/`:
 Use `--ref <commit>` to package a particular revision and `--output-dir
 build/arxiv-v2` for another run. The output directory must be new. Uncommitted
 changes are excluded. The ZIP contains the article and SI sources, their used
-figures and bibliography; Lean sources, experiment data, development notes and
-build outputs remain in the companion repository.
+figures and bibliography. Lean sources and experiment data are distributed
+separately through the companion repository.
 
 Select `main.tex` and `pdflatex` when uploading. The packaging choices follow
 the [arXiv TeX submission guide](https://info.arxiv.org/help/submit_tex.html).
@@ -90,6 +90,11 @@ The remaining figures have adjacent Python generators; the rendered PDFs are
 included for a direct LaTeX build. A successful PDF build checks typesetting
 and references; the proof audits and exact arithmetic checks are separate
 entry points.
+
+The [formal proof map](../lean/proof-map.md) connects manuscript statements
+to Lean declarations. Its verification records identify the checked source
+and dependency revisions; the manuscript build and the proof checks are
+separate reproducibility steps.
 
 The logical-translation figure reads the exact certificate files:
 

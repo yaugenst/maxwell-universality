@@ -11,6 +11,7 @@ namespace Maxwell.Continuum
 variable {E F : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
   [NormedAddCommGroup F] [NormedSpace ℝ F]
 
+set_option backward.isDefEq.respectTransparency false in
 theorem norm_iteratedFDeriv_iterated (f : E → F) (m j : ℕ) (x : E) :
     ‖iteratedFDeriv ℝ m (iteratedFDeriv ℝ j f) x‖ = ‖iteratedFDeriv ℝ (m+j) f x‖ := by
   induction j generalizing m with
@@ -18,11 +19,12 @@ theorem norm_iteratedFDeriv_iterated (f : E → F) (m j : ℕ) (x : E) :
     rw [iteratedFDeriv_zero_eq_comp, LinearIsometryEquiv.norm_iteratedFDeriv_comp_left, Nat.add_zero]
   | succ j ih =>
     rw [iteratedFDeriv_succ_eq_comp_left]
-    have he := (continuousMultilinearCurryLeftEquiv ℝ (fun _ : Fin (j+1) => E) F).symm
-      |>.norm_iteratedFDeriv_comp_left (fderiv ℝ (iteratedFDeriv ℝ j f)) x m
+    have he := LinearIsometryEquiv.norm_iteratedFDeriv_comp_left (𝕜 := ℝ)
+      (G := ContinuousMultilinearMap ℝ (fun _ : Fin (j+1) => E) F)
+      (continuousMultilinearCurryLeftEquiv ℝ (fun _ : Fin (j+1) => E) F).symm
+      (fderiv ℝ (iteratedFDeriv ℝ j f)) x m
     rw [he, norm_iteratedFDeriv_fderiv, ih]
-    congr 1
-    omega
+    exact congrArg (fun n : ℕ => ‖iteratedFDeriv ℝ n f x‖) (by omega)
 
 theorem multilinearEvaluation_norm (j : ℕ) (v : Fin j → E) :
     ‖ContinuousMultilinearMap.apply ℝ (fun _ : Fin j => E) F v‖ ≤ ∏ i, ‖v i‖ := by

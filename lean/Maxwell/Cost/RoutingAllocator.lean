@@ -17,33 +17,34 @@ structure Result (v : ℕ → ℕ) (clock : List Bool) (s : BitRAMState) : Prop 
 
 private theorem result_of_bank (v : ℕ → ℕ) (clock : List Bool) (s : BitRAMState)
     (bank : NatAssign.Bank ids (outputValues v) s) (hclock : Word s 83 clock) : Result v clock s := by
+  change ∀i∈ids, Word s i (outputValues v i).bits at bank
   constructor
   · refine ⟨⟨?_,?_,?_,hclock,?_,?_,?_⟩,?_,?_⟩
-    · convert bank 80 (by decide) using 1 <;> norm_num [outputValues,layout,BinarySplit.Layout.half]
-    · convert bank 81 (by decide) using 1 <;> norm_num [outputValues]
-    · convert bank 82 (by decide) using 1 <;> norm_num [outputValues,layout,BinarySplit.Layout.half]
-    · convert bank 84 (by decide) using 1 <;> norm_num [outputValues,layout,BinarySplit.Layout.half]
-    · convert bank 85 (by decide) using 1 <;> norm_num [outputValues,layout,BinarySplit.Layout.half]
-    · convert bank 86 (by decide) using 1 <;> norm_num [outputValues,layout,BinarySplit.Layout.half,slab]
-    · convert bank 98 (by decide) using 1 <;> norm_num [outputValues,layout,BinarySplit.Layout.half,slab]
-    · convert bank 99 (by decide) using 1 <;> norm_num [outputValues,layout,BinarySplit.Layout.half]
+    · convert bank 80 (by decide) using 1; norm_num [outputValues,layout,BinarySplit.Layout.half]
+    · convert bank 81 (by decide) using 1; norm_num [outputValues]
+    · convert bank 82 (by decide) using 1; norm_num [outputValues,layout,BinarySplit.Layout.half]
+    · convert bank 84 (by decide) using 1; norm_num [outputValues,layout,BinarySplit.Layout.half]
+    · convert bank 85 (by decide) using 1; norm_num [outputValues,layout,BinarySplit.Layout.half]
+    · convert bank 86 (by decide) using 1; norm_num [outputValues,layout,BinarySplit.Layout.half,slab]
+    · convert bank 98 (by decide) using 1; norm_num [outputValues,layout,BinarySplit.Layout.half,slab]
+    · convert bank 99 (by decide) using 1; norm_num [outputValues,layout,BinarySplit.Layout.half]
   · refine ⟨?_,?_,?_,?_,?_,?_⟩
-    · convert bank 100 (by decide) using 1 <;> norm_num [outputValues,layout]
-    · convert bank 101 (by decide) using 1 <;> norm_num [outputValues,layout]
-    · convert bank 102 (by decide) using 1 <;> norm_num [outputValues,layout]
-    · convert bank 103 (by decide) using 1 <;> norm_num [outputValues,layout]
-    · convert bank 104 (by decide) using 1 <;> norm_num [outputValues,layout]
-    · convert bank 105 (by decide) using 1 <;> norm_num [outputValues,layout]
+    · convert bank 100 (by decide) using 1; norm_num [outputValues,layout]
+    · convert bank 101 (by decide) using 1; norm_num [outputValues,layout]
+    · convert bank 102 (by decide) using 1; norm_num [outputValues,layout]
+    · convert bank 103 (by decide) using 1; norm_num [outputValues,layout]
+    · convert bank 104 (by decide) using 1; norm_num [outputValues,layout]
+    · convert bank 105 (by decide) using 1; norm_num [outputValues,layout]
   · intro i
     fin_cases i
-    · convert bank 122 (by decide) using 1 <;> norm_num [outputValues,layout]
-    · convert bank 123 (by decide) using 1 <;> norm_num [outputValues,layout]
-    · convert bank 124 (by decide) using 1 <;> norm_num [outputValues,layout]
-    · convert bank 125 (by decide) using 1 <;> norm_num [outputValues,layout]
-  · convert bank 96 (by decide) using 1 <;> norm_num [outputValues]
-  · convert bank 190 (by decide) using 1 <;> norm_num [outputValues]
-  · convert bank 195 (by decide) using 1 <;> norm_num [outputValues]
-  · convert bank 196 (by decide) using 1 <;> norm_num [outputValues]
+    · convert bank 122 (by decide) using 1; norm_num [outputValues,layout]
+    · convert bank 123 (by decide) using 1; norm_num [outputValues,layout]
+    · convert bank 124 (by decide) using 1; norm_num [outputValues,layout]
+    · convert bank 125 (by decide) using 1; norm_num [outputValues,layout]
+  · convert bank 96 (by decide) using 1; norm_num [outputValues]
+  · convert bank 190 (by decide) using 1; norm_num [outputValues]
+  · convert bank 195 (by decide) using 1; norm_num [outputValues]
+  · convert bank 196 (by decide) using 1; norm_num [outputValues]
 
 /-- Actual arithmetic computes every descriptor and advances the heap. The
 entire memory and every tape outside the explicit finite work set are kept. -/
