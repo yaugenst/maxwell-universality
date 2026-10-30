@@ -1,5 +1,11 @@
 # Maxwell's equations are universal for sparse linear algebra
 
+> [!TIP]
+> **New here? Start with the essay
+> [*Can light solve any sparse linear system?*](https://yaugenst.github.io/maxwell-universality/)**:
+> an accessible account of the result, how it works, and how it was made, with an
+> interactive example.
+
 Companion material for *Maxwell's equations are universal for sparse linear
 algebra*: manuscript sources, Lean developments, exact certificate checkers,
 and numerical illustrations.
@@ -20,6 +26,7 @@ included alongside the unsuccessful compact periodic constructions.
 
 | Interest | Entry point |
 | --- | --- |
+| Get the big picture first | [Essay](https://yaugenst.github.io/maxwell-universality/) |
 | Read or build the paper | [Manuscript](paper/README.md) |
 | Prepare the arXiv source ZIP | [Packaging command](paper/README.md#prepare-the-arxiv-zip) |
 | Understand the calibrated cavity | [Device walkthrough](experiments/report/device_walkthrough/README.md) |
