@@ -49,7 +49,7 @@ theorem fuel_le (n m : ℕ) (hn : n ≤ m) :
     fuel n ≤ (m+1)*(100*m.bits.length+410) := by
   have hbits : n.bits.length ≤ m.bits.length := by
     simpa only [Nat.size_eq_bits_len] using Nat.size_le_size hn
-  unfold fuel emitBound
+  unfold fuel emitBound EmitRows.bound
   rw [header_length, row_length]
   nlinarith
 

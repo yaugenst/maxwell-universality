@@ -1,6 +1,6 @@
 import Maxwell.Continuum.CalibrationNeumannCopyTarget
 import Maxwell.Continuum.CalibrationWidthClock
-import Maxwell.Continuum.WordCleanup
+import Maxwell.Cost.Structured.WordCleanup
 
 /-! Actual layout arithmetic for a wider shared-denominator output table.
 Its initial data are the arbitrary bits already present in memory. -/

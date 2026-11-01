@@ -30,7 +30,7 @@ theorem producer_compiled_run {n : ℕ} (a : Table n) (Q N W : ℕ)
           output.get ⟨2*j.val,by omega⟩=waveCacheReal (v 10).value Q N j ∧
           output.get ⟨2*j.val+1,by omega⟩=waveCacheImag (v 10).value Q N j) ∧
         a.Ready t ∧ Blank t.val 201 := by
-  obtain ⟨cost,t,e,hcost,⟨state⟩,hblank⟩ := producer_executes a Q N W b hm hsep hdisjoint hfit
+  obtain ⟨cost,t,e,hcost,⟨state⟩,hblank,_⟩ := producer_executes a Q N W b hm hsep hdisjoint hfit
     v hw hv hq hQ hN hW input tape s hs hp hf hsetup ha hb hpower hpowerCount hinner hsaved
   obtain ⟨hrun,hsteps⟩ := e.compiled_run (producerBound Q N W+1) (by omega)
   refine ⟨t,hrun,hsteps ▸ hcost.trans (producerBound_polynomial Q N W),state.table,

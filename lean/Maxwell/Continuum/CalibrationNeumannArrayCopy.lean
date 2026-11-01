@@ -20,7 +20,7 @@ theorem copy_values {n : ℕ} (a : Table n) (v : ℕ→Parts) :
   simp only [mapValues,he,iterate,Control.evaluate,Function.update_self,hi,Table.getD,
     dite_eq_left i.isLt]
 
-private theorem copy_width {n : ℕ} (a : Table n) (v : ℕ→Parts) (B : ℕ)
+theorem copy_width {n : ℕ} (a : Table n) (v : ℕ→Parts) (B : ℕ)
     (hB : 0<B) (ha : ∀ i, (a.get i).Width B) (hv : WidthBank {1} B v) (k : ℕ) :
     WidthBank {1} B (iterate a 1 .done v k) := by
   induction k with
@@ -58,7 +58,7 @@ theorem copy_executes {n : ℕ} (a b : Table n) (v : ℕ→Parts) (B : ℕ)
       t.val.tapes 201=BitTape.shifted finalWord origin ∧ finalWord.length=xs.length := by
   have hw := copy_width a v B hB haWidth hvWidth
   have hg := copy_good a v haValid hvGood
-  obtain ⟨cost,t,word,he,hcost,hs',ha',hb',hword,hl⟩ := map_executes a b {1} (by simp)
+  obtain ⟨cost,t,word,he,hcost,hs',ha',hb',hword,hl,_⟩ := map_executes a b {1} (by simp)
     .done trivial 1 (by simp) v B hB haMeta hbMeta hslot hsep hdisjoint
     (fun k _ => hw k)
     (fun k _ => (hw k).update 1 (a.getD_width B hB haWidth _))

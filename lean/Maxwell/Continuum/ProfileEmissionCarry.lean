@@ -1,6 +1,6 @@
 import Maxwell.Continuum.ProfileProducedFrame
 import Maxwell.Continuum.ProfileEndpointCorrection
-import Maxwell.Continuum.RationalDataflowProgramFootprint
+import Maxwell.Cost.Structured.TapeSet
 
 /-! The endpoint-correction pass retains the actual dyadic scale and header
 words required to emit its computed table. Its division scratch is proved empty. -/

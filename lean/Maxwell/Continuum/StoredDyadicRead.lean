@@ -1,6 +1,6 @@
 import Maxwell.Continuum.StoredDyadicEmission
 import Maxwell.Continuum.StoredSerializationTransfer
-import Maxwell.Continuum.RationalDataflowProgramFootprint
+import Maxwell.Cost.Structured.TapeSet
 
 /-! Actual indexed access and numerator emission for a table of raw dyadic
 values. The stronger canonical-integer table invariant is not required. -/

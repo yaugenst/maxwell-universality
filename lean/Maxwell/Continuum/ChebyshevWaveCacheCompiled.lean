@@ -29,7 +29,7 @@ theorem cache_compiled_run {n : ℕ} (a : Table n) (q : ℚ) (Q N D W : ℕ)
       (runPriced (cacheCode.compile.next input tape) (cacheBound Q N D W+1) s.val).instructions≤
         cacheBound Q N D W ∧
       Nonempty (CacheState a q Q N D W base b 0 t) ∧ Blank t.val 201 := by
-  obtain ⟨c,t,e,hc,state,hblank⟩ := cache_executes a q Q N D W b hm hsep hdisjoint hq hD hfit
+  obtain ⟨c,t,e,hc,state,hblank,_⟩ := cache_executes a q Q N D W b hm hsep hdisjoint hq hD hfit
     base hbase hg hW hgrid hcount hone hi input tape s hs ha hb hn hz hgridWord hsaved hpower
   have hbound : c≤cacheBound Q N D W := hc.trans
     (cache_cost_polynomial Q (waveWorkBits (8*Q) N) W (waveGrid (8*Q) N) D hgrid hcount)

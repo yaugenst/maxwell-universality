@@ -44,6 +44,28 @@ theorem expressions_safe (v : ℕ → Parts) (hv : Good (Finset.range bankSize) 
   intro i j
   exact ⟨trivial,hv (entryIndex i j) (entryIndex_mem i j)⟩
 
+theorem sign_executes (v : ℕ→Parts) (W : ℕ) (hw:WidthBank (Finset.range bankSize) W v)
+    (hg:Good (Finset.range bankSize) v) (input : List Bool) (tape : ℕ→Bool) (st : Store)
+    (ready:Ready (Finset.range bankSize) v st) :
+    let output:=signControl.evaluate v
+    ∃cost t,Executes input tape signControl.code cost st t ∧
+      cost≤signCostConstant*(W+1)^2 ∧ Ready (Finset.range bankSize) output t ∧
+      Good (Finset.range bankSize) output ∧
+      WidthBank (Finset.range bankSize) (extent expressions*(W+1)) output ∧
+      output 576=Parts.literal (if negativeTest (RawDefiniteness.values (inputMatrix v)) then 1 else 0) ∧
+      BinaryPrecision.Frame (workspace (Finset.range bankSize)) st.val t.val := by
+  dsimp only
+  obtain ⟨cost,t,execution,bound,ready,good,width,result,frame⟩:=
+    control_executes expressions 576 577 (by decide) expressions_below v W hw hg
+      (expressions_safe v hg) input tape st ready
+  refine ⟨cost,t,execution,bound,ready,good,width,?_,frame⟩
+  rw [expressions_evaluate] at result
+  change signControl.evaluate v 576=Parts.literal
+    (if RawDefiniteness.negative (inputMatrix v) then 1 else 0) at result
+  have valid : RawDefiniteness.Valid (inputMatrix v):=fun i j=>hg _ (entryIndex_mem i j)
+  rw [RawDefiniteness.negative_value (inputMatrix v) valid] at result
+  exact result
+
 theorem sign_computes (v : ℕ → Parts) (W : ℕ) (hw : WidthBank (Finset.range bankSize) W v)
     (hg : Good (Finset.range bankSize) v) (input : List Bool) (tape : ℕ → Bool) (st : Store)
     (hst : Ready (Finset.range bankSize) v st) :
@@ -65,5 +87,6 @@ theorem sign_computes (v : ℕ → Parts) (W : ℕ) (hw : WidthBank (Finset.rang
   rw [hresult,Parts.literal_value]
 
 #print axioms sign_computes
+#print axioms sign_executes
 
 end Maxwell.Continuum.Calibration.EdgeSignMachine

@@ -1,5 +1,5 @@
 import Maxwell.Continuum.ContinuumGridReports
-import Maxwell.Continuum.FiniteDecoderCost
+import Maxwell.Cost.FiniteDecoder.Cost
 import Maxwell.Continuum.ContinuumRawReportWords
 
 /-! The continuum decoder uses explicit physical grid addresses and one
@@ -94,16 +94,16 @@ theorem decoder_output_words (hm2 : 2≤S.nnz) (hp : Source.Promises p S) (hb : 
 from its initial state, for every finite report pattern. -/
 theorem decoder_runs (w : (decoder p S hm).Messages) (randomTape : ℕ → Bool) :
     ∃ stop : Cost.BitRAMState,
-      (Cost.runPriced (FiniteDecoder.program.next
-        (FiniteDecoder.description (decoder p S hm)++Codec.messages (decoder p S hm) w) randomTape)
-        (FiniteDecoder.costCap (decoder p S hm)+1) Cost.BitRAMState.initial).finished=some stop ∧
-      (Cost.runPriced (FiniteDecoder.program.next
-        (FiniteDecoder.description (decoder p S hm)++Codec.messages (decoder p S hm) w) randomTape)
-        (FiniteDecoder.costCap (decoder p S hm)+1) Cost.BitRAMState.initial).instructions≤
-          FiniteDecoder.costCap (decoder p S hm) ∧
+      (Cost.runPriced (Cost.FiniteDecoder.program.next
+        (Cost.FiniteDecoder.description (decoder p S hm)++Codec.messages (decoder p S hm) w) randomTape)
+        (Cost.FiniteDecoder.costCap (decoder p S hm)+1) Cost.BitRAMState.initial).finished=some stop ∧
+      (Cost.runPriced (Cost.FiniteDecoder.program.next
+        (Cost.FiniteDecoder.description (decoder p S hm)++Codec.messages (decoder p S hm) w) randomTape)
+        (Cost.FiniteDecoder.costCap (decoder p S hm)+1) Cost.BitRAMState.initial).instructions≤
+          Cost.FiniteDecoder.costCap (decoder p S hm) ∧
       Codec.RepresentsOutput (Cost.DecoderParser.decoderWidth (decoder p S hm)+2)
         ((decoder p S hm).decode w) stop.output.reverse ∧ stop.randomCursor=0 :=
-  FiniteDecoder.run (decoder p S hm) w randomTape
+  Cost.FiniteDecoder.run (decoder p S hm) w randomTape
 
 #print axioms decoder_value
 #print axioms decoder_recovery

@@ -40,7 +40,9 @@ theorem completeComponent_executes {p : ℕ} (M A L R P Q N E W Win Wout Wsetup 
     (hfresh : ∀i∈TensorStart.freshPorts,Blank s.val i) :
     ∃cost t,Executes input tape (completeComponentCode j) cost s t ∧
       cost≤completeComponentCost M A L R P Q N W Win Wout Wsetup H ∧
-      t.val.output=(componentPayload M A L R P Q N a j).reverse++s.val.output := by
+      t.val.output=(componentPayload M A L R P Q N a j).reverse++s.val.output ∧
+      NatAssign.Scratch t.val ∧
+      (∀limit,limit≤heapBase R a →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   have wm : Word s.val 350 M := by simpa [initial] using hb 350 (by decide)
   have wl : Word s.val 352 L := by simpa [initial] using hb 352 (by decide)
   have z353 : Blank s.val 353 := by
@@ -52,14 +54,15 @@ theorem completeComponent_executes {p : ℕ} (M A L R P Q N E W Win Wout Wsetup 
   have ready0 : Ready RowArithmetic.bank (ModePrepare.canonical (ModePrelude.values M A L)) u := by
     rwa [ModePrelude.values_canonical]
   have meta0 : (buffer M L R P a u.val.memory).MetadataWidth Wout := by rwa [f0.memory]
-  obtain ⟨c1,t,e1,hc1,out⟩ := component_executes M A L R P Q N E Win Wout Wsetup H
+  obtain ⟨c1,t,e1,hc1,out,scratch,memory⟩ := component_executes M A L R P Q N E Win Wout Wsetup H
     hWin hWout hsetupWidth a old j (ModePrelude.values M A L) hma hmo
     (ModePrelude.values_width M A L W Wout hm hA hl hsmall) (ModePrelude.values_good M A L (NeZero.pos M))
     hav hR hsize hcount (ModePrelude.values_factor M A L (NeZero.pos M)) (ModePrelude.values_scale M A L)
     hmode hfreq hmass hcoeff hQ hN hdegree hprecision hgrid hiw input tape u meta0
     (ModePrelude.allocation_frame hb f0 m0 l0 z0) ready0 source0 target0 (ModePrelude.floor_frame hfloor f0)
     (ModePrelude.phase_frame hphase f0 r0) (ModePrelude.setup_frame hsetup f0) (ModePrelude.fresh_frame hfresh f0)
-  exact ⟨c0+c1,t,e0.seq e1,Nat.add_le_add hc0 hc1,by simpa only [f0.output] using out⟩
+  exact ⟨c0+c1,t,e0.seq e1,Nat.add_le_add hc0 hc1,by simpa only [f0.output] using out,scratch,
+    fun limit hlimit k hk=>by rw [memory limit hlimit k hk,f0.memory]⟩
 
 #print axioms completeComponent_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime.ModeAllocation

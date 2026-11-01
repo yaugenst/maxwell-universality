@@ -1,5 +1,5 @@
 import Maxwell.Continuum.SourceRoutingSplitReusable
-import Maxwell.Continuum.WordCleanup
+import Maxwell.Cost.Structured.WordCleanup
 import Maxwell.Cost.RoutingAllocator
 
 /-! Every live split-node word has an explicit represented payload.

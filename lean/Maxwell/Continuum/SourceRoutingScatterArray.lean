@@ -1,4 +1,4 @@
-import Maxwell.Continuum.SourceRoutingPhaseKeys
+import Maxwell.Logical.Routing.PhaseKeys
 import Maxwell.Cost.IncidenceEncoding
 
 /-! Prefix semantics for an increasing scatter pass. The initial contents

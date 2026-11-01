@@ -55,7 +55,8 @@ theorem generated_executes {p : ℕ} (M A L R P W Wsetup H : ℕ) [NeZero M]
         (fun r => Supercell.templateFrequency M (L:ℚ) (RowArithmetic.rowAlias R r))
         (fun r => roundFourierCoefficient P (Supercell.physicalCoefficientData M A (GlobalPower.tableData R a))
           (RowArithmetic.rowAlias R r) j) ∧
-      t.val.tapes 201=BitTape.shifted ys origin ∧ ys.length≤W := by
+      t.val.tapes 201=BitTape.shifted ys origin ∧ ys.length≤W ∧
+      (∀limit,limit≤heapBase R a →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   let b := buffer M L R P a s.val.memory
   obtain ⟨c0,u,e0,hc0,r0,a0,b0,n0,cnt0,prec0,_,f0⟩ := allocated_executes M L R P Wsetup H hsetup a old hiw hmo
     RowArithmetic.bank (ModePrepare.canonical v) input tape s hb hr ha ho hz216
@@ -76,7 +77,7 @@ theorem generated_executes {p : ℕ} (M A L R P W Wsetup H : ℕ) [NeZero M]
     exact slotWidth_pos M L R P
   have hsep : b.Separated := Profile.Runtime.memoryTable_separated _ _ _ _ _
   have hdisj : a.SeparatedFrom b := input_separated M L R P a s.val.memory
-  obtain ⟨c2,t,ys,e2,hc2,final,word,length⟩ := ModePrepare.table_executes P R W hW a b j v hma hmb hw hg hav hR hsize
+  obtain ⟨c2,t,ys,e2,hc2,final,word,length,memory⟩ := ModePrepare.table_executes P R W hW a b j v hma hmb hw hg hav hR hsize
     (fun r => ModePrepare.writePlan_fit P R (addressValue b.width) a j r (ModePrepare.canonical v) (fit r))
     hpos hsep hdisj input tape (RowArithmetic.rowCount R).bits origin hcount (addressValue_bits _)
     w counter r1 a1 b1 n1 z1 p1
@@ -93,9 +94,19 @@ theorem generated_executes {p : ℕ} (M A L R P W Wsetup H : ℕ) [NeZero M]
     · exact ModePrepare.canonical_good v hg
     · exact hav
     · exact fit
-  refine ⟨c0+(c1+c2),t,ys,origin,e0.seq (e1.seq e2),?_,final',final'.destination,rows,word,length.trans_le hcount⟩
-  exact (Nat.add_le_add hc0 (Nat.add_le_add hc1 hc2)).trans
-    (generated_cost (RowArithmetic.rowCount R) P W Wsetup H (slotWidth M L R P))
+  refine ⟨c0+(c1+c2),t,ys,origin,e0.seq (e1.seq e2),?_,final',final'.destination,rows,word,length.trans_le hcount,?_⟩
+  · exact (Nat.add_le_add hc0 (Nat.add_le_add hc1 hc2)).trans
+      (generated_cost (RowArithmetic.rowCount R) P W Wsetup H (slotWidth M L R P))
+  · intro limit hlimit k hk
+    have hp : limit≤addressValue b.basePositive := by
+      simpa only [b,buffer,Profile.Runtime.memoryTable,addressValue_bits] using hlimit
+    have hn : limit≤addressValue b.baseNegative := by
+      simp only [b,buffer,Profile.Runtime.memoryTable,addressValue_bits]
+      omega
+    have hd : limit≤addressValue b.baseDenominator := by
+      simp only [b,buffer,Profile.Runtime.memoryTable,addressValue_bits]
+      omega
+    rw [memory limit hp hn hd k hk,f1.memory,f0.memory]
 
 #print axioms generated_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime.ModeAllocation

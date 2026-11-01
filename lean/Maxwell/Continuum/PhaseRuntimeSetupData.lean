@@ -1,6 +1,7 @@
 import Maxwell.Continuum.MachinRuntimeCode
 import Maxwell.Continuum.PhaseMachineFinalData
-import Maxwell.Continuum.StoredWordLength
+import Maxwell.Cost.Structured.NatAssign.StoredLength
+import Maxwell.Codec.NaturalLength
 
 /-! The fixed phase setup reads rational operands and precision words,
 counts the binary length of the range bound, and computes the exact existing
@@ -31,14 +32,8 @@ theorem ids_ge (i : ℕ) (hi : i∈ids) : 4 ≤ i := by
   · simp only [extras,Finset.mem_insert,Finset.mem_singleton] at hi
     omega
 
-theorem clog_two_succ (Q : ℕ) : Nat.clog 2 (Q+1)=Q.bits.length := by
-  rw [Nat.size_eq_bits_len]
-  apply Nat.le_antisymm
-  · rw [Nat.clog_le_iff_le_pow (by decide)]
-    exact Nat.succ_le_of_lt (Nat.lt_size_self Q)
-  · rw [Nat.size_le]
-    have h := Nat.le_pow_clog (by decide : 1<(2:ℕ)) (Q+1)
-    omega
+theorem clog_two_succ (Q : ℕ) : Nat.clog 2 (Q+1)=Q.bits.length :=
+  Maxwell.Codec.clog_two_succ Q
 
 theorem order_eq (Q N : ℕ) : PhaseMachine.order Q N=800*(Q+1)^2+2*N+13 := by
   unfold PhaseMachine.order Calibration.taylorOrder Calibration.taylorHalfOrder

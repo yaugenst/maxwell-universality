@@ -60,7 +60,7 @@ theorem executes (p m D base N W : ℕ) (hDpos : 0<D)
     have h := RationalAccumulator.bits_mul_le D D
     rw [pow_two]
     omega
-  obtain ⟨c2,t,num,den,e2,hc2,wn,wd,hd,value,denWidth,rootBankOut,z2,f2⟩ := RationalRoot.Raw.executes
+  obtain ⟨c2,t,num,den,e2,hc2,wn,wd,hd,value,denWidth,rootBankOut,z2,f2,_⟩ := RationalRoot.Raw.executes
     (IntegerNormSquare.magnitude p m) (D^2) N (2*W+2) (by positivity)
       hmag hden (hN.trans (by omega)) input tape v rootBank z1
   have saved : Word t.val 549 D := by

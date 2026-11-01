@@ -54,22 +54,30 @@ structure Represents (memory : ℕ→Bool) : Prop where
 theorem of_result {s : Store} (h : SourceGraph.Incidence.Result S p s) : Represents S p s.val.memory :=
   ⟨h.diagonal,h.incidence.counters⟩
 
-theorem Represents.read_degree {memory : ℕ→Bool} (h : Represents S p memory)
+theorem degree_value
     (v : SourcePositive.Vertex S p) :
-    addressValue (MemoryWord.readBits memory
-      (4*count S p*(width S p+3)+(vertexIndex S p v).val*2) 2)=
+    addressValue ((IncidenceEncoding.words 2
+      (IncidenceRanks.run (SourceGraph.Incidence.endpoint S p) (4*count S p) le_rfl).counters).get
+      (vertexIndex S p v))=
       PhysicalDiagonal.degree S p (.inl v) := by
-  rw [h.counter.read,IncidenceEncoding.words_value]
+  rw [IncidenceEncoding.words_value]
   · exact counter_eq_degree S p v
   · have h3 := IncidenceEncoding.run_counters_le_three (SourceGraph.Incidence.endpoint S p)
       (SourceGraph.Incidence.endpoint_degree S p) (4*count S p) le_rfl (vertexIndex S p v)
     omega
 
-theorem Represents.read_diagonal {memory : ℕ→Bool} (h : Represents S p memory)
+theorem Represents.read_degree {memory : ℕ→Bool} (h : Represents S p memory)
     (v : SourcePositive.Vertex S p) :
-    ((addressValue (MemoryWord.readBits memory (base S p+(vertexIndex S p v).val*4) 4):ℚ)-8)/2=
+    addressValue (MemoryWord.readBits memory
+      (4*count S p*(width S p+3)+(vertexIndex S p v).val*2) 2)=
+      PhysicalDiagonal.degree S p (.inl v) := by
+  rw [h.counter.read]
+  exact degree_value S p v
+
+theorem diagonal_value
+    (v : SourcePositive.Vertex S p) :
+    ((addressValue ((PositiveGraph.Invariant.sourceDiagonalWords S p).get (vertexIndex S p v)):ℚ)-8)/2=
       SourceVertexList.diagonal S p (.inl v) := by
-  erw [h.diagonal.read]
   have hg : (PositiveGraph.Invariant.sourceDiagonalWords S p).get (vertexIndex S p v)=
       FixedWidth.bits 4 (PositiveGraph.diagonalCode
         ((PositiveScatter.numerator S p).get (SourceEnumeration.vertexEquiv S p v))).bits := by
@@ -80,6 +88,13 @@ theorem Represents.read_diagonal {memory : ℕ→Bool} (h : Represents S p memor
     simpa only [SourceVertexList.diagonal,SourceEmission.geometry,PositiveScatter.diagonal_get] using hd
   · rw [Nat.size_eq_bits_len]
     exact Nat.size_le.mpr (PositiveGraph.diagonalCode_lt _)
+
+theorem Represents.read_diagonal {memory : ℕ→Bool} (h : Represents S p memory)
+    (v : SourcePositive.Vertex S p) :
+    ((addressValue (MemoryWord.readBits memory (base S p+(vertexIndex S p v).val*4) 4):ℚ)-8)/2=
+      SourceVertexList.diagonal S p (.inl v) := by
+  erw [h.diagonal.read]
+  exact diagonal_value S p v
 
 #print axioms counter_eq_degree
 #print axioms Represents.read_diagonal

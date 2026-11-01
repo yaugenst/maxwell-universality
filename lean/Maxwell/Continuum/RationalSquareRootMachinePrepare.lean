@@ -10,9 +10,9 @@ set_option maxHeartbeats 3000000
 set_option maxRecDepth 16384
 
 def prepareCode : Code := .seq (NatAssign.code powerPlan)
-  (.seq Parameters.PowerMachine.code (NatAssign.code radicandPlan))
+  (.seq SelectedParameters.PowerMachine.code (NatAssign.code radicandPlan))
 def prepareCost (N W : ℕ) : ℕ := 3000*8^3*(W+6)^2+
-  (Parameters.PowerMachine.costBound N (W+4)+3000*8^10*(3*N+W+6)^2)
+  (SelectedParameters.PowerMachine.costBound N (W+4)+3000*8^10*(3*N+W+6)^2)
 
 theorem input_width (A D N W : ℕ) (hA : A.bits.length≤W) (hD : D.bits.length≤W)
     (hN : N.bits.length≤W) (i : ℕ) : (inputValues A D N i).bits.length≤W := by
@@ -55,7 +55,7 @@ theorem prepare_executes (A D N W : ℕ) (hA : A.bits.length≤W) (hD : D.bits.l
     split_ifs <;> omega
   have count : Word u.val 534 N := by
     simpa [powerPlan_values] using b0 534 (by decide)
-  obtain ⟨c1,v,e1,hc1,b1,blank1,f1⟩ := Parameters.PowerMachine.executes
+  obtain ⟨c1,v,e1,hc1,b1,blank1,f1⟩ := SelectedParameters.PowerMachine.executes
     (NatAssign.values powerPlan (inputValues A D N)) N (W+4) (by omega) widths
       (hN.trans (by omega)) input tape u
       (fun i hi => b0 i ((by decide : SelectedParameters.DynamicPower.ids⊆ids) hi)) z0 count

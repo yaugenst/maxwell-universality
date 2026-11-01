@@ -1,5 +1,5 @@
 import Maxwell.Continuum.FourierTensorModeGenerated
-import Maxwell.Continuum.ProgramTapeInterval
+import Maxwell.Cost.Structured.TapeInterval
 
 /-! The row loop preserves the already computed allocation words and
 the disjoint registers used by the following tensor traversal. -/

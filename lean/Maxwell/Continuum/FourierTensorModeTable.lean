@@ -61,19 +61,23 @@ theorem table_executes (P R W : ℕ) (hW : 2≤W)
     ∃cost t ys,Executes input tape (tableCode j) cost s t ∧
       cost≤2^215*(RowArithmetic.rowCount R+1)*(P+W+12)^2 ∧
       TableState P R a b j v s.val.output 0 t ∧
-      t.val.tapes 201=BitTape.shifted ys origin ∧ ys.length=xs.length := by
-  let inv := TableState P R a b j v s.val.output
+      t.val.tapes 201=BitTape.shifted ys origin ∧ ys.length=xs.length ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
+  let inv : ℕ→Store→Prop := fun r t=>TableState P R a b j v s.val.output r t ∧
+    (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k)
   have stable : ∀r s t,CountedShifted.Frame 201 s t→inv r s→inv r t := by
-    intro r u t f h
-    exact h.count_frame f
+    intro r u t f ⟨h,memory⟩
+    exact ⟨h.count_frame f,fun limit hp hn hd k hk=>by rw [f.2.2.1];exact memory limit hp hn hd k hk⟩
   have step : ∀r ys u,inv (r+1) u→u.val.tapes 201=BitTape.shifted ys origin→
       addressValue ys=r→ys.length=xs.length→
       ∃cost t,Executes input tape (rowCode j) cost u t ∧ inv r t ∧
         t.val.tapes 201=BitTape.shifted ys origin ∧ cost≤2^210*(P+W+11)^2 := by
-    intro r ys u h hword hval hlen'
+    intro r ys u ⟨h,oldMemory⟩ hword hval hlen'
     have hrange : r<RowArithmetic.rowCount R := by have := h.remaining_le;omega
     let ri : Fin (RowArithmetic.rowCount R) := ⟨r,hrange⟩
-    obtain ⟨cost,t,e,hcost,ready,_,_,source,dest,naturals,floor,power,_,counter,output⟩ := row_executes P R W hW a
+    obtain ⟨cost,t,e,hcost,ready,_,_,source,dest,naturals,floor,power,_,counter,output,memory⟩ := row_executes P R W hW a
       (b.filled (entries P R a j (canonical v)) (5*(r+1))) j ri (canonical v) hma
       ⟨hmb.width,hmb.basePositive,hmb.baseNegative,hmb.baseDenominator,hmb.clock⟩
       (canonical_width v W (by omega) hw) (canonical_good v hg) hav hR hsize (hfit ri) hpos hsep hdisj
@@ -85,13 +89,16 @@ theorem table_executes (P R W : ℕ) (hW : 2≤W)
       rw [filled_write_step] at dest
       exact dest
     have counter' : t.val.tapes 201=BitTape.shifted ys origin := counter.trans hword
-    exact ⟨cost,t,e,⟨by omega,ready,source,dest',naturals,floor,power,output.trans h.output⟩,counter',hcost⟩
+    refine ⟨cost,t,e,⟨⟨by omega,ready,source,dest',naturals,floor,power,output.trans h.output⟩,?_⟩,counter',hcost⟩
+    intro limit hp hn hd k hk
+    rw [memory limit hp hn hd k hk]
+    exact oldMemory limit hp hn hd k hk
   have initial : inv (RowArithmetic.rowCount R) s :=
-    ⟨le_rfl,hr,ha,by simpa only [Table.filled_initial] using hb,hn,hz,hp,rfl⟩
+    ⟨⟨le_rfl,hr,ha,by simpa only [Table.filled_initial] using hb,hn,hz,hp,rfl⟩,fun _ _ _ _ _ _=>rfl⟩
   obtain ⟨cost,t,ys,e,final,word,length,_,hcost⟩ := counted_executes_sized 201 origin (rowCode j)
     input tape xs.length inv (fun _ => 2^210*(P+W+11)^2) stable step
     (RowArithmetic.rowCount R) xs s hcount hc rfl initial
-  refine ⟨cost,t,ys,e,?_,final,word,length⟩
+  refine ⟨cost,t,ys,e,?_,final.1,word,length,final.2⟩
   simp only [Finset.sum_const,Finset.card_range,smul_eq_mul] at hcost
   have hstep : (P+W+11)^2≤(P+W+12)^2 := Nat.pow_le_pow_left (by omega) 2
   have hclock : 13*xs.length+15≤16*(P+W+12)^2 := by nlinarith only [hlen,Nat.zero_le P,Nat.zero_le W]

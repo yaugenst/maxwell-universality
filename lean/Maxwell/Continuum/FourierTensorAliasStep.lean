@@ -72,21 +72,25 @@ theorem aliasStep_executes {n B : ℕ} (a : Table (5*n)) (Q N A W : ℕ)
       (w 32).denominator=(v 32).denominator ∧
       (w 32).value=(v 32).value+
         ((complexDyadicMul (amp r) (complexDyadicTriple (fun i => waveRoundedCoefficient (q r i) Q N (j i)))).1.numerator:ℚ) ∧
-      Word t.val 1048 (j 2) ∧ t.val.tapes 1099=s.val.tapes 1099 := by
+      Word t.val 1048 (j 2) ∧ t.val.tapes 1099=s.val.tapes 1099 ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   obtain ⟨c0,s0,e0,h0,f0,r0,w0,ix0,count0⟩ := aliasRead_executes a b W hma v hw input tape xs hlen
     (by rw [hrow];exact r.isLt) s hs hr hcount
   rw [hrow] at f0 r0 w0
   have hi := hrows.loaded r v j hindices
   have acc : aliasLoaded a r.val v 32=v 32 := aliasLoaded_keep a r.val v 32 (by omega)
-  obtain ⟨c1,t,w,output,e1,h1,f1,r1,w1,acc1,m1,in1,val1,den1,result,index1⟩ :=
+  obtain ⟨c1,t,w,output,e1,h1,f1,r1,w1,acc1,m1,in1,val1,den1,result,index1,memory⟩ :=
     generatedTerm_executes a Q N A W b hm hsep hdisjoint hfit
       (aliasLoaded a r.val v) w0 hWA (by simpa only [acc] using ha) (q r) j (amp r)
       hi.1 hi.2.1 hi.2.2 (by simpa only [acc] using hvalid) (hq r) hj hQ hN hW hprecision hgrid
       oldIndex hold input tape s0 f0 r0 (word_of_eq ix0 hindex)
   refine ⟨c0+c1,t,w,output,e0.seq e1,Nat.add_le_add h0 h1,f1,r1,w1,acc1,m1,
     fun i => (in1 i).2.2,val1,den1.trans (congrArg Parts.denominator acc),?_,index1,
-    (generatedTerm_preserves_count e1).trans count0⟩
-  simpa only [acc] using result
+    (generatedTerm_preserves_count e1).trans count0,?_⟩
+  · simpa only [acc] using result
+  · intro limit hp hn hd k hk
+    rw [memory limit hp hn hd k hk,e0.protectsMemory (by decide)]
 
 theorem aliasStepCost_mono {Q N A A' W k : ℕ} (j : Fin 3→ℕ) (h : A ≤ A') :
     aliasStepCost Q N A W k j ≤ aliasStepCost Q N A' W k j := by

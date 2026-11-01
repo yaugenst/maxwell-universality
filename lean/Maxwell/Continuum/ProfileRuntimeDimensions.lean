@@ -1,6 +1,6 @@
 import Maxwell.Continuum.ProfileSampleEvaluation
 import Maxwell.Continuum.NaturalBankStage
-import Maxwell.Continuum.StoredWordLength
+import Maxwell.Cost.Structured.NatAssign.StoredLength
 
 /-! The literal profile degree, work precision and DFT grid are computed
 from a stored requested precision by one fixed instruction program. -/

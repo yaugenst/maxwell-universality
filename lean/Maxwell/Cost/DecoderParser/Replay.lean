@@ -149,6 +149,55 @@ def loadCostBound (i f samples archived : ℕ) : ℕ :=
 
 /-- The complete metadata-driven load and rewind has no supplied total-count
 or input-head-reset instruction. It is ready for the linear second pass. -/
+theorem load_messages_from {ι : Type*} {n : ℕ} (D : Target.WeightedDecoder ι n)
+    (messages : D.Messages) (prior preceding suffix : List Bool) (randomTape : ℕ → Bool)
+    (s : Store) (hhead : s.val.inputHead = (prior ++ preceding).length)
+    (hblank : ∀ j ∈ MetadataProduct.work, s.val.tapes j = BitTape.blank)
+    (haddress : s.val.tapes 61 = BitTape.blank)
+    (hcounter : s.val.tapes 63 = BitTape.blank)
+    (harchive : s.val.tapes 18 = BitTape.shiftedEnd preceding 0)
+    (hi : s.val.tapes 41 = BitTape.ofList D.format.integerBits.bits)
+    (hf : s.val.tapes 42 = BitTape.ofList D.format.fractionalBits.bits)
+    (hs : s.val.tapes 43 = BitTape.ofList D.sampleCount.bits) :
+    ∃ cost t,
+      Executes ((prior ++ preceding) ++ (Codec.messages D messages ++ suffix)) randomTape loadCode cost s t ∧
+      cost ≤ loadCostBound D.format.integerBits D.format.fractionalBits D.sampleCount preceding.length ∧
+      t.val.inputHead = prior.length ∧ t.val.tapes 18 = BitTape.ofList preceding ∧
+      t.val.memory = MemoryWord.writeBits s.val.memory 0 (Codec.messages D messages) ∧
+      t.val.randomCursor = s.val.randomCursor ∧ t.val.output = s.val.output ∧
+      (∀ j, j ∉ MetadataProduct.work → j ≠ 18 → j ≠ 61 → j ≠ 63 → t.val.tapes j = s.val.tapes j) ∧
+      (∀ j ∈ ({0, 1, 2, 3, 64} : Finset ℕ), ∃ origin : ℤ,
+        t.val.tapes j = {BitTape.blank with head := origin}) := by
+  obtain ⟨lc, l, address, el, hlc, hli, hlm, hla, hlav, hlal, hlr, hlo, hlf, hls⟩ :=
+    MetadataProduct.load_messages_steps D messages (prior ++ preceding) suffix randomTape s hhead hblank haddress hi hf hs
+  have hl63 : l.val.tapes 63 = BitTape.blank := (hlf 63 (by decide) (by decide)).trans hcounter
+  have hl18 : l.val.tapes 18 = BitTape.shiftedEnd preceding 0 :=
+    (hlf 18 (by decide) (by decide)).trans harchive
+  obtain ⟨rc, r, counter, er, hrc, hri, hr18, _, _, _, fr⟩ :=
+    steps ((prior ++ preceding) ++ (Codec.messages D messages ++ suffix)) randomTape address preceding l hla hl63 hl18
+  refine ⟨lc + rc, r, el.seq er, ?_, ?_, hr18, fr.memory.trans hlm,
+    fr.randomCursor.trans hlr, fr.output.trans hlo, ?_, ?_⟩
+  · have hmon : costBound address.length (addressValue address) preceding.length ≤
+        costBound (D.sampleCount * D.format.width).bits.length
+          (D.sampleCount * D.format.width) preceding.length := by
+      rw [hlav]
+      dsimp [costBound]
+      gcongr
+    have hh := Nat.add_le_add hlc (hrc.trans hmon)
+    simpa only [loadCostBound, Target.FixedPointFormat.width] using hh
+  · rw [hri, hli, hlav, hhead]
+    simp only [List.length_append, Nat.cast_add]
+    omega
+  · intro j hj hj18 hj61 hj63
+    exact (fr.tapes j (by simp [hj18, hj61, hj63])).trans (hlf j hj hj61)
+  · intro j hj
+    obtain ⟨origin, ho⟩ := hls j hj
+    have hn : j ∉ ({18, 61, 63} : Finset ℕ) := by
+      simp only [Finset.mem_insert, Finset.mem_singleton] at hj ⊢
+      omega
+    exact ⟨origin, (fr.tapes j hn).trans ho⟩
+
+/-- The initial-input specialization used by the standalone decoder. -/
 theorem load_messages_steps {ι : Type*} {n : ℕ} (D : Target.WeightedDecoder ι n)
     (messages : D.Messages) (preceding suffix : List Bool) (randomTape : ℕ → Bool)
     (s : Store) (hhead : s.val.inputHead = preceding.length)
@@ -168,32 +217,7 @@ theorem load_messages_steps {ι : Type*} {n : ℕ} (D : Target.WeightedDecoder �
       (∀ j, j ∉ MetadataProduct.work → j ≠ 18 → j ≠ 61 → j ≠ 63 → t.val.tapes j = s.val.tapes j) ∧
       (∀ j ∈ ({0, 1, 2, 3, 64} : Finset ℕ), ∃ origin : ℤ,
         t.val.tapes j = {BitTape.blank with head := origin}) := by
-  obtain ⟨lc, l, address, el, hlc, hli, hlm, hla, hlav, hlal, hlr, hlo, hlf, hls⟩ :=
-    MetadataProduct.load_messages_steps D messages preceding suffix randomTape s hhead hblank haddress hi hf hs
-  have hl63 : l.val.tapes 63 = BitTape.blank := (hlf 63 (by decide) (by decide)).trans hcounter
-  have hl18 : l.val.tapes 18 = BitTape.shiftedEnd preceding 0 :=
-    (hlf 18 (by decide) (by decide)).trans harchive
-  obtain ⟨rc, r, counter, er, hrc, hri, hr18, _, _, _, fr⟩ :=
-    steps (preceding ++ (Codec.messages D messages ++ suffix)) randomTape address preceding l hla hl63 hl18
-  refine ⟨lc + rc, r, el.seq er, ?_, ?_, hr18, fr.memory.trans hlm,
-    fr.randomCursor.trans hlr, fr.output.trans hlo, ?_, ?_⟩
-  · have hmon : costBound address.length (addressValue address) preceding.length ≤
-        costBound (D.sampleCount * D.format.width).bits.length
-          (D.sampleCount * D.format.width) preceding.length := by
-      rw [hlav]
-      dsimp [costBound]
-      gcongr
-    have hh := Nat.add_le_add hlc (hrc.trans hmon)
-    simpa only [loadCostBound, Target.FixedPointFormat.width] using hh
-  · rw [hri, hli, hlav, hhead]
-    omega
-  · intro j hj hj18 hj61 hj63
-    exact (fr.tapes j (by simp [hj18, hj61, hj63])).trans (hlf j hj hj61)
-  · intro j hj
-    obtain ⟨origin, ho⟩ := hls j hj
-    have hn : j ∉ ({18, 61, 63} : Finset ℕ) := by
-      simp only [Finset.mem_insert, Finset.mem_singleton] at hj ⊢
-      omega
-    exact ⟨origin, (fr.tapes j hn).trans ho⟩
+  simpa using load_messages_from D messages [] preceding suffix randomTape s (by simpa using hhead)
+    hblank haddress hcounter harchive hi hf hs
 
 end Maxwell.Cost.DecoderParser.Replay

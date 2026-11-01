@@ -1,5 +1,6 @@
 import Maxwell.Continuum.CalibrationNormalizationOutput
 import Maxwell.Continuum.CalibrationGlobalNormalization
+import Maxwell.Continuum.CalibrationFourierTableData
 
 /-! The output table of the executed normalization is the literal finite
 Fourier mode, including its exact coefficient array and normalization. -/
@@ -15,9 +16,6 @@ set_option backward.isDefEq.respectTransparency true
 attribute [local irreducible] modeRadius modeMatrix FiniteAlgorithm.precision
   FiniteAlgorithm.iterations FiniteAlgorithm.seed FiniteAlgorithm.rawMode
   PowerMachine.rationalPower sqrtRationalCenter
-
-def tableData (R : ℕ) (b : Table (2*aliasArraySize R)) : FourierData :=
-  ⟨R,unpack R (fun i => (b.get i).value)⟩
 
 theorem arrayNormCenter_eq {n : ℕ} (a : Buffers n) (D K P : ℕ) (x : Fin n → ℚ)
     (hx : ∀ i, ((PowerMachine.bufferChannels a).value i:ℚ)/(D^(K+1):ℕ)=x i) :

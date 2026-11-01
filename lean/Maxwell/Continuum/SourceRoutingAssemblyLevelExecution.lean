@@ -1,5 +1,5 @@
 import Maxwell.Continuum.SourceRoutingAssemblyLevelState
-import Maxwell.Continuum.RuntimeCounterClear
+import Maxwell.Cost.Structured.CounterClear
 
 namespace Maxwell.Cost.RoutingPorts.Complete.Tree.AssemblyLevel
 open Structured

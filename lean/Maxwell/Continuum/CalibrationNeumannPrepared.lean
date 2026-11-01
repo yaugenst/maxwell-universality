@@ -45,16 +45,23 @@ theorem prepared_executes {n m : ℕ} (coeff : CoefficientIndex n → Parts)
         (addressValue a.width)) ∧
       RationalAccumulator.Word t.val 126 (SharedTable.denominator coeff) ∧
       RationalAccumulator.Word t.val 304 N ∧
+      RationalAccumulator.Blank t.val 140 ∧
+      (∃numbers : ℕ→ℕ,NatAssign.Bank Descriptors.retainedIds numbers t.val ∧
+        ∀k∈Descriptors.retainedIds,(numbers k).bits.length ≤ Descriptors.retainedWidth (addressValue a.width)) ∧
+      WordCleanup.Bounded retiredWords (addressValue a.width) t.val ∧
+      RationalAccumulator.Blank t.val 105 ∧
+      t.val.tapes 1000=s.val.tapes 1000 ∧
+      (∃last : Parts,StoredParts.Stored (positivePort 1) last t.val ∧ last.Width (addressValue a.width)) ∧
       ∀ i : Fin n, ((Horner.channels out.words 10 11).value i : ℚ) /
           (SharedTable.denominator coeff : ℚ)^(N+1) =
         rationalAffineIteration (fun i j => (coeff (.inr (i,j))).value)
           (fun i => (coeff (.inl i)).value) (N+1) i := by
-  obtain ⟨c0,u,e0,hc0,hs',ha',hb',bank,count,_⟩ := copyPrepare_executes a old heap
+  obtain ⟨c0,u,e0,hc0,hs',ha',hb',bank,count,_,keep1000⟩ := copyPrepare_executes a old heap
     (SharedTable.denominator coeff) N B hl v hi hbits {1} logical input tape s hbank hs ha ho
   have hbits' (i : ℕ) (hi : i ∈ Descriptors.ids) :
       (NatAssign.values CopyPlan.plan v i).bits.length ≤ addressValue a.width :=
     (CopyPlan.output_width v B hbits i hi).trans hprepare
-  obtain ⟨c1,t,out,e1,hc1,ht,sized,denominator,counter,heq⟩ := copied_executes coeff hvalid W hwidth a
+  obtain ⟨c1,t,out,e1,hc1,ht,sized,denominator,counter,blank,retained,retired,blank105,last,heq⟩ := copied_executes coeff hvalid W hwidth a
     (copyTarget a heap s.val.memory) heap N (addressValue a.width) hw hw
     (copyTarget_layout a heap s.val.memory hl) haValues hslot haWidth haMeta
     (copyTarget_metadata a heap (addressValue a.width) s.val.memory haMeta haddress)
@@ -62,7 +69,8 @@ theorem prepared_executes {n m : ℕ} (coeff : CoefficientIndex n → Parts)
     logical hlogicalWidth hlogicalGood (NatAssign.values CopyPlan.plan v)
     (CopyPlan.outputs v n (addressValue a.width) heap (SharedTable.denominator coeff) N hi)
     hbits' input tape xs origin hlen u hn (count.trans hcount) bank hs' ha' hb'
-  exact ⟨c0+c1,t,out,e0.seq e1,Nat.add_le_add hc0 hc1,ht,sized,denominator,counter,heq⟩
+  exact ⟨c0+c1,t,out,e0.seq e1,Nat.add_le_add hc0 hc1,ht,sized,denominator,counter,blank,retained,retired,blank105,
+    (e1.protectsTape 1000 (by decide)).trans keep1000,last,heq⟩
 
 #print axioms prepared_executes
 

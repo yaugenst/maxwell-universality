@@ -27,10 +27,12 @@ theorem factor_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
     ∃cost t w output,Executes input tape (factorCode target) cost s t ∧ cost ≤ factorCost Q N W j ∧
       FactorReady a Q N output w t ∧ WidthBank tensorBank W w ∧ CacheTableMetadata output b ∧
       w target=waveCacheReal (v 10).value Q N j ∧ w (target+1)=waveCacheImag (v 10).value Q N j ∧
-      w 10=v 10 ∧ (∀i,17 ≤ i → i≠target → i≠target+1 → w i=v i) ∧ Word t.val 1048 j := by
+      w 10=v 10 ∧ (∀i,17 ≤ i → i≠target → i≠target+1 → w i=v i) ∧ Word t.val 1048 j ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   have sub : ids⊆tensorBank := Finset.subset_union_left
   have hwlow : WidthBank ids W v := fun i hi => hw i (sub hi)
-  obtain ⟨c0,s0,e0,h0,⟨state0⟩,blank0⟩ := producer_executes a Q N W b hm hsep hdisjoint hfit
+  obtain ⟨c0,s0,e0,h0,⟨state0⟩,blank0,memory⟩ := producer_executes a Q N W b hm hsep hdisjoint hfit
     v hwlow hv hq hQ hN hW input tape s (hs.ready.restrict sub) hs.phase hs.floor hs.setup
     hs.source hs.output hs.power hs.powerCount hs.inner hs.saved
   have index0 := word_of_eq (producer_preserves_tape e0 1048 le_rfl) hindex
@@ -57,7 +59,7 @@ theorem factor_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
   obtain ⟨persistent1,count1⟩ := selectedProducer_persistent_metadata Q N W hQ hN hW input tape e01
     hs.setup hs.ready.2 hs.power hs.powerCount
   have complete1 := state1.completed_bank persistent1 blank1 count1
-  obtain ⟨c2,t,e2,h2,ready2,index2⟩ := factorFinish_executes a state1.table Q N W (factorBankWidth Q N W)
+  obtain ⟨c2,t,e2,h2,ready2,index2,finishMemory⟩ := factorFinish_executes a state1.table Q N W (factorBankWidth Q N W)
     target hQ hN hW ht ht' u hu input tape s1 ru state1.ready.phase state1.ready.floor complete1
     state1.source state1.output state1.innerBlank state1.saved
   have u8 : u 8=waveCacheReal (v 10).value Q N j := by simpa only [u,tensorValues,show 8∈ids by decide,ite_true] using real1
@@ -82,12 +84,17 @@ theorem factor_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
     (fun i hi => by rw [uhigh i (Finset.mem_Ico.mp hi).1];exact hw i (Finset.mem_union_right _ hi))
   have saved2 := factorValues_saved target ht u
   refine ⟨(c0+c1)+c2,t,factorValues target u,state1.table,e01.seq e2,Nat.add_le_add h01 h2,
-    ready2,width2,state1.tableMetadata,saved2.1.trans u8,saved2.2.trans u9,?_,?_,word_of_eq index2 index1⟩
+    ready2,width2,state1.tableMetadata,saved2.1.trans u8,saved2.2.trans u9,?_,?_,word_of_eq index2 index1,?_⟩
   · have m10 := um 10 (by decide)
     simpa [factorValues,cacheResetValues_eq,factorSaveValues,show 10≠target by omega,
       show 10≠target+1 by omega,baseValues_eq] using m10
   · intro i hi hit hit'
     exact (factorValues_high target u i hi hit hit').trans (uhigh i hi)
+
+  · intro limit hp hn hd k hk
+    have selectMemory : cacheSelectCode.protectsMemory=true := by decide
+    rw [finishMemory,e1.protectsMemory selectMemory]
+    exact memory limit hp hn hd k hk
 
 #print axioms factor_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime

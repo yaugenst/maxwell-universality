@@ -1,5 +1,5 @@
 import Maxwell.Continuum.ChebyshevWaveProducer
-import Maxwell.Continuum.StructuredTapeBound
+import Maxwell.Cost.Structured.TapeBelow
 
 /-! Tensor indices and completed factors can remain in logical registers
 16 and above while the fixed wave producer runs. -/

@@ -1,4 +1,5 @@
 import Maxwell.Continuum.SourceRoutingAssemblyState
+import Maxwell.Continuum.RationalArithmeticWidths
 
 namespace Maxwell.Cost.RoutingPorts.Complete.Tree.Assembly
 open Structured

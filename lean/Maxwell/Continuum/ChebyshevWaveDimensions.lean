@@ -1,6 +1,6 @@
 import Maxwell.Continuum.ChebyshevWaveRounded
 import Maxwell.Continuum.NaturalBankStage
-import Maxwell.Continuum.StoredWordLength
+import Maxwell.Cost.Structured.NatAssign.StoredLength
 
 /-! Fixed runtime calculation of the wave degree, precision and Fourier
 grid. The input bank represents Q and N explicitly; its other ports are zero. -/

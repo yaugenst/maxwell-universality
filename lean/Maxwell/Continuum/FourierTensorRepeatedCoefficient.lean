@@ -30,7 +30,9 @@ theorem repeatedCoefficient_executes {n B Q N W : ℕ} (d : TensorInput n B Q N 
     ∃cost t,∃next : TensorState d t,Executes input tape repeatedCoefficientCode cost s t ∧
       cost ≤ repeatedCoefficientCost Q N n W ∧
       (∀i : Fin 3,(next.values (17+i.val)).positive=(j i).val) ∧
-      t.val.output=(Codec.int (d.coefficient j)).reverse++s.val.output := by
+      t.val.output=(Codec.int (d.coefficient j)).reverse++s.val.output ∧
+      (∀limit,limit≤addressValue d.cache.basePositive →limit≤addressValue d.cache.baseNegative →
+        limit≤addressValue d.cache.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   obtain ⟨old,hold,hword⟩ := h.aliasBuffer
   obtain ⟨s0,e0,count0,f0⟩ := WordReplace.executes 1100 1099 (by decide) input tape
     n.bits old s h.storedAliases hword
@@ -41,7 +43,7 @@ theorem repeatedCoefficient_executes {n B Q N W : ℕ} (d : TensorInput n B Q N 
     termReady_external h.ready (fun k hk => f0.2.2.2.2.2.1 k (by omega))
   have query0 := word_of_eq (f0.2.2.2.2.2.1 1048 (by decide)) h.queryWord
   obtain ⟨c1,t,w,output,ys,e1,hc1,ready1,full1,width1,meta1,indices1,out1,count1,len1,
-      query,hquery,word1⟩ := emittedCoefficient_executes d.source Q N W h.table
+      ⟨query,hquery,word1⟩,memory⟩ := emittedCoefficient_executes d.source Q N W h.table
     d.sourceWidth (h.metadata.widthBound d.cacheWidth) (h.metadata.separated d.cacheSeparated)
     (h.metadata.separatedFrom d.disjoint) (by simpa only [h.metadata.width] using d.fit)
     d.frequency d.amplitude d.rows d.frequencyBound j (d.coefficient_bits j) h.values h.width hj
@@ -64,7 +66,7 @@ theorem repeatedCoefficient_executes {n B Q N W : ℕ} (d : TensorInput n B Q N 
     storedDegree := word_of_eq
       ((e1.tapesBelow emittedCoefficient_tapesBelow 1110 (by decide)).trans
         (f0.2.2.2.2.2.1 1110 (by decide))) h.storedDegree }
-  refine ⟨(6*old.length+15*n.bits.length+21)+c1,t,next,e0.seq e1,?_,indices1,?_⟩
+  refine ⟨(6*old.length+15*n.bits.length+21)+c1,t,next,e0.seq e1,?_,indices1,?_,?_⟩
   · have hindices (i : Fin 3) : (j i).val.bits.length ≤ W := by
       have hi : 17+i.val∈termBank := by
         have := i.isLt
@@ -80,6 +82,12 @@ theorem repeatedCoefficient_executes {n B Q N W : ℕ} (d : TensorInput n B Q N 
       hc1.trans (Nat.add_le_add_right (Nat.add_le_add_right hb _) _)
     exact Nat.add_le_add hreload hfinal
   · simpa only [f0.2.2.2.2.1,TensorInput.coefficient] using out1
+
+  · intro limit hp hn hd k hk
+    have hp' : limit≤addressValue h.table.basePositive := by rw [h.metadata.basePositive];exact hp
+    have hn' : limit≤addressValue h.table.baseNegative := by rw [h.metadata.baseNegative];exact hn
+    have hd' : limit≤addressValue h.table.baseDenominator := by rw [h.metadata.baseDenominator];exact hd
+    rw [memory limit hp' hn' hd' k hk,f0.2.2.1]
 
 #print axioms repeatedCoefficient_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime

@@ -51,13 +51,15 @@ theorem tensorComponent_executes {n B Q N W : ℕ} (d : TensorInput n B Q N W)
     (hb : TensorBuffers W Finset.univ s) :
     ∃cost t,∃_next : TensorState d t,Executes input tape tensorComponentCode cost s t ∧
       cost ≤ tensorTraversalCost Q N n W d.degree 3 ∧ TensorBuffers W Finset.univ t ∧
-      t.val.output=d.componentPayload.reverse++s.val.output := by
+      t.val.output=d.componentPayload.reverse++s.val.output ∧
+      (∀limit,limit≤addressValue d.cache.basePositive →limit≤addressValue d.cache.baseNegative →
+        limit≤addressValue d.cache.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   have valid : ∀i : Fin 3,i∉[0,1,2] → h.index i<d.degree := by
     intro i hi
     fin_cases i <;> simp at hi
-  obtain ⟨c,t,next,e,hc,buffers,_,out⟩ := tensorTraversal_executes d input tape [0,1,2]
+  obtain ⟨c,t,next,e,hc,buffers,_,out,memory⟩ := tensorTraversal_executes d input tape [0,1,2]
     (by decide) s h hb valid
-  exact ⟨c,t,next,e,hc,buffers,by simpa only [d.payload_component] using out⟩
+  exact ⟨c,t,next,e,hc,buffers,by simpa only [d.payload_component] using out,memory⟩
 
 #print axioms TensorInput.payload_component
 #print axioms tensorComponent_executes

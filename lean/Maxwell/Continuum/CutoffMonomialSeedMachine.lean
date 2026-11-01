@@ -71,7 +71,7 @@ theorem monomialSeed_executes {n D : ℕ} (a : Table n) (b : Table (4*(D+1))) (h
     intro x hx
     simp only [monomialSeedPlan,List.mem_cons,List.not_mem_nil,or_false] at hx
     rcases hx with rfl | rfl <;> exact ho.mono hslot
-  obtain ⟨cw,t,ew,hcw,rt,at',bt,zt,ft⟩ := rowWritePlan_executes a (b.filled (fun _ => Parts.literal 0) 0)
+  obtain ⟨cw,t,ew,hcw,rt,at',bt,zt,ft,_⟩ := rowWritePlan_executes a (b.filled (fun _ => Parts.literal 0) 0)
     S 0 4 B monomialSeedPlan hp (by decide)
     ⟨hbMeta.width,hbMeta.basePositive,hbMeta.baseNegative,hbMeta.baseDenominator,hbMeta.clock⟩
     (Function.update v 0 (Parts.literal 1)) hfits (by change 0<addressValue b.width;omega)

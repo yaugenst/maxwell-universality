@@ -32,19 +32,21 @@ theorem correction_map_executes {n : ℕ} (a b : PartArray.Table n) (B : ℕ) (h
       SharedConversion.Ready dftRegisters (correctionValues a v n) t ∧ a.Ready t ∧
       (correctionMapTable a b v).OutputReady t ∧
       t.val.tapes 201=BitTape.shifted finalWord origin ∧ finalWord.length=xs.length ∧
-      ∀i:Fin n,((correctionMapTable a b v).get i).Valid ∧
+      (∀i:Fin n,((correctionMapTable a b v).get i).Valid ∧
         ((correctionMapTable a b v).get i).Width (correctionWorkingWidth n B) ∧
         ((correctionMapTable a b v).get i).value=
-          correctedValue (v 0).value (v 3).value (v 6).value (a.get i).value i.val := by
+          correctedValue (v 0).value (v 3).value (v 6).value (a.get i).value i.val) ∧
+      (∀limit,limit≤addressValue b.basePositive→limit≤addressValue b.baseNegative→
+        limit≤addressValue b.baseDenominator→∀j,j<limit→t.val.memory j=s.val.memory j) := by
   have inv (k : ℕ) (hk : k≤n) := correction_invariant a v B hB ha hav hg hw hconst h7 h8w h8v k hk
-  obtain ⟨cost,t,word,e,hc,r,at',bt',count,len⟩ := PartArray.map_executes a b dftRegisters (by decide)
+  obtain ⟨cost,t,word,e,hc,r,at',bt',count,len,memory⟩ := PartArray.map_executes a b dftRegisters (by decide)
     correctionControl correctionControl_valid 1 (by decide) v (correctionWorkingWidth n B)
     (by unfold correctionWorkingWidth;omega) ham hbm hslot hsep hdis
     (fun k hk => (inv k hk.le).width)
     (fun k hk => correctionLoaded_trace (inv k hk.le) hk hB ha hconst h7)
     (fun k hk => correctionLoaded_good (inv k hk.le) hav)
     (fun _ _ => correctionControl_admissible _) input tape xs origin hlen s hn hcount hs hat hbt
-  refine ⟨cost,t,word,e,hc,r,at',bt',count,len,?_⟩
+  refine ⟨cost,t,word,e,hc,r,at',bt',count,len,?_,memory⟩
   have fit (i : Fin n) : (PartArray.mapValues a correctionControl 1 v i).Width (addressValue b.width) :=
     ((inv (n-i.val) (by omega)).width 1 (by decide)).mono hslot
   intro i

@@ -39,6 +39,27 @@ theorem cost_polynomial (N A B : ℕ) :
   rw [← Nat.add_mul,← Nat.add_mul] at ht
   exact ht
 
+/-- Combining the two variable scales gives a cubic bound when the base
+width is fixed. This sharper form pays for the caller adapters too. -/
+theorem cost_combined (N A B : ℕ) :
+    initialCost B+searchCost N A B ≤
+      (3000*8^11+(3000*8^5+16002))*(A+2)^2*(N+B+3)^3 := by
+  have hw : width N A B+2≤(A+2)*(N+B+3) := by unfold width;nlinarith
+  have hn : N+1≤N+B+3 := by omega
+  have hL : 1≤N+B+3 := by omega
+  have hs := (loop_bound (3000*8^5) N (width N A B+2) (by omega)).trans
+    (Nat.mul_le_mul (Nat.mul_le_mul_left (3000*8^5+16002) hn) (Nat.pow_le_pow_left hw 2))
+  have hb : B+2≤(A+2)*(N+B+3) := by nlinarith
+  have hi := (Nat.mul_le_mul_left (3000*8^11) (Nat.pow_le_pow_left hb 2)).trans (by
+    calc
+      3000*8^11*((A+2)*(N+B+3))^2 = 3000*8^11*(A+2)^2*(N+B+3)^2 := by ring
+      _ ≤ 3000*8^11*(A+2)^2*(N+B+3)^3 :=
+        Nat.mul_le_mul_left _ (Nat.pow_le_pow_right hL (by decide)))
+  calc
+    initialCost B+searchCost N A B ≤ 3000*8^11*(A+2)^2*(N+B+3)^3+
+        (3000*8^5+16002)*(N+B+3)*((A+2)*(N+B+3))^2 := Nat.add_le_add hi hs
+    _ = _ := by ring
+
 /-- Binary precision is the same least-exponent search even when the
 positive budget is larger than one; the cap does not require an extra
 approximation or an assumed iteration count. -/

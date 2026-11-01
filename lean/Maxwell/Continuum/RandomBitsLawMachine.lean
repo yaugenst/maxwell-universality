@@ -1,12 +1,12 @@
-import Maxwell.Continuum.RandomBitsMachine
+import Maxwell.Cost.RandomBitsMachine
 import Maxwell.Continuum.FairBitsLaw
 import Mathlib.Data.Nat.Size
 
 /-! The integer stored by the actual random-reading loop is the explicit
 binary equivalence whose pushforward law was proved uniform. -/
 
-namespace Maxwell.Continuum.RandomBitsMachine
-open Maxwell.Cost Maxwell.Cost.Structured
+namespace Maxwell.Cost.RandomBitsMachine
+open Maxwell.Cost Maxwell.Cost.Structured Maxwell.Continuum
 set_option maxHeartbeats 800000
 
 theorem addressValue_ofFn {n : ℕ} (w : Fin n → Bool) :
@@ -45,9 +45,10 @@ theorem compiled_run (input : List Bool) (randomTape : ℕ → Bool) (n : ℕ) (
       (runPriced (code.compile.next input randomTape) (cap n+1) s.val).instructions≤cap n ∧
       t.val.tapes 241=BitTape.atEnd (bits randomTape s.val.randomCursor n) ∧
       t.val.randomCursor=s.val.randomCursor+n ∧ Frame s.val t.val := by
-  obtain ⟨cost,t,he,hc,ht⟩ := executes input randomTape n s hcount hblank
+  obtain ⟨cost,t,he,hc,ht,hrandom,hframe,_⟩ := executes input randomTape n 0 0 s
+    (by simpa using hcount) hblank
   have hr := he.compiled_run (cap n+1) (by omega)
-  exact ⟨t,hr.1,hr.2.symm ▸ hc,ht⟩
+  exact ⟨t,hr.1,hr.2.symm ▸ hc,by simpa using ht,hrandom,hframe⟩
 
 theorem cap_bound (n : ℕ) : cap n≤34*(n+1)^2 := by
   have hn : n.bits.length≤n := by
@@ -59,4 +60,4 @@ theorem cap_bound (n : ℕ) : cap n≤34*(n+1)^2 := by
 #print axioms bits_binary_value
 #print axioms compiled_run
 
-end Maxwell.Continuum.RandomBitsMachine
+end Maxwell.Cost.RandomBitsMachine

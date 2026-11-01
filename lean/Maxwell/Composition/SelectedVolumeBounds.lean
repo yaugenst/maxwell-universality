@@ -217,7 +217,7 @@ theorem count_sizeBudget (C : Constants) (n : ℕ) (hm2 : 2 ≤ S.nnz)
   have hc : volumeCoefficient p R*logConversion^5 ≤ (C.overhead:ℝ) :=
     (Nat.le_ceil _).trans (by exact_mod_cast hC)
   have hlog0 : 0 ≤ Real.log (2+(S.nnz:ℝ)) := Real.log_nonneg (by have := Nat.cast_nonneg (α:=ℝ) S.nnz; linarith)
-  rw [sizeBudget,hlog,effectiveSize,max_eq_right hm2]
+  rw [sizeBudget,hlog,effectiveSize,S.effectiveSize_of_two_le hm2]
   calc
     _ ≤ (volumeCoefficient p R*logConversion^5)*(S.nnz:ℝ)^(3/2:ℝ)*
         (Real.log (2+(S.nnz:ℝ)))^5 := by convert hupper using 1; ring

@@ -45,6 +45,9 @@ theorem initialized_executes {n : ℕ} (coeff : CoefficientIndex n→Parts)
       RationalAccumulator.Word t.val 126 (SharedTable.denominator coeff) ∧
       RationalAccumulator.Word t.val 304 N ∧
       RationalAccumulator.Blank t.val 140 ∧
+      (∃numbers : ℕ→ℕ,NatAssign.Bank Descriptors.retainedIds numbers t.val ∧
+        ∀k∈Descriptors.retainedIds,(numbers k).bits.length ≤ Descriptors.retainedWidth B) ∧
+      BankArray.Word t.val 205 a.clock ∧
       ∀ i : Fin n,
         ((Horner.channels
           ((initialSnapshot a b heap (SharedTable.denominator coeff) hw s.val.memory).iterate N).words
@@ -69,7 +72,7 @@ theorem initialized_executes {n : ℕ} (coeff : CoefficientIndex n→Parts)
     dsimp [width,initializedWidth]; omega
   have hm := hsize.1.trans_le (Nat.pow_le_pow_right (by decide) hwidth')
   have hn := hsize.2.trans_le (Nat.pow_le_pow_right (by decide) hwidth')
-  obtain ⟨c0,u,e0,hc0,hu,hu140,hu304,_⟩ := setup_executes a b heap (SharedTable.denominator coeff) N B
+  obtain ⟨c0,u,e0,hc0,hu,hu140,hu304,retained,retainedWidth,clock205,_⟩ := setup_executes a b heap (SharedTable.denominator coeff) N B
     hw hB hl v hi hbits input tape s hbank ha hb h101
   obtain ⟨origin,h140⟩ := hu140
   obtain ⟨c1,t,hc1,e1,ht,hblank,_⟩ := executes start N width hsized hm hn hfit input tape n.bits N.bits
@@ -79,11 +82,15 @@ theorem initialized_executes {n : ℕ} (coeff : CoefficientIndex n→Parts)
     simpa only [Snapshot.iterate_denominator,start,initialSnapshot,initialData] using ht.2.1.K
   have counter := RationalAccumulator.word_of_eq (e1.protectsTape 304 (by decide)) hu304
   refine ⟨c0+c1,t,e0.seq e1,Nat.add_le_add hc0 hc1,ht,start.iterate_sized hsized N,
-    denominator,counter,hblank,?_⟩
-  intro i
-  have hdec := Snapshot.iterate_decodes decode N hfit
-  rw [hdec.value,channels_rational_value _ _ (SharedTable.denominator_pos coeff hvalid),
-    rawTable_iteration coeff hvalid]
+    denominator,counter,hblank,⟨_,?_,retainedWidth⟩,
+    BankArray.word_of_eq (e1.protectsTape 205 (by decide)) clock205,?_⟩
+  · intro k hk
+    have protect : ∀k∈Descriptors.retainedIds,code.protectsTape k=true := by decide
+    exact RationalAccumulator.word_of_eq (e1.protectsTape k (protect k hk)) (retained k hk)
+  · intro i
+    have hdec := Snapshot.iterate_decodes decode N hfit
+    rw [hdec.value,channels_rational_value _ _ (SharedTable.denominator_pos coeff hvalid),
+      rawTable_iteration coeff hvalid]
 
 theorem initialized_computes {n : ℕ} (coeff : CoefficientIndex n→Parts)
     (hvalid : ∀ i, (coeff i).Valid) (W : ℕ) (hwidth : ∀ i, (coeff i).Width W)
@@ -112,7 +119,7 @@ theorem initialized_computes {n : ℕ} (coeff : CoefficientIndex n→Parts)
           10 11).value i:ℚ)/(SharedTable.denominator coeff:ℚ)^(N+1)=
           rationalAffineIteration (fun i j => (coeff (.inr (i,j))).value)
             (fun i => (coeff (.inl i)).value) (N+1) i := by
-  obtain ⟨cost,t,he,hcost,hr,_,_,_,_,hv⟩ := initialized_executes coeff hvalid W hwidth a b heap N B hw hB
+  obtain ⟨cost,t,he,hcost,hr,_,_,_,_,_,_,hv⟩ := initialized_executes coeff hvalid W hwidth a b heap N B hw hB
     hl haValues hbValues hslot v hi hbits input tape s hbank ha hb h101
   obtain ⟨hrun,hsteps⟩ := he.compiled_run
     (initializedCost n (addressValue a.width) heap (SharedTable.denominator coeff) N B+1) (by omega)

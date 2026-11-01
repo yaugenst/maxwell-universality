@@ -11,8 +11,8 @@ def stepCode (transpose : Bool) : Code := .seq (emitCode transpose) footerCode
 private theorem step_width_arithmetic (P B : ℕ) (bound : P ≤ B) : 2^49*(P+3) ≤ 2^50*(B+3) := by omega
 
 theorem emittedBits_length {q : ℕ} (p : Plan q) (round : ℕ) (saved : SortArrays.Keys q) (i : Fin (q*q))
-    (level cursor width : ℕ) (transpose : Bool) :
-    (emittedBits p round saved i level cursor width transpose).length=
+    (level cursor width : ℕ) (transpose : Bool) (backwards : Bool := false) :
+    (emittedBits p round saved i level cursor width transpose backwards).length=
       3*RowLayer.pathLength (SortArrays.arraySelection round saved) (finProdFinEquiv.symm i)*width := by
   rw [emittedBits,entryBits_length,Shape.entries_length,moveShape_length]
 

@@ -1,5 +1,5 @@
 import Maxwell.Continuum.CalibrationNormalizationWidths
-import Maxwell.Continuum.StoredWordLength
+import Maxwell.Cost.Structured.NatAssign.StoredLength
 import Maxwell.Continuum.NatAssignOutputWidth
 
 /-! The output width is itself computed by a fixed runtime program from

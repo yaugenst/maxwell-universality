@@ -1,5 +1,6 @@
 import Maxwell.Continuum.RationalDataflowSharedMap
 import Maxwell.Continuum.RationalDataflowControlResults
+import Maxwell.Continuum.RationalDataflowArrayWritePrefix
 
 /-! A fixed arithmetic control scans a runtime input table and materializes its
 outputs. Every indexed read, arithmetic step, and indexed write is charged. -/
@@ -63,14 +64,21 @@ theorem map_executes {n : ℕ} (a b : Table n) (S : Finset ℕ) (h1 : 1∈S)
       cost≤(n+1)*(13*xs.length+15)+n*mapStepCost c B ∧
       SharedConversion.Ready S (iterate a 1 c v n) t ∧ a.Ready t ∧
       (b.filled (mapValues a c result v) 0).OutputReady t ∧
-      t.val.tapes 201=BitTape.shifted finalWord origin ∧ finalWord.length=xs.length := by
+      t.val.tapes 201=BitTape.shifted finalWord origin ∧ finalWord.length=xs.length ∧
+      (∀limit,limit≤addressValue b.basePositive→limit≤addressValue b.baseNegative→
+        limit≤addressValue b.baseDenominator→∀j,j<limit→t.val.memory j=s.val.memory j) := by
   let value := mapValues a c result v
   let inv : ℕ→Store→Prop := fun remaining st =>
     remaining≤n ∧ SharedConversion.Ready S (iterate a 1 c v (n-remaining)) st ∧
-      a.Ready st ∧ (b.filled value remaining).OutputReady st
+      a.Ready st ∧ (b.filled value remaining).OutputReady st ∧
+      (∀limit,limit≤addressValue b.basePositive→limit≤addressValue b.baseNegative→
+        limit≤addressValue b.baseDenominator→∀j,j<limit→st.val.memory j=s.val.memory j)
   have stable : ∀ r s t, CountedShifted.Frame 201 s t → inv r s → inv r t := by
     intro r s t f hh
-    exact ⟨hh.1,sharedReady_count_frame hh.2.1 f,hh.2.2.1.count_frame f,hh.2.2.2.count_frame f⟩
+    refine ⟨hh.1,sharedReady_count_frame hh.2.1 f,hh.2.2.1.count_frame f,hh.2.2.2.1.count_frame f,?_⟩
+    intro limit hp hn hd j hj
+    rw [f.2.2.1]
+    exact hh.2.2.2.2 limit hp hn hd j hj
   have step : ∀ r ys st, inv (r+1) st → st.val.tapes 201=BitTape.shifted ys origin →
       addressValue ys=r → ys.length=xs.length →
       ∃ cost out, Executes input tape (.seq (readCode 1) (.seq c.code (writeCode result))) cost st out ∧
@@ -87,7 +95,7 @@ theorem map_executes {n : ℕ} (a b : Table n) (S : Finset ℕ) (h1 : 1∈S)
     have r1' : RationalDataflow.Ready S (loaded a 1 c v k) t1 := by
       simpa only [loaded,hget] using r1
     have e1 := sharedReady_read_frame hh.2.1 f1 (er.protectsTape 4 read_one_protects_four) r1'
-    have b1 := hh.2.2.2.read_frame f1 a1.scratch a1.seven
+    have b1 := hh.2.2.2.1.read_frame f1 a1.scratch a1.seven
     obtain ⟨cc,t2,ec,hcc,r2,f2⟩ := c.executes S hc _ B (htrace k hk) (hg k hk)
       (had k hk) input tape t1 r1'
     have e2 : SharedConversion.Ready S (iterate a 1 c v (k+1)) t2 :=
@@ -112,8 +120,11 @@ theorem map_executes {n : ℕ} (a b : Table n) (S : Finset ℕ) (h1 : 1∈S)
       rw [output,Table.filled_step] at b3
       exact b3
     have e3' : SharedConversion.Ready S (iterate a 1 c v (n-r)) t3 := by rwa [hnext] at e3
-    refine ⟨cr+(cc+cw),t3,er.seq (ec.seq ew),⟨by omega,e3',a3,b3'⟩,
+    refine ⟨cr+(cc+cw),t3,er.seq (ec.seq ew),⟨by omega,e3',a3,b3',?_⟩,
       (f3.2.2.2.1 201 (Or.inr (by decide)) (by decide)).trans index2,?_⟩
+    · intro limit hp hn hd j hj
+      rw [m3,(b.filled value (r+1)).writeMemory_prefix _ _ _ limit hp hn hd j hj,f2.memory,f1.memory]
+      exact hh.2.2.2.2 limit hp hn hd j hj
     have readBound := a.readCost_bound B haMeta ys (by omega) _ (hw k hk 1 h1)
     change cw≤(b.filled value (r+1)).writeCost ys (iterate a 1 c v (k+1) result) at hcw
     have writeBound := (b.filled value (r+1)).writeCost_bound B
@@ -122,13 +133,13 @@ theorem map_executes {n : ℕ} (a b : Table n) (S : Finset ℕ) (h1 : 1∈S)
     unfold mapStepCost
     nlinarith only [hcr,readBound,hcc,hcw,writeBound]
   have initial : inv n s := by
-    refine ⟨le_rfl,?_,ha,?_⟩
+    refine ⟨le_rfl,?_,ha,?_,fun _ _ _ _ _ _=>rfl⟩
     · simpa only [Nat.sub_self,iterate] using hs
     · simpa only [Table.filled_initial] using hb
   obtain ⟨cost,t,finalWord,hex,hfinal,hword,hl,_,hcost⟩ := counted_executes_sized 201 origin
     (.seq (readCode 1) (.seq c.code (writeCode result))) input tape xs.length inv
     (fun _ => mapStepCost c B) stable step n xs s hn hcount rfl initial
-  refine ⟨cost,t,finalWord,hex,?_,?_,hfinal.2.2.1,hfinal.2.2.2,hword,hl⟩
+  refine ⟨cost,t,finalWord,hex,?_,?_,hfinal.2.2.1,hfinal.2.2.2.1,hword,hl,hfinal.2.2.2.2⟩
   · simpa only [Finset.sum_const,Finset.card_range,smul_eq_mul] using hcost
   · simpa only [Nat.sub_zero] using hfinal.2.1
 

@@ -1,3 +1,4 @@
+import Maxwell.Cost.BankArray.Unique
 import Maxwell.Continuum.CalibrationBufferNormalization
 import Maxwell.Continuum.CalibrationNormFactor
 import Maxwell.Continuum.CalibrationNeumannCopyFrame
@@ -51,7 +52,7 @@ theorem scale_executes {n : ℕ} (b : Buffers n) (D K P B : ℕ) (count : List B
   have root : Word u.val 32 (Nat.sqrt T) := by
     simpa [NaturalRoot.doneValues,DyadicSqrt.bank] using bank 32 (by decide)
   have hn : num=Nat.sqrt T := by
-    simpa only [addressValue_bits] using congrArg addressValue (NeumannMachine.word_unique wn root)
+    simpa only [addressValue_bits] using congrArg addressValue (BankArray.word_unique wn root)
   have factorBank : NatAssign.Bank Factor.ids (Factor.inputValues T den (D^(K+1))) u.val := by
     intro i hi
     by_cases h548 : i=548

@@ -98,7 +98,7 @@ theorem sharedTable_reset_executes {n : ℕ} (a b : Table n) (W B : ℕ) (hW : 1
       a.Ready t ∧ (b.filled (SharedTable.integerParts a.get) 0).OutputReady t ∧
       output 0 = ⟨SharedTable.denominator a.get,0,1⟩ ∧
       WidthBank sharedSlots (sharedWidth n W) output ∧
-      (0<n → (output 1).Valid) ∧ BankArray.Word t.val 201 xs := by
+      (0<n → (output 1).Valid) ∧ BankArray.Word t.val 201 xs ∧ BankArray.Word t.val 206 xs := by
   obtain ⟨c0,u,out,word,org,e0,hc0,hu,ha',hb',hD,hwidth,hgood,hword,hlen',hsaved⟩ :=
     sharedTable_executes_counter a b W B hW haWidth haValid haMeta hbMeta hbudget hslot hsep hdisjoint
       v hv input tape xs origin hlen s hn hcount hs ha hb h206
@@ -108,7 +108,7 @@ theorem sharedTable_reset_executes {n : ℕ} (a b : Table n) (W B : ℕ) (hW : 1
   exact ⟨c0+(6*word.length+15*xs.length+21),t,out,e0.seq e1,
     by dsimp [sharedTableResetCost]; rw [hlen']; omega,
     sharedReady_copy_frame hu (Or.inl rfl) frame,a',
-    hb'.copy_frame (Or.inl rfl) frame a'.scratch a'.seven,hD,hwidth,hgood,hcount'⟩
+    hb'.copy_frame (Or.inl rfl) frame a'.scratch a'.seven,hD,hwidth,hgood,hcount',BankArray.word_of_eq (frame.2.2.2.2.2.1 206 (by decide)) hsaved⟩
 
 #print axioms sharedTable_reset_executes
 

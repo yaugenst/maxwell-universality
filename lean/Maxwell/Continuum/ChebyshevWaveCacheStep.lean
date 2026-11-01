@@ -34,7 +34,9 @@ theorem cacheStep_executes {n : ℕ} (a : Table n) (q : ℚ) (Q N D W B : ℕ)
       WidthBank ids (encodedWidth Q (waveWorkBits (8*Q) N) (waveGrid (8*Q) N) W) w ∧
       SameMetadata w base ∧ Blank t.val 680 ∧ Word t.val 681 (waveGrid (8*Q) N) ∧
       (∀i∈savedPorts,Blank t.val i) ∧ Word t.val 144 (2^waveWorkBits (8*Q) N) ∧
-      t.val.tapes 201=s.val.tapes 201 := by
+      t.val.tapes 201=s.val.tapes 201 ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀j,j<limit→t.val.memory j=s.val.memory j) := by
   let P := waveWorkBits (8*Q) N
   let grid := waveGrid (8*Q) N
   let j := addressValue xs
@@ -69,7 +71,7 @@ theorem cacheStep_executes {n : ℕ} (a : Table n) (q : ℚ) (Q N D W B : ℕ)
   change w 8=waveCacheReal q Q N j ∧ w 9=waveCacheImag q Q N j at result
   have fits := encodedValues_wave_width q Q N j hq (by dsimp [j];omega) _ gloaded iloaded
     (cacheLoaded_zero j v 8 (by decide)) (cacheLoaded_zero j v 9 (by decide))
-  obtain ⟨c2,t,e2,hc2,r2,at',bt,zt,ft⟩ := rowWritePlan_executes a b ids 2 1 W cacheWritePlan
+  obtain ⟨c2,t,e2,hc2,r2,at',bt,zt,ft,memory⟩ := rowWritePlan_executes a b ids 2 1 W cacheWritePlan
     (by simp [cacheWritePlan,ids]) (by simp [cacheWritePlan]) hm w
     (by intro x hx; simp only [cacheWritePlan,List.mem_cons,List.not_mem_nil,or_false] at hx
         rcases hx with rfl|rfl
@@ -93,7 +95,7 @@ theorem cacheStep_executes {n : ℕ} (a : Table n) (q : ℚ) (Q N D W B : ℕ)
     blank_of_eq (ft.tapes 680 (by decide) (by decide) (by decide)) z1,
     word_of_eq (ft.tapes 681 (by decide) (by decide) (by decide)) n1,?_,
     word_of_eq (ft.tapes 144 (by decide) (by decide) (by decide)) power1,
-    ft.counter.trans (f01.tapes 201 (cache_preserved 201 (by decide)))⟩
+    ft.counter.trans (f01.tapes 201 (cache_preserved 201 (by decide))),?_⟩
   · have hc0' : c0 ≤ cacheLoadCost B W grid := hc0.trans (by unfold cacheLoadCost;omega)
     change c0+(c1+c2) ≤ cacheLoadCost B W grid+encodedCost Q P grid W+rowPlanCost 2 1 W cacheWritePlan
     omega
@@ -105,6 +107,9 @@ theorem cacheStep_executes {n : ℕ} (a : Table n) (q : ℚ) (Q N D W B : ℕ)
     apply blank_of_eq (ft.tapes i (by omega) (by omega) _) (saved1 i hi)
     simp only [RowIndex.ids,Finset.mem_insert,Finset.mem_singleton]
     omega
+
+  · intro limit hp hn hd j hj
+    rw [memory limit hp hn hd j hj,f01.memory]
 
 #print axioms cacheStep_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime

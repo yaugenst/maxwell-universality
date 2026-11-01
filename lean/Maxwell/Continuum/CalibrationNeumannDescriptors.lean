@@ -1,5 +1,6 @@
 import Maxwell.Continuum.CalibrationNeumannLayout
 import Maxwell.Cost.Structured.NatAssign.Bounds
+import Maxwell.Continuum.NatAssignOutputWidth
 
 /-! Fixed executed descriptor arithmetic for the literal padded coefficient
 table, its copy, and the inverse workspace. Every address is computed from
@@ -44,6 +45,9 @@ def plan : List NatAssign.Instruction := spanPlan++basesPlan++headerPlan
 def code : Code := NatAssign.code plan
 
 def ids : Finset ℕ := Finset.Icc 30 36 ∪ Finset.Icc 100 140 ∪ {200,202,203,204,210,212,213,214} ∪ Finset.Icc 300 310
+
+def retainedIds : Finset ℕ := Finset.Icc 300 310∪{200,202,203,204,210,212,213,214}
+def retainedWidth (B : ℕ) : ℕ := 2^plan.length*(B+1)
 
 structure Inputs (v : ℕ→ℕ) (n width heap D N : ℕ) : Prop where
   dimension : v 300=n
@@ -118,7 +122,10 @@ theorem executes (v : ℕ→ℕ) (n width heap D N B : ℕ) (hB : 0<B)
     (input : List Bool) (tape : ℕ→Bool) (s : Store)
     (hb : NatAssign.Bank ids v s.val) (hs : NatAssign.Scratch s.val) :
     ∃ cost t, Executes input tape code cost s t ∧ cost≤3000*8^plan.length*(B+2)^2 ∧
-      Header n width heap D N t.val ∧ NatAssign.Scratch t.val ∧
+      Header n width heap D N t.val ∧
+      NatAssign.Bank retainedIds (NatAssign.values plan v) t.val ∧
+      (∀k∈retainedIds,(NatAssign.values plan v k).bits.length ≤ retainedWidth B) ∧
+      NatAssign.Scratch t.val ∧
       BinaryPrecision.Frame (NatAssign.changes plan) s.val t.val := by
   have hid : ∀ i ∈ ids, 4 ≤ i := by
     intro i hi
@@ -129,7 +136,11 @@ theorem executes (v : ℕ→ℕ) (n width heap D N B : ℕ) (hB : 0<B)
     exact hB
   obtain ⟨cost,t,he,hcost,hbank,hsc,hframe⟩ := NatAssign.executes ids hid plan valid v input tape s hb hs
   exact ⟨cost,t,he,hcost.trans (NatAssign.price_bound ids plan valid v B hw hl),
-    header_of_bank v n width heap D N hi t.val hbank,hsc,hframe⟩
+    header_of_bank v n width heap D N hi t.val hbank,
+    (fun k hk=>hbank k ((by decide : retainedIds⊆ids) hk)),
+    (fun k hk=>(Nat.le_add_right _ 1).trans
+      (NatAssign.values_width_bound ids plan valid v B hw hl k ((by decide : retainedIds⊆ids) hk))),
+    hsc,hframe⟩
 
 #print axioms header_of_bank
 #print axioms executes

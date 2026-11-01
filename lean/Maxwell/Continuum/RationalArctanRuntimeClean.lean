@@ -1,5 +1,5 @@
 import Maxwell.Continuum.RationalArctanRuntime
-import Maxwell.Continuum.RuntimeCounterClear
+import Maxwell.Cost.Structured.CounterClear
 import Maxwell.Continuum.NatAssignCleanup
 
 /-! A reusable fixed arctangent call restores its index, constant, and

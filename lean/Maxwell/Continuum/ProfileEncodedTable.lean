@@ -69,12 +69,16 @@ theorem encoded_table_executes (N U W : ℕ) (hW : 1≤W)
     (hcounter : s.val.tapes 700=BitTape.shifted xs origin) :
     ∃(cost : ℕ) (t : Store) (_result : EncodedTableResult N W b t),
       Executes input tape encodedTableCode cost s t ∧
-      cost≤encodedTableCost (profileGrid N) (profileDegree N) (profileWorkBits N) U W xs.length := by
+      cost≤encodedTableCost (profileGrid N) (profileDegree N) (profileWorkBits N) U W xs.length ∧
+      (∀limit,limit≤addressValue a.basePositive→limit≤addressValue a.baseNegative→
+        limit≤addressValue a.baseDenominator→limit≤addressValue b.basePositive→
+        limit≤addressValue b.baseNegative→limit≤addressValue b.baseDenominator→
+        ∀j,j<limit→t.val.memory j=s.val.memory j) := by
   let D := profileDegree N
   let P := profileWorkBits N
   let M := encodedTableWidth D W
   have hWM : W≤M := by dsimp [M,encodedTableWidth,correctionWorkingWidth,endpointWorkingWidth];omega
-  obtain ⟨c0,s0,_,r,e0,_,_,hc0,b0,size0,z0⟩ := rounded_table_spare_executes
+  obtain ⟨c0,s0,_,r,e0,_,_,hc0,b0,size0,z0,memory0⟩ := rounded_table_spare_executes
     (profileGrid N) D P U W a b (profileGrid_pos N) hg hD hP ham hfit has hdis
     input tape xs origin hlen hvalue s hp ha hb hsize hblank hcounter
   have am0 := tableMetadata_width r.metadata ham
@@ -88,7 +92,7 @@ theorem encoded_table_executes (N U W : ℕ) (hW : 1≤W)
   have count1 := BankArray.word_of_eq (f1.tapes 201 (by decide)) r.innerCounter
   have dis1 : r.table.SeparatedFrom b :=
     tableSeparatedFrom_symm (tableMetadata_separatedFrom r.metadata b hdis)
-  obtain ⟨c2,t,word,e2,hc2,state2,good2,width2,b2,a2,count2,len2,correct2,size2,power2⟩ :=
+  obtain ⟨c2,t,word,e2,hc2,state2,good2,width2,b2,a2,count2,len2,correct2,size2,power2,memory2⟩ :=
     finalize_executes N W hW r.table b (fun i => r.table.get_width W am0 s1 a1 i)
       (fun i => (r.profile_correct N U a i).2.1) (fun i => (r.profile_correct N U a i).2.2)
       am0 hbm hslot hbs dis1 hn hpow r.values (r.width.mono hbank) input tape r.innerWord s1
@@ -100,13 +104,17 @@ theorem encoded_table_executes (N U W : ℕ) (hW : 1≤W)
     blank_of_eq (e2.protectsTape 216 finalizeCode_preserves_swap) swap1,
     size2,word_of_eq (e2.protectsSet emissionPorts finalizeCode_preserves_emission 663 (by decide)) precision1,
     power2,finalize_floorClean e2 floorClean1 state2⟩,
-    e0.seq (e1.seq e2),?_⟩
+    e0.seq (e1.seq e2),?_,?_⟩
   · exact finalizeTable_metadata r.table b P r.values
   · have hc2' : c2≤finalizeCost D P W (roundedWidth (profileGrid N) U) := by
       exact hc2.trans (finalizeCost_mono_old D P W _ _ r.innerLength)
     dsimp only [D,P,M] at hc0 hc1 hc2' ⊢
     unfold encodedTableCost
     omega
+
+  · intro limit ap an ad bp bn bd j hj
+    rw [memory2 limit bp bn bd j hj,f1.memory]
+    exact memory0 limit ap an ad j hj
 
 #print axioms encoded_table_executes
 end Maxwell.Continuum.Profile.Runtime

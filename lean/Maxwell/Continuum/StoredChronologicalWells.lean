@@ -1,5 +1,6 @@
 import Maxwell.Continuum.StoredWellStreamIdentity
 import Maxwell.Continuum.ChronologicalWellEncoding
+import Maxwell.Continuum.ContinuumWellStrengthData
 
 /-! The runtime well stream is the literal continuum well-record format
 in the explicit chronological routing order, not an arbitrary Finset order. -/
@@ -15,21 +16,6 @@ theorem placementNatural_cast (j : Fin 3) : (placementNatural j:ℤ)=PeriodicBan
   fin_cases j <;> norm_num [placementNatural,PeriodicBand.placementDiagonal]
 
 variable (p : Source.Parameters) (S : Source.SparseSystem) (hm : 0<S.nnz)
-
-def wellStoredPrecision : ℕ :=
-  FiniteAuxiliary.onsitePrecision (length p S hm) (spacing p S hm) (length_pos p S hm)
-
-def wellNumerators (i : ℕ) : ℤ :=
-  if hi:i<(vertexList S (precision p S hm)).length then
-    (strengthData p S hm (computedEnclosures p S hm).mode (computedEnclosures p S hm).coupling
-      (vertexList S (precision p S hm))[i]).numerator
-  else 0
-
-theorem wellNumerators_get (i : ℕ) (hi : i<(vertexList S (precision p S hm)).length) :
-    wellNumerators p S hm i=
-      (strengthData p S hm (computedEnclosures p S hm).mode (computedEnclosures p S hm).coupling
-        (vertexList S (precision p S hm))[i]).numerator := by
-  simp only [wellNumerators,dite_eq_left hi]
 
 theorem centerBits_source (i : SourceDecoration.Vertex S (precision p S hm)) :
     WellOutput.centerBits placementNatural (length p S hm) (spacing p S hm) (bufferSteps p S hm)

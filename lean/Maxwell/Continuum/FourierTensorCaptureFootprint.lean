@@ -1,5 +1,5 @@
 import Maxwell.Continuum.FourierTensorModeCompleteComponent
-import Maxwell.Continuum.OutputCaptureLiteral
+import Maxwell.Cost.OutputCapture.Literal
 
 /-! The fixed component compiler never accesses the retained template
 payload tape. Literal rational bits do not need to be evaluated. -/

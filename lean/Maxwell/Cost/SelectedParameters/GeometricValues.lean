@@ -1,5 +1,6 @@
 import Maxwell.Cost.Structured.NatAssign.Bounds
 import Maxwell.Realization.Spacing
+import Maxwell.Codec.NaturalLength
 
 namespace Maxwell.Cost.SelectedParameters.Geometric
 open Structured
@@ -64,13 +65,7 @@ theorem initialization_values (v : ℕ → ℕ) (i : ℕ) (hi : i ∈ ids) :
     NatAssign.Instruction.value,NatAssign.Instruction.target,values]
 
 theorem power_bits (a n : ℕ) : (a^n).bits.length ≤ n*a.bits.length+1 := by
-  induction n with
-  | zero => simp
-  | succ n ih =>
-    rw [pow_succ]
-    have h := RationalAccumulator.bits_mul_le (a^n) a
-    simp only [Nat.succ_mul]
-    omega
+  exact Codec.power_bits_le a n
 
 /-- The fixed geometric base contributes linearly in the number of
 iterations; runtime target words contribute only their original width. -/

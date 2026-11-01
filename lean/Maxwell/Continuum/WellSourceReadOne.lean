@@ -1,5 +1,6 @@
 import Maxwell.Continuum.WellSourceReadMetadata
 import Maxwell.Cost.IncidencePass.Common
+import Maxwell.Cost.Structured.Footprint
 
 /-! One original-source field is read by fixed code. True selects the
 four-bit diagonal code; false selects the two-bit saved incidence count. -/
@@ -34,6 +35,17 @@ theorem Frame.trans {s t u : BitRAMState} (f : Frame s t) (g : Frame t u) : Fram
     g.output.trans f.output,g.four.trans f.four,
     fun i hi h995 h996 hp=>(g.tapes i hi h995 h996 hp).trans (f.tapes i hi h995 h996 hp)⟩
 
+theorem Frame.metadata {s t : BitRAMState} (f : Frame s t) (i : ℕ)
+    (hi : 10 ≤ i) (hsmall : i < 1000) (h995 : i ≠ 995) (h996 : i ≠ 996) : t.tapes i=s.tapes i := by
+  apply f.tapes i hi h995 h996
+  intro hm
+  obtain ⟨j,_,hj⟩ := Finset.mem_biUnion.mp hm
+  have hp := positivePort_ge j
+  have hn := negativePort_ge j
+  have hd := denominatorPort_ge j
+  simp only [cellPorts,Finset.mem_insert,Finset.mem_singleton] at hj
+  omega
+
 theorem read_executes {n : ℕ} (diagonal : Bool) (a : Vector (List Bool) n)
     (base B : ℕ) (hB : 4≤B) (hb : base.bits.length≤B) (index : List Bool)
     (hlen : index.length≤B) (i : Fin n) (hi : addressValue index=i.val)
@@ -50,8 +62,14 @@ theorem read_executes {n : ℕ} (diagonal : Bool) (a : Vector (List Bool) n)
       WidthBank WellStrength.bank B (NaturalArrayRead.values v (targetSlot diagonal) (addressValue (a.get i))) ∧
       BankArray.Scratch t.val ∧ Blank t.val 7 ∧
       NatAssign.Bank metaIds (prepared (wordWidth diagonal) (wordClock diagonal) m) t.val ∧ Frame s.val t.val := by
-  have hw : (wordWidth diagonal).bits.length≤B := by cases diagonal <;> simp only [wordWidth,Bool.false_eq_true,↓reduceIte] <;> omega
-  have hc : (wordClock diagonal).bits.length≤B := by cases diagonal <;> simp only [wordClock,Bool.false_eq_true,↓reduceIte] <;> omega
+  have hw : (wordWidth diagonal).bits.length≤B := by
+    cases diagonal
+    · change 2≤B; omega
+    · change 3≤B; omega
+  have hc : (wordClock diagonal).bits.length≤B := by
+    cases diagonal
+    · change 2≤B; omega
+    · change 4≤B; exact hB
   have hwpos : 0<(wordWidth diagonal).bits.length := by cases diagonal <;> decide
   have clockLength : (wordClock diagonal).bits.length=wordWidth diagonal := by cases diagonal <;> decide
   have hwidth : wordWidth diagonal≤B := by cases diagonal <;> simp [wordWidth] <;> omega
@@ -60,8 +78,10 @@ theorem read_executes {n : ℕ} (diagonal : Bool) (a : Vector (List Bool) n)
   obtain ⟨c0,u,e0,hc0,r0,s0,z0,b0,f0⟩ := prepare_executes (wordWidth diagonal) (wordClock diagonal) B
     hw hc v m hm input tape s hr hs h7 hmeta
   have width0 : BankArray.Word u.val 995 (wordWidth diagonal).bits := by
+    change Word u.val 995 (wordWidth diagonal)
     simpa only [prepared_width] using b0 995 (by decide)
   have clock0 : BankArray.Word u.val 996 (wordClock diagonal).bits := by
+    change Word u.val 996 (wordClock diagonal)
     simpa only [prepared_clock] using b0 996 (by decide)
   have base0 : BankArray.Word u.val (baseTape diagonal) base.bits :=
     RationalAccumulator.word_of_eq (f0.tapes _ (by cases diagonal <;> decide)) hbase
@@ -95,7 +115,8 @@ theorem read_executes {n : ℕ} (diagonal : Bool) (a : Vector (List Bool) n)
         rw [Nat.size_eq_bits_len]
         apply Nat.size_le.mpr
         simpa only [ha.length i] using Subtraction.addressValue_lt_pow_length (a.get i)
-      exact ⟨hbits.trans hwidth,(hv _ hk).2.1,(hv _ hk).2.2⟩
+      simpa only [NaturalArrayRead.values,Function.update_self,NaturalChannel.replace,Parts.Width] using
+        And.intro (hbits.trans hwidth) (And.intro (hv _ hk).2.1 (hv _ hk).2.2)
     · simpa only [NaturalArrayRead.values,Function.update_of_ne he] using hv k hk
   · intro k hk
     have hsmall : 10 ≤ k ∧ k<1000 := by simp only [metaIds,Finset.mem_insert,Finset.mem_singleton] at hk;omega

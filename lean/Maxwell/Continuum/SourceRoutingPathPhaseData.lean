@@ -1,9 +1,12 @@
 import Maxwell.Continuum.SourceRoutingPathStep
+import Maxwell.Logical.Routing.SortPaths
 
 namespace Maxwell.Cost.RoutingPorts.Complete.GeometryPathPhase
 open Maxwell.Logical.Routing GeometryPath
 set_option maxRecDepth 16384
 set_option maxHeartbeats 2200000
+
+export Maxwell.Logical.Routing.SortPaths (port length count length_bound count_bound)
 
 structure Plan (q : ℕ) where
   history : GeometryHistory.Plan q
@@ -18,36 +21,12 @@ structure Plan (q : ℕ) where
 def Plan.bound {q : ℕ} (p : Plan q) (n : ℕ) : ℕ :=
   p.history.bound+(6*q+1).bits.length+2*n.bits.length+p.width+p.base.bits.length+64
 
-def port {q : ℕ} (initial : SortArrays.Keys q) (start : Port q) : ℕ→Port q
-  | 0 => start
-  | k+1 => RowLayer.destination (SortArrays.arraySelection (k+1) (SortArrays.run initial k)) (port initial start k)
-
-def length {q : ℕ} (initial : SortArrays.Keys q) (start : Port q) (k : ℕ) : ℕ :=
-  RowLayer.pathLength (SortArrays.arraySelection (k+1) (SortArrays.run initial k)) (port initial start k)
-
-def count {q : ℕ} (initial : SortArrays.Keys q) (start : Port q) : ℕ→ℕ
-  | 0 => 0
-  | k+1 => count initial start k+3*length initial start k
-
 def prefixBits {q : ℕ} (p : Plan q) (initial : SortArrays.Keys q) (start : Port q)
     (level cursor : ℕ) (transpose : Bool) : ℕ→List Bool
   | 0 => []
   | k+1 => prefixBits p initial start level cursor transpose k++
       emittedBits (p.history.layer k) (k+1) (SortArrays.run initial k) (finProdFinEquiv (port initial start k))
         (level+k) (cursor+count initial start k) p.width transpose
-
-theorem length_bound {q : ℕ} (initial : SortArrays.Keys q) (start : Port q) (k : ℕ) :
-    length initial start k ≤ 40 :=
-  (Schedule.rowLayer (SortArrays.arraySelection (k+1) (SortArrays.run initial k))).length_le _
-
-theorem count_bound {q : ℕ} (initial : SortArrays.Keys q) (start : Port q) (k : ℕ) :
-    count initial start k ≤ 120*k := by
-  induction k with
-  | zero => rfl
-  | succ k ih =>
-    have h:=length_bound initial start k
-    change count initial start k+3*length initial start k ≤ 120*(k+1)
-    omega
 
 theorem prefixBits_length {q : ℕ} (p : Plan q) (initial : SortArrays.Keys q) (start : Port q)
     (level cursor : ℕ) (transpose : Bool) (k : ℕ) :

@@ -1,5 +1,6 @@
 import Maxwell.Continuum.CalibrationCoefficientPreservation
 import Maxwell.Continuum.CalibrationInverseAllocationBounds
+import Maxwell.Continuum.RationalDataflowRetainedCells
 
 /-! Actual transition from a generated raw table to the shared-denominator
 converter: reset arithmetic temporaries, allocate its wider destination,
@@ -43,6 +44,10 @@ theorem inverse_prepare_executes {n m : ℕ} (a : PartArray.Table (tableSize n))
       a.Ready t ∧ (Allocation.table (d 300) (d 301) (d 302) hwidth s.val.memory).OutputReady t ∧
       SharedConversion.Ready PartArray.sharedSlots (resetParts logical) t ∧
       WidthBank PartArray.sharedSlots W (resetParts logical) ∧
+      Cells RawFree.neighborRegisters (resetParts logical) t.val ∧
+      WidthBank RawFree.neighborRegisters W (resetParts logical) ∧
+      NatAssign.Bank (Finset.Icc 311 332) (cleanNaturals logical natural) t.val ∧
+      (∀k∈Finset.Icc 311 332,(cleanNaturals logical natural k).bits.length ≤ U) ∧
       NatAssign.Bank Descriptors.ids (inversePreparedValues a d unused) t.val ∧
       Descriptors.Inputs (inversePreparedValues a d unused) (d 300) (d 301) (d 302) 0 (d 304) ∧
       (∀ k∈Descriptors.ids, (inversePreparedValues a d unused k).bits.length≤max W (2^14*(B+1))) ∧
@@ -121,6 +126,16 @@ theorem inverse_prepare_executes {n m : ℕ} (a : PartArray.Table (tableSize n))
       · exact a1.scratch.2.2.2.1
       · exact RationalAccumulator.blank_of_eq (f1.tapes 4 (by decide)) (z0 4 (by decide))
   have shared2 := PartArray.sharedReady_copy_frame shared1 (Or.inl rfl) f2
+  have cells2 : Cells RawFree.neighborRegisters (resetParts logical) t.val := by
+    apply (Cells.of_ready ready0).transfer
+    intro k hk
+    have outside : k∉Allocation.changed := by
+      simp only [Allocation.changed,Finset.mem_insert,Finset.mem_singleton]
+      omega
+    exact (f2.2.2.2.2.2.1 k (by omega)).trans (f1.tapes k outside)
+  have width2 : WidthBank RawFree.neighborRegisters W (resetParts logical) := by
+    intro k hk
+    exact (reset_width logical U hU (fun k hk => (hp k hk).1) k hk).mono hUW
   have allocated2 : NatAssign.Bank Allocation.ids (Allocation.outputValues (allocationInputs d)) t.val := by
     intro k hk
     have hne : k≠201 := by
@@ -141,13 +156,21 @@ theorem inverse_prepare_executes {n m : ℕ} (a : PartArray.Table (tableSize n))
       (hunused k hk)
   refine ⟨c0+(c1+(6*xs.length+15*(tableSize (d 300)).bits.length+21)),t,
     e0.seq (e1.seq e2),?_,a2,target1'.copy_frame (Or.inl rfl) f2 a2.scratch a2.seven,
-    shared2,?_,assembled_bank a rawHeap hc _ unused _ t a2 allocated2 unused2 shared2.rational,?_,?_,count2,?_,?_⟩
+    shared2,?_,cells2,width2,?_,(fun k hk=>width0 k (Finset.mem_union_left _ (Finset.mem_union_right _ (by have h:=Finset.mem_Icc.mp hk;exact Finset.mem_Icc.mpr ⟨by omega,h.2⟩)))),assembled_bank a rawHeap hc _ unused _ t a2 allocated2 unused2 shared2.rational,?_,?_,count2,?_,?_⟩
   · unfold inversePrepareCost
     rw [h301] at hc1
     omega
   · intro k hk
     exact (reset_width logical U hU (fun k hk => (hp k hk).1) k
       ((show PartArray.sharedSlots⊆RawFree.neighborRegisters by decide) hk)).mono hUW
+  · intro k hk
+    have bounds:=Finset.mem_Icc.mp hk
+    have outside : k∉Allocation.changed := by
+      simp only [Allocation.changed,Finset.mem_insert,Finset.mem_singleton];omega
+    exact RationalAccumulator.word_of_eq
+      ((f2.2.2.2.2.2.1 k (by omega)).trans (f1.tapes k outside))
+      (bank0 k (Finset.mem_union_left _ (Finset.mem_union_right _
+        (Finset.mem_Icc.mpr ⟨by omega,bounds.2⟩))))
   · simpa only [inversePreparedValues,h300,h301,h302,h304] using assembled_values_inputs a (allocationInputs d) unused
   · exact assembled_width a _ unused _ (haMeta.mono (le_max_left _ _))
       (fun k hk => (allocatedWidth k hk).trans (le_max_right _ _))

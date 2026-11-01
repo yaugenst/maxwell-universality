@@ -1,4 +1,5 @@
 import Maxwell.Continuum.CalibrationInversePrepare
+import Maxwell.Continuum.CalibrationNeumannConvertedTapeBound
 
 /-! A single fixed program generates the literal inverse coefficients,
 converts their raw denominators, initializes the arrays, and executes the
@@ -23,7 +24,7 @@ theorem sameMetadata_layout {n : ℕ} (a b : PartArray.Table (tableSize n)) (hea
   · simpa only [hw,hn] using ha.negative
   · simpa only [hw,hd] using ha.denominator
 
-theorem continuationBudget_ge (W B : ℕ) : W≤continuationBudget W B ∧ B≤continuationBudget W B := by
+theorem continuationBudget_ge (W B : ℕ) : W ≤ continuationBudget W B ∧ B≤continuationBudget W B := by
   exact ⟨le_max_left _ _,(by omega : B≤2^14*(B+1)).trans (le_max_right _ _)⟩
 
 theorem inverse_tail_protects : ∀ k∈Finset.Icc 530 534,
@@ -42,7 +43,7 @@ theorem generated_inverse_executes (R : ℕ) (a : PartArray.Table (aliasArraySiz
     (hfit : coefficientWidth (countWidth B)≤addressValue b.width)
     (hsep : b.Separated) (hdisjoint : a.SeparatedFrom b) (hraw : SourceLayout b rawHeap)
     (hheap : rawHeap+3*tableSize (aliasArraySize R)*addressValue b.width≤d 302)
-    (hshared : PartArray.sharedWidth (tableSize (aliasArraySize R)) W≤continuationBudget W BN)
+    (hshared : PartArray.sharedWidth (tableSize (aliasArraySize R)) W ≤ continuationBudget W BN)
     (hprepare : 2^CopyPlan.plan.length*(continuationBudget W BN+1)≤d 301)
     (hslot : commonWidth (aliasArraySize R) (d 304) (W+1)≤d 301)
     (haddress : (d 302).bits.length+2*(aliasArraySize R).bits.length+(d 301).bits.length+10≤d 301)
@@ -73,6 +74,15 @@ theorem generated_inverse_executes (R : ℕ) (a : PartArray.Table (aliasArraySiz
         (d 304) (d 301)) ∧
       RationalAccumulator.Word t.val 126 (SharedTable.denominator coeff) ∧
       RationalAccumulator.Word t.val 304 (d 304) ∧
+      RationalAccumulator.Blank t.val 140 ∧
+      (∃numbers : ℕ→ℕ,NatAssign.Bank Descriptors.retainedIds numbers t.val ∧
+        ∀k∈Descriptors.retainedIds,(numbers k).bits.length ≤ Descriptors.retainedWidth (d 301)) ∧
+      (∃numbers : ℕ→ℕ,NatAssign.Bank (Finset.Icc 311 332) numbers t.val ∧
+         (∀k∈Finset.Icc 311 332,(numbers k).bits.length ≤ d 301) ∧ numbers 311=R) ∧
+      WordCleanup.Bounded conversionRetiredWords (d 301) t.val ∧
+      RationalAccumulator.Blank t.val 105 ∧
+      (∃raw : ℕ→Parts,Cells RawFree.neighborRegisters raw t.val ∧
+        WidthBank RawFree.neighborRegisters (d 301) raw) ∧
       (∀ k∈Finset.Icc 530 534, t.val.tapes k=s.val.tapes k) ∧
       ∀ i : Fin (aliasArraySize R), ((Horner.channels out.words 10 11).value i : ℚ)/
           (SharedTable.denominator coeff : ℚ)^(d 304+1)=
@@ -127,7 +137,7 @@ theorem generated_inverse_executes (R : ℕ) (a : PartArray.Table (aliasArraySiz
   have oldMeta : (refreshTable a u0.val.memory).MetadataWidth B :=
     ⟨haMeta.width,haMeta.basePositive,haMeta.baseNegative,haMeta.baseDenominator,haMeta.clock⟩
   have saved1 := RationalAccumulator.blank_of_eq (f1.tapes 206 (by decide)) (continuation.blank206 h206)
-  obtain ⟨c2,u2,e2,hc2,source2,target2,shared2,sharedWidth2,desc2,inputs2,bits2,count2,saved2,temp2⟩ :=
+  obtain ⟨c2,u2,e2,hc2,source2,target2,shared2,sharedWidth2,cells2,cellsWidth2,controls2,controlsWidth2,desc2,inputs2,bits2,count2,saved2,temp2⟩ :=
     inverse_prepare_executes c (refreshTable a u0.val.memory) rawHeap layoutC vf nf d unused U BN B W
       (by omega) hUW metaC oldMeta agree0 width0 param1 hd hu hwidth input tape word0 u1 bank1
       inputs1 unused1 blank1 source1 old1 (BankArray.word_of_eq (f1.tapes 201 (by decide)) count0) saved1 temp1
@@ -149,7 +159,7 @@ theorem generated_inverse_executes (R : ℕ) (a : PartArray.Table (aliasArraySiz
   have word2 : BankArray.Word u2.val 201 (tableSize (aliasArraySize R)).bits := by
     simpa only [hdim] using count2
   obtain ⟨origin2,word2⟩ := word2
-  obtain ⟨c3,t,out,e3,hc3,ready3,sized,denominator,counter,result⟩ := converted_executes (aliasArraySize_pos R) (tableCoefficients c)
+  obtain ⟨c3,t,out,e3,hc3,ready3,sized,denominator,counter,blank,retainedNaturals,retired,blank105,rawCells,result⟩ := converted_executes (aliasArraySize_pos R) (tableCoefficients c)
     (fun i => (values i).1) W hW (fun i => (values i).2.1) c target (d 302) (d 304)
     (continuationBudget W BN) padded metaC targetMeta targetLayout disjoint hshared
     (by simpa only [targetWidth] using hprepare)
@@ -158,7 +168,33 @@ theorem generated_inverse_executes (R : ℕ) (a : PartArray.Table (aliasArraySiz
     (resetParts vf) sharedWidth2 (inversePreparedValues c d unused) input2 bits2 input tape
     (tableSize (aliasArraySize R)).bits origin2 hcounterWidth u2 (by simp) word2 desc2 shared2 source2
     targetReady saved2 temp2
-  rw [targetWidth] at ready3 sized hc3
+  rw [targetWidth] at ready3 sized hc3 retainedNaturals retired
+  obtain ⟨raw,rawCells,rawWidth⟩:=rawCells
+  rw [targetWidth] at rawWidth
+  let retained : ℕ→Parts := fun i=>if i∈PartArray.sharedSlots then raw i else resetParts vf i
+  have retainedCells : Cells RawFree.neighborRegisters retained t.val := by
+    intro i hi
+    by_cases shared:i∈PartArray.sharedSlots
+    · simpa only [retained,ite_eq_left shared] using rawCells i shared
+    · simp only [retained,ite_eq_right shared]
+      have low : 3 ≤ i := by
+        simp only [PartArray.sharedSlots,Finset.mem_insert,Finset.mem_singleton,not_or] at shared
+        omega
+      have keep (k : ℕ) (hk : 1009 ≤ k) : t.val.tapes k=u2.val.tapes k :=
+        e3.tapeBound k (converted_tapeBound.trans hk)
+      exact ⟨RationalAccumulator.word_of_eq (keep _ (by unfold positivePort;omega)) (cells2 i hi).1,
+        RationalAccumulator.word_of_eq (keep _ (by unfold positivePort;omega)) (cells2 i hi).2.1,
+        RationalAccumulator.word_of_eq (keep _ (by unfold positivePort;omega)) (cells2 i hi).2.2⟩
+  have hW301 : W ≤ d 301 := by
+    have one:1 ≤ 2^CopyPlan.plan.length:=Nat.one_le_pow _ _ (by decide)
+    have mul:=Nat.mul_le_mul_right (continuationBudget W BN+1) one
+    have base:W ≤ continuationBudget W BN:=le_max_left _ _
+    omega
+  have retainedWidth : WidthBank RawFree.neighborRegisters (d 301) retained := by
+    intro i hi
+    by_cases shared:i∈PartArray.sharedSlots
+    · simpa only [retained,ite_eq_left shared] using rawWidth i shared
+    · simpa only [retained,ite_eq_right shared] using (cellsWidth2 i hi).mono hW301
   have cold : ∀ k∈Finset.Icc 530 534, t.val.tapes k=s.val.tapes k := by
     intro k hk
     have hbounds := Finset.mem_Icc.mp hk
@@ -170,7 +206,7 @@ theorem generated_inverse_executes (R : ℕ) (a : PartArray.Table (aliasArraySiz
         ((f1.tapes k hheader).trans
           (continuation k (Finset.mem_union_right _ (Finset.mem_union_right _ hk)))))
   refine ⟨c0+(c1+(c2+c3)),t,tableCoefficients c,out,e0.seq (e1.seq (e2.seq e3)),?_,values,
-    ready3,sized,denominator,counter,cold,?_⟩
+    ready3,sized,denominator,counter,blank,retainedNaturals,?_,retired,blank105,⟨retained,retainedCells,retainedWidth⟩,cold,?_⟩
   · have h2 : c2 ≤ inversePrepareCost U BN B (d 301)
         (coefficientBaseWidth (countWidth B)) (tableSize (aliasArraySize R)) := by
       rw [hdim] at hc2
@@ -179,6 +215,11 @@ theorem generated_inverse_executes (R : ℕ) (a : PartArray.Table (aliasArraySiz
     dsimp only [U] at h2
     rw [meta0.1] at hc3
     omega
+  · refine ⟨cleanNaturals vf nf,?_,(fun k hk=>(controlsWidth2 k hk).trans (hUW.trans hW301)),
+      (cleanNaturals_parameters vf nf).1.trans radius⟩
+    intro k hk
+    have protect : ∀k∈Finset.Icc 311 332,convertedCode.protectsTape k=true := by decide
+    exact RationalAccumulator.word_of_eq (e3.protectsTape k (protect k hk)) (controls2 k hk)
   · intro i
     rw [result i]
     have matrix : (fun i j => (tableCoefficients c (.inr (i,j))).value)=

@@ -85,7 +85,9 @@ theorem aliasLoop_executes {n B : ℕ} (a : Table (5*n)) (Q N W : ℕ)
     (hcount : s.val.tapes 1099=BitTape.shifted xs origin) :
     ∃cost t finalWord,Executes input tape aliasLoopCode cost s t ∧ cost ≤ aliasLoopCost Q N n W xs.length j ∧
       Nonempty (AliasState a q amp Q N W j b (v 32).value 0 t) ∧
-      t.val.tapes 1099=BitTape.shifted finalWord origin ∧ finalWord.length=xs.length := by
+      t.val.tapes 1099=BitTape.shifted finalWord origin ∧ finalWord.length=xs.length ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+      limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   have indexWidth (i : Fin 3) : (j i).bits.length ≤ W := by
     have hi : 17+i.val∈tensorBank := by have := i.isLt;simp [tensorBank,Finset.mem_Ico];omega
     simpa only [hindices i] using (hw (17+i.val) hi).1
@@ -105,24 +107,26 @@ theorem aliasLoop_executes {n B : ℕ} (a : Table (5*n)) (Q N W : ℕ)
     queryIndex := oldIndex
     queryWidth := hold
     queryWord := hindex }
-  let inv : ℕ→Store→Prop := fun r t => Nonempty (AliasState a q amp Q N W j b (v 32).value r t)
+  let inv : ℕ→Store→Prop := fun r t => Nonempty (AliasState a q amp Q N W j b (v 32).value r t) ∧
+    (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+      limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k)
   let budget := aliasStepCost Q N (aliasAccumulatorWidth n 0 W) W xs.length j
   have stable : ∀r s t,CountedShifted.Frame 1099 s t → inv r s → inv r t := by
-    intro r s t f ⟨state⟩
-    exact ⟨state.countState f⟩
+    intro r u t f ⟨⟨state⟩,memory⟩
+    exact ⟨⟨state.countState f⟩,fun limit hp hn hd k hk=>by rw [f.2.2.1];exact memory limit hp hn hd k hk⟩
   have step : ∀r ys s,inv (r+1) s → s.val.tapes 1099=BitTape.shifted ys origin →
       addressValue ys=r → ys.length=xs.length →
       ∃cost t,Executes input tape aliasStepCode cost s t ∧ inv r t ∧
         t.val.tapes 1099=BitTape.shifted ys origin ∧ cost ≤ budget := by
-    intro r ys s ⟨state⟩ hword hvalue hlength
+    intro r ys u ⟨⟨state⟩,oldMemory⟩ hword hvalue hlength
     have hrl : r<n := by have := state.remaining_le;omega
-    obtain ⟨cost,t,w,output,e,hcost,ready,full,width,acc,metadata,indices,valid,den,result,query,count⟩ :=
+    obtain ⟨cost,t,w,output,e,hcost,ready,full,width,acc,metadata,indices,valid,den,result,query,count,memory⟩ :=
       aliasStep_executes a Q N (aliasAccumulatorWidth n (r+1) W) W state.table hma
         (state.metadata.widthBound hm) (state.metadata.separated hsep)
         (state.metadata.separatedFrom hdisjoint) (by simpa only [state.metadata.width] using hfit)
         q amp hrows hq j hj state.values state.smallWidth (by unfold aliasAccumulatorWidth;omega)
         state.accumulatorWidth state.accumulatorValid state.indices hQ hN hW hprecision hgrid
-        state.queryIndex state.queryWidth input tape ys (by omega) ⟨r,hrl⟩ hvalue s
+        state.queryIndex state.queryWidth input tape ys (by omega) ⟨r,hrl⟩ hvalue u
         state.ready state.fullReady state.queryWord ⟨origin,hword⟩
     have acc' : (w 32).Width (aliasAccumulatorWidth n r W) := by
       simpa only [aliasAccumulatorWidth_step hrl] using acc
@@ -147,12 +151,18 @@ theorem aliasLoop_executes {n B : ℕ} (a : Table (5*n)) (Q N W : ℕ)
       queryIndex := j 2
       queryWidth := indexWidth 2
       queryWord := query }
-    refine ⟨cost,t,e,⟨next⟩,count.trans hword,?_⟩
-    rw [hlength] at hcost
-    exact hcost.trans (aliasStepCost_mono j (aliasAccumulatorWidth_le n (r+1) W))
+    refine ⟨cost,t,e,⟨⟨next⟩,?_⟩,count.trans hword,?_⟩
+    · intro limit hp hn hd k hk
+      have hp' : limit≤addressValue state.table.basePositive := by rw [state.metadata.basePositive];exact hp
+      have hn' : limit≤addressValue state.table.baseNegative := by rw [state.metadata.baseNegative];exact hn
+      have hd' : limit≤addressValue state.table.baseDenominator := by rw [state.metadata.baseDenominator];exact hd
+      rw [memory limit hp' hn' hd' k hk]
+      exact oldMemory limit hp hn hd k hk
+    · rw [hlength] at hcost
+      exact hcost.trans (aliasStepCost_mono j (aliasAccumulatorWidth_le n (r+1) W))
   obtain ⟨cost,t,finalWord,e,state,word,length,_,hcost⟩ := counted_executes_sized 1099 origin aliasStepCode
-    input tape xs.length inv (fun _ => budget) stable step n xs s hn hcount rfl ⟨initial⟩
-  refine ⟨cost,t,finalWord,e,?_,state,word,length⟩
+    input tape xs.length inv (fun _ => budget) stable step n xs s hn hcount rfl ⟨⟨initial⟩,fun _ _ _ _ _ _=>rfl⟩
+  refine ⟨cost,t,finalWord,e,?_,state.1,word,length,state.2⟩
   simpa only [Finset.sum_const,Finset.card_range,smul_eq_mul,aliasLoopCost,budget] using hcost
 
 #print axioms aliasLoop_executes

@@ -1,3 +1,4 @@
+import Maxwell.Cost.BankArray.Unique
 import Maxwell.Continuum.CalibrationNeumannInitialized
 import Maxwell.Continuum.CalibrationNeumannArrayCopy
 
@@ -10,25 +11,6 @@ open Maxwell.Cost Maxwell.Cost.Structured Maxwell.Cost.CalibrationMatrix
 open Maxwell.Continuum.RationalDataflow
 set_option maxHeartbeats 3000000
 set_option maxRecDepth 32768
-
-theorem word_unique {s : BitRAMState} {i : ℕ} {xs ys : List Bool}
-    (hx : BankArray.Word s i xs) (hy : BankArray.Word s i ys) : xs=ys := by
-  obtain ⟨ox,hx⟩ := hx
-  obtain ⟨oy,hy⟩ := hy
-  have he := hx.symm.trans hy
-  have ho : ox=oy := congrArg BitTape.head he
-  subst oy
-  apply List.ext_getElem?
-  intro k
-  have hk := congrArg (fun z : BitTape => z.cells (ox+k)) he
-  simpa [BitTape.shifted] using hk
-
-theorem word_recover {s t : BitRAMState} {i n : ℕ} {xs : List Bool}
-    (hn : RationalAccumulator.Word s i n) (hx : BankArray.Word s i xs)
-    (hy : BankArray.Word t i xs) : RationalAccumulator.Word t i n := by
-  have he := word_unique hn hx
-  rw [←he] at hy
-  exact hy
 
 def copyProtected : Finset ℕ := Finset.Icc 107 140 ∪ Finset.Icc 300 310
 
@@ -55,7 +37,7 @@ theorem copied_descriptor_bank {n : ℕ} (a b : PartArray.Table n)
     have hnew := ht.1 i hid
     rw [dataValues_small old hsmall] at hold
     rw [dataValues_small new hsmall] at hnew
-    exact word_recover (hv i hi) hold hnew
+    exact BankArray.word_recover (hv i hi) hold hnew
   · by_cases hp : i∈copyProtected
     · exact RationalAccumulator.word_of_eq (he.protectsTape i
         (List.all_eq_true.mp copy_protects i (by
@@ -67,14 +49,14 @@ theorem copied_descriptor_bank {n : ℕ} (a b : PartArray.Table n)
           Finset.mem_union,Finset.mem_Icc,Finset.mem_insert,Finset.mem_singleton] at hi hp hwork
         omega
       rcases hcases with rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl
-      · exact word_recover (hv _ hi) ha.width ha'.width
-      · exact word_recover (hv _ hi) ha.basePositive ha'.basePositive
-      · exact word_recover (hv _ hi) ha.baseNegative ha'.baseNegative
-      · exact word_recover (hv _ hi) ha.baseDenominator ha'.baseDenominator
-      · exact word_recover (hv _ hi) hb.width hb'.width
-      · exact word_recover (hv _ hi) hb.basePositive hb'.basePositive
-      · exact word_recover (hv _ hi) hb.baseNegative hb'.baseNegative
-      · exact word_recover (hv _ hi) hb.baseDenominator hb'.baseDenominator
+      · exact BankArray.word_recover (hv _ hi) ha.width ha'.width
+      · exact BankArray.word_recover (hv _ hi) ha.basePositive ha'.basePositive
+      · exact BankArray.word_recover (hv _ hi) ha.baseNegative ha'.baseNegative
+      · exact BankArray.word_recover (hv _ hi) ha.baseDenominator ha'.baseDenominator
+      · exact BankArray.word_recover (hv _ hi) hb.width hb'.width
+      · exact BankArray.word_recover (hv _ hi) hb.basePositive hb'.basePositive
+      · exact BankArray.word_recover (hv _ hi) hb.baseNegative hb'.baseNegative
+      · exact BankArray.word_recover (hv _ hi) hb.baseDenominator hb'.baseDenominator
 
 theorem shared_blank_clock {S : Finset ℕ} {v : ℕ→Parts} {s : Store}
     (hs : SharedConversion.Ready S v s) : RationalAccumulator.Blank s.val 101 := by

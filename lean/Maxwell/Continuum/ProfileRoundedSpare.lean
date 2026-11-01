@@ -1,4 +1,5 @@
 import Maxwell.Continuum.ProfileTableSpareFrame
+import Maxwell.Continuum.RationalDataflowArrayWritePrefix
 
 /-! The computed rounded table retains the second buffer used by endpoint
 correction. Every stored row is produced by the fixed runtime sampler. -/
@@ -20,23 +21,30 @@ theorem rounded_table_spare_executes (grid D P U M : ℕ) (a b : PartArray.Table
       Executes input tape roundedTableCode cost s t ∧
       t.val.tapes 700=BitTape.shifted finalWord origin ∧ finalWord.length=xs.length ∧
       cost≤roundedTableCost grid D P U M xs.length ∧
-      b.Ready t ∧ Word t.val 661 D ∧ Blank t.val 216 := by
+      b.Ready t ∧ Word t.val 661 D ∧ Blank t.val 216 ∧
+      (∀limit,limit≤addressValue a.basePositive→limit≤addressValue a.baseNegative→
+        limit≤addressValue a.baseDenominator→∀j,j<limit→t.val.memory j=s.val.memory j) := by
   let inv (remaining : ℕ) (t : Store) :=
     Nonempty (RoundedTableState grid D P U a remaining t) ∧
-      b.Ready t ∧ Word t.val 661 D ∧ Blank t.val 216
+      b.Ready t ∧ Word t.val 661 D ∧ Blank t.val 216 ∧
+      (∀limit,limit≤addressValue a.basePositive→limit≤addressValue a.baseNegative→
+        limit≤addressValue a.baseDenominator→∀j,j<limit→t.val.memory j=s.val.memory j)
   have stable : ∀r s t,CountedShifted.Frame 700 s t→inv r s→inv r t := by
     intro r s t f h
-    obtain ⟨⟨h⟩,hb,hs,hz⟩ := h
-    exact ⟨⟨h.count_frame f⟩,inputReady_count700 hb f,
+    obtain ⟨⟨h⟩,hb,hs,hz,memory⟩ := h
+    refine ⟨⟨h.count_frame f⟩,inputReady_count700 hb f,
       word_of_eq (f.2.2.2.2.2.1 661 (by decide)) hs,
-      blank_of_eq (f.2.2.2.2.2.1 216 (by decide)) hz⟩
+      blank_of_eq (f.2.2.2.2.2.1 216 (by decide)) hz,?_⟩
+    intro limit hp hn hd j hj
+    rw [f.2.2.1]
+    exact memory limit hp hn hd j hj
   have step : ∀r ys st,inv (r+1) st→st.val.tapes 700=BitTape.shifted ys origin→
       addressValue ys=r→ys.length=xs.length→
       ∃cost t,Executes input tape roundedStoreCode cost st t ∧ inv r t ∧
         t.val.tapes 700=BitTape.shifted ys origin ∧
         cost≤roundedStoreCost grid D P U (roundedWidth grid U) M xs.length (roundedWidth grid U) := by
     intro r ys st hh hword hval hlength
-    obtain ⟨⟨h⟩,spare,size,blank⟩ := hh
+    obtain ⟨⟨h⟩,spare,size,blank,memory⟩ := hh
     have hr : r<D := by have := h.bound;omega
     let index : Fin D := ⟨r,hr⟩
     have fit : roundedRawWidth U≤addressValue h.table.width := by simpa only [h.metadata.1] using hfit
@@ -71,16 +79,22 @@ theorem rounded_table_spare_executes (grid D P U M : ℕ) (a b : PartArray.Table
     have size' := word_of_eq (roundedStore_keep e 661 (by simp [roundedStoreProtected])) size
     have blank' := blank_of_eq (roundedStore_keep e 216 (by simp [roundedStoreProtected])) blank
     refine ⟨cost,t,e,⟨⟨⟨ready,by omega,h.table.set index (out.values 9),h.metadata,output,correct⟩⟩,
-      spare',size',blank'⟩,frameCount,?_⟩
+      spare',size',blank',?_⟩,frameCount,?_⟩
+    · intro limit hp hn hd j hj
+      have hp' : limit≤addressValue h.table.basePositive:=by simpa only [h.metadata.2.1] using hp
+      have hn' : limit≤addressValue h.table.baseNegative:=by simpa only [h.metadata.2.2.1] using hn
+      have hd' : limit≤addressValue h.table.baseDenominator:=by simpa only [h.metadata.2.2.2.1] using hd
+      rw [mem,h.table.writeMemory_prefix _ _ _ limit hp' hn' hd' j hj]
+      exact memory limit hp hn hd j hj
     rw [hlength] at hc
     exact hc.trans (roundedStoreCost_mono_old grid D P U (roundedWidth grid U) M xs.length _ _ h.innerLength)
   obtain ⟨cost,t,finalWord,e,result,word,len,_,hc⟩ := counted_executes_sized 700 origin roundedStoreCode
     input tape xs.length inv (fun _ => roundedStoreCost grid D P U (roundedWidth grid U) M xs.length (roundedWidth grid U))
     stable step D xs s hvalue hcounter rfl ⟨⟨⟨hp,le_rfl,a,tableMetadata_refl a,ha,by
-      intro i hi;have := i.isLt;omega⟩⟩,hb,hsize,hblank⟩
-  obtain ⟨⟨result⟩,bt,size,blank⟩ := result
+      intro i hi;have := i.isLt;omega⟩⟩,hb,hsize,hblank,fun _ _ _ _ _ _=>rfl⟩
+  obtain ⟨⟨result⟩,bt,size,blank,memory⟩ := result
   exact ⟨cost,t,finalWord,result,e,word,len,by
-    simpa only [roundedTableCost,Finset.sum_const,Finset.card_range,smul_eq_mul] using hc,bt,size,blank⟩
+    simpa only [roundedTableCost,Finset.sum_const,Finset.card_range,smul_eq_mul] using hc,bt,size,blank,memory⟩
 
 #print axioms rounded_table_spare_executes
 end Maxwell.Continuum.Profile.Runtime

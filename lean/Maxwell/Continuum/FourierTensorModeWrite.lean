@@ -54,7 +54,9 @@ theorem write_executes (P R W : ℕ) (a : Table (2*aliasArraySize R))
       NatAssign.Bank ModeIndex.ports
         (ModeDecode.after (ModeIndex.readValues R a j r v) (ModeIndex.values j R (aliasArraySize R) r.val)) t.val ∧
       DyadicFloor.Clean t.val ∧ Word t.val 144 (2^P) ∧ BankArray.Word t.val 201 word ∧
-      t.val.tapes 201=s.val.tapes 201 ∧ t.val.output=s.val.output := by
+      t.val.tapes 201=s.val.tapes 201 ∧ t.val.output=s.val.output ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   have hblank : ∀i∈RowIndex.ids,Blank s.val i := by
     intro i hi
     exact hz.2 i (Finset.mem_union_right _ (by
@@ -67,13 +69,13 @@ theorem write_executes (P R W : ℕ) (a : Table (2*aliasArraySize R))
     rw [hrow]
     have := r.isLt
     omega
-  obtain ⟨cost,t,e,hcost,rt,at',bt,zt,ft⟩ := rowWritePlan_executes a b RowArithmetic.bank 5 3 W writePlan
+  obtain ⟨cost,t,e,hcost,rt,at',bt,zt,ft,memory⟩ := rowWritePlan_executes a b RowArithmetic.bank 5 3 W writePlan
     (by decide) (by decide) hm (values P R a j r v) hfit hpos hsep hdisj input tape word hlen hix
     s hr ha hb hc hblank
   rw [hrow] at bt
   refine ⟨cost,t,e,?_,rt,at',bt,write_natural_frame hn ft,write_floor_frame e hz ft zt,
     RationalAccumulator.word_of_eq (ft.tapes 144 (by decide) (by decide) (by decide)) hp,
-    BankArray.word_of_eq ft.counter hc,ft.counter,ft.output⟩
+    BankArray.word_of_eq ft.counter hc,ft.counter,ft.output,memory⟩
   have hh : rowPlanCost 5 3 W writePlan=5*(2^30*(W+11)^2)+1 := by rfl
   rw [hh] at hcost
   nlinarith only [hcost,Nat.zero_le W]

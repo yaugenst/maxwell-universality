@@ -55,6 +55,8 @@ theorem convertedValues_inputs (v : ℕ → ℕ) (n width heap D N : ℕ)
     CopyPlan.Inputs (convertedValues v D) n width heap D N := by
   constructor <;> simp [convertedValues,swappedValues,hi.dimension,hi.width,hi.heap,hi.iterations]
 
+def conversionRetiredWords : List ℕ := retiredWords++[206,216]
+
 def convertedCode : Code :=
   .seq PartArray.sharedTableResetCode (.seq PartArray.headerSwapCode preparedCode)
 
@@ -94,6 +96,13 @@ theorem converted_executes {n : ℕ} (hnpos : 0<n) (coeff : CoefficientIndex n �
         (addressValue b.width)) ∧
       RationalAccumulator.Word t.val 126 (SharedTable.denominator coeff) ∧
       RationalAccumulator.Word t.val 304 N ∧
+      RationalAccumulator.Blank t.val 140 ∧
+      (∃numbers : ℕ→ℕ,NatAssign.Bank Descriptors.retainedIds numbers t.val ∧
+        ∀k∈Descriptors.retainedIds,(numbers k).bits.length ≤ Descriptors.retainedWidth (addressValue b.width)) ∧
+      WordCleanup.Bounded conversionRetiredWords (addressValue b.width) t.val ∧
+      RationalAccumulator.Blank t.val 105 ∧
+      (∃raw : ℕ→Parts,Cells PartArray.sharedSlots raw t.val ∧
+        WidthBank PartArray.sharedSlots (addressValue b.width) raw) ∧
       ∀ i : Fin n, ((Horner.channels out.words 10 11).value i : ℚ) /
           (SharedTable.denominator coeff : ℚ)^(N+1) =
         rationalAffineIteration (fun i j => (coeff (.inr (i,j))).value)
@@ -127,13 +136,13 @@ theorem converted_executes {n : ℕ} (hnpos : 0<n) (coeff : CoefficientIndex n �
     ⟨hbMeta.width,hbMeta.basePositive,hbMeta.baseNegative,hbMeta.baseDenominator,hbMeta.clock⟩
   have filledLayout : SourceLayout filled heap :=
     ⟨hl.canonical,hl.positive,hl.negative,hl.denominator⟩
-  obtain ⟨c0,u,out,e0,hc0,hu,ha',hb',hD,houtWidth,houtGood,count⟩ :=
+  obtain ⟨c0,u,out,e0,hc0,hu,ha',hb',hD,houtWidth,houtGood,count,savedCounter⟩ :=
     PartArray.sharedTable_reset_executes a b W (addressValue b.width) hW haWidth haValid
       haMeta hbMeta hwide hwide hl.separated hdisjoint logical hlogicalWidth
       input tape xs origin hlen s hn hcount hs ha hb h206
   have bank0 := converted_descriptor_bank a b logical out v e0 hs hu ha ha' hb hb' hbank
   have temp := RationalAccumulator.blank_of_eq (e0.protectsTape 216 (by decide)) h216
-  obtain ⟨c1,u1,e1,hc1,_,b1,a1,_,frame1⟩ := PartArray.headerSwap_executes a filled
+  obtain ⟨c1,u1,e1,hc1,_,b1,a1,temp1,frame1⟩ := PartArray.headerSwap_executes a filled
     (addressValue b.width) (haMeta.mono hWW) filledMeta PartArray.sharedSlots out
       input tape u hu.rational ha' hb' temp
   have state1 := shared_headerSwap_frame hu frame1
@@ -159,18 +168,50 @@ theorem converted_executes {n : ℕ} (hnpos : 0<n) (coeff : CoefficientIndex n �
     exact houtGood (by unfold tableSize; omega)
   have count1 := BankArray.word_of_eq (frame1.tapes 201 (by decide)) count
   obtain ⟨countOrigin,count1⟩ := count1
-  obtain ⟨c2,t,result,e2,hc2,ht,sized,denominatorWord,counter,hresult⟩ := prepared_executes coeff hvalid W hwidth filled a heap N B
+  obtain ⟨c2,t,result,e2,hc2,ht,sized,denominatorWord,counter,blank,retained,retired,blank105,keep1000,last,hresult⟩ := prepared_executes coeff hvalid W hwidth filled a heap N B
     hw filledLayout filledValues hslot filledWidth filledMeta haddress hprepare out newWidth newGood
     (convertedValues v (SharedTable.denominator coeff))
     (convertedValues_inputs v n (addressValue b.width) heap (SharedTable.denominator coeff) N hi)
     (convertedValues_width v (SharedTable.denominator coeff) B hbits Dwidth)
     input tape xs countOrigin (hlen.trans hWW) u1 hn count1 newBank
     (sharedReady_subset (by decide : ({1} : Finset ℕ) ⊆ PartArray.sharedSlots) state1) b1 a1
-  refine ⟨c0+(c1+c2),t,result,e0.seq (e1.seq e2),?_,ht,sized,denominatorWord,counter,hresult⟩
-  change c2 ≤ preparedCost n (addressValue b.width) heap (SharedTable.denominator coeff) N B
-    (addressValue a.width) at hc2
-  unfold convertedCost
-  omega
+  obtain ⟨last,lastStored,lastWidth⟩:=last
+  let raw:=Function.update out 1 last
+  have rawCells:Cells PartArray.sharedSlots raw t.val:=by
+    intro i hi
+    simp only [PartArray.sharedSlots,Finset.mem_insert,Finset.mem_singleton] at hi
+    rcases hi with rfl|rfl|rfl
+    · have old:=Cells.of_ready state1.rational 0 (by decide)
+      simp only [raw,Function.update_of_ne (by decide : (0:ℕ)≠1)]
+      exact ⟨RationalAccumulator.word_of_eq keep1000 old.1,
+        RationalAccumulator.word_of_eq (e2.protectsTape _ (by decide)) old.2.1,
+        RationalAccumulator.word_of_eq (e2.protectsTape _ (by decide)) old.2.2⟩
+    · simpa only [raw,Function.update_self] using lastStored
+    · have old:=Cells.of_ready state1.rational 2 (by decide)
+      simp only [raw,Function.update_of_ne (by decide : (2:ℕ)≠1)]
+      exact ⟨RationalAccumulator.word_of_eq (e2.protectsTape _ (by decide)) old.1,
+        RationalAccumulator.word_of_eq (e2.protectsTape _ (by decide)) old.2.1,
+        RationalAccumulator.word_of_eq (e2.protectsTape _ (by decide)) old.2.2⟩
+  have rawWidth:WidthBank PartArray.sharedSlots (addressValue b.width) raw:=by
+    intro i hi
+    by_cases eq:i=1
+    · simpa only [raw,eq,Function.update_self,filled,PartArray.Table.filled] using lastWidth
+    · simpa only [raw,Function.update_of_ne eq] using (houtWidth i hi).mono hwide
+  refine ⟨c0+(c1+c2),t,result,e0.seq (e1.seq e2),?_,ht,sized,denominatorWord,counter,blank,retained,?_,blank105,
+    ⟨raw,rawCells,rawWidth⟩,hresult⟩
+  · change c2 ≤ preparedCost n (addressValue b.width) heap (SharedTable.denominator coeff) N B
+      (addressValue a.width) at hc2
+    unfold convertedCost
+    omega
+  · intro k hk
+    rcases List.mem_append.mp hk with hk|hk
+    · exact retired k hk
+    · simp only [List.mem_cons,List.not_mem_nil,or_false] at hk
+      rcases hk with rfl|rfl
+      · exact ⟨xs,hlen.trans hWW,BankArray.word_of_eq
+          ((e2.protectsTape 206 (by decide)).trans (frame1.tapes 206 (by decide))) savedCounter⟩
+      · exact ⟨[],Nat.zero_le _,(RationalAccumulator.zero_word_iff_blank _ _).mpr
+          (RationalAccumulator.blank_of_eq (e2.protectsTape 216 (by decide)) temp1)⟩
 
 #print axioms converted_executes
 

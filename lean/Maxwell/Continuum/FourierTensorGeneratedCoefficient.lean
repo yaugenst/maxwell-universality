@@ -49,7 +49,9 @@ theorem generatedCoefficient_executes {n B : ℕ} (a : Table (5*n)) (Q N W : ℕ
       (∀i : Fin 3,(w (17+i.val)).positive=(j i).val) ∧
       w 32=Parts.literal ((realFourierTensorCoefficient Finset.univ q amp Q N j).numerator:ℚ) ∧
       t.val.tapes 1099=BitTape.shifted finalWord origin ∧ finalWord.length=xs.length ∧
-      ∃query,query.bits.length ≤ W ∧ Word t.val 1048 query := by
+      (∃query,query.bits.length ≤ W ∧ Word t.val 1048 query) ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+      limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   have hzero : (Parts.literal (0:ℚ)).Width W :=
     (show (Parts.literal (0:ℚ)).Width 1 by unfold Parts.Width Parts.literal;decide).mono (by omega)
   obtain ⟨c0,s0,e0,h0,r0,f0⟩ := literal_executes termBank 32 (by simp [termBank])
@@ -61,7 +63,7 @@ theorem generatedCoefficient_executes {n B : ℕ} (a : Table (5*n)) (Q N W : ℕ
   have startIndices (i : Fin 3) : (start (17+i.val)).positive=(j i).val := by
     have hi := i.isLt
     simpa only [start,Function.update_of_ne (by omega : 17+i.val≠32)] using hindices i
-  obtain ⟨c1,s1,finalWord,e1,h1,⟨state⟩,count1,length1⟩ := aliasLoop_executes a Q N W b hma hm hsep
+  obtain ⟨c1,s1,finalWord,e1,h1,⟨state⟩,count1,length1,memory⟩ := aliasLoop_executes a Q N W b hma hm hsep
     hdisjoint hfit q amp hrows hq (fun i => (j i).val) (fun i => by have := (j i).isLt;omega)
     start hsmall (wstart 32 (by simp [termBank])) (by exact Parts.literal_valid 0) rfl startIndices
     hQ hN hW hprecision hgrid oldIndex hold input tape xs origin hlen hn s0 startFactor r0
@@ -84,7 +86,7 @@ theorem generatedCoefficient_executes {n B : ℕ} (a : Table (5*n)) (Q N W : ℕ
   refine ⟨c0+(c1+c2),t,w,state.table,finalWord,e0.seq (e1.seq e2),?_,
     state.ready.term_frame f2 r2,r2,?_,?_,state.metadata,?_,he,
     (f2.tapes 1099 (by decide)).trans count1,length1,
-    state.queryIndex,state.queryWidth,word_of_eq (f2.tapes 1048 (by decide)) state.queryWord⟩
+    ⟨state.queryIndex,state.queryWidth,word_of_eq (f2.tapes 1048 (by decide)) state.queryWord⟩,?_⟩
   · unfold generatedCoefficientCost
     omega
   · intro i hi
@@ -95,6 +97,9 @@ theorem generatedCoefficient_executes {n B : ℕ} (a : Table (5*n)) (Q N W : ℕ
   · intro i
     have hi := i.isLt
     simpa only [w,Function.update_of_ne (by omega : 17+i.val≠32)] using state.indices i
+
+  · intro limit hp hn hd k hk
+    rw [f2.memory,memory limit hp hn hd k hk,f0.memory]
 
 #print axioms generatedCoefficient_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime

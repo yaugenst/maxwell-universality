@@ -45,7 +45,8 @@ theorem producer_allocated_executes (N heap : ℕ) (hh : heap.bits.length≤prod
     ∃(cost : ℕ) (t : Store)
       (_result : EncodedTableResult N (runtimeBudget N) (finalBuffer N heap s.val.memory) t),
       Executes input tape producerCode cost s t ∧ cost≤producerCost N oldWord.length ∧
-      Word t.val 660 N ∧ Word t.val 709 (bufferHeapEnd N (profileDegree N) heap) := by
+      Word t.val 660 N ∧ Word t.val 709 (bufferHeapEnd N (profileDegree N) heap) ∧
+      (∀j,j<heap→t.val.memory j=s.val.memory j) := by
   obtain ⟨hW,hbank,hn,hpow,hN⟩ := runtimeBudget_parameters N
   obtain ⟨hB,hN',hD'⟩ := producerSize_input_bounds N
   have hbig : 9≤runtimeBudget N := by
@@ -90,7 +91,7 @@ theorem producer_allocated_executes (N heap : ℕ) (hh : heap.bits.length≤prod
     rw [addressValue_bits]
     exact (roundedRawWidth_le (profileGrid N) (producerSize N)).trans hbank
   obtain ⟨_,hgrid,hdegree,hprecision⟩ := producerSize_bounds N
-  obtain ⟨c2,t,result,e2,hc2⟩ := encoded_table_executes N (producerSize N) (runtimeBudget N) hW
+  obtain ⟨c2,t,result,e2,hc2,memory⟩ := encoded_table_executes N (producerSize N) (runtimeBudget N) hW
     (rawBuffer N heap s.val.memory) (finalBuffer N heap s.val.memory) hgrid hdegree hprecision
     ma fit sepA dis mb (by simp only [finalBuffer,memoryTable,addressValue_bits];exact le_rfl)
     sepB hbank hn hpow input tape (profileDegree N).bits origin hn (addressValue_bits _) s1
@@ -99,9 +100,24 @@ theorem producer_allocated_executes (N heap : ℕ) (hh : heap.bits.length≤prod
     simpa [bufferAddressValues_eq,bufferWidthValues_eq,bufferBudgetValues_eq,bufferInput] using bank1 660 (by decide)
   have heap1 : Word s1.val 709 (bufferHeapEnd N (profileDegree N) heap) := by
     simpa [bufferAddressValues_eq] using bank1 709 (by decide)
-  exact ⟨c0+(c1+c2),t,result,e0.seq (e1.seq e2),by unfold producerCost;omega,
+  refine ⟨c0+(c1+c2),t,result,e0.seq (e1.seq e2),by unfold producerCost;omega,
     word_of_eq (e2.protectsTape 660 (List.all_eq_true.mp encodedTableCode_preserves_allocator 660 (by decide))) precision1,
-    word_of_eq (e2.protectsTape 709 (List.all_eq_true.mp encodedTableCode_preserves_allocator 709 (by decide))) heap1⟩
+    word_of_eq (e2.protectsTape 709 (List.all_eq_true.mp encodedTableCode_preserves_allocator 709 (by decide))) heap1,?_⟩
+  intro j hj
+  have aboveRaw : ∀base∈[(rawBuffer N heap s.val.memory).basePositive,
+      (rawBuffer N heap s.val.memory).baseNegative,(rawBuffer N heap s.val.memory).baseDenominator],
+      heap≤addressValue base:=by
+    intro base hb
+    simp only [List.mem_cons,List.not_mem_nil,or_false] at hb
+    rcases hb with rfl|rfl|rfl <;> simp [rawBuffer,memoryTable]
+  have aboveFinal : ∀base∈[(finalBuffer N heap s.val.memory).basePositive,
+      (finalBuffer N heap s.val.memory).baseNegative,(finalBuffer N heap s.val.memory).baseDenominator],
+      heap≤addressValue base:=by
+    intro base hb
+    simp only [List.mem_cons,List.not_mem_nil,or_false] at hb
+    rcases hb with rfl|rfl|rfl <;> simp [finalBuffer,memoryTable,secondBufferBase] <;> omega
+  rw [memory heap (aboveRaw _ (by simp)) (aboveRaw _ (by simp)) (aboveRaw _ (by simp))
+    (aboveFinal _ (by simp)) (aboveFinal _ (by simp)) (aboveFinal _ (by simp)) j hj,f1.memory,f0.memory]
 
 #print axioms producer_allocated_executes
 end Maxwell.Continuum.Profile.Runtime

@@ -9,13 +9,13 @@ set_option maxHeartbeats 3000000
 def emitBound {q : ℕ} (p : Plan q) (round level cursor width base n : ℕ) : ℕ :=
   prepareBound p round level cursor+width+base.bits.length+n.bits.length+16
 
-def emitCode (transpose : Bool) : Code :=
-  .seq decisionCode (.seq (prepareCode transpose) (rowChoice.code transpose false))
+def emitCode (transpose : Bool) (backwards : Bool := false) : Code :=
+  .seq decisionCode (.seq (prepareCode transpose) (rowChoice.code transpose backwards))
 
 def emittedBits {q : ℕ} (p : Plan q) (round : ℕ) (saved : SortArrays.Keys q) (i : Fin (q*q))
-    (level cursor width : ℕ) (transpose : Bool) : List Bool :=
+    (level cursor width : ℕ) (transpose : Bool) (backwards : Bool := false) : List Bool :=
   entryBits width (emissionValues p round saved i level cursor transpose)
-    ((moveShape (RowLayer.movement (SortArrays.arraySelection round saved) (finProdFinEquiv.symm i))).entries transpose false)
+    ((moveShape (RowLayer.movement (SortArrays.arraySelection round saved) (finProdFinEquiv.symm i))).entries transpose backwards)
 
 theorem emit_executes {q : ℕ} (p : Plan q) (round : ℕ) (saved : SortArrays.Keys q)
     (fit : Fits p.width saved) (i : Fin (q*q)) (level cursor width base n : ℕ) (clock : List Bool)
@@ -26,13 +26,14 @@ theorem emit_executes {q : ℕ} (p : Plan q) (round : ℕ) (saved : SortArrays.K
     (bank : NatAssign.Bank ids (seed p round i.val) s.val) (ready : GeometryArray.Ready s.val)
     (privateBlank : Blank s.val 1249) (metadata : GeometrySort.Metadata p s.val)
     (output : OutputMetadata width base clock s.val) (levelWord : Word s.val 1255 level) (cursorWord : Word s.val 1253 cursor)
-    (source : BitArray.Represents s.val.memory p.source p.width (IncidenceEncoding.words p.width saved)) :
-    ∃steps t,Executes input tape (emitCode transpose) steps s t ∧
+    (source : BitArray.Represents s.val.memory p.source p.width (IncidenceEncoding.words p.width saved))
+    (backwards : Bool := false) :
+    ∃steps t,Executes input tape (emitCode transpose backwards) steps s t ∧
       steps ≤ 2^226*(emitBound p round level cursor width base n+3)^2 ∧
       NatAssign.Bank ids (cursorValues (emissionValues p round saved i level cursor transpose)
         (cursor+3*RowLayer.pathLength (SortArrays.arraySelection round saved) (finProdFinEquiv.symm i))) t.val ∧
       GeometryArray.Ready t.val ∧ Blank t.val 1249 ∧ GeometrySort.Metadata p t.val ∧ OutputMetadata width base clock t.val ∧
-      t.val.memory=MemoryWord.writeBits s.val.memory (base+cursor*width) (emittedBits p round saved i level cursor width transpose) ∧
+      t.val.memory=MemoryWord.writeBits s.val.memory (base+cursor*width) (emittedBits p round saved i level cursor width transpose backwards) ∧
       ArchiveFrame wordWork s.val t.val := by
   let B:=emitBound p round level cursor width base n
   let v:=emissionValues p round saved i level cursor transpose
@@ -53,7 +54,7 @@ theorem emit_executes {q : ℕ} (p : Plan q) (round : ℕ) (saved : SortArrays.K
   have bbank' : NatAssign.Bank ids (cursorValues v cursor) b.val := by rw [sameCursor];exact bbank
   have length : (rowChoice.evaluate v).length=RowLayer.pathLength (SortArrays.arraySelection round saved) (finProdFinEquiv.symm i) := by
     rw [emission_choice,moveShape_length]
-  obtain ⟨c2,t,e2,h2,bt,zt,t1249,mt,memt,ft⟩:=rowChoice.executes rowChoice_valid transpose false width base
+  obtain ⟨c2,t,e2,h2,bt,zt,t1249,mt,memt,ft⟩:=rowChoice.executes rowChoice_valid transpose backwards width base
     (2^49*(B+3)) n cursor clock widthPositive clockLength v (by rwa [length])
     (emission_one p round saved i level cursor transpose) (emission_scratch_zero p round saved i level cursor transpose)
     (fun j hj => (emission_width p round saved fit i level cursor transpose j hj).trans

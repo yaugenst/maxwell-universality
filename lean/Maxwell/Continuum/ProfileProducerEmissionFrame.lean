@@ -1,6 +1,6 @@
 import Maxwell.Continuum.ProfileProducerAllocated
-import Maxwell.Continuum.ProgramOutputFootprint
-import Maxwell.Continuum.RationalDataflowProgramFootprint
+import Maxwell.Cost.Structured.OutputFootprint
+import Maxwell.Cost.Structured.TapeSet
 
 /-! Computing a profile neither emits bits nor modifies the later serializer
 cursor tapes; these are finite checks of the literal fixed program. -/

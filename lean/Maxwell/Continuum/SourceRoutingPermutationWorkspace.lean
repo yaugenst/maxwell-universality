@@ -14,14 +14,18 @@ theorem executes_workspace {k n : ℕ} (p : Scatter.Plan k n)
       Stored p.routing ((DummyFill.scatter (DummyFill.pairs p.source p.target)).map Fin.val)
         ((DummyFill.scatter ((DummyFill.pairs p.source p.target).map Prod.swap)).map Fin.val) t.val ∧
       RoutingOutside p.routing s.val t.val ∧ ArchiveFrame work s.val t.val ∧
-      (∀i∈Maxwell.Continuum.RationalDataflow.NaturalQuotient.workPorts,Blank t.val i) := by
+      (∀i∈Maxwell.Continuum.RationalDataflow.NaturalQuotient.workPorts,Blank t.val i) ∧
+      Word t.val 710 p.half := by
   obtain ⟨ca,a,ea,hca,ra,sa,a730,a731,_a779,oa,fa⟩:=Scatter.partial_tables p hsource htarget
     input tape s hs hcount h779
   obtain ⟨cb,t,eb,hcb,rt,mt,st,ft⟩:=completion_executes p.routing p.source p.target hsource htarget
     input tape a ra.ready ra.metadata sa a730 a731
   refine ⟨ca+cb,t,ea.seq eb,Nat.add_le_add hca hcb,rt,mt,st,oa.trans ft.outside,
     (fa.mono Finset.subset_union_left).trans
-      ((ArchiveFrame.of_complete ft.control).mono Finset.subset_union_right),?_⟩
+      ((ArchiveFrame.of_complete ft.control).mono Finset.subset_union_right),?_,?_⟩
+  swap
+  · apply RationalAccumulator.word_of_eq (ft.control.tapes 710 (by decide) (by decide))
+    simpa [Scatter.seed] using ra.bank 710 (by decide)
   intro i hi
   have original : Blank a.val i := by
     have word:=ra.bank i (Finset.mem_union_left _ hi)
@@ -51,7 +55,8 @@ theorem executes_workspace (S : Source.SparseSystem) (p : ℕ) (hm : 2 ≤ S.nnz
         ((DummyFill.scatter ((DummyFill.pairs (source S p) (target S p)).map Prod.swap)).map Fin.val) t.val ∧
       RoutingOutside (Startup.gridLayout (vertices S p) (base S p)) s.val t.val ∧
       ArchiveFrame work s.val t.val ∧
-      (∀i∈Maxwell.Continuum.RationalDataflow.NaturalQuotient.workPorts,RationalAccumulator.Blank t.val i) := by
+      (∀i∈Maxwell.Continuum.RationalDataflow.NaturalQuotient.workPorts,RationalAccumulator.Blank t.val i) ∧
+      RationalAccumulator.Word t.val 710 (half S p) := by
   obtain ⟨ca,a,clock,ea,hca,ra,a142,a779,oa,fa⟩:=initializes S p hm input tape s hs
   obtain ⟨cb,t,eb,hcb,rt,mt,st,ot,ft,zt⟩:=Permutation.executes_workspace (plan S p clock hs.room)
     (source_injective S p) (target_injective S p) input tape a ra a142 a779

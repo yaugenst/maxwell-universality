@@ -82,7 +82,7 @@ theorem selectedProducer_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
         (baseValues (waveGrid (8*Q) N) v) b 0 t,
         state.values 8=waveCacheReal (v 10).value Q N j ∧
         state.values 9=waveCacheImag (v 10).value Q N j ∧ Blank t.val 201 := by
-  obtain ⟨c0,s0,e0,h0,⟨state0⟩,blank0⟩ := producer_executes a Q N W b hm hsep hdisjoint hfit
+  obtain ⟨c0,s0,e0,h0,⟨state0⟩,blank0,_⟩ := producer_executes a Q N W b hm hsep hdisjoint hfit
     v hw hv hq hQ hN hW input tape s hs hp hf hsetup ha hb hpower hpowerCount hinner hsaved
   have index0 := word_of_eq (producer_preserves_tape e0 1048 le_rfl) hindex
   have hjbits : j.bits.length ≤ producerWidth Q N W := by

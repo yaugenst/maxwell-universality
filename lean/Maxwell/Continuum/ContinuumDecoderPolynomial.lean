@@ -1,5 +1,5 @@
 import Maxwell.Continuum.ContinuumDecoderResources
-import Maxwell.Continuum.ContinuumDescription
+import Maxwell.Continuum.ChronologicalDescription
 
 /-! The decoder description and its entire ambient-grid message stream are
 included in the continuum representation and bit-cost estimates. -/
@@ -26,7 +26,7 @@ def decoderCostCoefficient (p : Source.Parameters) : ℝ :=
 variable (p : Source.Parameters) (S : Source.SparseSystem) (hm : 0<S.nnz)
 
 theorem decoder_description_polynomial (hm2 : 2≤S.nnz) (hp : Source.Promises p S) (hb : S.source≠0) :
-    ((FiniteDecoder.description (decoder p S hm)).length : ℝ)≤decoderDescriptionCoefficient p*
+    ((Cost.FiniteDecoder.description (decoder p S hm)).length : ℝ)≤decoderDescriptionCoefficient p*
       (S.nnz : ℝ)^(3/2 : ℝ)*(logSize S : ℝ)^3 := by
   have hℓ : (1 : ℝ)≤logSize S := by exact_mod_cast Parameters.inputLog_pos S.nnz
   have hn : (S.n : ℝ)+1≤(Parameters.sourceRecordCoefficient p+1)*
@@ -39,7 +39,7 @@ theorem decoder_description_polynomial (hm2 : 2≤S.nnz) (hp : Source.Promises p
     (by positivity : 0≤(S.n : ℝ)+1).trans hn
   have hB : (decoderWordCoefficient p : ℝ)*(logSize S : ℝ)+1≤
       (decoderWordCoefficient p+1)*(logSize S : ℝ) := by nlinarith only [hℓ]
-  have hh : ((FiniteDecoder.description (decoder p S hm)).length : ℝ)≤
+  have hh : ((Cost.FiniteDecoder.description (decoder p S hm)).length : ℝ)≤
       32*((S.n : ℝ)+1)*((decoderWordCoefficient p : ℝ)*(logSize S : ℝ)+1) := by
     exact_mod_cast decoder_description_length p S hm hm2 hp hb
   calc
@@ -65,7 +65,7 @@ theorem decoder_messages_polynomial (hm2 : 2≤S.nnz) (hu : IsUnit (Source.realM
     _=_ := by unfold decoderMessageCoefficient; ring
 
 def completeDescriptionBits (j : Fin (drawCount p S hm)) : List Bool :=
-  descriptionBits p S hm j++FiniteDecoder.description (decoder p S hm)
+  chronologicalDescriptionBits p S hm j++Cost.FiniteDecoder.description (decoder p S hm)
 
 def completeDescriptionCoefficient (p : Source.Parameters) : ℝ :=
   descriptionBitCoefficient p+decoderDescriptionCoefficient p
@@ -83,11 +83,11 @@ theorem completeDescriptionBits_polynomial (hm2 : 2≤S.nnz) (hp : Source.Promis
     (mul_le_mul_of_nonneg_left (pow_le_pow_right₀ hℓ (by decide : 3≤64))
       (mul_nonneg hC (Real.rpow_nonneg (Nat.cast_nonneg _) _)))
   have hh := add_le_add (descriptionBits_polynomial p S hm hm2 hp hb j) hd
-  simp only [completeDescriptionBits,List.length_append,Nat.cast_add]
+  simp only [completeDescriptionBits,List.length_append,chronologicalDescriptionBits_length,Nat.cast_add]
   exact hh.trans_eq (by unfold completeDescriptionCoefficient;ring)
 
 theorem decoder_cost_polynomial (hm2 : 2≤S.nnz) (hp : Source.Promises p S) (hb : S.source≠0) :
-    (FiniteDecoder.costCap (decoder p S hm) : ℝ)≤decoderCostCoefficient p*
+    (Cost.FiniteDecoder.costCap (decoder p S hm) : ℝ)≤decoderCostCoefficient p*
       (S.nnz : ℝ)^(3/2 : ℝ)*(logSize S : ℝ)^27 := by
   have hℓ : (1 : ℝ)≤logSize S := by exact_mod_cast Parameters.inputLog_pos S.nnz
   have hmp : (1 : ℝ)≤(S.nnz : ℝ)^(3/2 : ℝ) :=
@@ -101,7 +101,7 @@ theorem decoder_cost_polynomial (hm2 : 2≤S.nnz) (hp : Source.Promises p S) (hb
       (mul_nonneg hC (Real.rpow_nonneg (Nat.cast_nonneg _) _)))
   have hmsgs := decoder_messages_polynomial p S hm hm2 hp.1
   have h1 := one_le_mul_of_one_le_of_one_le hmp (one_le_pow₀ hℓ (n := 25))
-  have hsum : ((FiniteDecoder.description (decoder p S hm)).length : ℝ)+
+  have hsum : ((Cost.FiniteDecoder.description (decoder p S hm)).length : ℝ)+
       (gridCount p S hm : ℝ)*(decoder p S hm).format.width+1≤
       (decoderDescriptionCoefficient p+decoderMessageCoefficient p+1)*
         (S.nnz : ℝ)^(3/2 : ℝ)*(logSize S : ℝ)^25 := by
@@ -110,12 +110,12 @@ theorem decoder_cost_polynomial (hm2 : 2≤S.nnz) (hp : Source.Promises p S) (hb
     exact h.trans_eq (by ring)
   have hsum0 : 0≤(decoderDescriptionCoefficient p+decoderMessageCoefficient p+1)*
       (S.nnz : ℝ)^(3/2 : ℝ)*(logSize S : ℝ)^25 :=
-    (by positivity : 0≤((FiniteDecoder.description (decoder p S hm)).length : ℝ)+
+    (by positivity : 0≤((Cost.FiniteDecoder.description (decoder p S hm)).length : ℝ)+
       (gridCount p S hm : ℝ)*(decoder p S hm).format.width+1).trans hsum
   have hB : (decoderWordCoefficient p : ℝ)*(logSize S : ℝ)+1≤
       (decoderWordCoefficient p+1)*(logSize S : ℝ) := by nlinarith only [hℓ]
-  have hc : (FiniteDecoder.costCap (decoder p S hm) : ℝ)≤
-      46080000*(((FiniteDecoder.description (decoder p S hm)).length : ℝ)+
+  have hc : (Cost.FiniteDecoder.costCap (decoder p S hm) : ℝ)≤
+      46080000*(((Cost.FiniteDecoder.description (decoder p S hm)).length : ℝ)+
         (gridCount p S hm : ℝ)*(decoder p S hm).format.width+1)*
         ((decoderWordCoefficient p : ℝ)*(logSize S : ℝ)+1)^2 := by
     exact_mod_cast decoder_cost p S hm hm2 hp hb

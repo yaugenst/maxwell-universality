@@ -1,4 +1,4 @@
-import Maxwell.Continuum.RationalSquareRootMachine
+import Maxwell.Continuum.RationalSquareRootOutputBank
 import Maxwell.Continuum.RationalCanonicalNaturalBank
 
 /-! Square-root evaluation from an unreduced stored fraction. The GCD
@@ -22,6 +22,23 @@ def loadPlan : List NatAssign.Instruction := [.copy 230 542,.copy 231 543]
 def code : Code := .seq RationalCanonicalBank.code
   (.seq (NatAssign.code loadPlan) RationalRoot.code)
 def costBound (N W : ℕ) : ℕ := 2^110*(N+W+10)^7
+
+def outputValues (a b N : ℕ) (i : ℕ) : ℕ :=
+  if i∈RationalRoot.ids then
+    RationalRoot.outputValues (a/Nat.gcd a b) (b/Nat.gcd a b) N i
+  else RationalCanonicalBank.outputValues a b i
+
+theorem output_width (a b N W : ℕ) (ha : a.bits.length≤W) (hb : b.bits.length≤W)
+    (hN : N.bits.length≤W) (i : ℕ) :
+    (outputValues a b N i).bits.length≤RationalRoot.outputWidth N W := by
+  have smaller (x d : ℕ) : (x/d).bits.length≤x.bits.length := by
+    rw [Nat.size_eq_bits_len,Nat.size_eq_bits_len]
+    exact Nat.size_le_size (Nat.div_le_self x d)
+  unfold outputValues
+  split_ifs
+  · exact RationalRoot.output_width _ _ N W ((smaller _ _).trans ha) ((smaller _ _).trans hb) hN i
+  · exact (RationalCanonicalBank.output_width a b W ha hb i).trans
+      (by unfold RationalRoot.outputWidth; omega)
 
 theorem ids_ge : ∀ i∈ids, 4 ≤ i := by
   intro i hi
@@ -70,7 +87,8 @@ theorem executes (a b N W : ℕ) (hb : 0<b) (haW : a.bits.length≤W) (hbW : b.b
       denominator.bits.length≤W+2*N+1 ∧
       NatAssign.Bank NaturalRoot.fullIds
         (NaturalRoot.doneValues (radicand (a/Nat.gcd a b) (b/Nat.gcd a b) N)) t.val ∧
-      NatAssign.Scratch t.val ∧ BinaryPrecision.Frame changed s.val t.val := by
+      NatAssign.Scratch t.val ∧ BinaryPrecision.Frame changed s.val t.val ∧
+      NatAssign.Bank ids (outputValues a b N) t.val := by
   have cb : NatAssign.Bank RationalCanonicalBank.ids (RationalCanonicalBank.inputValues a b) s.val := by
     intro i hi
     have h544 : i≠544 := by
@@ -107,13 +125,37 @@ theorem executes (a b N W : ℕ) (hb : 0<b) (haW : a.bits.length≤W) (hbW : b.b
     simpa only [loaded_root_values a b N i hi] using b1 i (Finset.mem_union_left _ hi)
   have canonwidth := RationalCanonical.canonical_width a b W
     (by simpa only [Nat.size_eq_bits_len] using haW) (by simpa only [Nat.size_eq_bits_len] using hbW)
-  obtain ⟨c2,t,e2,hc2,num,den,_,_,_,rootBankOut,z2,f2⟩ := RationalRoot.executes
+  obtain ⟨c2,t,e2,hc2,b2,z2,f2⟩ := RationalRoot.executes_bank
     (a/Nat.gcd a b) (b/Nat.gcd a b) N W
       (by simpa only [Nat.size_eq_bits_len] using canonwidth.1)
       (by simpa only [Nat.size_eq_bits_len] using canonwidth.2) hN input tape v rootBank z1
+  have num : Word t.val 32 (Nat.sqrt (radicand (a/Nat.gcd a b) (b/Nat.gcd a b) N)) := by
+    simpa [RationalRoot.outputValues,show 32∈NaturalRoot.fullIds by decide,
+      NaturalRoot.doneValues,DyadicSqrt.bank] using b2 32 (by decide)
+  have den : Word t.val 548 ((b/Nat.gcd a b)*2^N) := by
+    simpa [RationalRoot.outputValues,show 548∉NaturalRoot.fullIds by decide] using b2 548 (by decide)
+  have rootBankOut : NatAssign.Bank NaturalRoot.fullIds
+      (NaturalRoot.doneValues (radicand (a/Nat.gcd a b) (b/Nat.gcd a b) N)) t.val := by
+    intro i hi
+    simpa only [RationalRoot.outputValues,ite_eq_left hi] using b2 i (Finset.mem_union_left _ hi)
+  have finalBank : NatAssign.Bank ids (outputValues a b N) t.val := by
+    intro i hi
+    by_cases hr : i∈RationalRoot.ids
+    · simpa only [outputValues,ite_eq_left hr] using b2 i hr
+    · have hc : i∈RationalCanonicalBank.ids := (Finset.mem_union.mp hi).resolve_left hr
+      have keep : i∉RationalRoot.changed := by
+        simp only [RationalCanonicalBank.ids,Finset.mem_insert,Finset.mem_singleton] at hc
+        rcases hc with rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl <;> decide
+      have neq : i≠542 ∧ i≠543 ∧ i≠544 := by
+        simp only [RationalCanonicalBank.ids,Finset.mem_insert,Finset.mem_singleton] at hc
+        omega
+      simpa only [outputValues,ite_eq_right hr,loadPlan,NatAssign.values,NatAssign.Instruction.update,
+        NatAssign.Instruction.value,NatAssign.Instruction.target,Function.update_of_ne neq.1,
+        Function.update_of_ne neq.2.1,canonicalValues,ite_eq_right neq.2.2]
+        using RationalAccumulator.word_of_eq (f2.tapes i keep) (b1 i hi)
   refine ⟨c0+(c1+c2),t,Nat.sqrt (radicand (a/Nat.gcd a b) (b/Nat.gcd a b) N),
     (b/Nat.gcd a b)*2^N,e0.seq (e1.seq e2),?_,num,den,?_,?_,?_,rootBankOut,z2,
-      (f0.mono (by decide)).trans ((f1.mono (by decide)).trans (f2.mono (by decide)))⟩
+      (f0.mono (by decide)).trans ((f1.mono (by decide)).trans (f2.mono (by decide))),finalBank⟩
   · apply (Nat.add_le_add hc0 (Nat.add_le_add cost1 hc2)).trans
     unfold RationalCanonicalBank.costBound RationalRoot.costBound costBound
     ring_nf

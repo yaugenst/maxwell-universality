@@ -1,11 +1,11 @@
-import Maxwell.Continuum.OutputCaptureRetained
+import Maxwell.Cost.OutputCapture.Retained
 import Maxwell.Continuum.DyadicFloorData
 
 /-! The capture compiler's exact frame transports ordinary stored-word and
 arithmetic-bank contracts, including the caller's retained site count. -/
-namespace Maxwell.Continuum.OutputCapture
+namespace Maxwell.Cost.OutputCapture
 open Maxwell.Cost Maxwell.Cost.Structured Maxwell.Cost.RationalAccumulator
-open RationalDataflow
+open Maxwell.Continuum RationalDataflow
 
 theorem Frame.tapes {archive : ℕ} {s t : Store} (h : Frame archive s t)
     (i : ℕ) (hi : i≠archive) : t.val.tapes i=s.val.tapes i := h.2.2.2.2 i hi
@@ -46,4 +46,4 @@ theorem Frame.floor_clean {archive : ℕ} {s t : Store} (h : Frame archive s t)
   simp only [Finset.mem_union] at hi ⊢
   tauto
 
-end Maxwell.Continuum.OutputCapture
+end Maxwell.Cost.OutputCapture

@@ -16,7 +16,7 @@ theorem tensorComponent_compiled_run {n B Q N W : ℕ} (d : TensorInput n B Q N 
         (tensorTimeCoefficient*(n+1)^3*(Q+N+W+64)^243+1) s.val).finished=
           some (t.place tensorComponentCode.size) ∧
       t.val.output=d.componentPayload.reverse++s.val.output := by
-  obtain ⟨c,t,next,e,hc,buffers,out⟩ := tensorComponent_executes d input tape s h hb
+  obtain ⟨c,t,next,e,hc,buffers,out,_⟩ := tensorComponent_executes d input tape s h hb
   have hcost := hc.trans (tensorTraversalCost_polynomial Q N n W)
   obtain ⟨run,_⟩ := e.compiled_run (tensorTimeCoefficient*(n+1)^3*(Q+N+W+64)^243+1) (by omega)
   exact ⟨t,⟨next⟩,buffers,run,out⟩
@@ -30,7 +30,7 @@ theorem tensorComponent_compiled_run_polylog {n B Q N W : ℕ} (d : TensorInput 
         ((tensorTimeCoefficient*C^246)*ell^4096+1) s.val).finished=
           some (t.place tensorComponentCode.size) ∧
       t.val.output=d.componentPayload.reverse++s.val.output := by
-  obtain ⟨c,t,next,e,hc,buffers,out⟩ := tensorComponent_executes d input tape s h hb
+  obtain ⟨c,t,next,e,hc,buffers,out,_⟩ := tensorComponent_executes d input tape s h hb
   have hcost := hc.trans (tensorTraversalCost_source_exponent Q N n W C ell hell hX hn)
   obtain ⟨run,_⟩ := e.compiled_run ((tensorTimeCoefficient*C^246)*ell^4096+1) (by omega)
   exact ⟨t,⟨next⟩,buffers,run,out⟩

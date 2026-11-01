@@ -1,5 +1,5 @@
 import Maxwell.Continuum.SourceRoutingGeometryDivisionBounds
-import Maxwell.Continuum.SourceRoutingPhaseKeys
+import Maxwell.Logical.Routing.PhaseKeys
 
 /-! One source port determines all three initial sorting-key writes through
 three bounded natural divisions and a fixed arithmetic suffix. -/

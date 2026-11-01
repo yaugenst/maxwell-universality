@@ -57,6 +57,9 @@ theorem setup_executes {n : ℕ} (a b : PartArray.Table (tableSize n))
       cost≤setupCost B (addressValue a.width) ∧
       (initialSnapshot a b heap D hw s.val.memory).Ready n.bits B t.val ∧
       RationalAccumulator.Word t.val 140 N ∧ RationalAccumulator.Word t.val 304 N ∧
+      NatAssign.Bank Descriptors.retainedIds (NatAssign.values Descriptors.plan v) t.val ∧
+      (∀k∈Descriptors.retainedIds,(NatAssign.values Descriptors.plan v k).bits.length ≤ Descriptors.retainedWidth B) ∧
+      BankArray.Word t.val 205 a.clock ∧
       t.val.memory=s.val.memory := by
   have scratch : NatAssign.Scratch s.val := by
     intro i hi
@@ -65,7 +68,7 @@ theorem setup_executes {n : ℕ} (a b : PartArray.Table (tableSize n))
     · exact ha.scratch.2.1
     · exact ha.scratch.2.2.1
     · exact ha.scratch.2.2.2.1
-  obtain ⟨cost,u,eu,hcost,hu,hs,fu⟩ := Descriptors.executes v n (addressValue a.width)
+  obtain ⟨cost,u,eu,hcost,hu,retained,retainedWidth,hs,fu⟩ := Descriptors.executes v n (addressValue a.width)
     heap D N B hB hi hbits input tape s hbank scratch
   have keep (i : ℕ) (hi : i∈([5,6,7,8,9,37,101,205]:List ℕ)) : u.val.tapes i=s.val.tapes i := by
     apply fu.tapes
@@ -99,10 +102,16 @@ theorem setup_executes {n : ℕ} (a b : PartArray.Table (tableSize n))
   have hr := initial_ready (B := B) a b heap hw t.val hl hheader hclock hz h7 h37
     (by simpa only [hm] using ha.positive) (by simpa only [hm] using ha.negative)
     (by simpa only [hm] using hb.positive) (by simpa only [hm] using hb.negative)
-  refine ⟨cost+(6*([].length)+15*a.clock.length+21),t,eu.seq et,?_,?_,hheader.iterations,count304,hm⟩
+  refine ⟨cost+(6*([].length)+15*a.clock.length+21),t,eu.seq et,?_,?_,hheader.iterations,count304,?_,retainedWidth,BankArray.word_of_eq (htapes 205 (by decide)) clock,hm⟩
   · simp only [List.length_nil,Nat.mul_zero,Nat.zero_add,a.clock_length,setupCost]
     omega
   · simpa only [hm] using hr
+  · intro k hk
+    have ne : k≠101 := by
+      simp only [Descriptors.retainedIds,Finset.mem_union,Finset.mem_Icc,
+        Finset.mem_insert,Finset.mem_singleton] at hk
+      omega
+    exact RationalAccumulator.word_of_eq (htapes k ne) (retained k hk)
 
 #print axioms setup_executes
 

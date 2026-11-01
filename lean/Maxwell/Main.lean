@@ -1,4 +1,4 @@
-import Maxwell.Source
+import Maxwell.Source.Size
 import Maxwell.Target
 import Maxwell.TargetAccess
 import Maxwell.Codec
@@ -39,7 +39,7 @@ structure Constants where
 
 /-- `max 2 m` makes the counted finite base cases explicit. It equals `m`
 throughout the probabilistic large-input statement. -/
-def effectiveSize (S : Source.SparseSystem) : ℕ := max 2 S.nnz
+def effectiveSize (S : Source.SparseSystem) : ℕ := S.effectiveSize
 
 noncomputable def sizeBudget (C : Constants) (S : Source.SparseSystem) : ℝ :=
   C.overhead * (effectiveSize S : ℝ) ^ (3 / 2 : ℝ) *

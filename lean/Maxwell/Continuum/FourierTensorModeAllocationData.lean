@@ -1,6 +1,6 @@
 import Maxwell.Continuum.FourierTensorModeTableCorrect
 import Maxwell.Continuum.ProfileCacheAllocation
-import Maxwell.Continuum.StoredWordLength
+import Maxwell.Cost.Structured.NatAssign.StoredLength
 
 /-! Actual row-buffer dimensions are computed from stored mode parameters.
 The slot width uses scanned input lengths; the heap lies beyond every

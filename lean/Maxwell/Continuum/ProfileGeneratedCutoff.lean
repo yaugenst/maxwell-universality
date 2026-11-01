@@ -38,7 +38,7 @@ theorem generatedCutoff_executes (N heap : ℕ) (hh : heap.bits.length≤produce
         (cacheNaturalValues (profileDegree N) (cacheSourceWidth N) (cacheSourceHeap N heap)) t.val ∧
       Word t.val 709 (cacheSourceHeap N heap) ∧
       result.heapEnd=Calibration.RawCutoff.cacheEndBase (profileDegree N) (cacheSourceWidth N) (cacheSourceHeap N heap) := by
-  obtain ⟨c0,s0,r,e0,hc0,N0,heap0⟩ := producer_allocated_executes N heap hh v hv saved hsv
+  obtain ⟨c0,s0,r,e0,hc0,N0,heap0,_⟩ := producer_allocated_executes N heap hh v hv saved hsv
     input tape inner oldWord hlen s hd hb hz hr hs hinner hcount hp hg hf harray h7 h37 h205 h215 h216
   have clean0 (i : ℕ) (hi : i∈cacheFreshPorts) : Blank s0.val i :=
     blank_of_eq (e0.protectsSet cacheFreshPorts producer_protects_cache i hi) (hcache i hi)

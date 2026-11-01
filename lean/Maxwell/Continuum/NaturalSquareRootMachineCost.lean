@@ -8,6 +8,22 @@ open Maxwell.Cost Maxwell.Cost.Structured
 open RationalAccumulator (Word)
 set_option maxHeartbeats 2500000
 
+theorem done_width (T i : ℕ) : (doneValues T i).bits.length≤4*T.bits.length+4 := by
+  have h4 := SelectedParameters.Geometric.power_bits 4 T.bits.length
+  change (4^T.bits.length).bits.length≤T.bits.length*3+1 at h4
+  have h2 := SelectedParameters.Geometric.power_bits 2 T.bits.length
+  change (2^T.bits.length).bits.length≤T.bits.length*2+1 at h2
+  have hm := RationalAccumulator.bits_mul_le T (4^T.bits.length)
+  have hs : (Nat.sqrt T).bits.length≤T.bits.length := by
+    rw [Nat.size_eq_bits_len,Nat.size_eq_bits_len]
+    exact Nat.size_le_size (Nat.sqrt_le_self T)
+  have hk := length_width T
+  have hfour : (4:ℕ).bits.length=3 := rfl
+  have hone : (1:ℕ).bits.length=1 := rfl
+  have hzero : (0:ℕ).bits.length=0 := rfl
+  simp only [doneValues,DyadicSqrt.bank,powerValues]
+  split_ifs <;> omega
+
 theorem loopCost_polynomial (T : ℕ) :
     DyadicSqrt.loopBudget T (4^T.bits.length) T.bits.length≤
       (T.bits.length+1)*(14000000000*(6*T.bits.length+6)^2+250*(T.bits.length+5)) := by

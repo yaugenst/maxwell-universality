@@ -1,6 +1,6 @@
 import Maxwell.Continuum.ProfileBufferLayout
 import Maxwell.Continuum.CalibrationWidthClock
-import Maxwell.Continuum.WordCleanup
+import Maxwell.Cost.Structured.WordCleanup
 import Maxwell.Continuum.NatAssignOutputWidth
 
 /-! Fixed metadata arithmetic for the normalized rational coordinate table.

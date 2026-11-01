@@ -46,7 +46,7 @@ theorem factor_output_width (n D K P B T den : ℕ)
     (hden : den.bits.length≤2*normalizationWidth n K P B+2*P+3)
     (hD : (D^(K+1)).bits.length≤normalizationWidth n K P B) (i : ℕ) :
     (Factor.outputValues T den (D^(K+1)) i).bits.length≤outputWidth n K P B := by
-  have hdone := Factor.done_width T i
+  have hdone := NaturalRoot.done_width T i
   have hsqrt : (Nat.sqrt T).bits.length≤T.bits.length := by
     rw [Nat.size_eq_bits_len,Nat.size_eq_bits_len]
     exact Nat.size_le_size (Nat.sqrt_le_self T)

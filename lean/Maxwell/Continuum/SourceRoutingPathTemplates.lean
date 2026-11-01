@@ -12,6 +12,8 @@ inductive Shape where
   | swap (strand : Bool)
   | bottom (part : Bool) (arm : Fin 3)
   | top
+  | endpoint
+  | vertex (part : Bool)
   deriving DecidableEq
 
 def Shape.length : Shape→ℕ
@@ -19,12 +21,15 @@ def Shape.length : Shape→ℕ
   | .swap _ => 40
   | .bottom part arm => Terminals.correctedArmLength part arm
   | .top => 48
+  | .endpoint | .vertex _ => 1
 
 def Shape.point : (shape : Shape)→Fin shape.length→Point
   | .idle,t => (0,0,t.val)
   | .swap strand,t => RowLayer.swapSample strand t.val
   | .bottom part arm,t => Terminals.correctedArmPoint part arm t.val
   | .top,t => Terminals.topPoint t.val
+  | .endpoint,_ => (0,0,0)
+  | .vertex part,_ => (0,0,-(bottomDepth part : ℤ))
 
 theorem Shape.length_bound (shape : Shape) : shape.length ≤ 64 := by
   cases shape with
@@ -32,6 +37,8 @@ theorem Shape.length_bound (shape : Shape) : shape.length ≤ 64 := by
   | swap strand => change 40 ≤ 64;decide
   | bottom part arm => cases part <;> fin_cases arm <;> decide
   | top => decide
+  | endpoint => decide
+  | vertex part => cases part <;> decide
 
 theorem Shape.shifted_bounds (shape : Shape) :
     ∀t : Fin shape.length,
@@ -43,6 +50,8 @@ theorem Shape.shifted_bounds (shape : Shape) :
   | swap strand => cases strand <;> decide
   | bottom part arm => cases part <;> fin_cases arm <;> decide
   | top => decide
+  | endpoint => decide
+  | vertex part => cases part <;> decide
 
 def Shape.words (shape : Shape) : List ℕ :=
   (List.finRange shape.length).flatMap (fun t => pointWords (shape.point t))

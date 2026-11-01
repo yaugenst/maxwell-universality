@@ -13,6 +13,9 @@ attribute [local irreducible] profileDegree profileWorkBits profileGrid runtimeB
 
 def generatedBitsCode : Code := .seq producerCode emitTableCode
 
+theorem emitTable_preserves_heap : emitTableCode.protectsTape 709=true := by decide
+theorem emitTable_preserves_memory : emitTableCode.protectsMemory=true := by decide
+
 theorem generatedBits_executes (N heap : ℕ) (hh : heap.bits.length≤producerSize N)
     (v : ℕ→Parts) (hv : WidthBank dftRegisters (roundedWidth (profileGrid N) (producerSize N)) v)
     (saved : Parts) (hsv : saved.Width (roundedWidth (profileGrid N) (producerSize N)))
@@ -34,8 +37,10 @@ theorem generatedBits_executes (N heap : ℕ) (hh : heap.bits.length≤producerS
       WidthBank StoredInteger.slots (StoredDyadic.registerWidth (profileWorkBits N)
         (encodedTableWidth (profileDegree N) (runtimeBudget N))) values ∧
       Word t.val 144 (2^profileWorkBits N) ∧ DyadicFloor.Clean t.val ∧
-      (∀i∈({201,726,727,728}:Finset ℕ),Blank t.val i) := by
-  obtain ⟨c0,s0,result,e0,hc0,_,_⟩ := producer_allocated_executes N heap hh v hv saved hsv input tape
+      (∀i∈({201,726,727,728}:Finset ℕ),Blank t.val i) ∧
+      Word t.val 709 (bufferHeapEnd N (profileDegree N) heap) ∧
+      (∀j,j<heap→t.val.memory j=s.val.memory j) := by
+  obtain ⟨c0,s0,result,e0,hc0,_,heap0,memory⟩ := producer_allocated_executes N heap hh v hv saved hsv input tape
     inner oldWord hlen s hd hb hz hr hs hinner hcount hp hg hf harray h7 h37 h205 h215 h216
   have hm : (finalBuffer N heap s.val.memory).MetadataWidth
       (encodedTableWidth (profileDegree N) (runtimeBudget N)) := (allocated_metadata N heap hh s.val.memory).2
@@ -52,7 +57,9 @@ theorem generatedBits_executes (N heap : ℕ) (hh : heap.bits.length≤producerS
   obtain ⟨c1,t,values,e1,hc1,r1,w1,_,out1,p1,z1,blanks1⟩ := result.emit_executes hm hn hP input tape
     (serial0 726 (by decide)) (serial0 727 (by decide)) (serial0 728 (by decide))
   exact ⟨c0+c1,t,values,e0.seq e1,by unfold producerEmitCost;omega,
-    by simpa only [e0.protectsOutput producer_preserves_output] using out1,r1,w1,p1,z1,blanks1⟩
+    by simpa only [e0.protectsOutput producer_preserves_output] using out1,r1,w1,p1,z1,blanks1,
+    word_of_eq (e1.protectsTape 709 emitTable_preserves_heap) heap0,
+    fun j hj=>by rw [e1.protectsMemory emitTable_preserves_memory];exact memory j hj⟩
 
 theorem generatedBits_compiled_run (N heap : ℕ) (hh : heap.bits.length≤producerSize N)
     (v : ℕ→Parts) (hv : WidthBank dftRegisters (roundedWidth (profileGrid N) (producerSize N)) v)
@@ -78,7 +85,9 @@ theorem generatedBits_compiled_run (N heap : ℕ) (hh : heap.bits.length≤produ
       WidthBank StoredInteger.slots (StoredDyadic.registerWidth (profileWorkBits N)
         (encodedTableWidth (profileDegree N) (runtimeBudget N))) values ∧
       Word t.val 144 (2^profileWorkBits N) ∧ DyadicFloor.Clean t.val ∧
-      (∀i∈({201,726,727,728}:Finset ℕ),Blank t.val i) := by
+      (∀i∈({201,726,727,728}:Finset ℕ),Blank t.val i) ∧
+      Word t.val 709 (bufferHeapEnd N (profileDegree N) heap) ∧
+      (∀j,j<heap→t.val.memory j=s.val.memory j) := by
   obtain ⟨cost,t,values,ex,hc,rest⟩ := generatedBits_executes N heap hh v hv saved hsv input tape
     inner oldWord hlen s hd hb hz hr hs hinner hcount hp hg hf harray h7 h37 h205 h215 h216 hserial
   obtain ⟨run,steps⟩ := ex.compiled_run (producerEmitCost N oldWord.length+1) (by omega)

@@ -93,7 +93,7 @@ import Maxwell.Continuum.ParameterVolume
 import Maxwell.Continuum.ParameterRecords
 import Maxwell.Continuum.ParameterProfileResources
 import Maxwell.Continuum.ParameterSourceRegularity
-import Maxwell.Continuum.ParameterPowerCost
+import Maxwell.Cost.SelectedParameters.DynamicPowerCost
 import Maxwell.Continuum.ParameterSourceWords
 import Maxwell.Continuum.ParameterIterations
 import Maxwell.Continuum.ParameterSourceRegularityCoarse
@@ -107,7 +107,7 @@ import Maxwell.Continuum.ContinuumDescription
 import Maxwell.Continuum.ContinuumRawReportWords
 import Maxwell.Continuum.ContinuumGridReports
 import Maxwell.Continuum.ContinuumFairDetuning
-import Maxwell.Continuum.FiniteDecoderCost
+import Maxwell.Cost.FiniteDecoder.Cost
 import Maxwell.Continuum.ContinuumDecoder
 import Maxwell.Continuum.ContinuumBaseCases
 import Maxwell.Continuum.CalibrationSupercellRealization

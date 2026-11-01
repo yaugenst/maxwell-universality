@@ -77,11 +77,11 @@ theorem frontendPrice_bound (p : Source.Parameters) (S : Source.SparseSystem)
     change 21*S.n.bits.length+16+21*m.bits.length+16+
       ((m+1)*(13*m.bits.length+15)+m*(130000*(sourceWidth p S P+2)^2)) ≤ _
     nlinarith only [hread, hcounter', hbody, ha, hma, hm1a]
-  change MagnitudeMax.Both.price S B+SourceMetadata.costBound m B k c+
+  change MagnitudeMax.Both.price S B+13+SourceMetadata.costBound m B k c+
       SourceReplay.price (Codec.sourceRecord S)+
       matrixPassPrice S.n (Codec.sourceRecord S).entries (sourceWidth p S P) ≤ _
   change _ ≤ 2000000*(N+m+1)*A
-  nlinarith only [hfront', hmeta, hrep, hmatrix]
+  nlinarith only [hfront', hmeta, hrep, hmatrix,hA,Nat.zero_le (N+m)]
 
 /-- The complete normalization execution, including every RHS coordinate,
 is linear in the canonical input bytes and sparse entry count up to the

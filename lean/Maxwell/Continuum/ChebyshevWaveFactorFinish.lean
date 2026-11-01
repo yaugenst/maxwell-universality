@@ -18,7 +18,7 @@ theorem factorFinish_executes {n D : ℕ} (a : Table n) (b : Table (2*D))
     (hsv : ∀i∈savedPorts,Blank s.val i) :
     ∃cost t,Executes input tape (factorFinishCode target) cost s t ∧
       cost ≤ factorFinishCost Q N W B ∧ FactorReady a Q N b (factorValues target v) t ∧
-      t.val.tapes 1048=s.val.tapes 1048 := by
+      t.val.tapes 1048=s.val.tapes 1048 ∧ t.val.memory=s.val.memory := by
   have ht0 : target∈tensorBank := by simp [tensorBank,Finset.mem_Ico];omega
   have ht1 : target+1∈tensorBank := by simp [tensorBank,Finset.mem_Ico];omega
   obtain ⟨c0,s0,e0,h0,r0,w0,f0⟩ := partsCopy_executes tensorBank 8 target (by decide) ht0 (by omega)
@@ -55,7 +55,7 @@ theorem factorFinish_executes {n D : ℕ} (a : Table n) (b : Table (2*D))
     ⟨tensor_setup_ready_frame r2 f3 z3,setup_phase_frame phase2 f3,setup_floor_frame floor2 f3,
       b3,setup_table_frame source2 f3 z3,setup_output_frame output2 f3 z3,p3,count3,
       blank_of_eq (f3.tapes 680 (by decide)) inner2,?_⟩,
-    (f3.tapes 1048 (by decide)).trans (fa.tapes 1048 (by decide))⟩
+    (f3.tapes 1048 (by decide)).trans (fa.tapes 1048 (by decide)),f3.memory.trans fa.memory⟩
   · have h2' : c2 ≤ 12*operationCost (B+1)+1 := by simpa only [show cacheResetInstructions.length=12 by rfl] using h2
     unfold factorFinishCost
     omega

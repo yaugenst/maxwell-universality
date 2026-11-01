@@ -93,7 +93,7 @@ theorem forcingRow_executes {T : ℕ} (R : ℕ) (a : PartArray.Table (aliasArray
     rw [hvalue]
     simp [forcingWritePlan]
     omega
-  obtain ⟨c2,t,e2,hc2,ready2,a2,b2,z2,f2⟩ := PartArray.rowWritePlan_executes a b RawFree.neighborRegisters
+  obtain ⟨c2,t,e2,hc2,ready2,a2,b2,z2,f2,_⟩ := PartArray.rowWritePlan_executes a b RawFree.neighborRegisters
     3 2 (max B W) forcingWritePlan writeValid writeOffset (hbMeta.mono (le_max_right B W))
     (forcingRowParts R a row.val v) writeFit positive hsep hdisjoint input tape word
     (hlen.trans (le_max_left B W)) writeIndex u1 ready1 a1 b1

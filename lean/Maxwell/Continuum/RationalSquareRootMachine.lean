@@ -22,7 +22,7 @@ theorem total_cost (A D N W : ℕ) (hA : A.bits.length≤W) (hD : D.bits.length�
     apply hroot.trans
     exact Nat.mul_le_mul_left _ (by simpa only [Nat.add_assoc] using hpow)
   apply (Nat.add_le_add_left bound _).trans
-  unfold prepareCost Parameters.PowerMachine.costBound Parameters.PowerMachine.bodyCost
+  unfold prepareCost SelectedParameters.PowerMachine.costBound SelectedParameters.PowerMachine.bodyCost
     SelectedParameters.DynamicPower.width costBound
   ring_nf
   omega

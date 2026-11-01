@@ -1,5 +1,5 @@
 import Maxwell.Continuum.ProfileCacheInput
-import Maxwell.Continuum.RationalDataflowProgramFootprint
+import Maxwell.Cost.Structured.TapeSet
 
 /-! The generated profile leaves the later cache metadata untouched and
 returns the index scratch empty as part of its proved division-bank contract. -/

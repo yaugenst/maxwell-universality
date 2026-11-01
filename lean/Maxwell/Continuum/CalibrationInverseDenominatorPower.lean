@@ -1,4 +1,4 @@
-import Maxwell.Continuum.ParameterPowerMachine
+import Maxwell.Cost.SelectedParameters.DynamicPowerMachine
 import Maxwell.Continuum.NatAssignOutputWidth
 import Maxwell.Continuum.CalibrationNeumannStep
 
@@ -18,10 +18,10 @@ def ids : Finset ℕ := {126,304,530,531,532,533,534}
 def changed : Finset ℕ := {0,1,2,3,530,531,532,533,534}
 def plan : List NatAssign.Instruction :=
   [.copy 126 530,.literal 531 1,.copy 304 534,.add 531 534]
-def code : Code := .seq (NatAssign.code plan) Parameters.PowerMachine.code
+def code : Code := .seq (NatAssign.code plan) SelectedParameters.PowerMachine.code
 def preparedWidth (B : ℕ) : ℕ := 16*(B+1)
 def costBound (N B : ℕ) : ℕ :=
-  3000*8^4*(B+2)^2+Parameters.PowerMachine.costBound (N+1) (preparedWidth B)
+  3000*8^4*(B+2)^2+SelectedParameters.PowerMachine.costBound (N+1) (preparedWidth B)
 
 theorem valid : ∀ a∈plan, a.Valid ids := by
   simp [plan,NatAssign.Instruction.Valid,ids]
@@ -67,7 +67,7 @@ theorem executes (v : ℕ → ℕ) (B : ℕ) (hB : 1≤B)
     simpa only [(plan_values v).2.2] using bank0 534 (by decide)
   have countWidth : (v 304+1).bits.length≤preparedWidth B := by
     simpa only [(plan_values v).2.2] using widths 534 (by decide)
-  obtain ⟨c1,t,e1,hc1,ready,blank,frame⟩ := Parameters.PowerMachine.executes
+  obtain ⟨c1,t,e1,hc1,ready,blank,frame⟩ := SelectedParameters.PowerMachine.executes
     (NatAssign.values plan v) (v 304+1) (preparedWidth B) (by unfold preparedWidth; omega)
       smallWidths countWidth input tape u bank zero0 count
   have power : Word t.val 532 ((v 126)^(v 304+1)) := by
@@ -93,7 +93,7 @@ theorem denominator_width (D N B : ℕ) (hD : D.bits.length≤B) :
 
 theorem costBound_polynomial (N B : ℕ) :
     costBound N B≤2^36*(N+2)^3*(B+2)^2 := by
-  unfold costBound Parameters.PowerMachine.costBound Parameters.PowerMachine.bodyCost
+  unfold costBound SelectedParameters.PowerMachine.costBound SelectedParameters.PowerMachine.bodyCost
     SelectedParameters.DynamicPower.width preparedWidth
   ring_nf
   omega

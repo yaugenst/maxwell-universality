@@ -1,5 +1,5 @@
 import Maxwell.Continuum.CalibrationRootGridCoefficient
-import Maxwell.Continuum.RuntimeCounterClear
+import Maxwell.Cost.Structured.CounterClear
 
 /-! The quadrature countdown is cleared by actual charged code, so its
 return contract can be reused by the next coefficient evaluation. -/

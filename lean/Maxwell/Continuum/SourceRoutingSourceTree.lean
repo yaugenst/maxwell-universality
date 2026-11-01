@@ -29,8 +29,9 @@ theorem executes (S : Source.SparseSystem) (p : ℕ) (hm : 2 ≤ S.nnz)
       Stored (Startup.gridLayout (SourcePlan.vertices S p) (base S p))
         ((DummyFill.scatter (DummyFill.pairs (SourcePlan.source S p) (SourcePlan.target S p))).map Fin.val)
         ((DummyFill.scatter ((DummyFill.pairs (SourcePlan.source S p) (SourcePlan.target S p)).map Prod.swap)).map Fin.val) t.val ∧
-      (∀address,address<(SourcePlan.treeLayout S p).forward→t.val.memory address=s.val.memory address) := by
-  obtain ⟨c0,a,e0,h0,ra,metadata,stored,oa,fa,qa⟩:=SourcePlan.executes_workspace S p hm input tape s hs
+      (∀address,address<(SourcePlan.treeLayout S p).forward→t.val.memory address=s.val.memory address) ∧
+      RationalAccumulator.Word t.val 710 (SourcePlan.half S p) := by
+  obtain ⟨c0,a,e0,h0,ra,metadata,stored,oa,fa,qa,halfWord⟩:=SourcePlan.executes_workspace S p hm input tape s hs
   obtain ⟨c1,t,e1,h1,labels,zt,t839,t831,t830,quotientClean,metadataT,mt,ft⟩:=Tree.CompleteTree.executes (SourcePlan.depth S p)
     (by dsimp only [SourcePlan.depth];omega) (SourcePlan.treeLayout S p) (SourcePlan.root S p)
     (SourcePlan.forward_bound S p) input tape a (SourcePlan.tree_metadata S p a.val metadata)
@@ -40,7 +41,8 @@ theorem executes (S : Source.SparseSystem) (p : ℕ) (hm : 2 ≤ S.nnz)
     (SourcePlan.fresh_after hs fa 830 (by decide))
     (SourcePlan.forward_stored S p a.val stored) (SourcePlan.backward_stored S p a.val stored)
   refine ⟨c0+c1,t,e0.seq e1,Nat.add_le_add h0 h1,labels,zt,t839,t831,t830,
-    (fa.mono Finset.subset_union_left).trans (ft.mono Finset.subset_union_right),?_,quotientClean,?_,?_⟩
+    (fa.mono Finset.subset_union_left).trans (ft.mono Finset.subset_union_right),?_,quotientClean,?_,?_,
+    RationalAccumulator.word_of_eq (ft.tapes 710 (by decide) (by decide +kernel)) halfWord⟩
   · refine ⟨?_,?_,metadataT.forward,metadataT.backward,metadataT.clock⟩
     · simpa only [SourcePlan.tree_count,SourcePlan.size] using metadataT.count
     · simpa only [SourcePlan.tree_count,SourcePlan.size] using metadataT.width

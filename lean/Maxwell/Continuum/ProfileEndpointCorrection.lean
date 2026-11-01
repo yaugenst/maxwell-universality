@@ -52,7 +52,9 @@ theorem finalize_executes (N W : ℕ) (hW : 1≤W)
         ((finalizeTable a b (profileWorkBits N) v).get i).Width
           (correctionWorkingWidth (profileDegree N) (endpointWorkingWidth (profileDegree N) W)) ∧
         ((finalizeTable a b (profileWorkBits N) v).get i).value=(encodedCoefficient N i.val).value) ∧
-      Word t.val 661 (profileDegree N) ∧ Word t.val 144 (2^profileWorkBits N) := by
+      Word t.val 661 (profileDegree N) ∧ Word t.val 144 (2^profileWorkBits N) ∧
+      (∀limit,limit≤addressValue b.basePositive→limit≤addressValue b.baseNegative→
+        limit≤addressValue b.baseDenominator→∀j,j<limit→t.val.memory j=s.val.memory j) := by
   let n := profileDegree N
   let P := profileWorkBits N
   let B := endpointWorkingWidth n W
@@ -109,7 +111,7 @@ theorem finalize_executes (N W : ℕ) (hW : 1≤W)
     simp [Parts.value]
   have finalInvariant := correction_invariant a v3 B hB (fun i => (ha i).mono hWB) hav
     hg3 (hw3.mono hBM) hconst constants.2.2.1 (hw3 8 (by decide)) h8v n le_rfl
-  obtain ⟨c4,t,word,e4,hc4,state4,at4,bt4,count4,len4,correct⟩ := correction_map_executes a b B hB
+  obtain ⟨c4,t,word,e4,hc4,state4,at4,bt4,count4,len4,correct,memory⟩ := correction_map_executes a b B hB
     (fun i => (ha i).mono hWB)
     hav v3 hg3 (hw3.mono hBM) hconst constants.2.2.1 (hw3 8 (by decide))
     h8v
@@ -122,7 +124,7 @@ theorem finalize_executes (N W : ℕ) (hW : 1≤W)
   have moments := endpointValues_profile N a (dftResetValues v) hav he initialGood (by
     simp [dftResetValues_eq,Parts.literal_value])
   refine ⟨_,t,word,e0.seq (e1.seq (e2.seq (e3.seq e4))),?_,state4,
-    finalInvariant.good,finalInvariant.width,bt4,at4,⟨origin2,count4⟩,len4,?_,?_,?_⟩
+    finalInvariant.good,finalInvariant.width,bt4,at4,⟨origin2,count4⟩,len4,?_,?_,?_,?_⟩
   · dsimp only [n,P,B] at hc1 hc3 hc4 len1 len4 ⊢
     rw [len1]
     unfold finalizeCost
@@ -145,6 +147,10 @@ theorem finalize_executes (N W : ℕ) (hW : 1≤W)
           (f2.2.2.2.2.2.1 661 (by decide)))) size1
   · exact word_of_eq ((e4.protectsTape 144 (by decide)).trans
       (f3.tapes 144 (outside_workspace _ _ (by decide)))) power2
+
+  · intro limit hp hn hd j hj
+    rw [memory limit hp hn hd j hj,f3.memory,f2.2.2.1,
+      e1.protectsMemory endpoint_protects_memory,f0.2.2.1]
 
 #print axioms finalize_executes
 end Maxwell.Continuum.Profile.Runtime

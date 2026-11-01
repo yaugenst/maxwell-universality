@@ -40,7 +40,7 @@ theorem initialized_table_executes (N W B : ℕ) (hW : 1≤W) (hN : N.bits.lengt
   let producer := producerState_after_startup v hr hv saved hs hsv inner hinner hlen hp hg hf z0 f0 params power grid
   obtain ⟨origin,count⟩ := count
   obtain ⟨_,hgrid,hdegree,hwork⟩ := producerSize_bounds N
-  obtain ⟨c1,t,result,e1,hc1⟩ := encoded_table_executes N (producerSize N) W hW a b hgrid hdegree hwork
+  obtain ⟨c1,t,result,e1,hc1,_⟩ := encoded_table_executes N (producerSize N) W hW a b hgrid hdegree hwork
     ham hfit has hdis hbm hslot hbs hbank hn hpow input tape (profileDegree N).bits origin hn
     (addressValue_bits _) s0 producer (startup_output_frame ha z0 f0) (startup_input_frame hb z0 f0)
     degree (blank_of_eq (f0.tapes 216 (by decide)) hblank) count

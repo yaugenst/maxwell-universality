@@ -35,11 +35,13 @@ theorem component_executes {p : ℕ} (M A L R P Q N E Win Wout Wsetup H : ℕ) [
     (hfresh : ∀i∈TensorStart.freshPorts,Blank s.val i) :
     ∃cost t,Executes input tape (componentCode j) cost s t ∧
       cost≤componentCost M L R P Q N Win Wout Wsetup H ∧
-      t.val.output=(componentPayload M A L R P Q N a j).reverse++s.val.output := by
+      t.val.output=(componentPayload M A L R P Q N a j).reverse++s.val.output ∧
+      NatAssign.Scratch t.val ∧
+      (∀limit,limit≤heapBase R a →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   have z144 := hfresh 144 (by simp [TensorStart.freshPorts])
   have z146 := hfresh 146 (by simp [TensorStart.freshPorts])
   have z216 := hfresh 216 (by simp [TensorStart.freshPorts])
-  obtain ⟨c0,u,ys,origin,e0,hc0,st,output0,rows,counter,length⟩ := generated_executes M A L R P Win Wsetup H
+  obtain ⟨c0,u,ys,origin,e0,hc0,st,output0,rows,counter,length,generatedMemory⟩ := generated_executes M A L R P Win Wsetup H
     (by omega) hsetupWidth a old j v hma hmo (fun i hi => (hw i hi).mono hWin) hg hav
     (hR.trans hWin) hsize (hcount.trans hWin) hnorm hscale hmode hiw input tape s (hmb.mono hWin)
     hb hr ha ho z216 hfloor z144 z146
@@ -76,16 +78,27 @@ theorem component_executes {p : ℕ} (M A L R P Q N E Win Wout Wsetup H : ℕ) [
     (TensorSetup.generated_headers M L R P a j v s.val.memory) input tape w rfl r1 source1 target1
     (handoff_phase (generated_phase e0 hphase st.ready) frame1) floor1
     (handoff_setup e0 hsetup frame1 clear1) radius (handoff_fresh e0 hfresh count0 frame1 clear1 temp1)
-  obtain ⟨c3,t,_,e3,hc3,_,out⟩ := tensorComponent_executes d input tape z state buffers
+  obtain ⟨c3,t,next,e3,hc3,_,out,tensorMemory⟩ := tensorComponent_executes d input tape z state buffers
   have finalCost : c3≤tensorTimeCoefficient*(RowArithmetic.rowCount R+1)^3*(Q+N+Wout+64)^243 :=
     hc3.trans (tensorTraversalCost_polynomial Q N (RowArithmetic.rowCount R) Wout)
-  refine ⟨c0+(c1+(c2+c3)),t,e0.seq (e1.seq (e2.seq e3)),?_,?_⟩
+  refine ⟨c0+(c1+(c2+c3)),t,e0.seq (e1.seq (e2.seq e3)),?_,?_,next.factor.ready.2,?_⟩
   · have prep := (Nat.add_le_add hc0 (Nat.add_le_add hc1 hc2)).trans
       (preparation_cost M L R P Q N Win Wout Wsetup H)
     unfold componentCost
     omega
   · change t.val.output=(d.componentPayload).reverse++s.val.output
     rw [out,frame2.output,frame1.output,st.output]
+
+  · intro limit hlimit k hk
+    have above : limit≤addressValue d.cache.basePositive ∧
+        limit≤addressValue d.cache.baseNegative ∧ limit≤addressValue d.cache.baseDenominator := by
+      simp only [d,TensorSetup.allocatedInput,TensorSetup.buffer,TensorSetup.heap,
+        rowsTable,generatedTable,Table.filled,buffer,Profile.Runtime.memoryTable,addressValue_bits]
+      constructor
+      · omega
+      constructor <;> omega
+    rw [tensorMemory limit above.1 above.2.1 above.2.2 k hk,frame2.memory,frame1.memory]
+    exact generatedMemory limit hlimit k hk
 
 theorem component_compiled_run {p : ℕ} (M A L R P Q N E Win Wout Wsetup H : ℕ) [NeZero M]
     (hWin : Wout≤Win) (hWout : 6≤Wout) (hsetupWidth : 5≤Wsetup)
@@ -114,7 +127,7 @@ theorem component_compiled_run {p : ℕ} (M A L R P Q N E Win Wout Wsetup H : �
     ∃t : Store,(runPriced ((componentCode j).compile.next input tape)
       (componentCost M L R P Q N Win Wout Wsetup H+1) s.val).finished=some (t.place (componentCode j).size) ∧
       t.val.output=(componentPayload M A L R P Q N a j).reverse++s.val.output := by
-  obtain ⟨cost,t,e,hc,out⟩ := component_executes M A L R P Q N E Win Wout Wsetup H hWin hWout hsetupWidth
+  obtain ⟨cost,t,e,hc,out,_,_⟩ := component_executes M A L R P Q N E Win Wout Wsetup H hWin hWout hsetupWidth
     a old j v hma hmo hw hg hav hR hsize hcount hnorm hscale hmode hfreq hmass hcoeff hQ hN hdegree
     hprecision hgrid hiw input tape s hmb hb hr ha ho hfloor hphase hsetup hfresh
   exact ⟨t,(e.compiled_run _ (by omega)).1,out⟩

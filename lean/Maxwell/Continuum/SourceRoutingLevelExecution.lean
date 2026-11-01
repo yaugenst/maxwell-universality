@@ -1,5 +1,5 @@
 import Maxwell.Continuum.SourceRoutingLevelState
-import Maxwell.Continuum.RuntimeCounterClear
+import Maxwell.Cost.Structured.CounterClear
 
 /-! One fixed binary-countdown loop visits every node of a level. The
 actual body theorem supplies execution, memory preservation and bit cost. -/

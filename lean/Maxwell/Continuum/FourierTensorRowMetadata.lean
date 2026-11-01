@@ -51,6 +51,7 @@ theorem buffer_metadata_computed (M L R P : ℕ) (a : Table (2*aliasArraySize R)
   have h5 := RationalAccumulator.bits_mul_le 5 (RowArithmetic.rowCount R)
   have hslot := Machin.Runtime.nat_bits_le_self (slotWidth M L R P)
   change (Profile.Runtime.memoryTable _ _ _ _ memory).MetadataWidth _
+  unfold heapBase
   apply Profile.Runtime.memoryTable_metadata
   · unfold rowMetadataWidth;omega
   · rw [show (5:ℕ).bits.length=3 by decide] at h5

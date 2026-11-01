@@ -3,27 +3,6 @@ import Maxwell.Cost.Structured.Footprint
 
 /-! The computed component preserves the retained site count and profile
 payload, including their heads and all occupied cells. -/
-namespace Maxwell.Continuum.OutputCapture
-open Maxwell.Cost Maxwell.Cost.Structured
-
-theorem avoidsCode_protectsTape (archive : ℕ) (body : Code)
-    (h : avoidsCode archive body=true) : body.protectsTape archive=true := by
-  induction body with
-  | skip => rfl
-  | call machine =>
-    apply List.all_eq_true.mpr
-    intro instruction hi
-    have hn := List.all_eq_true.mp h instruction hi
-    cases instruction <;> simp_all [avoids,BitRAMInstruction.protectsTape]
-  | seq a b ha hb =>
-    simp only [avoidsCode,Bool.and_eq_true] at h
-    simp only [Code.protectsTape,ha h.1,hb h.2,Bool.and_self]
-  | branch r a b ha hb =>
-    simp only [avoidsCode,Bool.and_eq_true] at h
-    simp only [Code.protectsTape,ha h.1,hb h.2,Bool.and_self]
-  | loop r a ha => exact ha h
-
-end Maxwell.Continuum.OutputCapture
 
 namespace Maxwell.Continuum.Profile.WaveMachine.Runtime.ModeAllocation
 open Maxwell.Cost Maxwell.Cost.Structured

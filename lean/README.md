@@ -15,13 +15,42 @@ models can import them directly.
 | --- | --- |
 | `Maxwell/Algebra.lean`, `Interfaces.lean`, `Complexity.lean` | Finite identities and input, material, and exponent conventions |
 | `Maxwell/Logical/`, `Composition/`, `Cost/`, `Codec/` | Sparse reduction, assembly, finite programs, and encoding |
+| `Maxwell/Cost/OutputCapture/`, `Cost/Structured/` | Model-independent output capture, structured execution, and tape/output preservation |
+| `Maxwell/Cost/FiniteDecoder/`, `Cost/DecoderParser/` | Generic weighted rational decoding, complete metadata/message parsing, and charged execution bounds |
 | `Maxwell/Continuum/` | Continuum operators, spectral analysis, parameter choices, source/readout representation, and program constructions |
 | `Maxwell/Target*.lean`, `Spectral/`, `Green/`, `Defect/` | Yee operators and discrete spectral and local-response ingredients |
 | `Maxwell/Certificate/` | Exact arithmetic and spectral certificate proofs |
 | `*Audit.lean`, `verify*.py` | Theorem inventories and verification entry points |
 | `generate*.py`, `compile*.py`, `evidence/` | Certificate generation, recorded inputs, and verification receipts |
 
+The output-capture compiler and its cost and preservation proofs live in
+`Maxwell.Cost.OutputCapture`. They depend only on the shared finite machine
+model, so continuum and discrete encoders can reuse the same declarations.
+`Continuum/OutputCaptureDataflow.lean` supplies the continuum arithmetic-bank
+adapter. Generic tape-interval and output-preservation checks also live in
+`Cost/Structured/`; physical payload producers remain with their construction.
+The finite decoder also lives in `Maxwell.Cost.FiniteDecoder`: its code,
+prefix-aware execution, output representation, and cost bounds do not depend on
+either physical model. `Cost/EmitRows.lean` supplies the shared repeated-row
+emitter used by the existing discrete zero-source encoder and the continuum
+vacuum encoder.
+
 ## Source and verification coverage
+
+The **1 November 2026 checkpoint is unfinished**. It preserves the continued
+encoder, calibration, serialization, and shared finite-machine development.
+The final `QuantitativeRealization` contract remains unproved, and the full
+source collection is not claimed to compile under strict settings.
+
+The last development checkpoint recorded a warnings-as-errors failure in
+`Cost/OutputCapture/Rename.lean` from a deprecated lemma, an unresolved check
+of `FourierTensorFreshComponentInput.lean`, and unchecked
+`FourierTensorFreshComponent.lean`, `FourierTensorThreeComponents.lean`, and
+`Cost/OutputCapture/Bound.lean`. Startup and backend composition, complete
+template capture, and aggregate execution bounds remain unfinished. There
+has been no complete integrated kernel replay or discrete regression after
+the shared-module moves. The receipts below describe their recorded source
+snapshots, not verification of this checkpoint.
 
 The recorded continuum audit passed 4,679 checks and inventoried 17,889
 theorem declarations, including generated and private declarations, across
@@ -43,10 +72,19 @@ recorded source/configuration hashes unchanged before and after the check.
 Unchanged project modules came from the earlier audit's compiled cache;
 this was an incremental rebuild with a complete export replay.
 
-Three additional preserved modules have
-unfinished validation: `WellAxisArithmetic` has a failed proof check, and
-`WellSourceReadOne` and `SourceRoutingPathCounter` have not been compiled.
-These three modules are outside the continuum audit closure.
+The continuation has repaired and strictly compiled `WellAxisArithmetic`,
+`WellSourceReadOne`, and `SourceRoutingPathCounter`. The first development
+batch also checked a 4,001-module dependency closure, rebuilding 831 modules.
+These development checks are distinct from the recorded continuum export
+replay above; the later machine components still need an integrated replay.
+
+`Maxwell/Continuum/Main.lean` now states the exact
+`Maxwell.Continuum.Realization.QuantitativeRealization` contract, including
+the complete emitted bytes, both finite programs, every-draw running-time
+bounds, and the fixed probabilistic recovery event. `ContractResources` and
+`ContractSoundness` establish its analytic resource and recovery ingredients.
+The full contract still requires completion of the concrete encoder and
+final machine composition; a proposition definition is not its proof.
 
 To inspect the current import graph and compare it with the recorded hashes,
 run from the repository root:
@@ -62,6 +100,18 @@ separately. `data/manifest.json` remains the inventory of distributed bytes;
 a matching source hash is evidence about the recorded run, not a new replay.
 
 ## Reproducing checks
+
+For strict incremental development checks of selected dependency closures:
+
+```bash
+cd lean
+uv run --script check_modules.py Maxwell.Continuum.SourceRoutingPathPhaseLoop
+```
+
+This checks pinned dependencies and source fingerprints, reuses matching
+recorded objects, and compiles changed modules with warnings as errors in
+`.lake/continuum-work/`. Its receipt records development compilation only;
+use the verifier below for the axiom inventory and exported kernel replay.
 
 Install Lean through elan, with `lake` on `PATH`. From the repository root,
 install generated proof sources and recorded evidence:

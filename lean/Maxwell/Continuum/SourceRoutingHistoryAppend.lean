@@ -16,7 +16,7 @@ theorem append_executes {q : ℕ} (p : Plan q) (previous next : SortArrays.Keys 
     ∃steps t,Executes input tape appendCode steps s t ∧ steps ≤ appendCost p ∧
       Runtime p.following next (2*q) t ∧ Blank t.val 1241 ∧
       ArchiveFrame loopWork s.val t.val ∧ MemoryFrame p.following s.val.memory t.val.memory := by
-  obtain ⟨c0,a,e0,h0,ba,za,a1249,f0⟩:=restart_executes p input tape s state.bank state.ready state.privateBlank
+  obtain ⟨c0,a,e0,h0,ba,za,a1249,f0⟩:=restart_executes p 0 (Nat.zero_le _) input tape s state.bank state.ready state.privateBlank
   have ma:=state.metadata.frame (ArchiveFrame.of_binary f0) (by decide)
   have start : Runtime p.following next 0 a := by
     refine ⟨Nat.zero_le _,ba,za,a1249,

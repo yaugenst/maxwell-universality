@@ -73,7 +73,7 @@ theorem monomialRow_executes {D : ℕ} (a b : Table (4*(D+1))) (W : ℕ)
   have fit : ∀x∈monomialWritePlan,((monomialRowState a row v) x.2).Width (addressValue b.width) := by
     intro x hx
     exact (htrace.result x.2 (writeValid x hx)).mono hslot
-  obtain ⟨cw,t,ew,hcw,bt,at',bot,zt,ft⟩ := rowWritePlan_executes a b (Finset.range 8) 4 3 W
+  obtain ⟨cw,t,ew,hcw,bt,at',bot,zt,ft,_⟩ := rowWritePlan_executes a b (Finset.range 8) 4 3 W
     monomialWritePlan writeValid writeOffsets hbMeta (monomialRowState a row v) fit
     hpositive hsep hdisjoint input tape word hlen writeIndices p bp ap bop ip zp
   refine ⟨cr+(cc+cw),t,er.seq (ec.seq ew),?_,bt,at',?_,zt,?_⟩

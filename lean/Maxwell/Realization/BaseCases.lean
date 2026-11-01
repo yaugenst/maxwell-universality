@@ -23,7 +23,8 @@ theorem base_bitBudget (S : Source.SparseSystem) : 2 ≤ bitBudget baseConstants
 
 theorem base_sizeBudget (S : Source.SparseSystem) : 4096 ≤ sizeBudget baseConstants S := by
   have hb : (1 : ℝ) ≤ (effectiveSize S : ℝ) := by
-    exact_mod_cast (show 1 ≤ effectiveSize S by simp [effectiveSize])
+    exact_mod_cast (show 1 ≤ effectiveSize S by
+      simp [effectiveSize, Source.SparseSystem.effectiveSize])
   have hp : (1 : ℝ) ≤ (effectiveSize S : ℝ) ^ (3 / 2 : ℝ) :=
     Real.one_le_rpow hb (by norm_num)
   simp only [sizeBudget, baseConstants, pow_zero, mul_one]

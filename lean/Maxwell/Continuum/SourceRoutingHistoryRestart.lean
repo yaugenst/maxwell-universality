@@ -11,9 +11,9 @@ def restart : List NatAssign.Instruction :=
   [.copy 1200 1225,.multiply 1200 1225,.multiply 1217 1225,
     .copy 1216 1215,.add 1225 1216,.literal 1202 1,.literal 1225 0]
 
-theorem restart_values {q : ℕ} (p : Plan q) :
-    NatAssign.values restart (GeometrySort.seed (p.layer (2*q)) (2*q+1) 0)=
-      GeometrySort.seed (p.following.layer 0) 1 0 := by
+theorem restart_values {q : ℕ} (p : Plan q) (index : ℕ) :
+    NatAssign.values restart (GeometrySort.seed (p.layer (2*q)) (2*q+1) index)=
+      GeometrySort.seed (p.following.layer 0) 1 index := by
   funext j
   simp only [restart,NatAssign.values,NatAssign.Instruction.update,NatAssign.Instruction.value,
     NatAssign.Instruction.target]
@@ -29,16 +29,17 @@ theorem restart_values {q : ℕ} (p : Plan q) :
     Function.update_of_ne h16,Function.update_of_ne h15,GeometrySort.seed,h2,h15,h16,ite_false]
   rfl
 
-theorem restart_executes {q : ℕ} (p : Plan q) (input : List Bool) (tape : ℕ→Bool) (s : Store)
-    (bank : NatAssign.Bank GeometryArithmetic.ids (GeometrySort.seed (p.layer (2*q)) (2*q+1) 0) s.val)
+theorem restart_executes {q : ℕ} (p : Plan q) (index : ℕ) (indexBound : index ≤ q*q)
+    (input : List Bool) (tape : ℕ→Bool) (s : Store)
+    (bank : NatAssign.Bank GeometryArithmetic.ids (GeometrySort.seed (p.layer (2*q)) (2*q+1) index) s.val)
     (ready : GeometryArray.Ready s.val) (privateBlank : Blank s.val 1249) :
     ∃steps t,Executes input tape (NatAssign.code restart) steps s t ∧ steps ≤ 2^40*(p.bound+3)^2 ∧
-      NatAssign.Bank GeometryArithmetic.ids (GeometrySort.seed (p.following.layer 0) 1 0) t.val ∧
+      NatAssign.Bank GeometryArithmetic.ids (GeometrySort.seed (p.following.layer 0) 1 index) t.val ∧
       GeometryArray.Ready t.val ∧ Blank t.val 1249 ∧ BinaryPrecision.Frame GeometryArithmetic.work s.val t.val := by
-  have width:=GeometrySort.seed_width (p.layer (2*q)) (2*q+1) 0 (Nat.zero_le _)
+  have width:=GeometrySort.seed_width (p.layer (2*q)) (2*q+1) index indexBound
   obtain ⟨steps,t,he,hc,bt,zt,ft⟩:=stage restart
     (by simp [restart,NatAssign.Instruction.Valid,GeometryArithmetic.ids,GeometryArithmetic.controls])
-    (GeometrySort.seed (p.layer (2*q)) (2*q+1) 0) p.bound
+    (GeometrySort.seed (p.layer (2*q)) (2*q+1) index) p.bound
     (fun j hj => (width j hj).trans (p.layer_bound (2*q) le_rfl))
     (by simp [restart,NatAssign.Instruction.literalWidth,Plan.bound]) input tape s bank ready
   refine ⟨steps,t,he,?_,by simpa only [restart_values] using bt,zt,

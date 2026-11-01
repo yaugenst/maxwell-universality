@@ -96,7 +96,7 @@ theorem output_width (M P W i : ℕ) (hM : M.bits.length≤W) (hP : P.bits.lengt
   have hd := denominator_width M W hM
   have hrad := RationalRoot.radicand_bits 1 (denominator M) P (3*W+4)
     (by change 1≤3*W+4;omega) hd
-  have hdone := PowerMachine.BufferNorm.Factor.done_width (rootArgument M P) i
+  have hdone := NaturalRoot.done_width (rootArgument M P) i
   have hp := SelectedParameters.Geometric.power_bits 2 P
   change (2^P).bits.length≤P*2+1 at hp
   have hprod := RationalAccumulator.bits_mul_le (denominator M) (2^P)

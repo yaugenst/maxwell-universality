@@ -1,6 +1,6 @@
 import Maxwell.Continuum.ChebyshevWaveRuntimeSumStep
 import Maxwell.Cost.Structured.CountedShifted
-import Maxwell.Continuum.RuntimeCounterClear
+import Maxwell.Cost.Structured.CounterClear
 
 /-! One fixed counted Fourier loop, including cleanup of its actual countdown
 word. Every sample and width invariant is discharged by the concrete wave code. -/

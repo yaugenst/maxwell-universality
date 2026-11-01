@@ -1,5 +1,5 @@
 import Maxwell.Continuum.RationalDataflowStoredParts
-import Maxwell.Continuum.RuntimeCounterClear
+import Maxwell.Cost.Structured.CounterClear
 
 /-! Reusable, charged cleanup of a saved three-channel rational word. -/
 namespace Maxwell.Continuum.RationalDataflow.StoredParts

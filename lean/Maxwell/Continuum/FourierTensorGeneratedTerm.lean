@@ -86,8 +86,10 @@ theorem generatedTerm_executes {n B : ℕ} (a : Table n) (Q N A W : ℕ)
       (w 32).denominator=(v 32).denominator ∧
       (w 32).value=(v 32).value+
         ((complexDyadicMul amp (complexDyadicTriple (fun i => waveRoundedCoefficient (q i) Q N (j i)))).1.numerator:ℚ) ∧
-      Word t.val 1048 (j 2) := by
-  obtain ⟨c0,s0,v0,b0,e0,h0,r0,w0,m0,in0,factors,a0,a1,_,index0⟩ := axes_executes a Q N W b hm hsep
+      Word t.val 1048 (j 2) ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
+  obtain ⟨c0,s0,v0,b0,e0,h0,r0,w0,m0,in0,factors,a0,a1,_,index0,memory⟩ := axes_executes a Q N W b hm hsep
     hdisjoint hfit v hw q j hinputs hq hj hQ hN hW hprecision hgrid oldIndex hold input tape s hs hindex
   let u := accumulatorValues v0 v
   have hu (i : ℕ) (hi : i∈tensorBank) : u i=v0 i := by simp only [u,accumulatorValues,ite_eq_left hi]
@@ -117,7 +119,7 @@ theorem generatedTerm_executes {n B : ℕ} (a : Table n) (Q N A W : ℕ)
   obtain ⟨c1,t,e1,h1,r1,ur1,w1,acc1,frame1⟩ := termReturn_executes a b0 u A W (by omega) uw uwA input tape s0 uf ur
   have val := termReturned_value u ufactors.valid (by simpa only [hu32] using hvalid)
   refine ⟨c0+c1,t,termReturned u,b0,e0.seq e1,Nat.add_le_add h0 h1,r1,ur1,w1,acc1,m0,?_,val.1,?_,
-    ?_,word_of_eq (frame1.tapes 1048 (by decide)) index0⟩
+    ?_,word_of_eq (frame1.tapes 1048 (by decide)) index0,?_⟩
   · intro i
     have ilt := i.isLt
     rw [termReturned_high u (20+i.val) (by omega) (by omega),
@@ -125,6 +127,10 @@ theorem generatedTerm_executes {n B : ℕ} (a : Table n) (Q N A W : ℕ)
     exact uinputs i
   · exact ufactors.denominator.trans (congrArg Parts.denominator hu32)
   · rw [val.2,hu32,ufactors.term]
+
+  · intro limit hp hn hd k hk
+    rw [frame1.memory]
+    exact memory limit hp hn hd k hk
 
 #print axioms generatedTerm_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime

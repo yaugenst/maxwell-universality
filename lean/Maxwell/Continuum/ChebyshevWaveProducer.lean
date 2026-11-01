@@ -31,7 +31,9 @@ theorem producer_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
     (hsaved : ∀i∈savedPorts,Blank s.val i) :
     ∃cost t,Executes input tape producerCode cost s t ∧ cost≤producerBound Q N W ∧
       Nonempty (CacheState a (v 10).value Q N (waveDegree (8*Q) N+1) (producerWidth Q N W)
-        (baseValues (waveGrid (8*Q) N) v) b 0 t) ∧ Blank t.val 201 := by
+        (baseValues (waveGrid (8*Q) N) v) b 0 t) ∧ Blank t.val 201 ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀j,j<limit→t.val.memory j=s.val.memory j) := by
   obtain ⟨c0,s0,e0,h0,_,z0,parameters0,range0,precision0,grid0,count0,power0,_,f0⟩ :=
     cacheSetup_executes Q N W hQ hN hW input tape s hsetup hs.2 hpower hpowerCount
   have ready0 := setup_ready_frame hs f0 z0
@@ -71,7 +73,7 @@ theorem producer_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
   have hgridpos : 0<waveGrid (8*Q) N := by unfold waveGrid;omega
   have baseWidth := baseValues_width (waveGrid (8*Q) N) (producerWidth Q N W) v
     ((hw 10 (by decide)).mono hWB) hgrid hB
-  obtain ⟨c2,t,e2,h2,state,hblank⟩ := cache_executes a (v 10).value Q N (waveDegree (8*Q) N+1)
+  obtain ⟨c2,t,e2,h2,state,hblank,memory⟩ := cache_executes a (v 10).value Q N (waveDegree (8*Q) N+1)
     (producerWidth Q N W) b hm hsep hdisjoint hq le_rfl hfit
     (baseValues (waveGrid (8*Q) N) v) baseWidth (baseValues_good _ hgridpos v hv) hB hgrid hcount
     (baseValues_one _ v) (baseValues_input _ v) input tape s1 loop1 a1 b1 count1 inner1 grid1 saved1 power1
@@ -79,9 +81,11 @@ theorem producer_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
   have hc2 : c2≤cacheBound Q N (waveDegree (8*Q) N+1) (producerWidth Q N W) :=
     h2.trans (cache_cost_polynomial Q (waveWorkBits (8*Q) N) (producerWidth Q N W)
       (waveGrid (8*Q) N) (waveDegree (8*Q) N+1) hgrid hcount)
-  refine ⟨c0+(c1+c2),t,e0.seq (e1.seq e2),?_,state,hblank⟩
-  unfold producerBound
-  omega
+  refine ⟨c0+(c1+c2),t,e0.seq (e1.seq e2),?_,state,hblank,?_⟩
+  · unfold producerBound
+    omega
+  · intro limit hp hn hd j hj
+    rw [memory limit hp hn hd j hj,f1.memory,f0.memory]
 
 #print axioms producer_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime

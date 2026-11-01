@@ -1,4 +1,5 @@
 import Maxwell.Continuum.CalibrationMatrixEntryMachine
+import Maxwell.Continuum.CalibrationContinuation
 import Maxwell.Continuum.RationalDataflowArrayIndexWrite
 import Maxwell.Continuum.RationalDataflowArrayOutputFrame
 import Maxwell.Continuum.RationalDataflowArrayOutputCost
@@ -17,16 +18,6 @@ set_option exponentiation.threshold 1024
 def emissionIds : Finset ℕ := ids RawFree.neighborRegisters ∪ Finset.Icc 310 332 ∪ NaturalQuotient.workPorts
 def emissionChanged : Finset ℕ := {0,1,2,3,4} ∪ emissionIds
 
-/-- Disjoint ports carried from coefficient generation into inverse setup. -/
-def continuationPorts : Finset ℕ := Finset.Icc 107 140 ∪ Finset.Icc 300 309 ∪
-  ({206,216} ∪ Finset.Icc 530 534)
-def ContinuationFrame (s t : BitRAMState) : Prop :=
-  ∀ k∈continuationPorts, t.tapes k=s.tapes k
-
-theorem ContinuationFrame.refl (s : BitRAMState) : ContinuationFrame s s := fun _ _ => rfl
-theorem ContinuationFrame.trans {s t u : BitRAMState}
-    (h : ContinuationFrame s t) (g : ContinuationFrame t u) : ContinuationFrame s u :=
-  fun k hk => (g k hk).trans (h k hk)
 theorem continuation_external : ∀ k∈continuationPorts,
     10≤k ∧ k∉emissionChanged ∧ k≠37 ∧ k≠201 ∧ k∉NaturalQuotient.workPorts := by decide
 

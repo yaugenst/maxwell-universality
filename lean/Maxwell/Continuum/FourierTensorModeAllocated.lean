@@ -11,11 +11,14 @@ set_option maxRecDepth 16384
 
 def allocatedCode : Code := .seq code Profile.Runtime.CacheAllocation.code
 def allocatedChanges : Finset ℕ := setupChanged∪Profile.Runtime.CacheAllocation.changed
+def heapBase (R : ℕ) (a : Table (2*aliasArraySize R)) : ℕ :=
+  heap R (addressValue a.width) (addressValue a.basePositive)
+    (addressValue a.baseNegative) (addressValue a.baseDenominator)
+
 def buffer (M L R P : ℕ) (a : Table (2*aliasArraySize R)) (memory : ℕ→Bool) :
     Table (5*RowArithmetic.rowCount R) :=
   Profile.Runtime.memoryTable (5*RowArithmetic.rowCount R) (slotWidth M L R P)
-    (heap R (addressValue a.width) (addressValue a.basePositive)
-      (addressValue a.baseNegative) (addressValue a.baseDenominator)) (slotWidth_pos M L R P) memory
+    (heapBase R a) (slotWidth_pos M L R P) memory
 
 theorem setup_table_frame {n : ℕ} {a : Table n} {s t : Store} (h : a.Ready s)
     (f : BinaryPrecision.Frame setupChanged s.val t.val) (hz : NatAssign.Scratch t.val) : a.Ready t := by
@@ -98,7 +101,7 @@ theorem allocated_executes {p : ℕ} (M L R P W H : ℕ) (hW : 5≤W)
   have target : (buffer M L R P a s.val.memory).OutputReady t := by
     have hlen : vals 725=5*RowArithmetic.rowCount R := values_length _ _ _ _ _ _ _ _
     rw [hlen] at target1
-    simpa only [vals,values_width,values_heap,f0.memory,buffer] using target1
+    simpa only [vals,values_width,values_heap,f0.memory,buffer,heapBase] using target1
   have hz : NatAssign.Scratch t.val := by
     intro i hi
     interval_cases i

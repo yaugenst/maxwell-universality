@@ -105,13 +105,17 @@ theorem cache_executes {n : ℕ} (a : Table n) (q : ℚ) (Q N D W : ℕ)
     (hsaved : ∀i∈savedPorts,Blank s.val i) (hpower : Word s.val 144 (2^waveWorkBits (8*Q) N)) :
     ∃cost t,Executes input tape cacheCode cost s t ∧
       cost ≤ cacheCost Q (waveWorkBits (8*Q) N) (waveGrid (8*Q) N) D W ∧
-      Nonempty (CacheState a q Q N D W base b 0 t) ∧ Blank t.val 201 := by
+      Nonempty (CacheState a q Q N D W base b 0 t) ∧ Blank t.val 201 ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀j,j<limit→t.val.memory j=s.val.memory j) := by
   obtain ⟨origin,hn⟩ := hn
   let P := waveWorkBits (8*Q) N
   let grid := waveGrid (8*Q) N
   let B := cacheBankWidth Q P grid W
-  let inv : ℕ→Store→Prop := fun r st => Nonempty (CacheState a q Q N D W base b r st)
-  have initial : inv D s := ⟨{
+  let inv : ℕ→Store→Prop := fun r st => Nonempty (CacheState a q Q N D W base b r st) ∧
+    (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+      limit≤addressValue b.baseDenominator →∀j,j<limit→st.val.memory j=s.val.memory j)
+  have initial : inv D s := ⟨⟨{
     remaining_le := le_rfl
     values := base
     table := b
@@ -125,20 +129,20 @@ theorem cache_executes {n : ℕ} (a : Table n) (q : ℚ) (Q N D W : ℕ)
     innerBlank := hz
     grid := hgridWord
     saved := hsaved
-    power := hpower }⟩
+    power := hpower }⟩,fun _ _ _ _ _ _=>rfl⟩
   have stable : ∀r u v,CountedShifted.Frame 201 u v → inv r u → inv r v := by
     intro r u v f h
-    obtain ⟨h⟩ := h
-    exact h.count_frame f
+    obtain ⟨⟨h⟩,memory⟩ := h
+    exact ⟨h.count_frame f,fun limit hp hn hd j hj=>by rw [f.2.2.1];exact memory limit hp hn hd j hj⟩
   have body : ∀r xs u,inv (r+1) u → u.val.tapes 201=BitTape.shifted xs origin →
       addressValue xs=r → xs.length=D.bits.length →
       ∃cost t,Executes input tape cacheStepCode cost u t ∧ inv r t ∧
         t.val.tapes 201=BitTape.shifted xs origin ∧ cost ≤ cacheStepCost Q P grid W B := by
     intro r xs u hu hx hval hlen
-    obtain ⟨hu⟩ := hu
+    obtain ⟨⟨hu⟩,oldMemory⟩ := hu
     have hr : r<D := by have := hu.remaining_le;omega
     have hfit' : P+7 ≤ addressValue hu.table.width := by rw [hu.tableMetadata.width];exact hfit
-    obtain ⟨c,t,e,hc,rt,at',bt,wt,mt,zt,gt,st,pt,ct⟩ := cacheStep_executes a q Q N D W B hu.table
+    obtain ⟨c,t,e,hc,rt,at',bt,wt,mt,zt,gt,st,pt,ct,memory⟩ := cacheStep_executes a q Q N D W B hu.table
       (hu.tableMetadata.widthBound hm) (hu.tableMetadata.separated hsep)
       (hu.tableMetadata.separatedFrom hdisjoint) hq hD hfit' hu.values base hbase hg hu.metadata
       hu.bankWidth hW hgrid hone hi input tape xs (by omega) (by omega) u hu.ready hu.source hu.output
@@ -149,7 +153,7 @@ theorem cache_executes {n : ℕ} (a : Table n) (q : ℚ) (Q N D W : ℕ)
     have wf1 : (waveCacheImag q Q N r).Width (addressValue hu.table.width) :=
       (integer_literal_width _ _ fits.2 (by omega)).mono hfit'
     refine ⟨c,t,e,?_,ct.trans hx,hc⟩
-    refine ⟨{
+    refine ⟨⟨{
       remaining_le := hr.le
       values := encodedValues Q P grid (cacheLoaded (addressValue xs) hu.values)
       table := cachePut q Q N r hu.table
@@ -163,8 +167,14 @@ theorem cache_executes {n : ℕ} (a : Table n) (q : ℚ) (Q N D W : ℕ)
       innerBlank := zt
       grid := gt
       saved := st
-      power := pt }⟩
-    simpa only [hval] using bt
+      power := pt }⟩,?_⟩
+    · simpa only [hval] using bt
+    · intro limit hp hn hd j hj
+      have hp' : limit≤addressValue hu.table.basePositive := by rw [hu.tableMetadata.basePositive];exact hp
+      have hn' : limit≤addressValue hu.table.baseNegative := by rw [hu.tableMetadata.baseNegative];exact hn
+      have hd' : limit≤addressValue hu.table.baseDenominator := by rw [hu.tableMetadata.baseDenominator];exact hd
+      rw [memory limit hp' hn' hd' j hj]
+      exact oldMemory limit hp hn hd j hj
   obtain ⟨c0,s0,finalWord,e0,h0,w0,len0,_,hc0⟩ := counted_executes_sized 201 origin cacheStepCode input tape
     D.bits.length inv (fun _ => cacheStepCost Q P grid W B) stable body D D.bits s
       (addressValue_bits _) hn rfl initial
@@ -173,14 +183,18 @@ theorem cache_executes {n : ℕ} (a : Table n) (q : ℚ) (Q N D W : ℕ)
     ⟨f1.1,f1.2.1,f1.2.2.1,f1.2.2.2.1,f1.2.2.2.2.1,
       fun i hi => f1.2.2.2.2.2.1 i hi hi,
       fun i _ _ h26 h27 => f1.2.2.2.2.2.2 i h26 h27⟩
-  obtain ⟨state0⟩ := h0
-  refine ⟨c0+(6*finalWord.length+4),t,e0.seq e1,?_,state0.copy_frame wf1,?_⟩
+  obtain ⟨⟨state0⟩,memory0⟩ := h0
+  refine ⟨c0+(6*finalWord.length+4),t,e0.seq e1,?_,state0.copy_frame wf1,?_,?_⟩
   · simp only [Finset.sum_const,Finset.card_range,smul_eq_mul] at hc0
     change c0+(6*finalWord.length+4) ≤ (D+1)*(13*D.bits.length+15)+
       D*cacheStepCost Q P grid W B+6*D.bits.length+4
     omega
   · refine ⟨origin+finalWord.length,?_⟩
     simp only [tapes1,Function.update_self]
+
+  · intro limit hp hn hd j hj
+    rw [wf1.2.2.1]
+    exact memory0 limit hp hn hd j hj
 
 #print axioms cache_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime

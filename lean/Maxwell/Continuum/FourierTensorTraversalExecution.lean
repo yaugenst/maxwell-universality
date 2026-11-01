@@ -16,14 +16,16 @@ theorem tensorTraversal_executes {n B Q N W : ℕ} (d : TensorInput n B Q N W)
         cost ≤ tensorTraversalCost Q N n W d.degree axes.length ∧
         TensorBuffers W Finset.univ t ∧
         (∀i,i∉axes → next.index i=h.index i) ∧
-        t.val.output=(d.payload axes h.index).reverse++s.val.output := by
+        t.val.output=(d.payload axes h.index).reverse++s.val.output ∧
+        (∀limit,limit≤addressValue d.cache.basePositive →limit≤addressValue d.cache.baseNegative →
+          limit≤addressValue d.cache.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   intro axes
   induction axes with
   | nil =>
     intro _ s h hb hv
     let j : Fin 3→Fin d.degree := fun i => ⟨h.index i,hv i (by simp)⟩
-    obtain ⟨c,t,next,e,hc,hi,ho⟩ := repeatedCoefficient_executes d j input tape s h (fun _ => rfl)
-    refine ⟨c,t,next,e,hc,?_,?_,?_⟩
+    obtain ⟨c,t,next,e,hc,hi,ho,memory⟩ := repeatedCoefficient_executes d j input tape s h (fun _ => rfl)
+    refine ⟨c,t,next,e,hc,?_,?_,?_,memory⟩
     · apply hb.frame
       intro i _
       exact e.tapesBelow repeatedCoefficient_tapesBelow _ (by omega)
@@ -48,17 +50,21 @@ theorem tensorTraversal_executes {n B Q N W : ℕ} (d : TensorInput n B Q N W)
     let inv : ℕ→Store→Prop := fun k st => ∃state : TensorState d st,
       TensorBuffers W (Finset.univ.erase i) st ∧ state.index i=k ∧
       (∀j,j∉i::is → state.index j=h.index j) ∧
-      st.val.output=(d.payloadPrefix is i h.index k).reverse++s.val.output
+      st.val.output=(d.payloadPrefix is i h.index k).reverse++s.val.output ∧
+      (∀limit,limit≤addressValue d.cache.basePositive →limit≤addressValue d.cache.baseNegative →
+        limit≤addressValue d.cache.baseDenominator →∀l,l<limit→st.val.memory l=s.val.memory l)
     have stable : ∀k a b,CountedShifted.Frame (1101+i.val) a b → inv k a → inv k b := by
-      intro k a b f ⟨state,buffers,index,outside,output⟩
-      refine ⟨state.count_frame i f,buffers.count_frame i (by simp) f,index,outside,?_⟩
-      exact f.2.2.2.2.1.trans output
+      intro k a b f ⟨state,buffers,index,outside,output,memory⟩
+      refine ⟨state.count_frame i f,buffers.count_frame i (by simp) f,index,outside,f.2.2.2.2.1.trans output,?_⟩
+      intro limit hp hn hd l hl
+      rw [f.2.2.1]
+      exact memory limit hp hn hd l hl
     have step : ∀k<d.degree,∀ys a,inv k a →
         a.val.tapes (1101+i.val)=BitTape.shifted ys origin → ys.length=d.degree.bits.length →
         ∃cost t,Executes input tape (.seq (tensorTraversalCode is) (cursorCode i)) cost a t ∧
           inv (k+1) t ∧ t.val.tapes (1101+i.val)=BitTape.shifted ys origin ∧
           cost ≤ tensorTraversalCost Q N n W d.degree is.length+(2*operationCost W+1) := by
-      intro k hk ys a ⟨state,buffers,index,outside,output⟩ word length
+      intro k hk ys a ⟨state,buffers,index,outside,output,memory⟩ word length
       have full : TensorBuffers W Finset.univ a := by
         intro j _
         by_cases hji : j=i
@@ -72,7 +78,7 @@ theorem tensorTraversal_executes {n B Q N W : ℕ} (d : TensorInput n B Q N W)
         · have hjc : j∉i::is := by simp [hji,hj]
           rw [outside j hjc]
           exact hv j hjc
-      obtain ⟨ca,a1,mid,ea,hca,buffers1,outside1,output1⟩ := ih hns a state full valid
+      obtain ⟨ca,a1,mid,ea,hca,buffers1,outside1,output1,memory1⟩ := ih hns a state full valid
       have index1 : mid.index i=k := (outside1 i hni).trans index
       obtain ⟨cb,t,next,eb,hcb,index2,fb⟩ := advanceCursor_executes d i input tape a1 mid
         (by simpa only [index1] using hk)
@@ -93,12 +99,15 @@ theorem tensorTraversal_executes {n B Q N W : ℕ} (d : TensorInput n B Q N W)
         (buffers1.restrict (Finset.erase_subset _ _)).frame (fun j _ =>
           eb.tapesBelow (cursor_tapesBelow i) _ (by omega))
       have nextIndex : next.index i=k+1 := by rw [index2,Function.update_self,index1]
-      refine ⟨ca+cb,t,ea.seq eb,⟨next,nextBuffers,nextIndex,nextOutside,nextOutput⟩,?_,
+      refine ⟨ca+cb,t,ea.seq eb,⟨next,nextBuffers,nextIndex,nextOutside,nextOutput,?_⟩,?_,
         Nat.add_le_add hca hcb⟩
-      exact (eb.tapesBelow (cursor_tapesBelow i) _ (by omega)).trans
-        ((ea.protectsTape _ (tensorTraversal_protects_counter is i hni)).trans word)
+      · intro limit hp hn hd l hl
+        rw [fb.memory,memory1 limit hp hn hd l hl]
+        exact memory limit hp hn hd l hl
+      · exact (eb.tapesBelow (cursor_tapesBelow i) _ (by omega)).trans
+          ((ea.protectsTape _ (tensorTraversal_protects_counter is i hni)).trans word)
     have initialInv : inv 0 s1 := by
-      refine ⟨initial,?_,?_,?_,?_⟩
+      refine ⟨initial,?_,?_,?_,?_,?_⟩
       · apply (buffers0.restrict (Finset.erase_subset _ _)).frame
         intro j hj
         apply f1.2.2.2.2.2.1
@@ -114,7 +123,9 @@ theorem tensorTraversal_executes {n B Q N W : ℕ} (d : TensorInput n B Q N W)
         rw [index0,Function.update_of_ne hji]
       · simpa only [TensorInput.payloadPrefix_zero,List.reverse_nil,List.nil_append]
           using f1.2.2.2.2.1.trans f0.output
-    obtain ⟨c2,t,ys,e2,⟨next,buffers2,_index2,outside2,output2⟩,count2,length2,hc2⟩ :=
+      · intro limit hp hn hd l hl
+        rw [f1.2.2.1,f0.memory]
+    obtain ⟨c2,t,ys,e2,⟨next,buffers2,_index2,outside2,output2,memory2⟩,count2,length2,hc2⟩ :=
       forward_counted_executes (1101+i.val) origin (.seq (tensorTraversalCode is) (cursorCode i))
         input tape d.degree d.degree.bits.length
         (tensorTraversalCost Q N n W d.degree is.length+(2*operationCost W+1))
@@ -126,7 +137,7 @@ theorem tensorTraversal_executes {n B Q N W : ℕ} (d : TensorInput n B Q N W)
         exact ⟨ys,by rw [length2];exact d.degreeWidth,origin,count2⟩
       · exact buffers2 j (by simp [hji])
     refine ⟨c0+((6*old.length+15*d.degree.bits.length+21)+c2),t,next,
-      e0.seq (e1.seq e2),?_,finalBuffers,outside2,?_⟩
+      e0.seq (e1.seq e2),?_,finalBuffers,outside2,?_,memory2⟩
     · have hload : 6*old.length+15*d.degree.bits.length+21 ≤ 21*W+21 := by
         have hd : d.degree.bits.length ≤ W := d.degreeWidth
         omega

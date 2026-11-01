@@ -81,14 +81,47 @@ theorem save_executes (S : Finset ℕ) (base source : ℕ) (hb : 107≤base) (hb
   rcases ho with ⟨hop,hon,hod⟩
   omega
 
-private theorem bank_copy {S : Finset ℕ} {v : ℕ→ℕ} {target x : ℕ} {s t : BitRAMState}
-    (h : NatAssign.Bank S v s) (w : Word t target x) (f : WordReplace.Frame target s t) :
-    NatAssign.Bank S (Function.update v target x) t := by
-  intro i hi
-  by_cases he : i=target
-  · subst i; simpa using w
-  · simp only [Function.update_of_ne he]
-    exact word_of_eq (f.2.2.2.2.2.1 i he) (h i hi)
+theorem restore_words_executes (base target : ℕ) (hb' : base+2<1000)
+    (old x : Parts) (B : ℕ) (hv : old.Width B) (hx : x.Width B)
+    (input : List Bool) (tape : ℕ→Bool) (s : Store)
+    (hold : Word s.val (positivePort target) old.positive ∧
+      Word s.val (negativePort target) old.negative ∧ Word s.val (denominatorPort target) old.denominator)
+    (hstore : Stored base x s.val) :
+    ∃cost t,Executes input tape (restoreCode base target) cost s t ∧ cost≤63*(B+1) ∧
+      (Word t.val (positivePort target) x.positive ∧
+        Word t.val (negativePort target) x.negative ∧ Word t.val (denominatorPort target) x.denominator) ∧
+      Stored base x t.val ∧ BinaryPrecision.Frame (cellPorts target) s.val t.val := by
+  have hp := positivePort_ge target
+  have hn := negativePort_ge target
+  have hd := denominatorPort_ge target
+  have hpn : positivePort target≠negativePort target := by unfold positivePort negativePort; omega
+  have hpd : positivePort target≠denominatorPort target := by unfold positivePort denominatorPort; omega
+  have hnd : negativePort target≠denominatorPort target := by unfold negativePort denominatorPort; omega
+  obtain ⟨s1,e1,w1,f1⟩ := WordReplace.executes _ _ (by omega : base≠positivePort target)
+    input tape _ _ s hstore.1 hold.1
+  have on := word_of_eq (f1.2.2.2.2.2.1 _ hpn.symm) hold.2.1
+  have s1n := word_of_eq (f1.2.2.2.2.2.1 (base+1) (by omega)) hstore.2.1
+  obtain ⟨s2,e2,w2,f2⟩ := WordReplace.executes _ _ (by omega : base+1≠negativePort target)
+    input tape _ _ s1 s1n on
+  have od := word_of_eq (f2.2.2.2.2.2.1 _ hnd.symm)
+    (word_of_eq (f1.2.2.2.2.2.1 _ hpd.symm) hold.2.2)
+  have s2d := word_of_eq (f2.2.2.2.2.2.1 (base+2) (by omega))
+    (word_of_eq (f1.2.2.2.2.2.1 (base+2) (by omega)) hstore.2.2)
+  obtain ⟨t,e3,w3,f3⟩ := WordReplace.executes _ _ (by omega : base+2≠denominatorPort target)
+    input tape _ _ s2 s2d od
+  have frame : BinaryPrecision.Frame (cellPorts target) s.val t.val :=
+    ((copy_frame f1).mono (by simp [cellPorts])).trans
+      (((copy_frame f2).mono (by simp [cellPorts])).trans ((copy_frame f3).mono (by simp [cellPorts])))
+  refine ⟨_,t,e1.seq (e2.seq e3),?_,⟨?_,?_,w3⟩,hstore.frame frame ?_,frame⟩
+  · rcases hv with ⟨hvp,hvn,hvd⟩
+    rcases hx with ⟨hxp,hxn,hxd⟩
+    omega
+  · exact word_of_eq (f3.2.2.2.2.2.1 _ hpd) (word_of_eq (f2.2.2.2.2.2.1 _ hpn) w1)
+  · exact word_of_eq (f3.2.2.2.2.2.1 _ hnd) w2
+  · apply Finset.disjoint_left.mpr
+    intro i hi hcell
+    simp only [ports,cellPorts,Finset.mem_insert,Finset.mem_singleton] at hi hcell
+    omega
 
 theorem restore_executes (S : Finset ℕ) (base target : ℕ) (hb' : base+2<1000)
     (ht : target∈S) (v : ℕ→Parts) (x : Parts) (B : ℕ)
@@ -98,47 +131,36 @@ theorem restore_executes (S : Finset ℕ) (base target : ℕ) (hb' : base+2<1000
     ∃cost t,Executes input tape (restoreCode base target) cost s t ∧ cost≤63*(B+1) ∧
       Ready S (Function.update v target x) t ∧ Stored base x t.val ∧
       BinaryPrecision.Frame (cellPorts target) s.val t.val := by
-  have hp := positivePort_ge target
-  have hn := negativePort_ge target
-  have hd := denominatorPort_ge target
-  have hpn : positivePort target≠negativePort target := by unfold positivePort negativePort; omega
-  have hpd : positivePort target≠denominatorPort target := by unfold positivePort denominatorPort; omega
-  have hnd : negativePort target≠denominatorPort target := by unfold negativePort denominatorPort; omega
-  have op : Word s.val (positivePort target) (v target).positive := by
-    simpa using hs.1 (positivePort target) (cell_mem ht (by simp [cellPorts]))
-  obtain ⟨s1,e1,w1,f1⟩ := WordReplace.executes _ _ (by omega : base≠positivePort target)
-    input tape _ _ s hstore.1 op
-  have on : Word s1.val (negativePort target) (v target).negative :=
-    word_of_eq (f1.2.2.2.2.2.1 _ hpn.symm) (by
-      simpa using hs.1 (negativePort target) (cell_mem ht (by simp [cellPorts])))
-  have s1n := word_of_eq (f1.2.2.2.2.2.1 (base+1) (by omega)) hstore.2.1
-  obtain ⟨s2,e2,w2,f2⟩ := WordReplace.executes _ _ (by omega : base+1≠negativePort target)
-    input tape _ _ s1 s1n on
-  have od : Word s2.val (denominatorPort target) (v target).denominator :=
-    word_of_eq (f2.2.2.2.2.2.1 _ hnd.symm) (word_of_eq (f1.2.2.2.2.2.1 _ hpd.symm) (by
-      simpa using hs.1 (denominatorPort target) (cell_mem ht (by simp [cellPorts]))))
-  have s2d := word_of_eq (f2.2.2.2.2.2.1 (base+2) (by omega))
-    (word_of_eq (f1.2.2.2.2.2.1 (base+2) (by omega)) hstore.2.2)
-  obtain ⟨t,e3,w3,f3⟩ := WordReplace.executes _ _ (by omega : base+2≠denominatorPort target)
-    input tape _ _ s2 s2d od
-  have frame : BinaryPrecision.Frame (cellPorts target) s.val t.val :=
-    ((copy_frame f1).mono (by simp [cellPorts])).trans
-      (((copy_frame f2).mono (by simp [cellPorts])).trans ((copy_frame f3).mono (by simp [cellPorts])))
-  refine ⟨_,t,e1.seq (e2.seq e3),?_,?_,hstore.frame frame ?_,frame⟩
-  · rcases hv with ⟨hvp,hvn,hvd⟩
-    rcases hx with ⟨hxp,hxn,hxd⟩
-    omega
-  · constructor
-    · have b := bank_copy (bank_copy (bank_copy hs.1 w1 f1) w2 f2) w3 f3
-      change NatAssign.Bank (ids S) (writeParts (dataValues v) target x) t.val at b
-      rwa [writeParts_dataValues] at b
-    · intro i hi
-      apply blank_of_eq (frame.tapes i _) (hs.2 i hi)
-      simp only [cellPorts,Finset.mem_insert,Finset.mem_singleton]
-      omega
-  · apply Finset.disjoint_left.mpr
-    intro i hi hcell
-    simp only [ports,cellPorts,Finset.mem_insert,Finset.mem_singleton] at hi hcell
+  have old : Word s.val (positivePort target) (v target).positive ∧
+      Word s.val (negativePort target) (v target).negative ∧ Word s.val (denominatorPort target) (v target).denominator := by
+    exact ⟨by simpa only [dataValues_positive] using hs.1 (positivePort target) (cell_mem ht (by simp [cellPorts])),
+      by simpa only [dataValues_negative] using hs.1 (negativePort target) (cell_mem ht (by simp [cellPorts])),
+      by simpa only [dataValues_denominator] using hs.1 (denominatorPort target) (cell_mem ht (by simp [cellPorts]))⟩
+  obtain ⟨cost,t,executes,bound,words,stored,frame⟩:=
+    restore_words_executes base target hb' (v target) x B hv hx input tape s old hstore
+  refine ⟨cost,t,executes,bound,⟨?_,?_⟩,stored,frame⟩
+  · rw [←writeParts_dataValues]
+    intro i hi
+    by_cases hp:i=positivePort target
+    · subst i
+      simpa only [writeParts,Function.update_of_ne (show positivePort target≠denominatorPort target by
+        unfold positivePort denominatorPort;omega),Function.update_of_ne (show positivePort target≠negativePort target by
+        unfold positivePort negativePort;omega),Function.update_self] using words.1
+    by_cases hn:i=negativePort target
+    · subst i
+      simpa only [writeParts,Function.update_of_ne (show negativePort target≠denominatorPort target by
+        unfold negativePort denominatorPort;omega),Function.update_self] using words.2.1
+    by_cases hd:i=denominatorPort target
+    · subst i
+      simpa only [writeParts,Function.update_self] using words.2.2
+    simp only [writeParts,Function.update_of_ne hp,Function.update_of_ne hn,Function.update_of_ne hd]
+    exact word_of_eq (frame.tapes i (by simp only [cellPorts,Finset.mem_insert,Finset.mem_singleton];omega)) (hs.1 i hi)
+  · intro i hi
+    apply blank_of_eq (frame.tapes i _) (hs.2 i hi)
+    have hp:=positivePort_ge target
+    have hn:=negativePort_ge target
+    have hd:=denominatorPort_ge target
+    simp only [cellPorts,Finset.mem_insert,Finset.mem_singleton]
     omega
 
 #print axioms save_executes

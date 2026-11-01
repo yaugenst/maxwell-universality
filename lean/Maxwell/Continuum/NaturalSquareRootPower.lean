@@ -1,6 +1,6 @@
 import Maxwell.Continuum.NaturalSquareRootInteger
-import Maxwell.Continuum.ParameterPowerMachine
-import Maxwell.Continuum.StoredWordLength
+import Maxwell.Cost.SelectedParameters.DynamicPowerMachine
+import Maxwell.Cost.Structured.NatAssign.StoredLength
 import Maxwell.Continuum.NatAssignOutputWidth
 
 /-! The integer square-root scaling and loop length are computed from
@@ -19,12 +19,12 @@ def inputValues (T : ℕ) (i : ℕ) : ℕ := if i=540 then T else 0
 def lengthValues (T : ℕ) : ℕ → ℕ := Function.update (inputValues T) 541 T.bits.length
 def powerPlan : List NatAssign.Instruction := [.literal 530 4,.literal 531 1,.copy 541 534]
 def powerCode : Code := .seq (WordLength.code 540 541)
-  (.seq (NatAssign.code powerPlan) Parameters.PowerMachine.code)
+  (.seq (NatAssign.code powerPlan) SelectedParameters.PowerMachine.code)
 def powerValues (T : ℕ) (i : ℕ) : ℕ :=
   if i=530 then 4 else if i=531 then 1 else if i=532 then 4^T.bits.length else
     if i=533 then 1 else if i=540 then T else if i=541 then T.bits.length else 0
 def powerCost (k : ℕ) : ℕ := 48*(k+1)^2+1+3000*8^3*(k+6)^2+
-  Parameters.PowerMachine.costBound k (k+4)
+  SelectedParameters.PowerMachine.costBound k (k+4)
 
 theorem powerPlan_valid : ∀ a∈powerPlan, a.Valid ids := by
   simp [powerPlan,NatAssign.Instruction.Valid,ids]
@@ -74,7 +74,7 @@ theorem power_executes (T : ℕ) (input : List Bool) (tape : ℕ → Bool) (s : 
     split_ifs <;> omega
   have count : Word v.val 534 T.bits.length := by
     simpa [values] using b1 534 (by decide)
-  obtain ⟨c2,t,e2,hc2,b2,blank,f2⟩ := Parameters.PowerMachine.executes
+  obtain ⟨c2,t,e2,hc2,b2,blank,f2⟩ := SelectedParameters.PowerMachine.executes
     (NatAssign.values powerPlan (lengthValues T)) T.bits.length (T.bits.length+4)
       (by omega) widths ((length_width T).trans (by omega)) input tape v
       (fun i hi => b1 i ((by decide : SelectedParameters.DynamicPower.ids⊆ids) hi)) z1 count
@@ -100,7 +100,7 @@ theorem power_executes (T : ℕ) (input : List Bool) (tape : ℕ → Bool) (s : 
   omega
 
 theorem powerCost_polynomial (k : ℕ) : powerCost k≤2^32*(k+6)^5 := by
-  unfold powerCost Parameters.PowerMachine.costBound Parameters.PowerMachine.bodyCost
+  unfold powerCost SelectedParameters.PowerMachine.costBound SelectedParameters.PowerMachine.bodyCost
     SelectedParameters.DynamicPower.width
   ring_nf
   omega

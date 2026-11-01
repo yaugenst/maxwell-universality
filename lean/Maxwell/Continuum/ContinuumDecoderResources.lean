@@ -1,5 +1,5 @@
 import Maxwell.Continuum.ContinuumDecoder
-import Maxwell.Continuum.FiniteDecoderWords
+import Maxwell.Cost.FiniteDecoder.Words
 
 /-! The concrete decoder's coefficients, indices and complete message-array
 addresses all have logarithmic width. The actual finite program therefore
@@ -115,30 +115,30 @@ theorem decoder_words (hm2 : 2≤S.nnz) (hp : Source.Promises p S) (hb : S.sourc
       exact_mod_cast hB
 
 theorem decoder_description_width (hm2 : 2≤S.nnz) (hp : Source.Promises p S) (hb : S.source≠0) :
-    maxWidth FiniteDecoder.descriptionShape (FiniteDecoder.descriptionData (decoder p S hm))≤
+    maxWidth Cost.FiniteDecoder.descriptionShape (Cost.FiniteDecoder.descriptionData (decoder p S hm))≤
       decoderWordCoefficient p*logSize S := by
   have h := decoder_words p S hm hm2 hp hb
-  exact FiniteDecoder.description_width (decoder p S hm) _ 1 h.dimension h.integerBits
+  exact Cost.FiniteDecoder.description_width (decoder p S hm) _ 1 h.dimension h.integerBits
     h.fractionalBits h.sampleCount (by simpa using h.positive) h.offset
     (fun i q _ => h.weight i q) (fun i => (decoder_support p S hm i).le)
 
 theorem decoder_description_length (hm2 : 2≤S.nnz) (hp : Source.Promises p S) (hb : S.source≠0) :
-    (FiniteDecoder.description (decoder p S hm)).length≤
+    (Cost.FiniteDecoder.description (decoder p S hm)).length≤
       32*(S.n+1)*(decoderWordCoefficient p*logSize S+1) := by
   have h := decoder_words p S hm hm2 hp hb
-  have hh := FiniteDecoder.description_length (decoder p S hm) _ 1 h.dimension h.integerBits
+  have hh := Cost.FiniteDecoder.description_length (decoder p S hm) _ 1 h.dimension h.integerBits
     h.fractionalBits h.sampleCount (by simpa using h.positive) h.offset
     (fun i q _ => h.weight i q) (fun i => (decoder_support p S hm i).le)
   convert hh using 1
   ring
 
 theorem decoder_cost (hm2 : 2≤S.nnz) (hp : Source.Promises p S) (hb : S.source≠0) :
-    FiniteDecoder.costCap (decoder p S hm)≤
-      46080000*((FiniteDecoder.description (decoder p S hm)).length+
+    Cost.FiniteDecoder.costCap (decoder p S hm)≤
+      46080000*((Cost.FiniteDecoder.description (decoder p S hm)).length+
         gridCount p S hm*(decoder p S hm).format.width+1)*
       (decoderWordCoefficient p*logSize S+1)^2 := by
   have h := decoder_words p S hm hm2 hp hb
-  have hh := FiniteDecoder.costCap_bounded (decoder p S hm) _ 1
+  have hh := Cost.FiniteDecoder.costCap_bounded (decoder p S hm) _ 1
     (decoder_description_width p S hm hm2 hp hb) h.format h.sampleCount h.messageCount h.offset
     (fun i q _ => h.weight i q) (fun i => (decoder_support p S hm i).le)
   rw [show (decoder p S hm).sampleCount=gridCount p S hm from rfl] at hh

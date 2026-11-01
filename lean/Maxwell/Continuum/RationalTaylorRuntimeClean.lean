@@ -1,5 +1,5 @@
 import Maxwell.Continuum.RationalTaylorRuntime
-import Maxwell.Continuum.RuntimeCounterClear
+import Maxwell.Cost.Structured.CounterClear
 import Maxwell.Continuum.NatAssignCleanup
 
 /-! A fixed Taylor call restores its runtime index and countdown words. -/

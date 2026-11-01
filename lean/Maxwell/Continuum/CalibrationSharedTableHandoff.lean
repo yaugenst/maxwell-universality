@@ -1,3 +1,4 @@
+import Maxwell.Cost.BankArray.Unique
 import Maxwell.Continuum.CalibrationSharedTableCounter
 import Maxwell.Continuum.CalibrationNeumannCopyPrepare
 
@@ -36,7 +37,7 @@ theorem converted_descriptor_bank {n : ℕ} (a b : PartArray.Table n)
     have hnew := ht.1 i hid
     rw [dataValues_small old hsmall] at hold
     rw [dataValues_small new hsmall] at hnew
-    exact word_recover (hv i hi) hold hnew
+    exact BankArray.word_recover (hv i hi) hold hnew
   · by_cases hp : i ∈ copyProtected
     · exact RationalAccumulator.word_of_eq (he.protectsTape i
         (List.all_eq_true.mp conversion_protects i (by
@@ -48,14 +49,14 @@ theorem converted_descriptor_bank {n : ℕ} (a b : PartArray.Table n)
           Finset.mem_union,Finset.mem_Icc,Finset.mem_insert,Finset.mem_singleton] at hi hp hwork
         omega
       rcases cases with rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl
-      · exact word_recover (hv _ hi) ha.width ha'.width
-      · exact word_recover (hv _ hi) ha.basePositive ha'.basePositive
-      · exact word_recover (hv _ hi) ha.baseNegative ha'.baseNegative
-      · exact word_recover (hv _ hi) ha.baseDenominator ha'.baseDenominator
-      · exact word_recover (hv _ hi) hb.width hb'.width
-      · exact word_recover (hv _ hi) hb.basePositive hb'.basePositive
-      · exact word_recover (hv _ hi) hb.baseNegative hb'.baseNegative
-      · exact word_recover (hv _ hi) hb.baseDenominator hb'.baseDenominator
+      · exact BankArray.word_recover (hv _ hi) ha.width ha'.width
+      · exact BankArray.word_recover (hv _ hi) ha.basePositive ha'.basePositive
+      · exact BankArray.word_recover (hv _ hi) ha.baseNegative ha'.baseNegative
+      · exact BankArray.word_recover (hv _ hi) ha.baseDenominator ha'.baseDenominator
+      · exact BankArray.word_recover (hv _ hi) hb.width hb'.width
+      · exact BankArray.word_recover (hv _ hi) hb.basePositive hb'.basePositive
+      · exact BankArray.word_recover (hv _ hi) hb.baseNegative hb'.baseNegative
+      · exact BankArray.word_recover (hv _ hi) hb.baseDenominator hb'.baseDenominator
 
 def swappedValues (v : ℕ → ℕ) (i : ℕ) : ℕ :=
   if i=200 then v 210 else if i=202 then v 212 else if i=203 then v 213
@@ -65,7 +66,7 @@ def swappedValues (v : ℕ → ℕ) (i : ℕ) : ℕ :=
 theorem word_relocate {s t : BitRAMState} {i j n : ℕ} {xs : List Bool}
     (hn : RationalAccumulator.Word s i n) (hx : BankArray.Word s i xs)
     (hy : BankArray.Word t j xs) : RationalAccumulator.Word t j n := by
-  have he := word_unique hn hx
+  have he := BankArray.word_unique hn hx
   rw [←he] at hy
   exact hy
 

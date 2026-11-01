@@ -33,7 +33,7 @@ theorem retainedComponent_executes {p : ℕ} (M A L R P Q N E : ℕ) [NeZero M]
       BankArray.Word t.val 992 (componentPayload M A L R P Q N a j) ∧
       t.val.output=s.val.output ∧
       t.val.tapes 988=s.val.tapes 988 ∧ t.val.tapes 991=s.val.tapes 991 := by
-  obtain ⟨c,u,ex,hc,out⟩ := computedComponent_executes M A L R P Q N E a old j
+  obtain ⟨c,u,ex,hc,out,_,_⟩ := computedComponent_executes M A L R P Q N E a old j
     hav hmode hfreq hmass input tape s hb hr hz wa ha ho hfloor hphase hsetup hfresh
   obtain ⟨d,t,hd,_,et,word,output,frame⟩ := OutputCapture.executes 992 (completeComponentCode j)
     (completeComponent_avoids992 j) input tape ex _ out h992

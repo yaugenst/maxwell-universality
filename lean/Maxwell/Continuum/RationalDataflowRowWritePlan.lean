@@ -1,5 +1,6 @@
 import Maxwell.Continuum.RationalDataflowRowWrite
 import Maxwell.Continuum.RationalDataflowRowPlan
+import Maxwell.Continuum.RationalDataflowArrayWritePrefix
 
 /-! Fixed row-write plans materialize several cached outputs in one pass. -/
 namespace Maxwell.Continuum.RationalDataflow.PartArray
@@ -64,28 +65,33 @@ theorem rowWritePlan_executes {n m : ℕ} (a : Table n) (b : Table m) (S : Finse
     ∃ cost t, Executes input tape (rowWritePlanCode stride plan) cost s t ∧
       cost≤rowPlanCost stride O W plan ∧ RationalDataflow.Ready S v t ∧ a.Ready t ∧
       (rowWriteTable stride (addressValue word) plan v b).OutputReady t ∧
-      (∀i∈RowIndex.ids,RationalAccumulator.Blank t.val i) ∧ RowWriteFrame s.val t.val := by
+      (∀i∈RowIndex.ids,RationalAccumulator.Blank t.val i) ∧ RowWriteFrame s.val t.val ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀j,j<limit→t.val.memory j=s.val.memory j) := by
   induction plan generalizing b s with
-  | nil => exact ⟨1,s,.skip s,by simp [rowPlanCost],hs,ha,hb,hblank,RowWriteFrame.refl _⟩
+  | nil => exact ⟨1,s,.skip s,by simp [rowPlanCost],hs,ha,hb,hblank,RowWriteFrame.refl _,fun _ _ _ _ _ _=>rfl⟩
   | cons x rest ih =>
     have hxi := hix x (by simp)
-    obtain ⟨cw,r,ew,hcw,br,ar,bor,zr,_,fr⟩ := rowWrite_executes a b S stride x.1 x.2
+    obtain ⟨cw,r,ew,hcw,br,ar,bor,zr,mr,fr⟩ := rowWrite_executes a b S stride x.1 x.2
       (hvalid x (by simp)) v hpositive (hfit x (by simp)) hsep hdisjoint input tape word hxi s hs ha hb hi hblank
     have heq : b.setD (stride*addressValue word+x.1) (v x.2)=
         b.set ⟨stride*addressValue word+x.1,hxi⟩ (v x.2) := by
       simp only [Table.setD,dite_eq_left hxi]
-    obtain ⟨ct,t,et,hct,bt,at',bot,zt,ft⟩ := ih (b.set ⟨stride*addressValue word+x.1,hxi⟩ (v x.2))
+    obtain ⟨ct,t,et,hct,bt,at',bot,zt,ft,mt⟩ := ih (b.set ⟨stride*addressValue word+x.1,hxi⟩ (v x.2))
       (fun y hy => hvalid y (by simp [hy])) (fun y hy => hoff y (by simp [hy]))
       ⟨hm.width,hm.basePositive,hm.baseNegative,hm.baseDenominator,hm.clock⟩
       (fun y hy => hfit y (by simp [hy])) hpositive hsep hdisjoint
       (fun y hy => hix y (by simp [hy])) r br ar bor (BankArray.word_of_eq fr.counter hi) zr
-    refine ⟨cw+ct,t,ew.seq et,?_,bt,at',?_,zt,fr.trans ft⟩
+    refine ⟨cw+ct,t,ew.seq et,?_,bt,at',?_,zt,fr.trans ft,?_⟩
     · have hb' := (rowWriteCost_polynomial b word (v x.2) stride x.1 W hm hlen).trans
         (Nat.mul_le_mul_left _ (Nat.pow_le_pow_left (by have := hoff x (by simp);omega :
           W+stride.bits.length+x.1.bits.length+5≤W+stride.bits.length+O+5) 2))
       simp only [rowPlanCost,List.length_cons,Nat.add_mul,Nat.one_mul] at hct ⊢
       omega
     · simpa only [rowWriteTable,heq] using bot
+    · intro limit hp hn hd j hj
+      rw [mt limit hp hn hd j hj,mr]
+      exact b.writeMemory_prefix _ _ _ limit hp hn hd j hj
 
 #print axioms rowWritePlan_executes
 end Maxwell.Continuum.RationalDataflow.PartArray

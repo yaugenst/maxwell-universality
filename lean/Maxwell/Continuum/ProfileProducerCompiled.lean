@@ -29,7 +29,7 @@ theorem producer_compiled_run (N heap : ℕ) (hh : heap.bits.length≤producerSi
       (runPriced (producerCode.compile.next input tape) (producerCost N oldWord.length+1) s.val).instructions≤
         2^84002*(N+1)^2088 ∧
       Nonempty (EncodedTableResult N (runtimeBudget N) (finalBuffer N heap s.val.memory) t) := by
-  obtain ⟨cost,t,result,e,hcost,_,_⟩ := producer_allocated_executes N heap hh v hv saved hsv input tape
+  obtain ⟨cost,t,result,e,hcost,_,_,_⟩ := producer_allocated_executes N heap hh v hv saved hsv input tape
     inner oldWord hlen s hd hb hz hr hs hinner hcount hp hg hf harray h7 h37 h205 h215 h216
   obtain ⟨hrun,hsteps⟩ := e.compiled_run (producerCost N oldWord.length+1) (by omega)
   exact ⟨t,hrun,hsteps ▸ hcost.trans (producerCost_precision N oldWord.length hold),⟨result⟩⟩

@@ -2,6 +2,7 @@ import Maxwell.Cost.NormalizeSource.SourceData
 import Maxwell.Cost.NormalizeSource.MatrixPass
 import Maxwell.Cost.SourceMetadata
 import Maxwell.Cost.SourceReplay
+import Maxwell.Cost.MagnitudeMax.Branch
 
 namespace Maxwell.Cost.NormalizeSource
 open Structured RationalAccumulator
@@ -10,7 +11,7 @@ open Logical.Normalization
 /-- The fixed encoder frontend: parse and measure the actual source,
 construct scale and precision, physically replay its wire, then normalize
 its stored coefficients. Its code depends only on fixed promise exponents. -/
-def frontendCode (k c : ℕ) : Code := .seq MagnitudeMax.Both.code
+def frontendCode (k c : ℕ) : Code := .seq MagnitudeMax.Branch.code
   (.seq (SourceMetadata.code k c) (.seq SourceReplay.code matrixPassCode))
 
 /-- The only tapes used before the circuit compiler starts. -/
@@ -18,7 +19,7 @@ def frontendTapes : Finset ℕ := MagnitudeMax.Both.work ∪ SourceMetadata.work
   {18,20,74,75} ∪ work
 
 noncomputable def frontendPrice (p : Source.Parameters) (S : Source.SparseSystem) (k c : ℕ) : ℕ :=
-  MagnitudeMax.Both.price S (MagnitudeMax.inputWidth p S)+
+  MagnitudeMax.Branch.price S (MagnitudeMax.inputWidth p S)+
     SourceMetadata.costBound S.nnz (MagnitudeMax.inputWidth p S) k c+
     SourceReplay.price (Codec.sourceRecord S)+
     matrixPassPrice S.n (Codec.sourceRecord S).entries
@@ -62,8 +63,8 @@ theorem frontend_executes_with_rhs (p : Source.Parameters) (S : Source.SparseSys
   have hentries := MagnitudeMax.promised_entry_width p S hp
   have hrhs := MagnitudeMax.promised_rhs_width p S hp
   obtain ⟨bcost, b, hbcost, eb, hbhead, hb79, hb80, hb81, hb86, hb87, _, hb19,
-      hb18, hb20, hb24, hbscratch, hbparser, hbrandom, hbout, hbbank, hbfree⟩ :=
-    MagnitudeMax.Both.executes_record R B hB hentries hrhs [] tape
+      hb18, hb20, hb24, hbscratch, hbparser, hbrandom, hbout, hbbank, hbfree, _⟩ :=
+    MagnitudeMax.Branch.executes_record R B hB hentries hrhs [] tape
   have hi : ParseSource.recordWire R ++ [] = Codec.source S := by
     simp [R, ParseSource.source_wire]
   rw [hi] at eb
@@ -147,7 +148,7 @@ theorem frontend_executes_with_rhs (p : Source.Parameters) (S : Source.SparseSys
   have tk (i : ℕ) (h74 : i ≠ 74) (h75 : i ≠ 75) (hi : i ∉ work) : t.val.tapes i = r.val.tapes i :=
     htkeep i h74 h75 hi
   refine ⟨_, t, ?_, eb.seq (em.seq (er.seq et)), ?_⟩
-  · change _ ≤ MagnitudeMax.Both.recordPrice R B + SourceMetadata.costBound S.nnz B k c +
+  · change _ ≤ MagnitudeMax.Branch.recordPrice R B + SourceMetadata.costBound S.nnz B k c +
       SourceReplay.price R + matrixPassPrice S.n R.entries (sourceWidth p S precision)
     omega
   · refine ⟨?_, ?_⟩

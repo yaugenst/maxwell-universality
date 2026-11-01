@@ -71,7 +71,7 @@ theorem factorLoad_executes {n D Q N : ℕ} (a : Table n) (b : Table (2*D))
     (hindex : Word s.val 1048 oldIndex) :
     ∃cost t,Executes input tape (factorLoadCode frequency index) cost s t ∧ cost ≤ factorLoadCost W ∧
       FactorReady a Q N b (Function.update v 10 (v frequency)) t ∧
-      WidthBank tensorBank W (Function.update v 10 (v frequency)) ∧ Word t.val 1048 j := by
+      WidthBank tensorBank W (Function.update v 10 (v frequency)) ∧ Word t.val 1048 j ∧ t.val.memory=s.val.memory := by
   obtain ⟨c0,s0,e0,h0,r0,w0,f0⟩ := partsCopy_executes tensorBank frequency 10 hf (by decide) hf10
     v W hw input tape s hs.ready
   have ready0 := hs.arithmetic_frame f0 r0
@@ -82,7 +82,7 @@ theorem factorLoad_executes {n D Q N : ℕ} (a : Table n) (b : Table (2*D))
   obtain ⟨t,e1,index1,f1⟩ := WordReplace.executes (positivePort index) 1048
     (by unfold positivePort;omega) input tape j.bits oldIndex.bits s0 index0 old0
   refine ⟨c0+(6*oldIndex.bits.length+15*j.bits.length+21),t,e0.seq e1,?_,
-    ready0.index_frame f1,w0,index1⟩
+    ready0.index_frame f1,w0,index1,f1.2.2.1.trans f0.memory⟩
   have hjw : j.bits.length ≤ W := by simpa only [hj] using (hw index hi).1
   unfold factorLoadCost
   omega

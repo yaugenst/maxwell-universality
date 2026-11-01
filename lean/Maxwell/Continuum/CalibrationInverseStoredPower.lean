@@ -1,3 +1,4 @@
+import Maxwell.Cost.BankArray.Unique
 import Maxwell.Continuum.CalibrationGeneratedInverse
 import Maxwell.Continuum.CalibrationInverseDenominatorPower
 
@@ -54,7 +55,7 @@ theorem from_snapshot {n : ℕ} (a : Snapshot n) (D N B : ℕ) (count : List Boo
       Word t.val 532 (D^(N+1)) ∧ Word t.val 533 1 ∧ Blank t.val 534 ∧
       a.Ready count B t.val ∧ BinaryPrecision.Frame changed s.val t.val := by
   have denEq : a.data.K=D := by
-    simpa only [addressValue_bits] using congrArg addressValue (word_unique ha.2.1.K hden)
+    simpa only [addressValue_bits] using congrArg addressValue (BankArray.word_unique ha.2.1.K hden)
   have denWidth : D.bits.length≤B := by
     rw [←denEq]
     exact hsize.2.2.2.2.2.1

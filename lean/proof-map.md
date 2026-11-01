@@ -16,6 +16,17 @@ verification receipt.
 | Mediator and residual elimination, `d:eq:target-mediator`, `d:eq:exact-residual` | [Algebra](Maxwell/Algebra.lean): `Maxwell.physical_mediator_schur`, `schur_residual_identity`, `full_block_factorization` | Block identities with the stated inverse hypotheses |
 | Projection residual, `d:eq:app-saddle-residual-identity` | [Algebra](Maxwell/Algebra.lean): `Maxwell.saddle_projected_error` | Exact identity retaining both saddle residual blocks |
 | Conditional exponent arithmetic, `d:cor:complexity` | [Complexity](Maxwell/Complexity.lean): `Maxwell.composedExponent_lt_iff`, `composedExponent_not_lt_of_le_floor`, `composedExponent_at_boundary` | The exponent comparison; algorithm transfer additionally requires the realization and computational model |
+| Retained finite output | [OutputCapture/Retained](Maxwell/Cost/OutputCapture/Retained.lean): `Maxwell.Cost.OutputCapture.executes`, `compiled_run` | Redirects a fixed producer's actual output to a reserved tape with charged execution, exact stored bits, and preserved machine state |
+| Machine-state preservation | [TapeInterval](Maxwell/Cost/Structured/TapeInterval.lean): `Maxwell.Cost.Structured.Executes.outsideTapes`; [OutputFootprint](Maxwell/Cost/Structured/OutputFootprint.lean): `Maxwell.Cost.Structured.Executes.protectsOutput` | Model-independent syntactic checks for tape and emitted-prefix preservation |
+| Input size convention | [Source/Size](Maxwell/Source/Size.lean): `Maxwell.Source.SparseSystem.effectiveSize`, `effectiveSize_of_two_le` | One positive size convention shared by continuum and discrete contracts |
+| Stored sorting paths | [SortPaths](Maxwell/Logical/Routing/SortPaths.lean): `SortPaths.port_reverse_step`, `port_target`; [PhaseKeys](Maxwell/Logical/Routing/PhaseKeys.lean) | Pure permutation, path-count, endpoint, and reverse-step identities independent of either physical model |
+| Schema traversal | [DecoderParser/Skip](Maxwell/Cost/DecoderParser/Skip.lean): `skip_correct`; [Width](Maxwell/Cost/DecoderParser/Width.lean): `widthBound_of_length` | Actual charged parsing with restored scratch space, and local-record width bounds reusable for combined descriptions |
+| Weighted rational decoder | [FiniteDecoder](Maxwell/Cost/FiniteDecoder.lean): `Maxwell.Cost.FiniteDecoder.executes_from`, `run`; [Cost](Maxwell/Cost/FiniteDecoder/Cost.lean): `costCap_bounded` | Fixed finite code, arbitrary preceding input, exact weighted decoding for every message pattern, and charged near-linear execution |
+| Repeated-row emitter | [EmitRows](Maxwell/Cost/EmitRows.lean): `Maxwell.Cost.EmitRows.executes` | One implementation used by discrete zero-source and continuum vacuum encoders |
+
+These machine modules have no continuum dependencies. The continuum producers
+use them through their own payload and arithmetic-bank adapters; relocating
+them does not complete the uniform encoder or extend a recorded audit receipt.
 
 ## Continuum construction
 

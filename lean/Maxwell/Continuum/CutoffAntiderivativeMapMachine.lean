@@ -40,7 +40,7 @@ theorem antiderivativeMap_computes (N : ℕ) (a b : Table (Profile.profileDegree
   have hSB : scaleStateWidth (Profile.profileDegree N) W≤scaleWorkingWidth (Profile.profileDegree N) W := by
     unfold scaleWorkingWidth
     omega
-  obtain ⟨cost,t,_,he,hcost,_,harray,houtput,_,_⟩ := map_executes a b scaleSlots (by decide)
+  obtain ⟨cost,t,_,he,hcost,_,harray,houtput,_,_,_⟩ := map_executes a b scaleSlots (by decide)
     antiderivativeScaleControl antiderivativeScaleControl_valid 0 (by decide) (scaleInitial _)
     (scaleWorkingWidth (Profile.profileDegree N) W) (by
       unfold scaleWorkingWidth

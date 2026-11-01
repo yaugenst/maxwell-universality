@@ -28,22 +28,24 @@ theorem axis_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
       FactorReady a Q N output w t ∧ WidthBank tensorBank W w ∧ CacheTableMetadata output b ∧
       AxisInputs w q j ∧ w (25+2*i.val)=waveCacheReal (q i) Q N (j i) ∧
       w (26+2*i.val)=waveCacheImag (q i) Q N (j i) ∧
-      (∀k,17 ≤ k → k≠25+2*i.val → k≠26+2*i.val → w k=v k) ∧ Word t.val 1048 (j i) := by
+      (∀k,17 ≤ k → k≠25+2*i.val → k≠26+2*i.val → w k=v k) ∧ Word t.val 1048 (j i) ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   have ilt := i.isLt
   have hf : 20+i.val∈tensorBank := by simp [tensorBank,Finset.mem_Ico];omega
   have hi : 17+i.val∈tensorBank := by simp [tensorBank,Finset.mem_Ico];omega
-  obtain ⟨c0,s0,e0,h0,r0,w0,index0⟩ := factorLoad_executes a b W (20+i.val) (17+i.val) oldIndex (j i)
+  obtain ⟨c0,s0,e0,h0,r0,w0,index0,loadMemory⟩ := factorLoad_executes a b W (20+i.val) (17+i.val) oldIndex (j i)
     hf (by omega) hi (by omega) v hw (hinputs i).2.2 hold input tape s hs hindex
   let u := Function.update v 10 (v (20+i.val))
   have u10 : u 10=v (20+i.val) := Function.update_self _ _ _
-  obtain ⟨c1,t,w,output,e1,h1,r1,w1,m1,real1,imag1,_,keep,index1⟩ := factor_executes a Q N W b
+  obtain ⟨c1,t,w,output,e1,h1,r1,w1,m1,real1,imag1,_,keep,index1,memory⟩ := factor_executes a Q N W b
     hm hsep hdisjoint hfit u w0 (by simpa only [u10] using (hinputs i).2.1)
     (by simpa only [u10,(hinputs i).1] using hq i) hQ hN hW hprecision hgrid (j i) (25+2*i.val)
     (hj i) (by omega) (by omega) input tape s0 r0 index0
   have hkeep (k : ℕ) (hk : 17 ≤ k) (hk0 : k≠25+2*i.val) (hk1 : k≠26+2*i.val) : w k=v k := by
     have h := keep k hk hk0 (by omega)
     simpa only [u,Function.update_of_ne (by omega : k≠10)] using h
-  refine ⟨c0+c1,t,w,output,e0.seq e1,Nat.add_le_add h0 h1,r1,w1,m1,?_,?_,?_,hkeep,index1⟩
+  refine ⟨c0+c1,t,w,output,e0.seq e1,Nat.add_le_add h0 h1,r1,w1,m1,?_,?_,?_,hkeep,index1,?_⟩
   · intro k
     have klt := k.isLt
     rw [hkeep (20+k.val) (by omega) (by omega) (by omega),
@@ -51,6 +53,9 @@ theorem axis_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
     exact hinputs k
   · simpa only [u10,(hinputs i).1] using real1
   · simpa only [u10,(hinputs i).1,show 25+2*i.val+1=26+2*i.val by omega] using imag1
+
+  · intro limit hp hn hd k hk
+    rw [memory limit hp hn hd k hk,loadMemory]
 
 def axesCode : Code := .seq (axisCode 0) (.seq (axisCode 1) (axisCode 2))
 def axesCost (Q N W : ℕ) (j : Fin 3→ℕ) : ℕ :=
@@ -72,21 +77,23 @@ theorem axes_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
       AxisInputs w q j ∧
       (∀i : Fin 3,w (25+2*i.val)=waveCacheReal (q i) Q N (j i) ∧
         w (26+2*i.val)=waveCacheImag (q i) Q N (j i)) ∧
-      w 23=v 23 ∧ w 24=v 24 ∧ w 31=v 31 ∧ Word t.val 1048 (j 2) := by
+      w 23=v 23 ∧ w 24=v 24 ∧ w 31=v 31 ∧ Word t.val 1048 (j 2) ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+        limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   have jwidth (i : Fin 3) : (j i).bits.length ≤ W := by
     have hi : 17+i.val∈tensorBank := by have := i.isLt;simp [tensorBank,Finset.mem_Ico];omega
     simpa only [(hinputs i).2.2] using (hw (17+i.val) hi).1
-  obtain ⟨c0,s0,v0,b0,e0,h0,r0,w0,m0,in0,re0,im0,k0,index0⟩ := axis_executes a Q N W b hm hsep
+  obtain ⟨c0,s0,v0,b0,e0,h0,r0,w0,m0,in0,re0,im0,k0,index0,mem0⟩ := axis_executes a Q N W b hm hsep
     hdisjoint hfit v hw q j hinputs hq hj hQ hN hW hprecision hgrid 0 oldIndex hold input tape s hs hindex
-  obtain ⟨c1,s1,v1,b1,e1,h1,r1,w1,m1,in1,re1,im1,k1,index1⟩ := axis_executes a Q N W b0
+  obtain ⟨c1,s1,v1,b1,e1,h1,r1,w1,m1,in1,re1,im1,k1,index1,mem1⟩ := axis_executes a Q N W b0
     (m0.widthBound hm) (m0.separated hsep) (m0.separatedFrom hdisjoint) (by simpa only [m0.width] using hfit)
     v0 w0 q j in0 hq hj hQ hN hW hprecision hgrid 1 (j 0) (jwidth 0) input tape s0 r0 index0
-  obtain ⟨c2,t,w,output,e2,h2,r2,w2,m2,in2,re2,im2,k2,index2⟩ := axis_executes a Q N W b1
+  obtain ⟨c2,t,w,output,e2,h2,r2,w2,m2,in2,re2,im2,k2,index2,mem2⟩ := axis_executes a Q N W b1
     ((m1.trans m0).widthBound hm) ((m1.trans m0).separated hsep)
     ((m1.trans m0).separatedFrom hdisjoint) (by simpa only [m1.width,m0.width] using hfit)
     v1 w1 q j in1 hq hj hQ hN hW hprecision hgrid 2 (j 1) (jwidth 1) input tape s1 r1 index1
   refine ⟨c0+(c1+c2),t,w,output,e0.seq (e1.seq e2),Nat.add_le_add h0 (Nat.add_le_add h1 h2),
-    r2,w2,m2.trans (m1.trans m0),in2,?_,?_,?_,?_,index2⟩
+    r2,w2,m2.trans (m1.trans m0),in2,?_,?_,?_,?_,index2,?_⟩
   · intro i
     fin_cases i
     · change w 25=waveCacheReal (q 0) Q N (j 0) ∧ w 26=waveCacheImag (q 0) Q N (j 0)
@@ -105,6 +112,15 @@ theorem axes_executes {n : ℕ} (a : Table n) (Q N W : ℕ)
           ((k1 24 (by decide) (by decide) (by decide)).trans (k0 24 (by decide) (by decide) (by decide)))
       | exact (k2 31 (by decide) (by decide) (by decide)).trans
           ((k1 31 (by decide) (by decide) (by decide)).trans (k0 31 (by decide) (by decide) (by decide)))
+
+      | intro limit hp hn hd k hk
+        have hp0 : limit≤addressValue b0.basePositive := by rw [m0.basePositive];exact hp
+        have hn0 : limit≤addressValue b0.baseNegative := by rw [m0.baseNegative];exact hn
+        have hd0 : limit≤addressValue b0.baseDenominator := by rw [m0.baseDenominator];exact hd
+        have hp1 : limit≤addressValue b1.basePositive := by rw [m1.basePositive];exact hp0
+        have hn1 : limit≤addressValue b1.baseNegative := by rw [m1.baseNegative];exact hn0
+        have hd1 : limit≤addressValue b1.baseDenominator := by rw [m1.baseDenominator];exact hd0
+        rw [mem2 limit hp1 hn1 hd1 k hk,mem1 limit hp0 hn0 hd0 k hk,mem0 limit hp hn hd k hk]
 
 #print axioms axes_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime

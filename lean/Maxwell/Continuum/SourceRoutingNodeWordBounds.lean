@@ -1,5 +1,6 @@
 import Maxwell.Continuum.SourceRoutingPrivateVisit
 import Maxwell.Continuum.NatAssignOutputWidth
+import Maxwell.Continuum.RationalArithmeticWidths
 
 /-! Every node operand has logarithmic width in its count and heap
 addresses. Pointer doubling only exchanges four bounded descriptors. -/

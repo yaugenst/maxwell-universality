@@ -1,5 +1,5 @@
 import Maxwell.Continuum.SourceRoutingGeometryControlValues
-import Maxwell.Continuum.SourceRoutingPhaseKeys
+import Maxwell.Logical.Routing.PhaseKeys
 
 namespace Maxwell.Cost.RoutingPorts.Complete.GeometrySort
 open Structured GeometryArithmetic Maxwell.Logical.Routing

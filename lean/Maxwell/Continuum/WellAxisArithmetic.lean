@@ -1,4 +1,3 @@
-import Maxwell.Continuum.WellAxisGeometry
 import Maxwell.Continuum.WellTargetExecution
 
 /-! The actual mediator coupling is selected by two equality tests on
@@ -36,8 +35,10 @@ theorem fits : control.LiteralsFit 1 := by
 theorem output_value (v : ℕ→Parts) (hg : Good WellStrength.bank v) :
     (control.evaluate v 8).value=selected v := by
   have he := congrFun (control.evaluate_value WellStrength.bank valid v hg (admissible v)) 8
-  simpa [control,copyCoupling,Control.rationalEvaluate,Instruction.rationalUpdate,valueBank,
-    selected,mul_self_pos,sub_ne_zero] using he
+  by_cases h89 : (v 8).value=(v 9).value <;>
+    by_cases h1011 : (v 10).value=(v 11).value <;>
+    simpa [control,copyCoupling,Control.rationalEvaluate,Instruction.rationalUpdate,
+      Function.update_apply,valueBank,selected,mul_self_pos,sub_ne_zero,h89,h1011] using he
 
 theorem preserves (v : ℕ→Parts) (i : ℕ) (h8 : i≠8) (h12 : i≠12) (h13 : i≠13) :
     control.evaluate v i=v i := by

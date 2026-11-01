@@ -39,18 +39,25 @@ theorem retainedPayload_executes (N heap : ℕ) (hh : heap.bits.length≤produce
         (encodedTableWidth (profileDegree N) (runtimeBudget N))) values ∧
       Word t.val 144 (2^profileWorkBits N) ∧ DyadicFloor.Clean t.val ∧
       (∀i∈({201,726,727,728}:Finset ℕ),Blank t.val i) ∧
-      t.val.tapes 988=s.val.tapes 988 ∧ t.val.tapes 992=s.val.tapes 992 := by
-  obtain ⟨c,u,values,ex,hc,ho,hr,hw,hp,hf,hz⟩ := generatedBits_executes N heap hh v hv saved hsv
+      t.val.tapes 988=s.val.tapes 988 ∧ t.val.tapes 992=s.val.tapes 992 ∧
+      Word t.val 709 (bufferHeapEnd N (profileDegree N) heap) ∧
+      (∀j,j<heap→t.val.memory j=s.val.memory j) := by
+  obtain ⟨c,u,values,ex,hc,ho,hr,hw,hp,hf,hz,heapWord,memory⟩ := generatedBits_executes N heap hh v hv saved hsv
     input tape inner oldWord hlen s hd hb hz hr hs hinner hcount hp hg hf harray h7 h37
     h205 h215 h216 hserial
   obtain ⟨d,t,hd,_,et,word,out,frame⟩ := OutputCapture.executes 991 generatedBitsCode
     generatedBits_avoids991 input tape ex (profileBits N) ho h991
   refine ⟨d,t,values,et,by omega,word,out,frame.ready (by decide) hr,hw,
-    frame.word 144 _ (by decide) hp,frame.floor_clean (by decide) hf,?_,?_,?_⟩
+    frame.word 144 _ (by decide) hp,frame.floor_clean (by decide) hf,?_,?_,?_,
+    frame.word 709 _ (by decide) heapWord,?_⟩
   · intro i hi
     exact frame.blank i (by simp only [Finset.mem_insert,Finset.mem_singleton] at hi;omega) (hz i hi)
   · exact (frame.tapes 988 (by decide)).trans (ex.protectsTape 988 generatedBits_preserves988)
   · exact (frame.tapes 992 (by decide)).trans (ex.protectsTape 992 generatedBits_preserves992)
+
+  · intro j hj
+    rw [frame.2.2.1]
+    exact memory j hj
 
 #print axioms retainedPayload_executes
 end Maxwell.Continuum.Profile.Runtime

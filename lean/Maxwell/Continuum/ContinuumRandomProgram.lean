@@ -41,9 +41,9 @@ theorem random_executes (hm2 : 2≤S.nnz) (hu : IsUnit (Source.realMatrix S))
         (randomDraw p S hm (fun i => tape (s.val.randomCursor+i.val))).val ∧
       t.val.randomCursor=s.val.randomCursor+randomBitCount p S hm ∧
       RandomBitsMachine.Frame s.val t.val := by
-  obtain ⟨cost,t,he,hc,ht,hcursor,hf⟩ := RandomBitsMachine.executes input tape
-    (randomBitCount p S hm) s hcount hblank
-  exact ⟨cost,t,he,hc.trans (random_work p S hm hm2 hu),ht,
+  obtain ⟨cost,t,he,hc,ht,hcursor,hf,_⟩ := RandomBitsMachine.executes input tape
+    (randomBitCount p S hm) 0 0 s (by simpa using hcount) hblank
+  exact ⟨cost,t,he,hc.trans (random_work p S hm hm2 hu),by simpa using ht,
     RandomBitsMachine.bits_binary_value tape s.val.randomCursor _,hcursor,hf⟩
 
 #print axioms random_work

@@ -69,7 +69,8 @@ theorem copyPrepare_executes {n m : ℕ} (a : PartArray.Table (tableSize n))
       SharedConversion.Ready S logical t ∧ a.Ready t ∧
       (copyTarget a heap s.val.memory).OutputReady t ∧
       NatAssign.Bank Descriptors.ids (NatAssign.values CopyPlan.plan v) t.val ∧
-      t.val.tapes 201=s.val.tapes 201 ∧ t.val.memory=s.val.memory := by
+      t.val.tapes 201=s.val.tapes 201 ∧ t.val.memory=s.val.memory ∧
+      t.val.tapes 1000=s.val.tapes 1000 := by
   obtain ⟨c,u,he,hc,hb,header,hz,frame⟩ := CopyPlan.executes v n (addressValue a.width)
     heap D N B hi hbits input tape s hbank (fun i hi => hs.2 i (by omega))
   have keep (i : ℕ) (hi : i ∈ ([5,6,7,8,9,37,200,201,202,203,204,205,215] : List ℕ)) :
@@ -135,7 +136,8 @@ theorem copyPrepare_executes {n m : ℕ} (a : PartArray.Table (tableSize n))
     simp only [Descriptors.ids,Finset.mem_union,Finset.mem_Icc,Finset.mem_insert,Finset.mem_singleton] at hi
     omega
   refine ⟨c+(6*old.clock.length+15*a.clock.length+21),t,he.seq et,?_,state,source,target,bank,
-    (tapes 201 (by decide)).trans (keep 201 (by simp)),memory⟩
+    (tapes 201 (by decide)).trans (keep 201 (by simp)),memory,
+    (tapes 1000 (by decide)).trans (frame.tapes 1000 (by decide))⟩
   simp only [copyPrepareCost,old.clock_length,a.clock_length]
   omega
 

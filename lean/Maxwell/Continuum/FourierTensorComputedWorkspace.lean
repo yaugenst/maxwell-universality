@@ -39,7 +39,9 @@ theorem computedComponent_executes {p : ℕ} (M A L R P Q N E : ℕ) [NeZero M]
     (hfresh : ∀i∈TensorStart.freshPorts,Blank s.val i) :
     ∃cost t,Executes input tape (completeComponentCode j) cost s t ∧
       cost≤computedComponentCost M A L R P Q N E a old ∧
-      t.val.output=(componentPayload M A L R P Q N a j).reverse++s.val.output := by
+      t.val.output=(componentPayload M A L R P Q N a j).reverse++s.val.output ∧
+      NatAssign.Scratch t.val ∧
+      (∀limit,limit≤heapBase R a →∀k,k<limit→t.val.memory k=s.val.memory k) := by
   rcases ModePrelude.inputWidth_spec M A L with ⟨hi,hm,hA,hl⟩
   rcases ModePrelude.arithmeticWidth_spec M A L R P Q N E with
     ⟨hfactor,h6,hR,hsize,hcount,hcoeff,hQ,hN,hd,hprec,hgrid⟩

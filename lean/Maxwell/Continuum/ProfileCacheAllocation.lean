@@ -1,5 +1,5 @@
 import Maxwell.Continuum.ProfileBufferLayout
-import Maxwell.Continuum.WordCleanup
+import Maxwell.Cost.Structured.WordCleanup
 
 /-! A reusable fixed cache allocator replaces only the output headers and
 clock, retaining the actual source table over arbitrary memory. -/

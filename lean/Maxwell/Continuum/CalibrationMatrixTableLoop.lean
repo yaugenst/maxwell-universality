@@ -1,5 +1,6 @@
 import Maxwell.Continuum.CalibrationMatrixEmission
 import Maxwell.Continuum.RationalDataflowRowWriteValues
+import Maxwell.Continuum.RationalDataflowArrayMetadata
 
 /-! The fixed runtime loop generates every actual cached transition entry.
 Only the allocated table and physical scalar inputs are supplied; no matrix
@@ -11,23 +12,6 @@ open Maxwell.Cost Maxwell.Cost.Structured RationalDataflow
 set_option maxHeartbeats 6000000
 set_option maxRecDepth 16384
 set_option exponentiation.threshold 1024
-
-def sameMetadata {T : ℕ} (a b : PartArray.Table T) : Prop :=
-  b.width=a.width ∧ b.basePositive=a.basePositive ∧ b.baseNegative=a.baseNegative ∧
-    b.baseDenominator=a.baseDenominator ∧ b.clock=a.clock
-
-theorem sameMetadata_refl {T : ℕ} (a : PartArray.Table T) : sameMetadata a a :=
-  ⟨rfl,rfl,rfl,rfl,rfl⟩
-theorem sameMetadata_set {T : ℕ} (a b : PartArray.Table T) (i : Fin T) (x : Parts)
-    (h : sameMetadata a b) : sameMetadata a (b.set i x) := h
-theorem sameMetadata_width {T : ℕ} (a b : PartArray.Table T) (h : sameMetadata a b)
-    (W : ℕ) (ha : a.MetadataWidth W) : b.MetadataWidth W :=
-  ⟨by simpa only [h.1] using ha.width,by simpa only [h.2.1] using ha.basePositive,
-    by simpa only [h.2.2.1] using ha.baseNegative,by simpa only [h.2.2.2.1] using ha.baseDenominator,
-    by simpa only [h.2.2.2.2] using ha.clock⟩
-theorem sameMetadata_separated {T : ℕ} (a b : PartArray.Table T) (h : sameMetadata a b)
-    (ha : a.Separated) : b.Separated := by
-  simpa only [PartArray.Table.Separated,h.1,h.2.1,h.2.2.1,h.2.2.2.1] using ha
 
 def flatRow (R : ℕ) (k : Fin (aliasArraySize R*aliasArraySize R)) : Fin (aliasArraySize R) :=
   ⟨k.val/aliasArraySize R,(Nat.div_lt_iff_lt_mul (aliasArraySize_pos R)).mpr k.isLt⟩

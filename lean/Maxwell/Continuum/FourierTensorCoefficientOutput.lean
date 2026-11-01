@@ -36,8 +36,10 @@ theorem emittedCoefficient_executes {n B : ℕ} (a : Table (5*n)) (Q N W : ℕ)
       CacheTableMetadata output b ∧ (∀i : Fin 3,(w (17+i.val)).positive=(j i).val) ∧
       t.val.output=(Codec.int (realFourierTensorCoefficient Finset.univ q amp Q N j).numerator).reverse++s.val.output ∧
       t.val.tapes 1099=BitTape.shifted finalWord origin ∧ finalWord.length=xs.length ∧
-      ∃query,query.bits.length ≤ W ∧ Word t.val 1048 query := by
-  obtain ⟨c0,s0,w,output,ys,e0,h0,f0,r0,w0,_,meta0,indices0,value0,count0,length0,query,hquery,word0⟩ :=
+      (∃query,query.bits.length ≤ W ∧ Word t.val 1048 query) ∧
+      (∀limit,limit≤addressValue b.basePositive →limit≤addressValue b.baseNegative →
+      limit≤addressValue b.baseDenominator →∀k,k<limit→t.val.memory k=s.val.memory k) := by
+  obtain ⟨c0,s0,w,output,ys,e0,h0,f0,r0,w0,_,meta0,indices0,value0,count0,length0,⟨query,hquery,word0⟩,memory⟩ :=
     generatedCoefficient_executes a Q N W b hma hm hsep hdisjoint hfit q amp hrows hq j
       v hw hindices hQ hN hW hprecision hgrid oldIndex hold input tape xs origin hlen hn s hs hr hindex hcount
   have width : WidthBank termBank W w := by
@@ -53,10 +55,14 @@ theorem emittedCoefficient_executes {n B : ℕ} (a : Table (5*n)) (Q N W : ℕ)
     omega
   refine ⟨c0+(20*(realFourierTensorCoefficient Finset.univ q amp Q N j).numerator.natAbs.bits.length+30),
     t,w,output,ys,e0.seq e1,?_,f1,r1,width,meta0,indices0,?_,
-    (congrFun tapes 1099).trans count0,length0,query,hquery,word_of_eq (congrFun tapes 1048) word0⟩
+    (congrFun tapes 1099).trans count0,length0,⟨query,hquery,word_of_eq (congrFun tapes 1048) word0⟩,?_⟩
   · unfold emittedCoefficientCost
     omega
   · exact ho.trans (congrArg _ (generatedCoefficient_output e0))
+
+  · intro limit hp hn hd k hk
+    rw [e1.protectsMemory (by decide)]
+    exact memory limit hp hn hd k hk
 
 #print axioms emittedCoefficient_executes
 end Maxwell.Continuum.Profile.WaveMachine.Runtime
